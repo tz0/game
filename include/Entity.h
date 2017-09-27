@@ -3,6 +3,7 @@
 #define GAME_ENTITY_H
 
 #include <typeindex>
+#include <unordered_map>
 
 #include "Component.h"
 

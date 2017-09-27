@@ -28,9 +28,18 @@ void Game::Run() {
 
     auto balltex = resource_manager.LoadTexture("ball.png");
 
+    event_manager.RegisterListener<KeyPress>([&](Event &keyPress){
+        std::cout << static_cast<KeyPress&>(keyPress).GetKey() << " was pressed." << std::endl;
+    });
+
+    event_manager.RegisterListener<KeyPress>([&](Event &keyPress){
+        std::cout << static_cast<KeyPress&>(keyPress).GetKey() << " got fucked.." << std::endl;
+    });
+
     sf::Sprite girl;
     girl.setTexture(*tex);
     girl.setTextureRect(sf::IntRect(1, 12, 70, 91));
+
 
 
     cpSpaceSetGravity(space, cpv(0, 0));
@@ -42,7 +51,6 @@ void Game::Run() {
     for (auto i = 0; i < 20; ++i) {
         std::shared_ptr<Entity> character = std::make_shared<Entity>();
         character->AddComponent(std::make_shared<Location>());
-        character->AddComponent(std::make_shared<Velocity>());
         character->AddComponent(std::make_shared<Sprite>(girl));
         character->AddComponent(std::make_shared<RigidBody>(space, floor(i / 4) * 100 + 50, 100 * (i % 4), 1,
                                                             girl.getGlobalBounds().width,
@@ -56,7 +64,6 @@ void Game::Run() {
     ballsprite.setScale(0.5f, 0.5f);
     std::shared_ptr<Entity> ball = std::make_shared<Entity>();
     ball->AddComponent(std::make_shared<Location>());
-    ball->AddComponent(std::make_shared<Velocity>());
     ball->AddComponent(std::make_shared<Sprite>(ballsprite));
     ball->AddComponent(std::make_shared<RigidBody>(space, 300, 300, 10, ballsprite.getGlobalBounds().width / 2.0f));
     ball->ConnectComponents();
@@ -98,7 +105,8 @@ void Game::HandleEvents() {
                 window.close();
                 break;
             case sf::Event::KeyPressed: {
-
+                //auto evt = KeyPress(event.key.code);
+                event_manager.TriggerEvent<KeyPress>(event.key.code);
                 switch (event.key.code) {
                     case sf::Keyboard::Escape:
                         window.close();
@@ -132,9 +140,6 @@ void Game::Update() {
 
         auto rigidbody = character->GetComponent<RigidBody>();
         if (rigidbody) rigidbody->Update();
-
-        character->GetComponent<Velocity>()->Update(elapsed);
-
     }
 
     camera.setCenter(camera.getCenter() * 0.9f + characters.back()->GetComponent<Location>()->position * 0.1f);
@@ -150,7 +155,7 @@ void Game::Draw() {
     window.setView(camera);
 
     for (auto &character : characters) {
-        character->GetComponent<Sprite>()->Draw(window);
+        character->GetComponent<Sprite>()->Render(window);
     }
 
     sf::Vertex floor[] = {

@@ -7,8 +7,12 @@
 #include <SFML/Graphics.hpp>
 #include <SFML/Audio.hpp>
 
-#include "ResourceManager.h"
 #include "chipmunk.h"
+
+#include "EventManager.h"
+#include "Event.h"
+
+#include "ResourceManager.h"
 
 #include "Entity.h"
 #include "Components/Follower.h"
@@ -30,6 +34,7 @@ class Game
 
   private:
     ResourceManager resource_manager;
+    EventManager event_manager;
 
     sf::RenderWindow window;
     sf::View camera;

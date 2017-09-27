@@ -22,7 +22,7 @@ public:
         pos = entity->GetComponent<Location>();
     }
 
-    void Draw(sf::RenderTarget &target) {
+    void Render(sf::RenderTarget &target) {
         sprite.setPosition(pos->position.x, pos->position.y);
         sprite.setRotation(pos->rotation);
         target.draw(sprite);
