@@ -1,6 +1,3 @@
-//
-// Created by erik on 9/25/17.
-//
 
 #ifndef GAME_RIGIDBODY_H
 #define GAME_RIGIDBODY_H

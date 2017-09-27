@@ -18,9 +18,11 @@
 #include "Components/Follower.h"
 #include "Components/Gravity.h"
 #include "Components/PlayerInput.h"
+#include "Components/Line.h"
 #include "Components/Location.h"
 #include "Components/RigidBody.h"
 #include "Components/Sprite.h"
+#include "Components/StaticSegment.h"
 #include "Components/Velocity.h"
 
 class Game
@@ -46,13 +48,12 @@ class Game
     bool show_info = false;
 
     sf::Text info;
-    sf::Text hello;
+    sf::Text instructions;
+    int targetedEntity = 0;
 
-    std::vector<std::shared_ptr<Entity>> characters;
+    std::vector<std::shared_ptr<Entity>> entities;
 
     cpSpace *space;
-    cpShape *ground;
-    cpShape *leftwall;
 
     void Update();
     void Draw();
