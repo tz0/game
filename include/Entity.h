@@ -13,8 +13,9 @@ private:
 
 public:
 
-    template<typename T>
-    std::shared_ptr<T> AddComponent(std::shared_ptr<T> component) {
+    template<typename T, typename... Args>
+    std::shared_ptr<T> AddComponent(Args &&... args) {
+        auto component = std::make_shared<T>(std::forward<Args>(args)...);
         components.insert({std::type_index(typeid(T)), component});
         component->SetEntity(this);
         return component;

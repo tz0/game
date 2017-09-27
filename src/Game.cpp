@@ -49,20 +49,20 @@ void Game::Run() {
 
     // Create many character's for testing purposes
     for (auto i = 0; i < 20; ++i) {
-        std::shared_ptr<Entity> character = std::make_shared<Entity>();
-        character->AddComponent(std::make_shared<Location>());
-        character->AddComponent(std::make_shared<Sprite>(girl));
-        character->AddComponent(std::make_shared<RigidBody>(space, floor(i / 4) * 100 + 50, 100 * (i % 4), 1,
-                                                            girl.getGlobalBounds().width,
-                                                            girl.getGlobalBounds().height));
+        auto character = std::make_shared<Entity>();
+        character->AddComponent<Location>();
+        character->AddComponent<Sprite>(girl);
+        character->AddComponent<RigidBody>(space, floor(i / 4) * 100 + 50, 100 * (i % 4), 1,
+                                           girl.getGlobalBounds().width,
+                                           girl.getGlobalBounds().height);
         character->ConnectComponents();
         entities.push_back(character);
     }
 
     // Set up a ground to prevent the characters from falling forever
-    std::shared_ptr<Entity> ground = std::make_shared<Entity>();
-    ground->AddComponent(std::make_shared<StaticSegment>(space, 0, 600, 800, 600));
-    ground->AddComponent(std::make_shared<Line>(0, 600, 800, 600));
+    auto ground = std::make_shared<Entity>();
+    ground->AddComponent<StaticSegment>(space, 0, 600, 800, 600);
+    ground->AddComponent<Line>(0, 600, 800, 600);
     entities.push_back(ground);
 
 
