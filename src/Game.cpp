@@ -32,10 +32,6 @@ void Game::Run() {
         std::cout << static_cast<KeyPress&>(keyPress).GetKey() << " was pressed." << std::endl;
     });
 
-    event_manager.RegisterListener<KeyPress>([&](Event &keyPress){
-        std::cout << static_cast<KeyPress&>(keyPress).GetKey() << " got fucked.." << std::endl;
-    });
-
     sf::Sprite girl;
     girl.setTexture(*tex);
     girl.setTextureRect(sf::IntRect(1, 12, 70, 91));

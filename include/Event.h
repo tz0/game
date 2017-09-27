@@ -1,6 +1,3 @@
-//
-// Created by erik on 9/27/17.
-//
 
 #ifndef GAME_EVENT_H
 #define GAME_EVENT_H
