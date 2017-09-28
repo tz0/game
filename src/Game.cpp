@@ -22,6 +22,7 @@ void Game::Run() {
     auto font = resource_manager.LoadFont("from_cartoon_blocks/FromCartoonBlocks.ttf");
     auto tex = resource_manager.LoadTexture("female_tilesheet.png");
 
+
     //
     // Example of event system registering an event
     //
@@ -38,10 +39,15 @@ void Game::Run() {
         }
         if (targetedEntity < 0) targetedEntity = static_cast<int>(entities.size()) - 1;
         if (targetedEntity > static_cast<int>(entities.size()) - 1) targetedEntity = 0;
-        while (!entities[targetedEntity]->GetComponent<Location>())
-            targetedEntity++;
     });
 
+
+    // Set up a ground to prevent the characters from falling forever
+    auto ground = std::make_shared<Entity>();
+    ground->AddComponent<Location>(400, 600);
+    ground->AddComponent<StaticSegment>(space, 0, 600, 800, 600);
+    ground->AddComponent<Line>(0, 600, 800, 600);
+    entities.push_back(ground);
 
     sf::Sprite girl;
     girl.setTexture(*tex);
@@ -58,13 +64,6 @@ void Game::Run() {
         character->ConnectComponents();
         entities.push_back(character);
     }
-
-    // Set up a ground to prevent the characters from falling forever
-    auto ground = std::make_shared<Entity>();
-    ground->AddComponent<StaticSegment>(space, 0, 600, 800, 600);
-    ground->AddComponent<Line>(0, 600, 800, 600);
-    entities.push_back(ground);
-
 
     info.setFont(*font);
     info.setStyle(sf::Text::Bold);
@@ -99,7 +98,7 @@ void Game::HandleEvents() {
                 //
                 // Example of event system triggering an event
                 //
-                event_manager.TriggerEvent<KeyPress>(event.key.code);
+                event_manager.Fire<KeyPress>(event.key.code);
 
                 switch (event.key.code) {
                     case sf::Keyboard::Escape:
