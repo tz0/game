@@ -15,15 +15,11 @@
 #include "ResourceManager.h"
 
 #include "Entity.h"
-#include "Components/Follower.h"
-#include "Components/Gravity.h"
-#include "Components/PlayerInput.h"
 #include "Components/Line.h"
 #include "Components/Location.h"
 #include "Components/RigidBody.h"
 #include "Components/Sprite.h"
 #include "Components/StaticSegment.h"
-#include "Components/Velocity.h"
 
 class Game
 {
@@ -37,6 +33,8 @@ class Game
   private:
     ResourceManager resource_manager;
     EventManager event_manager;
+
+
 
     sf::RenderWindow window;
     sf::View camera;

@@ -16,24 +16,24 @@ private:
     ListenerMap one_time_listeners;
 
 public:
-    EventManager() {};
-
     template<typename T, typename... Args>
     void Fire(Args &&... args) {
         T event(std::forward<Args>(args)...);
         for (auto listener : listeners[std::type_index(typeid(T))]) {
             listener(event);
         }
-        while (!one_time_listeners[std::type_index(typeid(T))].empty())
+
+        auto once = one_time_listeners[std::type_index(typeid(T))];
+        while (!once.empty())
         {
-            one_time_listeners[std::type_index(typeid(T))].back()(event);
-            one_time_listeners[std::type_index(typeid(T))].pop_back();
+            once.back()(event);
+            once.pop_back();
         }
     }
 
     template<typename T>
     void RegisterListener(std::function<void(T &)> f) {
-        listeners[std::type_index(typeid(T))].push_back([&](Event &e) {
+        listeners[std::type_index(typeid(T))].push_back([=](Event &e) {
             f(static_cast<T &>(e));
         });
     };
@@ -41,7 +41,7 @@ public:
     // Will register a callback for the next occurrence of the given event.
     template<typename T>
     void RegisterOnce(std::function<void(T &)> f){
-        one_time_listeners[std::type_index(typeid(T))].push_back([&](Event &e) {
+        one_time_listeners[std::type_index(typeid(T))].push_back([=](Event &e) {
             f(static_cast<T &>(e));
         });
     }

@@ -41,7 +41,6 @@ void Game::Run() {
         if (targetedEntity > static_cast<int>(entities.size()) - 1) targetedEntity = 0;
     });
 
-
     // Set up a ground to prevent the characters from falling forever
     auto ground = std::make_shared<Entity>();
     ground->AddComponent<Location>(400, 600);
@@ -126,9 +125,6 @@ void Game::Update() {
     // Update all of the entities' components
     //
     for (auto entity : entities) {
-        auto input = entity->GetComponent<PlayerInput>();
-        if (input) input->Update(elapsed);
-
         auto rigidbody = entity->GetComponent<RigidBody>();
         if (rigidbody) rigidbody->Update();
     }
