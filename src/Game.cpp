@@ -3,6 +3,21 @@
 #include "Game.h"
 
 
+// TODO:
+// Create a System class which user can derive from and create systems that update
+// components.
+// Has a "AddEntity" method which
+// 1. Verifies that the specified entity contains the required components
+// 2. Adds it to a vector to use later
+// 3. Provides a facility for disabling/removing entities
+// These systems are in charge of updating the various components of an entity
+//
+// Example: a movement system, which requires components have position+velocity
+// this system would allow the position to be updated based on velocity
+//
+// this removes the need for components themselves to update data, also removing
+// the need for components to be aware of eachother. (i.e. no more ConnectComponents)
+
 Game::Game() :
         resource_manager("media"),
         window(sf::VideoMode(800, 600, 32), "Game", sf::Style::Titlebar | sf::Style::Close) {
@@ -21,7 +36,6 @@ Game::~Game() {
 void Game::Run() {
     auto font = resource_manager.LoadFont("from_cartoon_blocks/FromCartoonBlocks.ttf");
     auto tex = resource_manager.LoadTexture("female_tilesheet.png");
-
 
     //
     // Example of event system registering an event
@@ -44,9 +58,15 @@ void Game::Run() {
     // Set up a ground to prevent the characters from falling forever
     auto ground = std::make_shared<Entity>();
     ground->AddComponent<Location>(400, 600);
-    ground->AddComponent<StaticSegment>(space, 0, 600, 800, 600);
-    ground->AddComponent<Line>(0, 600, 800, 600);
+    ground->AddComponent<StaticSegment>(space, 0, 600, 800, 500);
+    ground->AddComponent<Line>(0, 600, 800, 500);
     entities.push_back(ground);
+
+    auto leftwall = std::make_shared<Entity>();
+    leftwall->AddComponent<Location>(0, 300);
+    leftwall->AddComponent<StaticSegment>(space, 0, 0, 0, 600);
+    leftwall->AddComponent<Line>(0, 0, 0, 600);
+    entities.push_back(leftwall);
 
     sf::Sprite girl;
     girl.setTexture(*tex);

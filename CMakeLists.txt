@@ -52,9 +52,14 @@ file(COPY media DESTINATION .)
 # Add Chipmunk2D #
 ##################
 option(BUILD_DEMOS OFF)
-add_subdirectory(Chipmunk2D)
-include_directories(Chipmunk2D/include/chipmunk)
+add_subdirectory(lib/Chipmunk2D)
+include_directories(lib/Chipmunk2D/include/chipmunk)
 link_libraries(chipmunk)
+
+############
+# Add JSON #
+############
+include_directories(lib/json)
 
 #############
 # Find SFML #
