@@ -7,19 +7,23 @@
 
 #include "Component.h"
 
-class Line : public Component {
-    sf::Vertex line[2];
-public:
-    Line(sf::Vector2f a, sf::Vector2f b) : line{a, b} {}
+namespace JPG {
 
-    Line(float x1, float y1, float x2, float y2) :
-            Line(sf::Vector2f(x1, y1), sf::Vector2f(x2, y2)) {}
+    class Line : public Component {
+        sf::Vertex line[2];
+    public:
+        Line(sf::Vector2f a, sf::Vector2f b) : line{a, b} {}
 
-    void Render(sf::RenderTarget &target) {
-        target.draw(line, 2, sf::Lines);
-    }
+        Line(float x1, float y1, float x2, float y2) :
+                Line(sf::Vector2f(x1, y1), sf::Vector2f(x2, y2)) {}
 
-    void ConnectComponents() {}
-};
+        void Render(sf::RenderTarget &target) {
+            target.draw(line, 2, sf::Lines);
+        }
+
+        void ConnectComponents() {}
+    };
+
+}
 
 #endif //GAME_LINE_H

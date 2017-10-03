@@ -7,7 +7,7 @@
 // Entry point
 int main()
 {
-    Game game;
+    JPG::Game game;
     game.Run();
     return EXIT_SUCCESS;
 }
