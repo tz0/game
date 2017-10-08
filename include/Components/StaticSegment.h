@@ -4,7 +4,7 @@
 
 #include "chipmunk.h"
 
-namespace JPG {
+namespace tjg {
 
     class StaticSegment : public Component {
     private:
@@ -16,7 +16,7 @@ namespace JPG {
                 StaticSegment(space, sf::Vector2f(x1, y1), sf::Vector2f(x2, y2)) {}
 
         StaticSegment(cpSpace *space, sf::Vector2f a, sf::Vector2f b) {
-            shape = cpSegmentShapeNew(cpSpaceGetStaticBody(space), cpv(a.x, a.y), cpv(b.x, b.y), 1);
+            shape = cpSegmentShapeNew(cpSpaceGetStaticBody(space), cpv(a.x, a.y), cpv(b.x, b.y), 10);
             cpShapeSetFriction(shape, .7);
             cpShapeSetElasticity(shape, 0.5);
             cpSpaceAddShape(space, shape);

@@ -7,7 +7,7 @@
 
 #include "Component.h"
 
-namespace JPG {
+namespace tjg {
 
     class Line : public Component {
         sf::Vertex line[2];

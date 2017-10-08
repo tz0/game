@@ -15,13 +15,19 @@
 #include "ResourceManager.h"
 
 #include "Entity.h"
+#include "EntityFactory.h"
+
+#include "Components/Appendage.h"
+#include "Components/DynamicBody.h"
 #include "Components/Line.h"
 #include "Components/Location.h"
-#include "Components/RigidBody.h"
 #include "Components/Sprite.h"
 #include "Components/StaticSegment.h"
 
-namespace JPG {
+#include "System.h"
+
+
+namespace tjg {
 
     class Game {
     public:
@@ -34,9 +40,13 @@ namespace JPG {
         void Run();
 
     private:
+        cpSpace *space;
+
         ResourceManager resource_manager;
         EventManager event_manager;
+        EntityFactory entity_factory;
 
+        SpriteRenderSystem sprite_render_system;
 
         sf::RenderWindow window;
         sf::View camera;
@@ -48,12 +58,9 @@ namespace JPG {
         bool show_info = false;
 
         sf::Text info;
-        sf::Text instructions;
-        int targetedEntity = 0;
 
         std::vector<std::shared_ptr<Entity>> entities;
-
-        cpSpace *space;
+        std::shared_ptr<Entity> tech17;
 
         void Update();
 

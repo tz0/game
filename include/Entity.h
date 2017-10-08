@@ -7,31 +7,89 @@
 
 #include "Component.h"
 
-namespace JPG {
+namespace tjg {
 
     class Entity {
     private:
         std::unordered_map<std::type_index, std::shared_ptr<Component>> components;
+        std::vector<std::shared_ptr<Entity>> children;
 
-    public:
-
-        template<typename T, typename... Args>
-        std::shared_ptr<T> AddComponent(Args &&... args) {
-            auto component = std::make_shared<T>(std::forward<Args>(args)...);
-            components.insert({std::type_index(typeid(T)), component});
-            component->SetEntity(this);
-            return component;
-        }
-
+        /*TODO(Erik): This will be going away as more systems are developed.
+         * Currently, only the SpriteRenderSystem exists, but eventually, components will not contain logic,
+         * and will not be able to communicate with eachother.
+         */
         void ConnectComponents() {
             for (auto component : components) {
                 component.second->ConnectComponents();
             }
         }
 
+    public:
+
+        /**
+         * AddChild
+         * @param child entity to add as a child entity
+         */
+        void AddChild(std::shared_ptr<Entity> child) {
+            children.push_back(child);
+        }
+
+        /**
+         * HasChildren
+         * @return whether the entity has any children entities
+         */
+        bool HasChildren() {
+            return !children.empty();
+        }
+
+        /**
+         * ForEachChild
+         * Performs an action on each child entity
+         * @param f A callback to be called for each child entity
+         */
+        void ForEachChild(std::function<void(std::shared_ptr<Entity>)> f) {
+            for (auto child : children) {
+                f(child);
+            }
+        }
+
+        /**
+         * AddComponent
+         * @tparam T The type of Component being added
+         * @tparam Args
+         * @param args The constructor arguments for the Component being added
+         * @return A shared ptr to the component that was just added
+         */
+        template<typename T, typename... Args>
+        std::shared_ptr<T> AddComponent(Args &&... args) {
+            if (components.find(std::type_index(typeid(T))) != components.end()) {
+                throw std::runtime_error("Entity can not contain multiple components of the same type.");
+            }
+            auto component = std::make_shared<T>(std::forward<Args>(args)...);
+            components.insert({std::type_index(typeid(T)), component});
+            component->SetEntity(this);
+            ConnectComponents();
+            return component;
+        }
+
+        /**
+         * GetComponent
+         * @tparam T The component which is being requested
+         * @return shared pointer to the requested Component, or nullptr if not present
+         */
         template<typename T>
         std::shared_ptr<T> GetComponent() {
             return std::static_pointer_cast<T>(components[std::type_index(typeid(T))]);
+        }
+
+        /**
+         * HasComponent
+         * @tparam T The Component which is being checked for
+         * @return whether the entity has the specified Component
+         */
+        template<typename T>
+        bool HasComponent() {
+            return std::static_pointer_cast<T>(components[std::type_index(typeid(T))]) != nullptr;
         }
     };
 }

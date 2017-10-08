@@ -4,7 +4,7 @@
 
 #include "Component.h"
 
-namespace JPG {
+namespace tjg {
 
     class Location : public Component {
     public:

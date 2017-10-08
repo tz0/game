@@ -1,13 +1,13 @@
 
-#ifndef GAME_RIGIDBODY_H
-#define GAME_RIGIDBODY_H
+#ifndef GAME_DYNAMICBODY_H
+#define GAME_DYNAMICBODY_H
 
 #include "chipmunk.h"
 #include "Components/Location.h"
 
-namespace JPG {
+namespace tjg {
 
-    class RigidBody : public Component {
+    class DynamicBody : public Component {
     private:
         cpBody *body;
         cpShape *shape;
@@ -15,19 +15,19 @@ namespace JPG {
         std::shared_ptr<Location> location;
 
     public:
-        RigidBody(cpSpace *space, float x, float y, float mass, float width, float height){
-            body = cpSpaceAddBody(space, cpBodyNew(mass, cpMomentForBox(mass, width, height)));
-            shape = cpSpaceAddShape(space, cpBoxShapeNew(body, width, height, 0));
-            cpBodySetPosition(body, cpv(x, y));
+        DynamicBody(cpSpace *space, const sf::Vector2f &position, float mass, const sf::Vector2f &size, bool infiniteMoment = false) {
+            body = cpSpaceAddBody(space, cpBodyNew(mass, infiniteMoment ? INFINITY : cpMomentForBox(mass, size.x, size.y)));
+            cpBodySetPosition(body, cpv(position.x, position.y));
+            shape = cpSpaceAddShape(space, cpBoxShapeNew(body, size.x, size.y, 0));
         }
-        RigidBody(cpSpace *space, float x, float y, float mass, float radius){
+        DynamicBody(cpSpace *space, const sf::Vector2f &position, float mass, float radius) {
             body = cpSpaceAddBody(space, cpBodyNew(mass, cpMomentForCircle(mass, 0, radius, cpvzero)));
+            cpBodySetPosition(body, cpv(position.x, position.y));
             shape = cpSpaceAddShape(space, cpCircleShapeNew(body, radius, cpvzero));
-            cpBodySetPosition(body, cpv(x, y));
         }
-        ~RigidBody(){
-            cpBodyFree(body);
+        ~DynamicBody(){
             cpShapeFree(shape);
+            cpBodyFree(body);
         }
         void Update() {
             auto bodyPosition = cpBodyGetPosition(body);
@@ -47,4 +47,4 @@ namespace JPG {
         }
     };
 }
-#endif //GAME_RIGIDBODY_H
+#endif //GAME_DYNAMICBODY_H
