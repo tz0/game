@@ -4,6 +4,7 @@
 
 #include "Entity.h"
 #include "Components/Sprite.h"
+#include "Components/Location.h"
 #include <map>
 #include <SFML/Graphics/RenderTarget.hpp>
 

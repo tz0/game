@@ -1,5 +1,4 @@
 #include "System.h"
-#include "Components/Location.h"
 
 void tjg::SpriteRenderSystem::renderEntity(sf::RenderTarget &target, std::shared_ptr<tjg::Entity> entity) {
     auto location_component = entity->GetComponent<Location>();

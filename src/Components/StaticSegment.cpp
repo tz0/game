@@ -1,5 +1,4 @@
 #include "Components/StaticSegment.h"
-#include <SFML/Audio.hpp>
 
 tjg::StaticSegment::StaticSegment(cpSpace *space, sf::Vector2f a, sf::Vector2f b) {
     shape = cpSegmentShapeNew(cpSpaceGetStaticBody(space), cpv(a.x, a.y), cpv(b.x, b.y), 10);

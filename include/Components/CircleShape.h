@@ -6,6 +6,7 @@
 #include <SFML/Graphics/RenderTarget.hpp>
 #include <SFML/Graphics/CircleShape.hpp>
 #include "Components/Location.h"
+#include "Entity.h"
 
 namespace tjg {
 
