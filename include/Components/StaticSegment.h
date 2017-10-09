@@ -3,6 +3,8 @@
 #define GAME_STATICSEGMENT_H
 
 #include <chipmunk.h>
+#include <Component.h>
+#include <SFML/Audio.hpp>
 
 namespace tjg {
 

@@ -2,7 +2,11 @@
 #ifndef GAME_DYNAMICBODY_H
 #define GAME_DYNAMICBODY_H
 
+#include <chipmunk.h>
+#include <memory>
+#include <SFML/Audio.hpp>
 #include "Component.h"
+#include "Location.h"
 
 namespace tjg {
 
@@ -19,7 +23,7 @@ namespace tjg {
         ~DynamicBody();
         // Functions
         void Update();
-        void ConnectComponents();
+        void ConnectComponents() override;
         // Physics
         cpBody* GetBody();
         cpShape* GetShape();

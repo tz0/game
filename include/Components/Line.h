@@ -2,6 +2,9 @@
 #ifndef GAME_LINE_H
 #define GAME_LINE_H
 
+#include <SFML/Audio.hpp>
+#include <SFML/Graphics/Vertex.hpp>
+#include <SFML/Graphics/RenderTarget.hpp>
 #include "Component.h"
 
 namespace tjg {

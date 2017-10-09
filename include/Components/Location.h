@@ -2,6 +2,7 @@
 #ifndef GAME_LOCATION_H
 #define GAME_LOCATION_H
 
+#include <SFML/Audio.hpp>
 #include "Component.h"
 
 namespace tjg {
