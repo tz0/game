@@ -2,11 +2,13 @@
 #ifndef GAME_DYNAMICBODY_H
 #define GAME_DYNAMICBODY_H
 
+#include "Component.h"
+#include "Location.h"
+#include "Entity.h"
+
 #include <chipmunk.h>
 #include <memory>
 #include <SFML/Audio.hpp>
-#include "Component.h"
-#include "Location.h"
 
 namespace tjg {
 
