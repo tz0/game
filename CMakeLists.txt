@@ -30,7 +30,10 @@ endif()
 include_directories(${game_SOURCE_DIR}/include)
 
 # Get CPP files
-file(GLOB SRC src/*cpp src/*/*cpp)
+file(GLOB_RECURSE SRC src/*cpp)
+
+# Get Header files
+file(GLOB_RECURSE HEADERS include/*h)
 
 # Get executable files
 file(GLOB EXECLIST bin/*cpp)
@@ -124,7 +127,9 @@ endif()
 # executables (any CPP file in 'bin' dir)
 foreach(EXEC ${EXECLIST})
   get_filename_component(EXECNAME ${EXEC} NAME_WE)
-  add_executable(${EXECNAME} ${EXEC} src/Component.cpp include/Component.h src/Entity.cpp include/Entity.h src/EntityFactory.cpp include/EntityFactory.h src/Event.cpp include/Event.h include/EventManager.h src/Game.cpp include/Game.h src/ResourceManager.cpp include/ResourceManager.h src/System.cpp include/System.h src/Components/Appendage.cpp include/Components/Appendage.h src/Components/CircleShape.cpp include/Components/CircleShape.h src/Components/DynamicBody.cpp include/Components/DynamicBody.h src/Components/Line.cpp include/Components/Line.h src/Components/Location.cpp include/Components/Location.h src/Components/RectangleShape.cpp include/Components/RectangleShape.h src/Components/Sprite.cpp include/Components/Sprite.h src/Components/StaticSegment.cpp include/Components/StaticSegment.h)
+
+  add_executable(${EXECNAME} ${EXEC} ${SRC} ${HEADERS})
+
 
   if(NOT SRC STREQUAL "")
     target_link_libraries(${EXECNAME} LINK_PUBLIC ${LIBNAME})

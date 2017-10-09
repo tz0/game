@@ -1,5 +1,4 @@
 #include "Components/Location.h"
-#include <SFML/Audio.hpp>
 
 tjg::Location::Location(sf::Vector2f pos) {
     position = pos;

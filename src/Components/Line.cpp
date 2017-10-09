@@ -1,5 +1,4 @@
 #include "Components/Line.h"
-#include <SFML/Graphics/RenderTarget.hpp>
 
 tjg::Line::Line(sf::Vector2f a, sf::Vector2f b) {
     line[0] = a;

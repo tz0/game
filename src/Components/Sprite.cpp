@@ -7,7 +7,7 @@ tjg::Sprite::Sprite(sf::Sprite sprite) {
 }
 
 void tjg::Sprite::ConnectComponents() {
-    // TODO ?
+    // TODO No longer needed, except because of the interface. Will be removed soon.
 }
 
 sf::Sprite &tjg::Sprite::GetSprite() {

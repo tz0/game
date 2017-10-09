@@ -1,5 +1,4 @@
 #include "Components/CircleShape.h"
-#include "Entity.h"
 
 tjg::CircleShape::CircleShape(float radius) {
     circle.setRadius(radius);

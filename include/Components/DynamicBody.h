@@ -4,7 +4,8 @@
 
 #include <chipmunk.h>
 #include <memory>
-#include <SFML/Audio.hpp>
+
+#include "Entity.h"
 #include "Component.h"
 #include "Location.h"
 

@@ -1,10 +1,4 @@
-
 #include "Components/DynamicBody.h"
-#include "Components/Location.h"
-#include "Entity.h"
-
-#include <chipmunk.h>
-#include <SFML/Audio.hpp>
 
 tjg::DynamicBody::DynamicBody(cpSpace *space, const sf::Vector2f &position, float mass, const sf::Vector2f &size,
                               bool infiniteMoment) {

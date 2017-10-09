@@ -3,9 +3,11 @@
 #define GAME_CIRCLESHAPE_H
 
 #include <memory>
-#include <SFML/Graphics/RenderTarget.hpp>
-#include <SFML/Graphics/CircleShape.hpp>
+
+#include <SFML/Graphics.hpp>
+
 #include "Components/Location.h"
+#include "Entity.h"
 
 namespace tjg {
 

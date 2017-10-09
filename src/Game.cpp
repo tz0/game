@@ -1,4 +1,3 @@
-#include <iostream>
 #include "Game.h"
 
 namespace tjg {
