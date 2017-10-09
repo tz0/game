@@ -8,12 +8,15 @@ namespace tjg {
 
     class Location : public Component {
     public:
-        Location(){};
-        Location(sf::Vector2f pos) : position(pos) {}
-        Location(const float x, const float y) : position(x, y) {}
+        // Fields
         sf::Vector2f position;
         float rotation = 0.0f;
-        void ConnectComponents() {}
+        // Constructors
+        Location() = default;
+        explicit Location(sf::Vector2f pos);
+        Location(float x, float y);
+        // Component methods
+        void ConnectComponents() override;
     };
 
 }

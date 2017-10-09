@@ -4,6 +4,8 @@
 
 #include <typeindex>
 #include <unordered_map>
+#include <memory>
+#include <vector>
 
 #include "Component.h"
 
@@ -18,40 +20,16 @@ namespace tjg {
          * Currently, only the SpriteRenderSystem exists, but eventually, components will not contain logic,
          * and will not be able to communicate with eachother.
          */
-        void ConnectComponents() {
-            for (auto component : components) {
-                component.second->ConnectComponents();
-            }
-        }
+        void ConnectComponents();
 
     public:
 
-        /**
-         * AddChild
-         * @param child entity to add as a child entity
-         */
-        void AddChild(std::shared_ptr<Entity> child) {
-            children.push_back(child);
-        }
+        // Child methods.
+        void AddChild(std::shared_ptr<Entity> child);
+        bool HasChildren();
+        void ForEachChild(std::function<void(std::shared_ptr<Entity>)> f);
 
-        /**
-         * HasChildren
-         * @return whether the entity has any children entities
-         */
-        bool HasChildren() {
-            return !children.empty();
-        }
-
-        /**
-         * ForEachChild
-         * Performs an action on each child entity
-         * @param f A callback to be called for each child entity
-         */
-        void ForEachChild(std::function<void(std::shared_ptr<Entity>)> f) {
-            for (auto child : children) {
-                f(child);
-            }
-        }
+        // Component methods. Since these are templates, they stay in the header file.
 
         /**
          * AddComponent
@@ -71,7 +49,6 @@ namespace tjg {
             ConnectComponents();
             return component;
         }
-
         /**
          * GetComponent
          * @tparam T The component which is being requested
@@ -81,7 +58,6 @@ namespace tjg {
         std::shared_ptr<T> GetComponent() {
             return std::static_pointer_cast<T>(components[std::type_index(typeid(T))]);
         }
-
         /**
          * HasComponent
          * @tparam T The Component which is being checked for
@@ -93,4 +69,5 @@ namespace tjg {
         }
     };
 }
+
 #endif //GAME_ENTITY_H

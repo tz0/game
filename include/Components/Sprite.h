@@ -3,6 +3,7 @@
 #define GAME_SPRITE_H
 
 #include "Component.h"
+#include <SFML/Graphics/Sprite.hpp>
 
 namespace tjg {
 
@@ -10,21 +11,13 @@ namespace tjg {
     private:
         sf::Sprite sprite;
     public:
-        Sprite(sf::Sprite sprite) : sprite(sprite) {
-            auto bounds = this->sprite.getLocalBounds();
-            this->sprite.setOrigin(bounds.width / 2.0f, bounds.height / 2.0f);
-        }
-
-        void ConnectComponents() {
-        }
-
-        sf::Sprite & GetSprite() {
-            return sprite;
-        }
-
-        sf::FloatRect getBounds() {
-            return sprite.getGlobalBounds();
-        }
+        // Constructor
+        explicit Sprite(sf::Sprite sprite);
+        // Component methods
+        void ConnectComponents() override;
+        // Sprite methods
+        sf::Sprite & GetSprite();
+        sf::FloatRect getBounds();
     };
 }
 #endif //GAME_SPRITE_H

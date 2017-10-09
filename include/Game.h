@@ -7,38 +7,32 @@
 #include <SFML/Graphics.hpp>
 #include <SFML/Audio.hpp>
 
-#include "chipmunk.h"
+#include <chipmunk.h>
 
-#include "EventManager.h"
-#include "Event.h"
+#include <EventManager.h>
+#include <Event.h>
 
-#include "ResourceManager.h"
+#include <ResourceManager.h>
 
-#include "Entity.h"
-#include "EntityFactory.h"
+#include <Entity.h>
+#include <EntityFactory.h>
 
-#include "Components/Appendage.h"
-#include "Components/DynamicBody.h"
-#include "Components/Line.h"
-#include "Components/Location.h"
-#include "Components/Sprite.h"
-#include "Components/StaticSegment.h"
+#include <Components/Appendage.h>
+#include <Components/DynamicBody.h>
+#include <Components/Line.h>
+#include <Components/Location.h>
+#include <Components/Sprite.h>
+#include <Components/StaticSegment.h>
 
-#include "System.h"
-
+#include <System.h>
 
 namespace tjg {
 
     class Game {
     public:
-
         Game();
-
         ~Game();
-
-        // Begin the game loop
         void Run();
-
     private:
         cpSpace *space;
 

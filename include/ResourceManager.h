@@ -11,6 +11,7 @@
 #include <SFML/Audio.hpp>
 
 namespace tjg {
+
     class ResourceManager {
     private:
 
@@ -37,31 +38,24 @@ namespace tjg {
             return map[path];
         }
 
+        // Resource root path
         std::string resource_root = std::string("");
 
+        // Resource maps
         ResourceMap<sf::Font> fonts;
         ResourceMap<sf::SoundBuffer> sounds;
         ResourceMap<sf::Texture> textures;
 
     public:
-        ResourceManager() {}
-
-        ResourceManager(const std::string &resource_root) {
-            this->resource_root = resource_root;
-        }
-
-        std::shared_ptr<sf::Font> LoadFont(const std::string &filename) {
-            return load(fonts, filename);
-        }
-
-        std::shared_ptr<sf::Texture> LoadTexture(const std::string &filename) {
-            return load(textures, filename);
-        }
-
-        std::shared_ptr<sf::SoundBuffer> LoadSound(const std::string &filename) {
-            return load(sounds, filename);
-        }
+        // Constructors
+        ResourceManager() = default;
+        explicit ResourceManager(const std::string &resource_root);
+        // Resource loading
+        std::shared_ptr<sf::Font> LoadFont(const std::string &filename);
+        std::shared_ptr<sf::Texture> LoadTexture(const std::string &filename);
+        std::shared_ptr<sf::SoundBuffer> LoadSound(const std::string &filename);
     };
+
 }
 
 #endif //GAME_RESOURCEMANAGER_H

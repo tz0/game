@@ -6,7 +6,11 @@
 #define GAME_RECTANGLESHAPE_H
 
 #include "Component.h"
+#include "Entity.h"
 #include "Components/Location.h"
+#include <SFML/Audio.hpp>
+#include <SFML/Graphics/RenderTarget.hpp>
+#include <SFML/Graphics/RectangleShape.hpp>
 
 namespace tjg {
 
@@ -15,25 +19,14 @@ namespace tjg {
         sf::RectangleShape rect;
         std::shared_ptr<Location> location;
     public:
-        RectangleShape(sf::Vector2f size) {
-            rect.setSize(size);
-            auto bounds = rect.getLocalBounds();
-            rect.setOrigin(bounds.width / 2.0f, bounds.height / 2.0f);
-        }
-
-        const sf::Vector2f & GetSize() {
-            return rect.getSize();
-        }
-
-        void Render(sf::RenderTarget &target) {
-            rect.setRotation(location->rotation);
-            rect.setPosition(location->position);
-            target.draw(rect);
-        }
-
-        void ConnectComponents() {
-            location = entity->GetComponent<Location>();
-        }
+        // Constructor
+        explicit RectangleShape(sf::Vector2f size);
+        // Size
+        const sf::Vector2f & GetSize();
+        // Render
+        void Render(sf::RenderTarget &target);
+        // Component methods
+        void ConnectComponents() override;
     };
 
 }

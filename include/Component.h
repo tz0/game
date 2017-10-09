@@ -4,6 +4,7 @@
 
 namespace tjg {
 
+    // Defined in its own header.
     class Entity;
 
     class Component {
@@ -12,11 +13,9 @@ namespace tjg {
         long entity_id;
     public:
         virtual void ConnectComponents() = 0;
-
-        void SetEntity(Entity *entity) {
-            this->entity = entity;
-        }
+        void SetEntity(Entity *entity);
     };
 
 }
+
 #endif //GAME_COMPONENT_H

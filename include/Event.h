@@ -2,6 +2,8 @@
 #ifndef GAME_EVENT_H
 #define GAME_EVENT_H
 
+#include <SFML/Window/Keyboard.hpp>
+
 namespace tjg {
 
     class Event {
@@ -11,13 +13,8 @@ namespace tjg {
     private:
         sf::Keyboard::Key key;
     public:
-        KeyPress(sf::Keyboard::Key key) {
-            this->key = key;
-        }
-
-        sf::Keyboard::Key GetKey() {
-            return this->key;
-        }
+        explicit KeyPress(sf::Keyboard::Key key);
+        sf::Keyboard::Key GetKey();
     };
 }
 #endif //GAME_EVENT_H

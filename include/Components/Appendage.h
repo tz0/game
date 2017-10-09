@@ -2,9 +2,9 @@
 #ifndef GAME_APPENDAGE_H
 #define GAME_APPENDAGE_H
 
-#include "chipmunk.h"
-#include "Components/RectangleShape.h"
-#include "Components/DynamicBody.h"
+#include "Component.h"
+#include <chipmunk.h>
+#include <SFML/Audio.hpp>
 
 namespace tjg {
 
@@ -12,31 +12,17 @@ namespace tjg {
     private:
         cpConstraint *pivot;
         cpConstraint *spring;
-
     public:
-        Appendage(cpSpace *space, cpBody *bodyA, cpBody *bodyB, const sf::Vector2f &offsetA, const sf::Vector2f &offsetB, const float stiffness = 0.0f, const float restAngle = 0.0f) {
-
-            spring = cpDampedRotarySpringNew(bodyA, bodyB, restAngle, stiffness, 1000);
-            cpSpaceAddConstraint(space, spring);
-
-            pivot = cpPivotJointNew2(bodyA, bodyB, cpv(offsetA.x, offsetA.y), cpv(offsetB.x, offsetB.y));
-            cpConstraintSetCollideBodies(pivot, cpFalse);
-            cpSpaceAddConstraint(space, pivot);
-        }
-
-        ~Appendage(){
-            cpConstraintFree(pivot);
-            cpConstraintFree(spring);
-        }
-
-        void ConnectComponents(){
-        }
-        cpConstraint* GetPivot() {
-            return pivot;
-        }
-        cpConstraint* GetSpring() {
-            return spring;
-        }
+        // Constructor
+        Appendage(cpSpace *space, cpBody *bodyA, cpBody *bodyB, const sf::Vector2f &offsetA,
+                  const sf::Vector2f &offsetB, float stiffness = 0.0f, float restAngle = 0.0f);
+        // Destructor
+        ~Appendage();
+        // Physics
+        cpConstraint* GetPivot();
+        cpConstraint* GetSpring();
+        // Component methods
+        void ConnectComponents() override;
     };
 }
 #endif //GAME_APPENDAGE_H

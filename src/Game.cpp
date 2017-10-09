@@ -1,9 +1,9 @@
 #include <iostream>
-
 #include "Game.h"
 
 namespace tjg {
 
+    // Constructor.
     Game::Game() :
             space(cpSpaceNew()),
             resource_manager("media"),
@@ -13,13 +13,14 @@ namespace tjg {
         window.setVerticalSyncEnabled(true);
 
         cpSpaceSetGravity(space, cpv(0, 0));
-
     }
 
+    // Teardown.
     Game::~Game() {
         cpSpaceFree(space);
     }
 
+    // Begin the game loop.
     void Game::Run() {
         // Load some fonts and a texture sheet
         auto avenir_bold = resource_manager.LoadFont("Avenir-Bold.ttf");
@@ -104,7 +105,6 @@ namespace tjg {
     void Game::Update() {
         sf::Time elapsed = clock.restart();
 
-
         // Temporary/Example control system.
         if (sf::Keyboard::isKeyPressed(sf::Keyboard::Left))
             cpBodyApplyForceAtWorldPoint(tech17->GetComponent<DynamicBody>()->GetBody(), cpv(-1000, 0), cpv(0, 0));
@@ -114,7 +114,6 @@ namespace tjg {
             cpBodyApplyForceAtWorldPoint(tech17->GetComponent<DynamicBody>()->GetBody(), cpv(0, -1000), cpv(0, 0));
         if (sf::Keyboard::isKeyPressed(sf::Keyboard::Down))
             cpBodyApplyForceAtWorldPoint(tech17->GetComponent<DynamicBody>()->GetBody(), cpv(0, 1000), cpv(0, 0));
-
 
         //
         // Update all of the entities' components
@@ -129,7 +128,6 @@ namespace tjg {
             auto r = child->GetComponent<DynamicBody>();
             if (r) r->Update();
         });
-
 
         //
         // Example of moving the camera location

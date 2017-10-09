@@ -1,11 +1,10 @@
-//
-// Created by erik on 9/27/17.
-//
 
 #ifndef GAME_CIRCLESHAPE_H
 #define GAME_CIRCLESHAPE_H
 
-#include "Component.h"
+#include <memory>
+#include <SFML/Graphics/RenderTarget.hpp>
+#include <SFML/Graphics/CircleShape.hpp>
 #include "Components/Location.h"
 
 namespace tjg {
@@ -14,25 +13,14 @@ namespace tjg {
         sf::CircleShape circle;
         std::shared_ptr<Location> location;
     public:
-        CircleShape(float radius) {
-            circle.setRadius(radius);
-            auto bounds = circle.getLocalBounds();
-            circle.setOrigin(bounds.width / 2.0f, bounds.height / 2.0f);
-        }
-
-        void Render(sf::RenderTarget &target) {
-            circle.setRotation(location->rotation);
-            circle.setPosition(location->position);
-            target.draw(circle);
-        }
-
-        float GetSize() {
-            return circle.getRadius();
-        }
-
-        void ConnectComponents() {
-            location = entity->GetComponent<Location>();
-        }
+        // Constructor
+        explicit CircleShape(float radius);
+        // Render
+        void Render(sf::RenderTarget &target);
+        // Size
+        float GetSize();
+        // Component methods
+        void ConnectComponents();
     };
 
 }

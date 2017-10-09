@@ -6,6 +6,8 @@
 
 #include <typeindex>
 #include <unordered_map>
+#include <functional>
+#include <vector>
 #include "Event.h"
 
 namespace tjg {
@@ -13,10 +15,8 @@ namespace tjg {
     class EventManager {
     private:
         using ListenerMap = std::unordered_map<std::type_index, std::vector<std::function<void(Event &)>>>;
-
         ListenerMap listeners;
         ListenerMap one_time_listeners;
-
     public:
         template<typename T, typename... Args>
         void Fire(Args &&... args) {
