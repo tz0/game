@@ -1,3 +1,7 @@
+// Need these two lines for M_PI to work on Windows.
+#define _USE_MATH_DEFINES
+#include <cmath>
+
 #include "EntityFactory.h"
 
 // Build a Wall Entity.
