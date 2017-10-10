@@ -20,7 +20,6 @@
 
 #include <Components/Appendage.h>
 #include <Components/DynamicBody.h>
-#include <Components/Line.h>
 #include <Components/Location.h>
 #include <Components/Sprite.h>
 #include <Components/StaticSegment.h>

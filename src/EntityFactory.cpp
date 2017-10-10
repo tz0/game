@@ -6,8 +6,7 @@
 
 namespace tjg {
 
-    std::shared_ptr<Entity>
-    EntityFactory::MakeWall(const sf::Vector2f &a, const sf::Vector2f &b, const float width) {
+    std::shared_ptr<Entity> EntityFactory::MakeWall(const sf::Vector2f &a, const sf::Vector2f &b, const float width) {
         // Create wall entity.
         auto wall = std::make_shared<Entity>();
 
@@ -17,9 +16,6 @@ namespace tjg {
 
         // Add static segment component
         wall->AddComponent<StaticSegment>(space, a.x, a.y, b.x, b.y, width);
-
-        // Add line component
-        wall->AddComponent<Line>(a.x, a.y, b.x, b.y);
 
         // Load wall texture.
         auto wall_texture = resource_manager.LoadTexture("wall-texture.png"); // TODO get a real wall texture
@@ -38,7 +34,6 @@ namespace tjg {
         return wall;
     }
 
-// Build a static Sprite Entity
     std::shared_ptr<Entity> EntityFactory::MakeStaticSprite(sf::Sprite sprite, const sf::Vector2f &position) {
         auto rect = std::make_shared<Entity>();
         rect->AddComponent<Location>(position.x, position.y);
@@ -46,7 +41,6 @@ namespace tjg {
         return rect;
     }
 
-// Build a Tiled Background Entity.
     std::shared_ptr<Entity> EntityFactory::MakeTiledBackground(const std::string &path) {
         // Load texture
         auto background_texture = resource_manager.LoadTexture(path);

@@ -6,11 +6,8 @@
 #include "Entity.h"
 #include "ResourceManager.h"
 #include "Components/Appendage.h"
-#include "Components/CircleShape.h"
 #include "Components/DynamicBody.h"
-#include "Components/Line.h"
 #include "Components/Location.h"
-#include "Components/RectangleShape.h"
 #include "Components/Sprite.h"
 #include "Components/StaticSegment.h"
 
