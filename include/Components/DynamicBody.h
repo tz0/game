@@ -2,13 +2,16 @@
 #ifndef GAME_DYNAMICBODY_H
 #define GAME_DYNAMICBODY_H
 
+// Need these two lines for M_PI to work on Windows.
+#define _USE_MATH_DEFINES
+#include <cmath>
+
+#include <memory>
+#include <chipmunk.h>
+
+#include "Entity.h"
 #include "Component.h"
 #include "Location.h"
-#include "Entity.h"
-
-#include <chipmunk.h>
-#include <memory>
-#include <SFML/Audio.hpp>
 
 namespace tjg {
 

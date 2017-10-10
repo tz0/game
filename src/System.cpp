@@ -10,6 +10,10 @@ void tjg::SpriteRenderSystem::renderEntity(sf::RenderTarget &target, std::shared
     target.draw(sprite);
 }
 
+void tjg::SpriteRenderSystem::AddEntity(std::shared_ptr<Entity> entity) {
+    AddEntity(entity, 0);
+}
+
 void tjg::SpriteRenderSystem::AddEntity(std::shared_ptr<tjg::Entity> entity, int layer) {
     if (!entity->GetComponent<Sprite>()) {
         throw std::runtime_error("missing sprite component");

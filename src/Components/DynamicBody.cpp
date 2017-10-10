@@ -1,7 +1,3 @@
-// Need these two lines for M_PI to work on Windows.
-#define _USE_MATH_DEFINES
-#include <cmath>
-
 #include "Components/DynamicBody.h"
 
 tjg::DynamicBody::DynamicBody(cpSpace *space, const sf::Vector2f &position, float mass, const sf::Vector2f &size,

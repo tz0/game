@@ -1,4 +1,3 @@
-
 #include "Components/RectangleShape.h"
 
 tjg::RectangleShape::RectangleShape(sf::Vector2f size) {
