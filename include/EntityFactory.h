@@ -29,7 +29,7 @@ namespace tjg {
                 space(space) {}
 
         // Entity factory methods.
-        std::shared_ptr<Entity> MakeWall(const sf::Vector2f &a, const sf::Vector2f &b);
+        std::shared_ptr<Entity> MakeWall(const sf::Vector2f &a, const sf::Vector2f &b, const float width);
         std::shared_ptr<Entity> MakeStaticSprite(sf::Sprite sprite, const sf::Vector2f &position);
         std::shared_ptr<Entity> MakeTiledBackground(const std::string &path);
         std::shared_ptr<Entity> MakeTech17();

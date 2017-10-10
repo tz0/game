@@ -7,7 +7,7 @@ namespace tjg {
             space(cpSpaceNew()),
             resource_manager("media"),
             entity_factory(resource_manager, sprite_render_system, space),
-            window(sf::VideoMode(800, 600, 32), "Game", sf::Style::Titlebar | sf::Style::Close) {
+            window(sf::VideoMode(1280, 720, 32), "Game", sf::Style::Titlebar | sf::Style::Close) {
 
         window.setVerticalSyncEnabled(true);
 
@@ -30,14 +30,28 @@ namespace tjg {
 
         // Create boundary walls using the entity factory.
         // TODO: make the Walls use sprites vice line segments, and add them to the SpriteRenderSystem
-        entities.push_back(entity_factory.MakeWall(sf::Vector2f(-500, -500), sf::Vector2f(500, -500)));
-        entities.push_back(entity_factory.MakeWall(sf::Vector2f(500, -500), sf::Vector2f(500, 500)));
-        entities.push_back(entity_factory.MakeWall(sf::Vector2f(500, 500), sf::Vector2f(-500, 500)));
-        entities.push_back(entity_factory.MakeWall(sf::Vector2f(-500, 500), sf::Vector2f(-500, -500)));
+        auto top_wall = entity_factory.MakeWall(sf::Vector2f(-500, -500), sf::Vector2f(500, -500), 40);
+        auto bottom_wall = entity_factory.MakeWall(sf::Vector2f(500, 500), sf::Vector2f(-500, 500), 40);
+        auto left_wall = entity_factory.MakeWall(sf::Vector2f(-500, 500), sf::Vector2f(-500, -500), 40);
+        auto right_wall = entity_factory.MakeWall(sf::Vector2f(500, -500), sf::Vector2f(500, 500), 40);
 
-        tech17 = entity_factory.MakeTech17();
+        // Add the walls to the entities vector.
+        entities.push_back(top_wall);
+        entities.push_back(bottom_wall);
+        entities.push_back(left_wall);
+        entities.push_back(right_wall);
 
+        // Add the walls to the sprite render system.
+        sprite_render_system.AddEntity(top_wall, 0);
+        sprite_render_system.AddEntity(bottom_wall, 0);
+        sprite_render_system.AddEntity(left_wall, 0);
+        sprite_render_system.AddEntity(right_wall, 0);
+
+        // Make background
         sprite_render_system.AddEntity(entity_factory.MakeTiledBackground("background.png"), -100);
+
+        // Create player character
+        tech17 = entity_factory.MakeTech17();
 
         sf::Sprite obstacle;
         obstacle.setTexture(*texture_sheet);
