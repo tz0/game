@@ -7,8 +7,8 @@ tjg::CircleShape::CircleShape(float radius) {
 }
 
 void tjg::CircleShape::Render(sf::RenderTarget &target) {
-    circle.setRotation(location->rotation);
-    circle.setPosition(location->position);
+    circle.setRotation(location->getRotation());
+    circle.setPosition(location->getPosition());
     target.draw(circle);
 }
 

@@ -13,8 +13,8 @@ namespace tjg {
         cpShape *shape;
     public:
         // Constructors.
-        StaticSegment(cpSpace *space, float x1, float y1, float x2, float y2);
-        StaticSegment(cpSpace *space, sf::Vector2f a, sf::Vector2f b);
+        StaticSegment(cpSpace *space, float x1, float y1, float x2, float y2, float width);
+        StaticSegment(cpSpace *space, sf::Vector2f a, sf::Vector2f b, float width);
         // Destructor
         ~StaticSegment();
         // Component methods

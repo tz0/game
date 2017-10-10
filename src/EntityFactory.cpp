@@ -4,40 +4,32 @@
 
 #include "EntityFactory.h"
 
-// Build a Wall Entity.
 std::shared_ptr <tjg::Entity> tjg::EntityFactory::MakeWall(const sf::Vector2f &a, const sf::Vector2f &b, const float width) {
+    // Create wall entity.
     auto wall = std::make_shared<Entity>();
-    wall->AddComponent<Location>((a.x + b.x) / 2.0f, (a.y + b.y) / 2.0f);
-    wall->AddComponent<StaticSegment>(space, a.x, a.y, b.x, b.y);
+
+    // Add location component
+    auto wall_location = wall->AddComponent<Location>((a.x + b.x) / 2.0f, (a.y + b.y) / 2.0f);
+    wall_location->setRotation(calculateAngle(a, b));
+
+    // Add static segment component
+    wall->AddComponent<StaticSegment>(space, a.x, a.y, b.x, b.y, width);
+
+    // Add line component
     wall->AddComponent<Line>(a.x, a.y, b.x, b.y);
-
-    // Calculate wall length.
-    double length = sqrt(pow((b.x - a.x), 2) + pow((b.y - a.y), 2));
-
-    // Calculate the angle of the wall.
-    double deltaY = a.y - b.y;
-    double deltaX = b.x - a.x;
-    double angle = atan2(deltaY, deltaX) * 180 / M_PI;
-    if (angle < 0) {
-        angle = 360.d + angle;
-    }
 
     // Load wall texture.
     auto wall_texture = resource_manager.LoadTexture("wall-texture.png"); // TODO get a real wall texture
     wall_texture->setRepeated(true);
 
-    // Add Sprite so walls are visible
+    // Get wall length.
+    auto length = (int)calculateDistance(a, b);
+
+    // Add Sprite component so walls are visible
     sf::Sprite wall_sprite;
     wall_sprite.setTexture(*wall_texture);
-    wall_sprite.setTextureRect(sf::IntRect(0, 0, (int)length, (int)width));
-    wall_sprite.setOrigin((a.x + b.x) / 2.f, (a.y + b.y) / 2.0f);
-    wall_sprite.setRotation((float)angle); // TODO: Figure out why this doesn't work.
-    printf("Rotation: %6.2f\n", wall_sprite.getRotation());
-    printf("Global Bounds: \n\tX: %6.1f to %6.1f \n\tY: %6.1f to %6.1f\n",
-           wall_sprite.getGlobalBounds().left,
-           wall_sprite.getGlobalBounds().left + wall_sprite.getGlobalBounds().width,
-           wall_sprite.getGlobalBounds().top,
-           wall_sprite.getGlobalBounds().top + wall_sprite.getGlobalBounds().height);
+    wall_sprite.setTextureRect(sf::IntRect(0, 0, length, (int)width));
+    wall_sprite.setRotation(calculateAngle(a, b));
     wall->AddComponent<Sprite>(wall_sprite);
 
     return wall;
@@ -405,4 +397,17 @@ std::shared_ptr<tjg::Entity> tjg::EntityFactory::MakeTech17() {
     tech17->AddChild(right_shin_entity);
 
     return tech17;
+}
+
+float tjg::EntityFactory::calculateAngle(sf::Vector2f p1, sf::Vector2f p2) {
+    // Calculate the angle between p1 and p2
+    double deltaY = p1.y - p2.y;
+    double deltaX = p2.x - p1.x;
+    double angle = atan2(deltaY, deltaX) * 180 / M_PI;
+    return (angle < 0) ? (float)(angle + 360.d) : (float)angle;
+}
+
+float tjg::EntityFactory::calculateDistance(sf::Vector2f p1, sf::Vector2f p2) {
+    // Calculate distance between p1 and p2
+    return (float) sqrt(pow((p2.x - p1.x), 2) + pow((p2.y - p1.y), 2));
 }

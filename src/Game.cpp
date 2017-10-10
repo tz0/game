@@ -145,7 +145,7 @@ namespace tjg {
         //
         // Example of moving the camera location
         //
-        camera.setCenter(camera.getCenter() * 0.99f + tech17->GetComponent<Location>()->position * 0.01f);
+        camera.setCenter(camera.getCenter() * 0.99f + tech17->GetComponent<Location>()->getPosition() * 0.01f);
 
         // Perform the physical simulation based on SFML timer elapsed time.
         cpSpaceStep(space, elapsed.asSeconds() * 2);

@@ -21,10 +21,10 @@ tjg::DynamicBody::~DynamicBody() {
 
 void tjg::DynamicBody::Update() {
     auto bodyPosition = cpBodyGetPosition(body);
-    location->position = sf::Vector2f(bodyPosition.x, bodyPosition.y);
+    location->setPosition(sf::Vector2f(bodyPosition.x, bodyPosition.y));
 
     auto bodyAngle = cpBodyGetAngle(body);
-    location->rotation = bodyAngle * 180.0f / M_PI;
+    location->setRotation(bodyAngle * 180.0f / M_PI);
 }
 
 void tjg::DynamicBody::ConnectComponents() {

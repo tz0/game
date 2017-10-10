@@ -21,6 +21,16 @@ namespace tjg {
         ResourceManager &resource_manager;
         SpriteRenderSystem &sprite_render_system;
         cpSpace *space = nullptr;
+        /**
+         * Calculate the angle between two points.
+         * @return angle in degrees
+         */
+        float calculateAngle(sf::Vector2f p1, sf::Vector2f p2);
+        /**
+         * Calculate the distance between two points.
+         * @return distance in pixels
+         */
+        float calculateDistance(sf::Vector2f p1, sf::Vector2f p2);
     public:
         // Constructor
         EntityFactory(ResourceManager &resource_manager, SpriteRenderSystem &sprite_render_system, cpSpace *space) :

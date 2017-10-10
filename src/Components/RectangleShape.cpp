@@ -11,8 +11,8 @@ const sf::Vector2f &tjg::RectangleShape::GetSize() {
 }
 
 void tjg::RectangleShape::Render(sf::RenderTarget &target) {
-    rect.setRotation(location->rotation);
-    rect.setPosition(location->position);
+    rect.setRotation(location->getRotation());
+    rect.setPosition(location->getPosition());
     target.draw(rect);
 }
 

@@ -8,16 +8,22 @@
 namespace tjg {
 
     class Location : public Component {
-    public:
+    private:
         // Fields
+        float rotation;
         sf::Vector2f position;
-        float rotation = 0.0f;
+    public:
         // Constructors
         Location() = default;
         explicit Location(sf::Vector2f pos);
         Location(float x, float y);
         // Component methods
         void ConnectComponents() override;
+        // Accessors
+        float getRotation();
+        void setRotation(float degrees);
+        sf::Vector2f getPosition();
+        void setPosition(sf::Vector2f position);
     };
 
 }
