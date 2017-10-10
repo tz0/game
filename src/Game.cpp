@@ -155,23 +155,8 @@ namespace tjg {
         window.clear(sf::Color(50, 50, 50, 255));
         window.setView(camera);
 
-        // Drawing to the camera view
-        for (auto &entity : entities) {
-            auto lineComponent = entity->GetComponent<Line>();
-            if (lineComponent) lineComponent->Render(window);
-
-            auto rectComponent = entity->GetComponent<RectangleShape>();
-            if (rectComponent) rectComponent->Render(window);
-        }
-
+        // Render sprites
         sprite_render_system.render(window);
-
-        tech17->ForEachChild([&](std::shared_ptr<Entity> child) {
-            auto r = child->GetComponent<RectangleShape>();
-            if (r) {
-                r->Render(window);
-            }
-        });
 
         // Drawing that should take place separate from the "camera" should go below here.
         window.setView(window.getDefaultView());
