@@ -121,7 +121,6 @@ namespace tjg {
         sf::Time elapsed = clock.restart();
 
         // Temporary/Example control system.
-        auto body = tech17->GetComponent<DynamicBody>()->GetBody();
         if (sf::Keyboard::isKeyPressed(sf::Keyboard::Left))
             player_control_system.rotateCounterclockwise();
         if (sf::Keyboard::isKeyPressed(sf::Keyboard::Right))

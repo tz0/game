@@ -15,8 +15,11 @@ namespace tjg {
         SpriteRenderSystem sprite_render_system;
         PlayerControlSystem player_control_system;
     public:
-        // Constructors
+        // Constructor
         PlayerView(ResourceManager resource_manager);
+
+        // Destructor
+        ~PlayerView();
 
         // Used for handling key presses
         void keyPressed(sf::Keyboard::Key key);
