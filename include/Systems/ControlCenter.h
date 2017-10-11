@@ -1,18 +1,15 @@
-//
-// Created by cullen on 10/10/17.
-//
 
-#ifndef GAME_PLAYERCONTROLSYSTEM_H
-#define GAME_PLAYERCONTROLSYSTEM_H
+#ifndef GAME_CONTROLCENTER_H
+#define GAME_CONTROLCENTER_H
+
+#include <chipmunk.h>
 
 #include "System.h"
 #include "Components/DynamicBody.h"
 
-#include <chipmunk.h>
-
 namespace tjg {
 
-    class PlayerControlSystem : public System {
+    class ControlCenter : public System {
     private:
         std::shared_ptr<Entity> player_entity;
     public:
@@ -28,4 +25,4 @@ namespace tjg {
 
 }
 
-#endif //GAME_PLAYERCONTROLSYSTEM_H
+#endif //GAME_CONTROLCENTER_H

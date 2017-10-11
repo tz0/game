@@ -15,7 +15,7 @@ namespace tjg {
         wall_location->setRotation(calculateAngle(a, b));
 
         // Add static segment component
-        wall->AddComponent<StaticSegment>(space, a.x, a.y, b.x, b.y, width);
+        wall->AddComponent<StaticSegment>(physics_system.GetSpace(), a.x, a.y, b.x, b.y, width);
 
         // Load wall texture.
         auto wall_texture = resource_manager.LoadTexture("wall-texture.png"); // TODO get a real wall texture
@@ -52,7 +52,7 @@ namespace tjg {
         sf::Sprite background_sprite;
         background_sprite.setTexture(*background_texture);
         background_sprite.setTextureRect(sf::IntRect(INT16_MIN, INT16_MIN, INT16_MAX, INT16_MAX));
-        background->AddComponent<Sprite>(background_sprite);
+        background->AddComponent<Sprite>(background_sprite, -1000);
         return background;
     }
 
@@ -117,13 +117,13 @@ namespace tjg {
         chest_sprite.setTextureRect(chest_sprite_rect);
         chest_sprite.setScale(SPRITE_SCALE_FACTOR * CHEST_WIDTH / static_cast<float>(chest_sprite_rect.width),
                               SPRITE_SCALE_FACTOR * CHEST_HEIGHT / static_cast<float>(chest_sprite_rect.height));
-        tech17->AddComponent<Sprite>(chest_sprite);
+        tech17->AddComponent<Sprite>(chest_sprite, TECH17_BASE_SPRITE_LAYER);
         auto torso_body = tech17->AddComponent<DynamicBody>(
-                space,
+                physics_system.GetSpace(),
                 sf::Vector2f(0, 0),
                 1,
                 sf::Vector2f(CHEST_WIDTH, CHEST_HEIGHT));
-        sprite_render_system.AddEntity(tech17, TECH17_BASE_SPRITE_LAYER);
+        physics_system.AddEntity(tech17);
 
         //
         // CREATE ABS
@@ -136,20 +136,20 @@ namespace tjg {
         abs_sprite.setTextureRect(abs_sprite_rect);
         abs_sprite.setScale(SPRITE_SCALE_FACTOR * ABS_WIDTH / static_cast<float>(abs_sprite_rect.width),
                             SPRITE_SCALE_FACTOR * ABS_HEIGHT / static_cast<float>(abs_sprite_rect.height));
-        abs_entity->AddComponent<Sprite>(abs_sprite);
+        abs_entity->AddComponent<Sprite>(abs_sprite, TECH17_BASE_SPRITE_LAYER - 1);
         auto abs_body = abs_entity->AddComponent<DynamicBody>(
-                space,
+                physics_system.GetSpace(),
                 sf::Vector2f(0, ABS_HEIGHT),
                 1,
                 sf::Vector2f(CHEST_WIDTH, ABS_HEIGHT));
         abs_entity->AddComponent<Appendage>(
-                space,
+                physics_system.GetSpace(),
                 abs_body->GetBody(),
                 torso_body->GetBody(),
                 sf::Vector2f(0, -1 * ABS_HEIGHT / 2.0f),
                 sf::Vector2f(0, CHEST_HEIGHT / 2.0f),
                 LIMB_STIFFNESS * 10.0f);
-        sprite_render_system.AddEntity(abs_entity, TECH17_BASE_SPRITE_LAYER - 1);
+        physics_system.AddEntity(abs_entity);
         tech17->AddChild(abs_entity);
 
         //
@@ -163,20 +163,20 @@ namespace tjg {
         head_sprite.setTextureRect(head_sprite_rect);
         head_sprite.setScale(SPRITE_SCALE_FACTOR * 2 * HEAD_RADIUS / static_cast<float>(head_sprite_rect.width),
                              SPRITE_SCALE_FACTOR * 2 * HEAD_RADIUS / static_cast<float>(head_sprite_rect.height));
-        head_entity->AddComponent<Sprite>(head_sprite);
+        head_entity->AddComponent<Sprite>(head_sprite, TECH17_BASE_SPRITE_LAYER + 1);
         auto head_body = head_entity->AddComponent<DynamicBody>(
-                space,
+                physics_system.GetSpace(),
                 sf::Vector2f(0, -1 * (CHEST_HEIGHT / 2.0f + HEAD_RADIUS)),
                 1,
                 HEAD_RADIUS);
         head_entity->AddComponent<Appendage>(
-                space,
+                physics_system.GetSpace(),
                 head_body->GetBody(),
                 torso_body->GetBody(),
                 sf::Vector2f(0, HEAD_RADIUS),
                 sf::Vector2f(0, -1 * CHEST_HEIGHT / 2.0f),
                 LIMB_STIFFNESS);
-        sprite_render_system.AddEntity(head_entity, TECH17_BASE_SPRITE_LAYER + 1);
+        physics_system.AddEntity(head_entity);
         tech17->AddChild(head_entity);
 
 
@@ -192,14 +192,14 @@ namespace tjg {
         //
         auto left_bicep_entity = std::make_shared<Entity>();
         left_bicep_entity->AddComponent<Location>();
-        left_bicep_entity->AddComponent<Sprite>(bicep_sprite);
+        left_bicep_entity->AddComponent<Sprite>(bicep_sprite, TECH17_BASE_SPRITE_LAYER - 1);
         auto left_bicep_body = left_bicep_entity->AddComponent<DynamicBody>(
-                space,
+                physics_system.GetSpace(),
                 sf::Vector2f(-1 * (CHEST_WIDTH / 2.0f + LIMB_LENGTH / 2.0f), -1 * (CHEST_HEIGHT / 2.0f)),
                 1,
                 sf::Vector2f(LIMB_LENGTH, LIMB_THICKNESS));
         left_bicep_entity->AddComponent<Appendage>(
-                space,
+                physics_system.GetSpace(),
                 left_bicep_body->GetBody(),
                 torso_body->GetBody(),
                 sf::Vector2f(LIMB_LENGTH / 2.0f, 0),
@@ -207,7 +207,7 @@ namespace tjg {
                 LIMB_STIFFNESS,
                 // Set the angle to keep the arm at his side.
                 -1 * ARM_ANGLE);
-        sprite_render_system.AddEntity(left_bicep_entity, TECH17_BASE_SPRITE_LAYER - 1);
+        physics_system.AddEntity(left_bicep_entity);
         tech17->AddChild(left_bicep_entity);
 
         //
@@ -217,21 +217,21 @@ namespace tjg {
         right_bicep_entity->AddComponent<Location>();
         // Flip the sprite horizontally
         bicep_sprite.setScale(-1 * bicep_sprite.getScale().x, bicep_sprite.getScale().y);
-        right_bicep_entity->AddComponent<Sprite>(bicep_sprite);
+        right_bicep_entity->AddComponent<Sprite>(bicep_sprite, TECH17_BASE_SPRITE_LAYER - 1);
         auto right_bicep_body = right_bicep_entity->AddComponent<DynamicBody>(
-                space,
+                physics_system.GetSpace(),
                 sf::Vector2f((CHEST_WIDTH / 2.0f + LIMB_LENGTH / 2.0f), -1 * (CHEST_HEIGHT / 2.0f)),
                 1,
                 sf::Vector2f(LIMB_LENGTH, LIMB_THICKNESS));
         right_bicep_entity->AddComponent<Appendage>(
-                space,
+                physics_system.GetSpace(),
                 right_bicep_body->GetBody(),
                 torso_body->GetBody(),
                 sf::Vector2f(-1 * LIMB_LENGTH / 2.0f, 0),
                 sf::Vector2f(CHEST_WIDTH / 2.0f, -1 * CHEST_HEIGHT / 2.0f),
                 LIMB_STIFFNESS,
                 ARM_ANGLE);
-        sprite_render_system.AddEntity(right_bicep_entity, TECH17_BASE_SPRITE_LAYER - 1);
+        physics_system.AddEntity(right_bicep_entity);
         tech17->AddChild(right_bicep_entity);
 
         // FOREARMS
@@ -247,21 +247,21 @@ namespace tjg {
         //
         auto left_forearm_entity = std::make_shared<Entity>();
         left_forearm_entity->AddComponent<Location>();
-        left_forearm_entity->AddComponent<Sprite>(forearm_sprite);
+        left_forearm_entity->AddComponent<Sprite>(forearm_sprite, TECH17_BASE_SPRITE_LAYER - 2);
         auto left_forearm_body = left_forearm_entity->AddComponent<DynamicBody>(
-                space,
+                physics_system.GetSpace(),
                 sf::Vector2f(-1 * (CHEST_WIDTH / 2.0f + LIMB_LENGTH + LIMB_LENGTH / 2.0f), -1 * (CHEST_HEIGHT / 2.0f)),
                 1,
                 sf::Vector2f(LIMB_LENGTH, LIMB_THICKNESS));
         left_forearm_entity->AddComponent<Appendage>(
-                space,
+                physics_system.GetSpace(),
                 left_forearm_body->GetBody(),
                 left_bicep_body->GetBody(),
                 sf::Vector2f(LIMB_LENGTH / 2.0f, 0),
                 sf::Vector2f(-1 * (LIMB_LENGTH / 2.0f), 0),
                 LIMB_STIFFNESS,
                 -1 * ARM_ANGLE / 2.0f);
-        sprite_render_system.AddEntity(left_forearm_entity, TECH17_BASE_SPRITE_LAYER - 2);
+        physics_system.AddEntity(left_forearm_entity);
         tech17->AddChild(left_forearm_entity);
 
         //
@@ -271,21 +271,21 @@ namespace tjg {
         right_forearm_entity->AddComponent<Location>();
         // Flip the sprite horizontally
         forearm_sprite.setScale(-1 * forearm_sprite.getScale().x, forearm_sprite.getScale().y);
-        right_forearm_entity->AddComponent<Sprite>(forearm_sprite);
+        right_forearm_entity->AddComponent<Sprite>(forearm_sprite, TECH17_BASE_SPRITE_LAYER - 2);
         auto right_forearm_body = right_forearm_entity->AddComponent<DynamicBody>(
-                space,
+                physics_system.GetSpace(),
                 sf::Vector2f((CHEST_WIDTH / 2.0f + LIMB_LENGTH + LIMB_LENGTH / 2.0f), -1 * (CHEST_HEIGHT / 2.0f)),
                 1,
                 sf::Vector2f(LIMB_LENGTH, LIMB_THICKNESS));
         right_forearm_entity->AddComponent<Appendage>(
-                space,
+                physics_system.GetSpace(),
                 right_forearm_body->GetBody(),
                 right_bicep_body->GetBody(),
                 sf::Vector2f(-1 * (LIMB_LENGTH / 2.0f), 0),
                 sf::Vector2f(LIMB_LENGTH / 2.0f, 0),
                 LIMB_STIFFNESS,
                 ARM_ANGLE / 2.0f);
-        sprite_render_system.AddEntity(right_forearm_entity, TECH17_BASE_SPRITE_LAYER - 2);
+        physics_system.AddEntity(right_forearm_entity);
         tech17->AddChild(right_forearm_entity);
 
         // THIGHS
@@ -300,20 +300,20 @@ namespace tjg {
         //
         auto left_thigh_entity = std::make_shared<Entity>();
         left_thigh_entity->AddComponent<Location>();
-        left_thigh_entity->AddComponent<Sprite>(thigh_sprite);
+        left_thigh_entity->AddComponent<Sprite>(thigh_sprite, TECH17_BASE_SPRITE_LAYER - 2);
         auto left_thigh_body = left_thigh_entity->AddComponent<DynamicBody>(
-                space,
+                physics_system.GetSpace(),
                 sf::Vector2f(-1 * ABS_WIDTH / 2.0f, CHEST_HEIGHT + ABS_HEIGHT + LIMB_LENGTH / 2.0f),
                 1,
                 sf::Vector2f(LIMB_THICKNESS, LIMB_LENGTH));
         left_thigh_entity->AddComponent<Appendage>(
-                space,
+                physics_system.GetSpace(),
                 left_thigh_body->GetBody(),
                 abs_body->GetBody(),
                 sf::Vector2f(0, -1 * LIMB_LENGTH / 2.0f),
                 sf::Vector2f(-1 * ABS_WIDTH / 2.0f, ABS_HEIGHT / 2.0f),
                 LIMB_STIFFNESS);
-        sprite_render_system.AddEntity(left_thigh_entity);
+        physics_system.AddEntity(left_thigh_entity);
         tech17->AddChild(left_thigh_entity);
 
         //
@@ -323,20 +323,20 @@ namespace tjg {
         right_thigh_entity->AddComponent<Location>();
         // Flip the sprite horizontally
         thigh_sprite.setScale(-1 * thigh_sprite.getScale().x, thigh_sprite.getScale().y);
-        right_thigh_entity->AddComponent<Sprite>(thigh_sprite);
+        right_thigh_entity->AddComponent<Sprite>(thigh_sprite, TECH17_BASE_SPRITE_LAYER - 2);
         auto right_thigh_body = right_thigh_entity->AddComponent<DynamicBody>(
-                space,
+                physics_system.GetSpace(),
                 sf::Vector2f(ABS_WIDTH / 2.0f, CHEST_HEIGHT + ABS_HEIGHT + LIMB_LENGTH / 2.0f),
                 1,
                 sf::Vector2f(LIMB_THICKNESS, LIMB_LENGTH));
         right_thigh_entity->AddComponent<Appendage>(
-                space,
+                physics_system.GetSpace(),
                 right_thigh_body->GetBody(),
                 abs_body->GetBody(),
                 sf::Vector2f(0, -1 * LIMB_LENGTH / 2.0f),
                 sf::Vector2f(ABS_WIDTH / 2.0f, ABS_HEIGHT / 2.0f),
                 LIMB_STIFFNESS);
-        sprite_render_system.AddEntity(right_thigh_entity);
+        physics_system.AddEntity(right_thigh_entity);
         tech17->AddChild(right_thigh_entity);
 
         // SHINS
@@ -352,20 +352,20 @@ namespace tjg {
         //
         auto left_shin_entity = std::make_shared<Entity>();
         left_shin_entity->AddComponent<Location>();
-        left_shin_entity->AddComponent<Sprite>(shin_sprite);
+        left_shin_entity->AddComponent<Sprite>(shin_sprite, TECH17_BASE_SPRITE_LAYER - 3);
         auto left_shin_body = left_shin_entity->AddComponent<DynamicBody>(
-                space,
+                physics_system.GetSpace(),
                 sf::Vector2f(-1 * ABS_WIDTH / 2.0f, CHEST_HEIGHT + ABS_HEIGHT + LIMB_LENGTH + LIMB_LENGTH / 2.0f),
                 1,
                 sf::Vector2f(LIMB_THICKNESS, LIMB_LENGTH));
         left_shin_entity->AddComponent<Appendage>(
-                space,
+                physics_system.GetSpace(),
                 left_shin_body->GetBody(),
                 left_thigh_body->GetBody(),
                 sf::Vector2f(0, -1 * LIMB_LENGTH / 2.0f),
                 sf::Vector2f(0, LIMB_LENGTH / 2.0f),
                 LIMB_STIFFNESS);
-        sprite_render_system.AddEntity(left_shin_entity);
+        physics_system.AddEntity(left_shin_entity);
         tech17->AddChild(left_shin_entity);
 
         //
@@ -375,20 +375,20 @@ namespace tjg {
         right_shin_entity->AddComponent<Location>();
         // Flip the sprite horizontally
         shin_sprite.setScale(-1 * shin_sprite.getScale().x, shin_sprite.getScale().y);
-        right_shin_entity->AddComponent<Sprite>(shin_sprite);
+        right_shin_entity->AddComponent<Sprite>(shin_sprite, TECH17_BASE_SPRITE_LAYER - 3);
         auto right_shin_body = right_shin_entity->AddComponent<DynamicBody>(
-                space,
+                physics_system.GetSpace(),
                 sf::Vector2f(ABS_WIDTH / 2.0f, CHEST_HEIGHT + ABS_HEIGHT + LIMB_LENGTH + LIMB_LENGTH / 2.0f),
                 1,
                 sf::Vector2f(LIMB_THICKNESS, LIMB_LENGTH));
         right_shin_entity->AddComponent<Appendage>(
-                space,
+                physics_system.GetSpace(),
                 right_shin_body->GetBody(),
                 right_thigh_body->GetBody(),
                 sf::Vector2f(0, -1 * LIMB_LENGTH / 2.0f),
                 sf::Vector2f(0, LIMB_LENGTH / 2.0f),
                 LIMB_STIFFNESS);
-        sprite_render_system.AddEntity(right_shin_entity);
+        physics_system.AddEntity(right_shin_entity);
         tech17->AddChild(right_shin_entity);
 
         return tech17;

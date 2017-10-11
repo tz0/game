@@ -13,14 +13,11 @@ namespace tjg {
     }
 
     void SpriteRenderSystem::AddEntity(std::shared_ptr<Entity> entity) {
-        AddEntity(entity, 0);
-    }
-
-    void SpriteRenderSystem::AddEntity(std::shared_ptr<Entity> entity, int layer) {
-        if (!entity->GetComponent<Sprite>()) {
+        auto sprite_component = entity->GetComponent<Sprite>();
+        if (!sprite_component) {
             throw std::runtime_error("missing sprite component");
         }
-        layers[layer].push_back(entity);
+        layers[sprite_component->GetLayer()].push_back(entity);
     }
 
     void SpriteRenderSystem::render(sf::RenderTarget &target) {
