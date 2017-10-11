@@ -9,27 +9,27 @@ namespace tjg {
             entity_factory(resource_manager, sprite_render_system, space),
             window(sf::VideoMode(1280, 720, 32), "Game", sf::Style::Titlebar | sf::Style::Close) {
 
+        // Enable vsync.
         window.setVerticalSyncEnabled(true);
 
+        // Set up Chipmunk physics space.
         cpSpaceSetGravity(space, cpv(0, 0));
     }
 
     // Teardown.
     Game::~Game() {
+        // Free all memory used by Chipmunk.
         cpSpaceFree(space);
     }
 
     // Begin the game loop.
     void Game::Run() {
-        // Load some fonts and a texture sheet
+        // Load fonts and the texture sheet
         auto avenir_bold = resource_manager.LoadFont("Avenir-Bold.ttf");
         auto lcd_regular = resource_manager.LoadFont("LCD-Regular.ttf");
-
         auto texture_sheet = resource_manager.LoadTexture("texturesheet.png");
 
-
         // Create boundary walls using the entity factory.
-        // TODO: make the Walls use sprites vice line segments, and add them to the SpriteRenderSystem
         auto top_wall = entity_factory.MakeWall(sf::Vector2f(-500, -500), sf::Vector2f(500, -500), 40);
         auto bottom_wall = entity_factory.MakeWall(sf::Vector2f(500, 500), sf::Vector2f(-500, 500), 40);
         auto left_wall = entity_factory.MakeWall(sf::Vector2f(-500, 500), sf::Vector2f(-500, -500), 40);
@@ -55,32 +55,35 @@ namespace tjg {
         // Add tech17 to the player control system
         player_control_system.AddEntity(tech17);
 
-        sf::Sprite obstacle;
-        obstacle.setTexture(*texture_sheet);
-        obstacle.setTextureRect(sf::IntRect(1, 1, 160, 150));
+        // Load asteroid texture.
+        sf::Sprite asteroid_sprite;
+        asteroid_sprite.setTexture(*texture_sheet);
+        asteroid_sprite.setTextureRect(sf::IntRect(1, 1, 160, 150));
 
         // Create many asteroids
         for (auto i = 0; i < 10; ++i) {
-            auto character = std::make_shared<Entity>();
-            character->AddComponent<Location>();
-            character->AddComponent<Sprite>(obstacle);
-            character->AddComponent<DynamicBody>(
+            auto asteroid_entity = std::make_shared<Entity>();
+            asteroid_entity->AddComponent<Location>();
+            asteroid_entity->AddComponent<Sprite>(asteroid_sprite);
+            asteroid_entity->AddComponent<DynamicBody>(
                     space,
                     sf::Vector2f(floor(i / 4) * 100 + 50, 100 * (i % 4)),
                     3,
-                    sf::Vector2f(obstacle.getGlobalBounds().width, obstacle.getGlobalBounds().height));
-            entities.push_back(character);
-            sprite_render_system.AddEntity(character);
+                    sf::Vector2f(asteroid_sprite.getGlobalBounds().width, asteroid_sprite.getGlobalBounds().height));
+            entities.push_back(asteroid_entity);
+            sprite_render_system.AddEntity(asteroid_entity);
         }
 
-
+        // Set font for FPS clock
         info.setFont(*avenir_bold);
         info.setStyle(sf::Text::Bold);
         info.setCharacterSize(24);
 
+        // Set up camera
         camera.setCenter(0, 0);
         camera.setSize(1600, 1200);
 
+        // Game loop.
         while (window.isOpen()) {
             Draw();
             Update();
@@ -91,21 +94,24 @@ namespace tjg {
 
     void Game::HandleEvents() {
         sf::Event event;
+        // Look for window events.
         while (window.pollEvent(event)) {
             switch (event.type) {
                 case sf::Event::Closed:
                     window.close();
                     break;
                 case sf::Event::KeyPressed: {
-
                     switch (event.key.code) {
-                        case sf::Keyboard::Escape:
+                        // Close window on ESC
+                        case sf::Keyboard::Escape: {
                             window.close();
                             break;
-                        case sf::Keyboard::F1:
+                        }
+                        // Toggle FPS counter on F1.
+                        case sf::Keyboard::F1: {
                             show_info = !show_info;
                             break;
-
+                        }
                         default:
                             break;
                     }
@@ -122,11 +128,11 @@ namespace tjg {
 
         // Temporary/Example control system.
         if (sf::Keyboard::isKeyPressed(sf::Keyboard::Left))
-            player_control_system.rotateCounterclockwise();
+            player_control_system.RotateCounterClockwise();
         if (sf::Keyboard::isKeyPressed(sf::Keyboard::Right))
-            player_control_system.rotateClockwise();
+            player_control_system.RotateClockwise();
         if (sf::Keyboard::isKeyPressed(sf::Keyboard::Space))
-            player_control_system.jetpack();
+            player_control_system.FireJetpack();
 
         //
         // Update all of the entities' components

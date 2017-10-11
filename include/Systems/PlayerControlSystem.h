@@ -16,12 +16,14 @@ namespace tjg {
     private:
         std::shared_ptr<Entity> player_entity;
     public:
-        // TODO: Overrride AddEntity
+        // Override System virtual methods
         void AddEntity(std::shared_ptr<Entity> entity) override;
         // Player controls.
-        void rotateClockwise();
-        void rotateCounterclockwise();
-        void jetpack();
+        void RotateClockwise();
+        void RotateCounterClockwise();
+        void FireJetpack();
+        // Accessor methods
+        std::shared_ptr<Entity> GetPlayerEntity();
     };
 
 }
