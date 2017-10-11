@@ -17,9 +17,13 @@ namespace tjg {
         }
 
         // Load the placeholder texture from the placeholder image generated above.
-        placeholder_texture = std::make_shared<sf::Texture>();
-        placeholder_texture->loadFromImage(placeholder_image);
-        placeholder_texture->setRepeated(true);
+        textures[placeholder] = std::make_shared<sf::Texture>();
+        textures[placeholder]->loadFromImage(placeholder_image);
+        textures[placeholder]->setRepeated(true);
+
+        sounds[placeholder] = std::make_shared<sf::SoundBuffer>();
+
+        fonts[placeholder] = std::make_shared<sf::Font>();
 
         this->resource_root = resource_root;
     }
@@ -39,12 +43,7 @@ namespace tjg {
  * @return pointer to the Texture
  */
     std::shared_ptr<sf::Texture> ResourceManager::LoadTexture(const std::string &filename) {
-        auto texture = load(textures, filename);
-        if (texture == nullptr) {
-            return placeholder_texture;
-        }
-        texture->setSmooth(true);
-        return texture;
+        return load(textures, filename);
     }
 
 /**
