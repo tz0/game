@@ -127,12 +127,21 @@ namespace tjg {
         sf::Time elapsed = clock.restart();
 
         // Temporary/Example control system.
-        if (sf::Keyboard::isKeyPressed(sf::Keyboard::Left))
+        if (sf::Keyboard::isKeyPressed(sf::Keyboard::Left)) {
             player_control_system.RotateCounterClockwise();
-        if (sf::Keyboard::isKeyPressed(sf::Keyboard::Right))
+        }
+        if (sf::Keyboard::isKeyPressed(sf::Keyboard::Right)) {
             player_control_system.RotateClockwise();
-        if (sf::Keyboard::isKeyPressed(sf::Keyboard::Space))
+        }
+        if (sf::Keyboard::isKeyPressed(sf::Keyboard::Space)) {
             player_control_system.FireJetpack();
+            // Set body to red for testing.
+            player_control_system.GetPlayerEntity()->GetComponent<Sprite>()->GetSprite().setColor(sf::Color(255,0,0));
+        }
+        else if(player_control_system.GetPlayerEntity()->GetComponent<Sprite>()->GetSprite().getColor() == sf::Color(255,0,0)){
+            // Set body back to its normal color.
+            player_control_system.GetPlayerEntity()->GetComponent<Sprite>()->GetSprite().setColor(sf::Color(255,255,255));
+        }
 
         //
         // Update all of the entities' components
