@@ -52,6 +52,8 @@ namespace tjg {
 
         // Create player character
         tech17 = entity_factory.MakeTech17();
+        // Add tech17 to the player control system
+        player_control_system.AddEntity(tech17);
 
         sf::Sprite obstacle;
         obstacle.setTexture(*texture_sheet);
@@ -119,14 +121,13 @@ namespace tjg {
         sf::Time elapsed = clock.restart();
 
         // Temporary/Example control system.
+        auto body = tech17->GetComponent<DynamicBody>()->GetBody();
         if (sf::Keyboard::isKeyPressed(sf::Keyboard::Left))
-            cpBodyApplyForceAtWorldPoint(tech17->GetComponent<DynamicBody>()->GetBody(), cpv(-1000, 0), cpv(0, 0));
+            player_control_system.rotateCounterclockwise();
         if (sf::Keyboard::isKeyPressed(sf::Keyboard::Right))
-            cpBodyApplyForceAtWorldPoint(tech17->GetComponent<DynamicBody>()->GetBody(), cpv(1000, 0), cpv(0, 0));
-        if (sf::Keyboard::isKeyPressed(sf::Keyboard::Up))
-            cpBodyApplyForceAtWorldPoint(tech17->GetComponent<DynamicBody>()->GetBody(), cpv(0, -1000), cpv(0, 0));
-        if (sf::Keyboard::isKeyPressed(sf::Keyboard::Down))
-            cpBodyApplyForceAtWorldPoint(tech17->GetComponent<DynamicBody>()->GetBody(), cpv(0, 1000), cpv(0, 0));
+            player_control_system.rotateClockwise();
+        if (sf::Keyboard::isKeyPressed(sf::Keyboard::Space))
+            player_control_system.jetpack();
 
         //
         // Update all of the entities' components

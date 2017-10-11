@@ -25,6 +25,7 @@
 #include <Components/StaticSegment.h>
 
 #include <System.h>
+#include <Systems/PlayerControlSystem.h>
 
 namespace tjg {
 
@@ -41,6 +42,7 @@ namespace tjg {
         EntityFactory entity_factory;
 
         SpriteRenderSystem sprite_render_system;
+        PlayerControlSystem player_control_system;
 
         sf::RenderWindow window;
         sf::View camera;

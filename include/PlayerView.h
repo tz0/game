@@ -3,6 +3,7 @@
 
 
 #include <SFML/Window/Keyboard.hpp>
+#include <Systems/PlayerControlSystem.h>
 #include "Systems/SpriteRenderSystem.h"
 #include "ResourceManager.h"
 
@@ -12,12 +13,16 @@ namespace tjg {
     private:
         ResourceManager resource_manager;
         SpriteRenderSystem sprite_render_system;
+        PlayerControlSystem player_control_system;
     public:
         // Constructors
-        PlayerView(ResourceManager resource_manager, SpriteRenderSystem sprite_render_system);
+        PlayerView(ResourceManager resource_manager);
 
         // Used for handling key presses
         void keyPressed(sf::Keyboard::Key key);
+
+        // Update view
+        void update();
 
         // Render
         void render();
@@ -25,6 +30,7 @@ namespace tjg {
         // Accessor methods.
         ResourceManager getResourceManager();
         SpriteRenderSystem getSpriteRenderSystem();
+        PlayerControlSystem getPlayerControlSystem();
     };
 
 }
