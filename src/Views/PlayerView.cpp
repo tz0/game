@@ -13,23 +13,22 @@ namespace tjg {
 
     void PlayerView::initialize() {
 
-        sprite_render_system.AddEntity(tech17);
-        tech17->ForEachChild([&](std::shared_ptr<Entity> child){
-            sprite_render_system.AddEntity(child);
-        });
-
         // Load fonts and the texture sheet
         auto avenir_bold = resource_manager.LoadFont("Avenir-Bold.ttf");
         auto lcd_regular = resource_manager.LoadFont("LCD-Regular.ttf");
-        auto texture_sheet = resource_manager.LoadTexture("texturesheet.png");
-
 
         // Set font for FPS clock
         info.setFont(*avenir_bold);
         info.setStyle(sf::Text::Bold);
         info.setCharacterSize(24);
 
+        // Add tech17 + child components to the sprite render system
+        sprite_render_system.AddEntity(tech17);
+        tech17->ForEachChild([&](std::shared_ptr<Entity> child){
+            sprite_render_system.AddEntity(child);
+        });
 
+        // Add the wall entities to the sprite render system
         for (auto wall : walls) {
             sprite_render_system.AddEntity(wall);
         }
@@ -39,11 +38,12 @@ namespace tjg {
 
 
         // Load asteroid texture.
+        auto texture_sheet = resource_manager.LoadTexture("texturesheet.png");
         sf::Sprite asteroid_sprite;
         asteroid_sprite.setTexture(*texture_sheet);
         asteroid_sprite.setTextureRect(sf::IntRect(1, 1, 160, 150));
         auto asteroid_bounds = asteroid_sprite.getGlobalBounds();
-
+        // Add all asteroids to the sprite render system.
         for (auto asteroid : asteroids) {
             asteroid->AddComponent<Sprite>(asteroid_sprite);
             asteroid->GetComponent<Sprite>()->GetSprite().setScale(100.0f / asteroid_bounds.width, 100.0f / asteroid_bounds.height);
@@ -86,6 +86,7 @@ namespace tjg {
         }
     }
 
+    // Update logic that is specific to the player view.
     void PlayerView::update(const sf::Time elapsed) {
         CheckKeys(elapsed);
         HandleWindowEvents();
@@ -104,17 +105,20 @@ namespace tjg {
                     break;
                 case sf::Event::KeyPressed: {
                     switch (event.key.code) {
+
                         // Close window on ESC
                         case sf::Keyboard::Escape: {
                             window.close();
                             running = false;
                             break;
                         }
-                            // Toggle FPS counter on F1.
+
+                        // Toggle FPS counter on F1.
                         case sf::Keyboard::F1: {
                             show_info = !show_info;
                             break;
                         }
+
                         default:
                             break;
                     }

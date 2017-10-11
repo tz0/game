@@ -17,6 +17,7 @@ namespace tjg {
         virtual void update(const sf::Time) = 0;
     protected:
         // Systems
+        // All views need a physical center and control center.
         PhysicsSystem physics_system;
         ControlCenter control_center;
 
@@ -26,14 +27,27 @@ namespace tjg {
 
         // Entities
         std::shared_ptr<Entity> tech17;
+
+        // Temporary for testing purposes.
         std::vector<std::shared_ptr<Entity>> walls;
         std::vector<std::shared_ptr<Entity>> asteroids;
 
     public:
         View(ResourceManager&);
 
+        /**
+         * Initialize creates and configures necessary entities before the game begins
+         */
         void Initialize();
+
+        /**
+         * Update will cause the physical center to be updated.
+         */
         void Update(const sf::Time);
+
+        /**
+         * @return whether the view is still running
+         */
         virtual bool Running() = 0;
 
     };

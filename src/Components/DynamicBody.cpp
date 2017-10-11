@@ -20,18 +20,6 @@ namespace tjg {
         cpBodyFree(body);
     }
 
-    void DynamicBody::Update() {
-        auto bodyPosition = cpBodyGetPosition(body);
-        location->setPosition(sf::Vector2f(bodyPosition.x, bodyPosition.y));
-
-        auto bodyAngle = cpBodyGetAngle(body);
-        location->setRotation(bodyAngle * 180.0f / M_PI);
-    }
-
-    void DynamicBody::ConnectComponents() {
-        location = entity->GetComponent<Location>();
-    }
-
     cpBody *DynamicBody::GetBody() {
         return body;
     }

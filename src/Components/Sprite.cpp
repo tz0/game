@@ -9,10 +9,6 @@ namespace tjg {
         this->sprite.setOrigin(bounds.width / 2.0f, bounds.height / 2.0f);
     }
 
-    void Sprite::ConnectComponents() {
-        // TODO No longer needed, except because of the interface. Will be removed soon.
-    }
-
     sf::Sprite &Sprite::GetSprite() {
         return sprite;
     }

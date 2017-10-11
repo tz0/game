@@ -30,7 +30,10 @@ namespace tjg {
         bool running = true;
 
     public:
+        // Constructor
         explicit PlayerView(ResourceManager &resource_manager);
+
+        // Methods
         void Render();
         bool Running();
     };

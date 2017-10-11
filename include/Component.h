@@ -8,12 +8,6 @@ namespace tjg {
     class Entity;
 
     class Component {
-    protected:
-        Entity *entity;
-        long entity_id;
-    public:
-        virtual void ConnectComponents() = 0;
-        void SetEntity(Entity *entity);
     };
 
 }

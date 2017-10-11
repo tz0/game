@@ -17,8 +17,6 @@ namespace tjg {
         Location() = default;
         explicit Location(sf::Vector2f pos);
         Location(float x, float y);
-        // Component methods
-        void ConnectComponents() override;
         // Accessors
         float getRotation();
         void setRotation(float degrees);

@@ -4,6 +4,7 @@ namespace tjg {
 
     // Constructor.
     Game::Game() :
+            // Set the default search folder to "media"
             resource_manager("media"),
             view(resource_manager) {}
 

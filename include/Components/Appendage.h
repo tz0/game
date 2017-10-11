@@ -21,8 +21,6 @@ namespace tjg {
         // Physics
         cpConstraint* GetPivot();
         cpConstraint* GetSpring();
-        // Component methods
-        void ConnectComponents() override;
     };
 }
 #endif //GAME_APPENDAGE_H

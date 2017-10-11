@@ -20,10 +20,6 @@ namespace tjg {
         cpConstraintFree(spring);
     }
 
-    void Appendage::ConnectComponents() {
-        // TODO ?
-    }
-
     cpConstraint *Appendage::GetPivot() {
         return pivot;
     }

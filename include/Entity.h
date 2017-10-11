@@ -45,8 +45,6 @@ namespace tjg {
             }
             auto component = std::make_shared<T>(std::forward<Args>(args)...);
             components.insert({std::type_index(typeid(T)), component});
-            component->SetEntity(this);
-            ConnectComponents();
             return component;
         }
         /**
