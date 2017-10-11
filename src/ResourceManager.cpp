@@ -23,7 +23,9 @@ namespace tjg {
  * @return pointer to the Texture
  */
     std::shared_ptr<sf::Texture> ResourceManager::LoadTexture(const std::string &filename) {
-        return load(textures, filename);
+        auto texture = load(textures, filename);
+        texture->setSmooth(true);
+        return texture;
     }
 
 /**
