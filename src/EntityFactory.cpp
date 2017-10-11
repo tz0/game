@@ -122,9 +122,7 @@ namespace tjg {
                 space,
                 sf::Vector2f(0, 0),
                 1,
-                sf::Vector2f(CHEST_WIDTH, CHEST_HEIGHT),
-                // Set moment to INFINITY to prevents the torso from rotating
-                true);
+                sf::Vector2f(CHEST_WIDTH, CHEST_HEIGHT));
         sprite_render_system.AddEntity(tech17, TECH17_BASE_SPRITE_LAYER);
 
         //

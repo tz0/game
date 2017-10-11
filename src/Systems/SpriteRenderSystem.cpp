@@ -1,4 +1,4 @@
-#include "System.h"
+#include "Systems/SpriteRenderSystem.h"
 
 namespace tjg {
 

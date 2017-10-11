@@ -2,7 +2,7 @@
 #ifndef GAME_ENTITYFACTORY_H
 #define GAME_ENTITYFACTORY_H
 
-#include "System.h"
+#include "Systems/SpriteRenderSystem.h"
 #include "Entity.h"
 #include "ResourceManager.h"
 #include "Components/Appendage.h"
