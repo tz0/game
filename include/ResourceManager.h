@@ -14,6 +14,8 @@ namespace tjg {
 
     class ResourceManager {
     private:
+        // Returned when a texture fails to load
+        std::shared_ptr<sf::Texture> placeholder_texture;
 
         template<typename T>
         using ResourceMap = std::unordered_map<std::string, std::shared_ptr<T>>;
@@ -31,6 +33,8 @@ namespace tjg {
                 std::cout << "Loading " << path << "...";
                 auto success = map[path]->loadFromFile(path);
                 if (!success) {
+                    std::cout << path << " not found." << std::endl;
+                    return nullptr;
                     throw std::runtime_error(path + std::string(" not found"));
                 }
                 std::cout << "done." << std::endl;
@@ -48,8 +52,7 @@ namespace tjg {
 
     public:
         // Constructors
-        ResourceManager() = default;
-        explicit ResourceManager(const std::string &resource_root);
+        explicit ResourceManager(const std::string &resource_root = "");
         // Resource loading
         std::shared_ptr<sf::Font> LoadFont(const std::string &filename);
         std::shared_ptr<sf::Texture> LoadTexture(const std::string &filename);
