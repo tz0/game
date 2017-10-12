@@ -399,11 +399,11 @@ namespace tjg {
         double deltaY = p1.y - p2.y;
         double deltaX = p2.x - p1.x;
         double angle = atan2(deltaY, deltaX) * 180 / M_PI;
-        return (angle < 0) ? (float) (angle + 360.d) : (float) angle;
+        return (angle < 0) ? static_cast<float>(angle + 360.0) : static_cast<float>(angle);
     }
 
     float EntityFactory::calculateDistance(sf::Vector2f p1, sf::Vector2f p2) {
         // Calculate distance between p1 and p2
-        return (float) sqrt(pow((p2.x - p1.x), 2) + pow((p2.y - p1.y), 2));
+        return static_cast<float>(sqrt(pow((p2.x - p1.x), 2) + pow((p2.y - p1.y), 2)));
     }
 }
