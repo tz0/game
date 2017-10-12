@@ -7,8 +7,8 @@ namespace tjg {
     // Defined in its own header.
     class Entity;
 
-    class Component {
-    };
+    // Component is an empty class
+    class Component {};
 
 }
 

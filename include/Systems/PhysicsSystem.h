@@ -13,10 +13,25 @@ namespace tjg {
         cpSpace* space;
         std::vector<std::shared_ptr<Entity>> entities;
     public:
+        // Constructor
         PhysicsSystem();
+        // Destructor
         ~PhysicsSystem();
+
+        /**
+         * Add an entity to be simulated. Requires DynamicBody and Location components to be present
+         * @param entity
+         */
         void AddEntity(std::shared_ptr<Entity> entity);
+
+        /**
+         * @return a pointer to the system's Chipmunk2D space object
+         */
         cpSpace* GetSpace();
+
+        /**
+         * Updates the positions of all entities in the system, and step forward the physical simulation
+         */
         void Update(const sf::Time elapsed);
     };
 }

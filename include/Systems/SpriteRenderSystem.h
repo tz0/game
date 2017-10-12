@@ -13,11 +13,21 @@ namespace tjg {
     private:
         std::map<int, std::vector<std::shared_ptr<Entity>>> layers;
         void renderEntity(sf::RenderTarget &target, std::shared_ptr<Entity> entity);
+
     public:
+
+        /**
+         * Add an entity to be drawn. Requires a Sprite component.
+         * @param entity
+         */
         void AddEntity(std::shared_ptr<Entity> entity);
+
+        /**
+         * Draw all of the entities to the specified target
+         * @param target
+         */
         void render(sf::RenderTarget &target);
     };
 }
-
 
 #endif //GAME_SPRITERENDERSYSTEM_H
