@@ -17,8 +17,6 @@ namespace tjg {
         StaticSegment(cpSpace *space, sf::Vector2f a, sf::Vector2f b, float width);
         // Destructor
         ~StaticSegment();
-        // Component methods
-        void ConnectComponents() override;
         // Get shape
         cpShape *GetShape();
     };

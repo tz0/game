@@ -26,9 +26,6 @@ namespace tjg {
         DynamicBody(cpSpace *space, const sf::Vector2f &position, float mass, float radius);
         // Destructor
         ~DynamicBody();
-        // Functions
-        void Update();
-        void ConnectComponents() override;
         // Physics
         cpBody* GetBody();
         cpShape* GetShape();

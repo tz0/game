@@ -2,7 +2,7 @@
 #ifndef GAME_ENTITYFACTORY_H
 #define GAME_ENTITYFACTORY_H
 
-#include "System.h"
+
 #include "Entity.h"
 #include "ResourceManager.h"
 #include "Components/Appendage.h"
@@ -11,13 +11,15 @@
 #include "Components/Sprite.h"
 #include "Components/StaticSegment.h"
 
+#include "Systems/SpriteRenderSystem.h"
+#include "Systems/PhysicsSystem.h"
+
 namespace tjg {
 
     class EntityFactory {
     private:
         ResourceManager &resource_manager;
-        SpriteRenderSystem &sprite_render_system;
-        cpSpace *space = nullptr;
+        PhysicsSystem &physics_system;
         /**
          * Calculate the angle between two points.
          * @return angle in degrees
@@ -30,10 +32,9 @@ namespace tjg {
         float calculateDistance(sf::Vector2f p1, sf::Vector2f p2);
     public:
         // Constructor
-        EntityFactory(ResourceManager &resource_manager, SpriteRenderSystem &sprite_render_system, cpSpace *space) :
+        EntityFactory(ResourceManager &resource_manager, PhysicsSystem &physics_system) :
                 resource_manager(resource_manager),
-                sprite_render_system(sprite_render_system),
-                space(space) {}
+                physics_system(physics_system) {}
 
         // Entity factory methods.
         std::shared_ptr<Entity> MakeWall(const sf::Vector2f &a, const sf::Vector2f &b, const float width);

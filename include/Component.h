@@ -7,14 +7,8 @@ namespace tjg {
     // Defined in its own header.
     class Entity;
 
-    class Component {
-    protected:
-        Entity *entity;
-        long entity_id;
-    public:
-        virtual void ConnectComponents() = 0;
-        void SetEntity(Entity *entity);
-    };
+    // Component is an empty class
+    class Component {};
 
 }
 

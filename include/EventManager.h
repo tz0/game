@@ -4,10 +4,11 @@
 #ifndef GAME_EVENTMANAGER_H
 #define GAME_EVENTMANAGER_H
 
+#include <functional>
 #include <typeindex>
 #include <unordered_map>
-#include <functional>
 #include <vector>
+
 #include "Event.h"
 
 namespace tjg {

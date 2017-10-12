@@ -23,8 +23,4 @@ namespace tjg {
     cpShape *StaticSegment::GetShape() {
         return shape;
     }
-
-    void StaticSegment::ConnectComponents() {
-        // TODO ?
-    }
 }

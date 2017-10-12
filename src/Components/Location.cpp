@@ -11,10 +11,6 @@ namespace tjg {
         rotation = 0.f;
     }
 
-    void Location::ConnectComponents() {
-        // TODO ?
-    }
-
     float Location::getRotation() {
         return rotation;
     }

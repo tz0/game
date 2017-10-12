@@ -2,9 +2,10 @@
 #ifndef GAME_ENTITY_H
 #define GAME_ENTITY_H
 
+#include <functional>
+#include <memory>
 #include <typeindex>
 #include <unordered_map>
-#include <memory>
 #include <vector>
 
 #include "Component.h"
@@ -15,12 +16,6 @@ namespace tjg {
     private:
         std::unordered_map<std::type_index, std::shared_ptr<Component>> components;
         std::vector<std::shared_ptr<Entity>> children;
-
-        /*TODO(Erik): This will be going away as more systems are developed.
-         * Currently, only the SpriteRenderSystem exists, but eventually, components will not contain logic,
-         * and will not be able to communicate with eachother.
-         */
-        void ConnectComponents();
 
     public:
 
@@ -45,8 +40,6 @@ namespace tjg {
             }
             auto component = std::make_shared<T>(std::forward<Args>(args)...);
             components.insert({std::type_index(typeid(T)), component});
-            component->SetEntity(this);
-            ConnectComponents();
             return component;
         }
         /**

@@ -1,15 +1,6 @@
 #include "Entity.h"
 
 namespace tjg {
-/* TODO(Erik): This will be going away as more systems are developed.
- * Currently, only the SpriteRenderSystem exists, but eventually, components will not contain logic,
- * and will not be able to communicate with eachother.
- */
-    void Entity::ConnectComponents() {
-        for (auto component : components) {
-            component.second->ConnectComponents();
-        }
-    }
 
 /**
  * AddChild
