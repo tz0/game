@@ -105,6 +105,7 @@ namespace tjg {
             switch (event.type) {
                 case sf::Event::Closed:
                     window.close();
+                    running = false;
                     break;
                 case sf::Event::KeyPressed: {
                     switch (event.key.code) {
