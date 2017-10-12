@@ -33,6 +33,9 @@ namespace tjg {
             sprite_render_system.AddEntity(wall);
         }
 
+        //Add the entrance entity to the sprite render system
+        sprite_render_system.AddEntity(entrance);
+
         // Make background
         sprite_render_system.AddEntity(entity_factory.MakeTiledBackground("background.png"));
 
