@@ -14,7 +14,6 @@ namespace tjg {
         control_center.AddEntity(tech17);
 
         entrance = entity_factory.MakeEntrance(sf::Vector2f(0, 0));
-        control_center.AddEntity(entrance);
 
         // Create boundary walls using the entity factory.
         auto top_wall = entity_factory.MakeWall(sf::Vector2f(-500, -500), sf::Vector2f(500, -500), 40);
