@@ -415,7 +415,7 @@ namespace tjg {
         // Add Sprite component so walls are visible
         sf::Sprite entrance_sprite;
         entrance_sprite.setTexture(*entrance_texture);
-        entrance_sprite.setTextureRect(sf::IntRect(0, 0, 30, 60));
+        entrance_sprite.setTextureRect(sf::IntRect(0, 0, 128, 240));
 //        entrance_sprite.setRotation(calculateAngle(a, b));
         entrance->AddComponent<Sprite>(entrance_sprite);
 
