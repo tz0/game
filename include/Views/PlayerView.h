@@ -10,10 +10,10 @@ namespace tjg {
 
     private:
         // Called by the base class Initialize/Update methods respectively
-        void initialize();
-        void update(const sf::Time);
+        void initialize() override;
+        void update(sf::Time) override;
 
-        void CheckKeys(const sf::Time);
+        void CheckKeys(sf::Time);
         void HandleWindowEvents();
 
         sf::RenderWindow window;
@@ -24,7 +24,7 @@ namespace tjg {
         sf::Clock fps_clock;
         int fps = 0;
         int frames_drawn = 0;
-        bool show_info = false;
+        bool show_info = true;
         sf::Text info;
 
         bool running = true;
@@ -35,7 +35,7 @@ namespace tjg {
 
         // Methods
         void Render();
-        bool Running();
+        bool Running() override;
     };
 
 }
