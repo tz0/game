@@ -41,10 +41,10 @@ namespace tjg {
 
 
         // Load asteroid texture.
-        auto texture_sheet = resource_manager.LoadTexture("texturesheet.png");
+        auto texture_sheet = resource_manager.LoadTexture("spritesheet.png");
         sf::Sprite asteroid_sprite;
         asteroid_sprite.setTexture(*texture_sheet);
-        asteroid_sprite.setTextureRect(sf::IntRect(1, 1, 160, 150));
+        asteroid_sprite.setTextureRect(sf::IntRect(1, 337, 157, 485 - 337));
         auto asteroid_bounds = asteroid_sprite.getGlobalBounds();
         // Add all asteroids to the sprite render system.
         for (auto asteroid : asteroids) {
@@ -52,6 +52,21 @@ namespace tjg {
             asteroid->GetComponent<Sprite>()->GetSprite().setScale(100.0f / asteroid_bounds.width, 100.0f / asteroid_bounds.height);
             sprite_render_system.AddEntity(asteroid);
         }
+
+        //Test of animated sprite component
+        auto fan_entity = std::make_shared<Entity>();
+        fan_entity->AddComponent<Location>(-500,500);
+        fan_entity->AddComponent<Sprite>(
+                std::vector<sf::Sprite> {
+                        // Define frames of animation
+                        sf::Sprite(*texture_sheet, sf::IntRect(234, 146, 448 - 234, 250 - 146)),
+                        sf::Sprite(*texture_sheet, sf::IntRect(234, 250, 448 - 234, 360 - 250))
+                },
+                20
+        );
+        fan_entity->GetComponent<Sprite>()->Play(true);
+        sprite_render_system.AddEntity(fan_entity);
+
 
         // Set up camera
         camera.setCenter(0, 0);
