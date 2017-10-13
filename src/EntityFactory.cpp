@@ -89,11 +89,11 @@ namespace tjg {
  *
  * @return Tech17 Entity
  */
-    std::shared_ptr<Entity> EntityFactory::MakeTech17() {
+    std::shared_ptr<Entity> EntityFactory::MakeTech17(const sf::Vector2f &a) {
         auto spacesuit_texture = resource_manager.LoadTexture("spacesuit.png");
         auto tech17 = std::make_shared<Entity>();
 
-        tech17->AddComponent<Location>();
+        tech17->AddComponent<Location>(a.x, a.y);
 
         const auto CHEST_WIDTH = 50.0f;
         const auto CHEST_HEIGHT = 40.0f;
@@ -400,7 +400,6 @@ namespace tjg {
 
         // Add location component
         auto entrance_location = entrance->AddComponent<Location>(a.x, a.y);
-//        entrance_location->setRotation(calculateAngle(a, b));
 
         // Add static segment component
 //        entrance->AddComponent<StaticSegment>(physics_system.GetSpace(), a.x, a.y);
@@ -409,14 +408,33 @@ namespace tjg {
         auto entrance_texture = resource_manager.LoadTexture("door-1.png"); // TODO put in sprite
 //        entrance_texture->setRepeated(false);
 
-        // Get wall length.
-//        auto length = (int) calculateDistance(a, b);
+        // Add Sprite component so walls are visible
+        sf::Sprite entrance_sprite;
+        entrance_sprite.setTexture(*entrance_texture);
+        entrance_sprite.setTextureRect(sf::IntRect(0, 0, 128, 240));
+        entrance->AddComponent<Sprite>(entrance_sprite);
+
+        return entrance;
+    }
+
+    std::shared_ptr<Entity> EntityFactory::MakeExit(const sf::Vector2f &a) {
+        // Create entrance entity.
+        auto entrance = std::make_shared<Entity>();
+
+        // Add location component
+        auto entrance_location = entrance->AddComponent<Location>(a.x, a.y);
+
+        // Add static segment component
+//        entrance->AddComponent<StaticSegment>(physics_system.GetSpace(), a.x, a.y);
+
+        // Load entrance texture.
+        auto entrance_texture = resource_manager.LoadTexture("door-1.png"); // TODO put in sprite
+//        entrance_texture->setRepeated(false);
 
         // Add Sprite component so walls are visible
         sf::Sprite entrance_sprite;
         entrance_sprite.setTexture(*entrance_texture);
         entrance_sprite.setTextureRect(sf::IntRect(0, 0, 128, 240));
-//        entrance_sprite.setRotation(calculateAngle(a, b));
         entrance->AddComponent<Sprite>(entrance_sprite);
 
         return entrance;

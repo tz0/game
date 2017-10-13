@@ -10,10 +10,11 @@ namespace tjg {
 
     void View::Initialize() {
 
-        tech17 = entity_factory.MakeTech17();
+        tech17 = entity_factory.MakeTech17(sf::Vector2f(-500, -500));
         control_center.AddEntity(tech17);
 
-        entrance = entity_factory.MakeEntrance(sf::Vector2f(0, 0));
+        entrance = entity_factory.MakeEntrance(sf::Vector2f(-500, -500));
+        exit = entity_factory.MakeExit(sf::Vector2f(500, 500));
 
         // Create boundary walls using the entity factory.
         auto top_wall = entity_factory.MakeWall(sf::Vector2f(-800, -800), sf::Vector2f(800, -800), 40);
