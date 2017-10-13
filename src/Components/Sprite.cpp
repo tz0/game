@@ -26,7 +26,7 @@ namespace tjg {
         return GetSprite(current_frame);
     }
 
-    sf::Sprite &Sprite::GetSprite(const uint frame) {
+    sf::Sprite &Sprite::GetSprite(const unsigned int frame) {
         if (playing) {
             // check if clock has passed the frame time
             if (animation_clock.getElapsedTime().asMilliseconds() > frame_delay) {

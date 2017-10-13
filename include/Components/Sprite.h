@@ -2,6 +2,8 @@
 #ifndef GAME_SPRITE_H
 #define GAME_SPRITE_H
 
+#include <vector>
+
 #include "Component.h"
 #include <SFML/Graphics/Sprite.hpp>
 #include <SFML/System/Clock.hpp>
@@ -14,7 +16,7 @@ namespace tjg {
         std::vector<sf::Sprite> frames;
 
         // Tracking animation
-        uint current_frame = 0;
+        unsigned int current_frame = 0;
         sf::Clock animation_clock;
         // time between frames, in milliseconds
         int frame_delay;
@@ -38,7 +40,7 @@ namespace tjg {
          * @param frame of animation desired
          * @return the sprite associated with the specified frame of animation
          */
-        sf::Sprite & GetSprite(uint frame);
+        sf::Sprite & GetSprite(unsigned int frame);
 
         /**
          * @return the SFML bounds for the current frame of animation
