@@ -400,23 +400,14 @@ namespace tjg {
 
         // Add location component
         auto entrance_location = entrance->AddComponent<Location>(a.x, a.y);
-//        entrance_location->setRotation(calculateAngle(a, b));
-
-        // Add static segment component
-//        entrance->AddComponent<StaticSegment>(physics_system.GetSpace(), a.x, a.y);
 
         // Load entrance texture.
         auto entrance_texture = resource_manager.LoadTexture("door-1.png"); // TODO put in sprite
-//        entrance_texture->setRepeated(false);
-
-        // Get wall length.
-//        auto length = (int) calculateDistance(a, b);
 
         // Add Sprite component so walls are visible
         sf::Sprite entrance_sprite;
         entrance_sprite.setTexture(*entrance_texture);
         entrance_sprite.setTextureRect(sf::IntRect(0, 0, 128, 240));
-//        entrance_sprite.setRotation(calculateAngle(a, b));
         entrance->AddComponent<Sprite>(entrance_sprite);
 
         return entrance;
