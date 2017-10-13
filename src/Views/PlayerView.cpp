@@ -52,6 +52,7 @@ namespace tjg {
 
         //Test of animated sprite component
         auto fan_entity = std::make_shared<Entity>();
+        fan_entity->AddComponent<Location>(-500,500);
         fan_entity->AddComponent<Sprite>(
                 std::vector<sf::Sprite> {
                         // Define frames of animation
