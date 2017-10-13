@@ -16,10 +16,10 @@ namespace tjg {
         entrance = entity_factory.MakeEntrance(sf::Vector2f(0, 0));
 
         // Create boundary walls using the entity factory.
-        auto top_wall = entity_factory.MakeWall(sf::Vector2f(-500, -500), sf::Vector2f(500, -500), 40);
-        auto bottom_wall = entity_factory.MakeWall(sf::Vector2f(500, 500), sf::Vector2f(-500, 500), 40);
-        auto left_wall = entity_factory.MakeWall(sf::Vector2f(-500, 500), sf::Vector2f(-500, -500), 40);
-        auto right_wall = entity_factory.MakeWall(sf::Vector2f(500, -500), sf::Vector2f(500, 500), 40);
+        auto top_wall = entity_factory.MakeWall(sf::Vector2f(-800, -800), sf::Vector2f(800, -800), 40);
+        auto bottom_wall = entity_factory.MakeWall(sf::Vector2f(800, 800), sf::Vector2f(-800, 800), 40);
+        auto left_wall = entity_factory.MakeWall(sf::Vector2f(-800, 800), sf::Vector2f(-800, -800), 40);
+        auto right_wall = entity_factory.MakeWall(sf::Vector2f(800, -800), sf::Vector2f(800, 800), 40);
 
         // Add the walls to the entities vector.
         walls.push_back(top_wall);
@@ -30,17 +30,17 @@ namespace tjg {
 
         // Create many asteroids
         // Temporary just for testing.
-        for (auto i = 0; i < 10; ++i) {
-            auto asteroid_entity = std::make_shared<Entity>();
-            asteroid_entity->AddComponent<Location>();
-            asteroid_entity->AddComponent<DynamicBody>(
-                    physics_system.GetSpace(),
-                    sf::Vector2f(floor(i / 4) * 100 + 50, 100 * (i % 4)),
-                    3,
-                    sf::Vector2f(100, 100));
-            asteroids.push_back(asteroid_entity);
-            physics_system.AddEntity(asteroid_entity);
-        }
+//        for (auto i = 0; i < 10; ++i) {
+//            auto asteroid_entity = std::make_shared<Entity>();
+//            asteroid_entity->AddComponent<Location>();
+//            asteroid_entity->AddComponent<DynamicBody>(
+//                    physics_system.GetSpace(),
+//                    sf::Vector2f(floor(i / 4) * 100 + 50, 100 * (i % 4)),
+//                    3,
+//                    sf::Vector2f(100, 100));
+//            asteroids.push_back(asteroid_entity);
+//            physics_system.AddEntity(asteroid_entity);
+//        }
 
         // Call specific view's initialization method.
         initialize();

@@ -41,17 +41,17 @@ namespace tjg {
 
 
         // Load asteroid texture.
-        auto texture_sheet = resource_manager.LoadTexture("texturesheet.png");
-        sf::Sprite asteroid_sprite;
-        asteroid_sprite.setTexture(*texture_sheet);
-        asteroid_sprite.setTextureRect(sf::IntRect(1, 1, 160, 150));
-        auto asteroid_bounds = asteroid_sprite.getGlobalBounds();
-        // Add all asteroids to the sprite render system.
-        for (auto asteroid : asteroids) {
-            asteroid->AddComponent<Sprite>(asteroid_sprite);
-            asteroid->GetComponent<Sprite>()->GetSprite().setScale(100.0f / asteroid_bounds.width, 100.0f / asteroid_bounds.height);
-            sprite_render_system.AddEntity(asteroid);
-        }
+//        auto texture_sheet = resource_manager.LoadTexture("texturesheet.png");
+//        sf::Sprite asteroid_sprite;
+//        asteroid_sprite.setTexture(*texture_sheet);
+//        asteroid_sprite.setTextureRect(sf::IntRect(1, 1, 160, 150));
+//        auto asteroid_bounds = asteroid_sprite.getGlobalBounds();
+//        // Add all asteroids to the sprite render system.
+//        for (auto asteroid : asteroids) {
+//            asteroid->AddComponent<Sprite>(asteroid_sprite);
+//            asteroid->GetComponent<Sprite>()->GetSprite().setScale(100.0f / asteroid_bounds.width, 100.0f / asteroid_bounds.height);
+//            sprite_render_system.AddEntity(asteroid);
+//        }
 
         // Set up camera
         camera.setCenter(0, 0);
