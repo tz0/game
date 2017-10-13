@@ -394,6 +394,25 @@ namespace tjg {
         return tech17;
     }
 
+    std::shared_ptr<Entity> EntityFactory::MakeEntrance(const sf::Vector2f &a) {
+        // Create entrance entity.
+        auto entrance = std::make_shared<Entity>();
+
+        // Add location component
+        auto entrance_location = entrance->AddComponent<Location>(a.x, a.y);
+
+        // Load entrance texture.
+        auto entrance_texture = resource_manager.LoadTexture("door-1.png"); // TODO put in sprite
+
+        // Add Sprite component so walls are visible
+        sf::Sprite entrance_sprite;
+        entrance_sprite.setTexture(*entrance_texture);
+        entrance_sprite.setTextureRect(sf::IntRect(0, 0, 128, 240));
+        entrance->AddComponent<Sprite>(entrance_sprite);
+
+        return entrance;
+    }
+
     float EntityFactory::calculateAngle(sf::Vector2f p1, sf::Vector2f p2) {
         // Calculate the angle between p1 and p2
         double deltaY = p1.y - p2.y;
