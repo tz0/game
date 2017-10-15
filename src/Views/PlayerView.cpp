@@ -40,22 +40,9 @@ namespace tjg {
         sprite_render_system.AddEntity(entity_factory.MakeTiledBackground("background.png"));
 
 
-        // Load asteroid texture.
-        auto texture_sheet = resource_manager.LoadTexture("spritesheet.png");
-        sf::Sprite asteroid_sprite;
-        asteroid_sprite.setTexture(*texture_sheet);
-        asteroid_sprite.setTextureRect(sf::IntRect(1, 337, 157, 485 - 337));
-        auto asteroid_bounds = asteroid_sprite.getGlobalBounds();
-        // Add all asteroids to the sprite render system.
-        for (auto asteroid : asteroids) {
-            asteroid->AddComponent<Sprite>(asteroid_sprite);
-            asteroid->GetComponent<Sprite>()->GetSprite().setScale(100.0f / asteroid_bounds.width, 100.0f / asteroid_bounds.height);
-            sprite_render_system.AddEntity(asteroid);
+        for (auto &fan : fans) {
+            sprite_render_system.AddEntity(fan);
         }
-
-        //Test of animated sprite component
-        auto fan = entity_factory.MakeFan(sf::Vector2f(0, 0), sf::Vector2f(100,500), 45.0f, 1000.0f);
-        sprite_render_system.AddEntity(fan);
 
 
         // Set up camera
@@ -100,7 +87,7 @@ namespace tjg {
         HandleWindowEvents();
 
         // Example of moving the camera location
-        camera.setCenter(camera.getCenter() * 0.99f + tech17->GetComponent<Location>()->getPosition() * 0.01f);
+        camera.setCenter(camera.getCenter() * 0.99f + tech17->GetComponent<Location>()->GetPosition() * 0.01f);
     }
 
     void PlayerView::HandleWindowEvents() {

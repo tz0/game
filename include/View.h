@@ -14,7 +14,7 @@ namespace tjg {
     class View {
     private:
         virtual void initialize() = 0;
-        virtual void update(const sf::Time) = 0;
+        virtual void update(sf::Time) = 0;
     protected:
         // Systems
         // All views need a physical center and control center.
@@ -31,7 +31,7 @@ namespace tjg {
 
         // Temporary for testing purposes.
         std::vector<std::shared_ptr<Entity>> walls;
-        std::vector<std::shared_ptr<Entity>> asteroids;
+        std::vector<std::shared_ptr<Entity>> fans;
 
     public:
         View(ResourceManager&);

@@ -5,13 +5,16 @@
 #include <chipmunk.h>
 #include <SFML/System/Time.hpp>
 
+#include "Components/DynamicBody.h"
+#include "Components/LinearForce.h"
 #include "System.h"
 
 namespace tjg {
     class PhysicsSystem : public System {
     private:
         cpSpace* space;
-        std::vector<std::shared_ptr<Entity>> entities;
+        std::vector<std::shared_ptr<Entity>> bodies;
+        std::vector<std::shared_ptr<Entity>> linear_forces;
     public:
         // Constructor
         PhysicsSystem();

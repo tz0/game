@@ -37,6 +37,12 @@ namespace tjg {
         sf::Sprite & GetSprite();
 
         /**
+         * Sets all associated sprites to be exactly the specified size in pixels
+         * @param size
+         */
+        void SetSize(sf::Vector2f size);
+
+        /**
          * @param frame of animation desired
          * @return the sprite associated with the specified frame of animation
          */

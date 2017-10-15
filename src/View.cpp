@@ -27,20 +27,14 @@ namespace tjg {
         walls.push_back(left_wall);
         walls.push_back(right_wall);
 
-
-        // Create many asteroids
-        // Temporary just for testing.
-        for (auto i = 0; i < 10; ++i) {
-            auto asteroid_entity = std::make_shared<Entity>();
-            asteroid_entity->AddComponent<Location>();
-            asteroid_entity->AddComponent<DynamicBody>(
-                    physics_system.GetSpace(),
-                    sf::Vector2f(floor(i / 4) * 100 + 50, 100 * (i % 4)),
-                    3,
-                    sf::Vector2f(100, 100));
-            asteroids.push_back(asteroid_entity);
-            physics_system.AddEntity(asteroid_entity);
-        }
+        fans.push_back(entity_factory.MakeFan(sf::Vector2f(0, -500), sf::Vector2f(0,0), 200, 100.0f));
+        fans.push_back(entity_factory.MakeFan(sf::Vector2f(0, 500), sf::Vector2f(0,0), 200, 100.0f));
+        fans.push_back(entity_factory.MakeFan(sf::Vector2f(500, 0), sf::Vector2f(0,0), 200, 100.0f));
+        fans.push_back(entity_factory.MakeFan(sf::Vector2f(-500, 0), sf::Vector2f(0,0), 200, 100.0f));
+        fans.push_back(entity_factory.MakeFan(sf::Vector2f(-500, -500), sf::Vector2f(0,0), 200, 100.0f));
+        fans.push_back(entity_factory.MakeFan(sf::Vector2f(500, 500), sf::Vector2f(0,0), 200, 100.0f));
+        fans.push_back(entity_factory.MakeFan(sf::Vector2f(500, -500), sf::Vector2f(0,0), 200, 100.0f));
+        fans.push_back(entity_factory.MakeFan(sf::Vector2f(-500, 500), sf::Vector2f(0,0), 200, 100.0f));
 
         // Call specific view's initialization method.
         initialize();

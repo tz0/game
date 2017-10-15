@@ -46,7 +46,7 @@ namespace tjg {
         std::shared_ptr<Entity> MakeTiledBackground(const std::string &path);
         std::shared_ptr<Entity> MakeTech17();
         std::shared_ptr<Entity> MakeEntrance(const sf::Vector2f &a);
-        std::shared_ptr<Entity> MakeFan(const sf::Vector2f &position, const sf::Vector2f &size, float rotation, float power);
+        std::shared_ptr<Entity> MakeFan(const sf::Vector2f &a, const sf::Vector2f &b, float width, float strength);
     };
 
 }
