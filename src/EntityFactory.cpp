@@ -1,7 +1,3 @@
-// Need these two lines for M_PI to work on Windows.
-#define _USE_MATH_DEFINES
-#include <cmath>
-
 #include "EntityFactory.h"
 
 namespace tjg {
@@ -424,5 +420,27 @@ namespace tjg {
     float EntityFactory::calculateDistance(sf::Vector2f p1, sf::Vector2f p2) {
         // Calculate distance between p1 and p2
         return static_cast<float>(sqrt(pow((p2.x - p1.x), 2) + pow((p2.y - p1.y), 2)));
+    }
+
+    std::shared_ptr<Entity> EntityFactory::MakeFan(const sf::Vector2f &position, const sf::Vector2f &size,
+                                                   const float rotation, const float power) {
+
+        auto texture_sheet = resource_manager.LoadTexture("spritesheet.png");
+
+        auto fan = std::make_shared<Entity>();
+        fan->AddComponent<Location>(position);
+        auto fan_sprite = fan->AddComponent<Sprite>(
+                std::vector<sf::Sprite> {
+                        // Define frames of animation
+                        sf::Sprite(*texture_sheet, sf::IntRect(234, 146, 448 - 234, 250 - 146)),
+                        sf::Sprite(*texture_sheet, sf::IntRect(234, 250, 448 - 234, 360 - 250))
+                },
+                20
+        );
+        fan->AddComponent<LinearForce>(physics_system.GetSpace(), position, size, rotation, power);
+        fan_sprite->Play(true);
+
+        return fan;
+
     }
 }

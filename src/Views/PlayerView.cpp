@@ -54,18 +54,8 @@ namespace tjg {
         }
 
         //Test of animated sprite component
-        auto fan_entity = std::make_shared<Entity>();
-        fan_entity->AddComponent<Location>(-500,500);
-        fan_entity->AddComponent<Sprite>(
-                std::vector<sf::Sprite> {
-                        // Define frames of animation
-                        sf::Sprite(*texture_sheet, sf::IntRect(234, 146, 448 - 234, 250 - 146)),
-                        sf::Sprite(*texture_sheet, sf::IntRect(234, 250, 448 - 234, 360 - 250))
-                },
-                20
-        );
-        fan_entity->GetComponent<Sprite>()->Play(true);
-        sprite_render_system.AddEntity(fan_entity);
+        auto fan = entity_factory.MakeFan(sf::Vector2f(0, 0), sf::Vector2f(100,500), 45.0f, 1000.0f);
+        sprite_render_system.AddEntity(fan);
 
 
         // Set up camera
