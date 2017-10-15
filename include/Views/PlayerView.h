@@ -11,9 +11,9 @@ namespace tjg {
     private:
         // Called by the base class Initialize/Update methods respectively
         void initialize() override;
-        void update(sf::Time) override;
+        void update(sf::Time elapsed) override;
 
-        void CheckKeys(sf::Time);
+        void CheckKeys();
         void HandleWindowEvents();
 
         sf::RenderWindow window;

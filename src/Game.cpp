@@ -18,9 +18,7 @@ namespace tjg {
 
         while (view.Running()) {
             view.Render();
-
-            sf::Time elapsed = clock.restart();
-            view.Update(elapsed);
+            view.Update();
         }
 
     }

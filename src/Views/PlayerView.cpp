@@ -7,8 +7,6 @@ namespace tjg {
             View(resource_manager),
             window(sf::VideoMode(1280, 720, 32), "Game", sf::Style::Titlebar | sf::Style::Close) {
 
-        window.setVerticalSyncEnabled(true);
-
     }
 
     void PlayerView::initialize() {
@@ -106,7 +104,7 @@ namespace tjg {
 
     // Update logic that is specific to the player view.
     void PlayerView::update(const sf::Time elapsed) {
-        CheckKeys(elapsed);
+        CheckKeys();
         HandleWindowEvents();
 
         // Example of moving the camera location
@@ -149,7 +147,7 @@ namespace tjg {
         }
     }
 
-    void PlayerView::CheckKeys(const sf::Time) {
+    void PlayerView::CheckKeys() {
         // Temporary/Example control system.
         if (sf::Keyboard::isKeyPressed(sf::Keyboard::Left)) {
             control_center.RotateCounterClockwise();

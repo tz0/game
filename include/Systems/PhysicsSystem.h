@@ -32,7 +32,7 @@ namespace tjg {
         /**
          * Updates the positions of all entities in the system, and step forward the physical simulation
          */
-        void Update(const sf::Time elapsed);
+        void Update(sf::Time elapsed);
     };
 }
 

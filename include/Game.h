@@ -19,7 +19,6 @@ namespace tjg {
 
         ResourceManager resource_manager;
         PlayerView view;
-        sf::Clock clock;
     };
 }
 #endif //GAME_H
