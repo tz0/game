@@ -1,6 +1,3 @@
-//
-// Created by erik on 10/13/17.
-//
 
 #ifndef GAME_LINEARFORCE_H
 #define GAME_LINEARFORCE_H
