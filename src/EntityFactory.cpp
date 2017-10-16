@@ -103,8 +103,10 @@ namespace tjg {
         const auto LIMB_THICKNESS = 10.0f;
         const auto LIMB_LENGTH = 40.0f;
         const auto ARM_ANGLE = M_PI / 3.0f;
-        const auto LIMB_STIFFNESS = 5000.0f; // lower = more loose
+        // The limb's range of movement = its base angle +- LIMB_ROTATION_LIMIT
+        const auto LIMB_ROTATION_LIMIT = M_PI / 10.0f;
 
+        const auto LIMB_STIFFNESS = 5000.0f; // lower = more loose
         const auto SPRITE_SCALE_FACTOR = 1.2f;
         const auto TECH17_BASE_SPRITE_LAYER = 50;
 
@@ -148,7 +150,9 @@ namespace tjg {
                 torso_body->GetBody(),
                 sf::Vector2f(0, -1 * ABS_HEIGHT / 2.0f),
                 sf::Vector2f(0, CHEST_HEIGHT / 2.0f),
-                LIMB_STIFFNESS * 10.0f);
+                LIMB_STIFFNESS * 10.0f,
+                0.0f,
+                LIMB_ROTATION_LIMIT);
         physics_system.AddEntity(abs_entity);
         tech17->AddChild(abs_entity);
 
@@ -175,7 +179,9 @@ namespace tjg {
                 torso_body->GetBody(),
                 sf::Vector2f(0, HEAD_RADIUS),
                 sf::Vector2f(0, -1 * CHEST_HEIGHT / 2.0f),
-                LIMB_STIFFNESS);
+                LIMB_STIFFNESS,
+                0.0f,
+                LIMB_ROTATION_LIMIT);
         physics_system.AddEntity(head_entity);
         tech17->AddChild(head_entity);
 
@@ -206,7 +212,8 @@ namespace tjg {
                 sf::Vector2f(-1 * CHEST_WIDTH / 2.0f, -1 * CHEST_HEIGHT / 2.0f),
                 LIMB_STIFFNESS,
                 // Set the angle to keep the arm at his side.
-                -1 * ARM_ANGLE);
+                -1 * ARM_ANGLE,
+                LIMB_ROTATION_LIMIT);
         physics_system.AddEntity(left_bicep_entity);
         tech17->AddChild(left_bicep_entity);
 
@@ -230,7 +237,8 @@ namespace tjg {
                 sf::Vector2f(-1 * LIMB_LENGTH / 2.0f, 0),
                 sf::Vector2f(CHEST_WIDTH / 2.0f, -1 * CHEST_HEIGHT / 2.0f),
                 LIMB_STIFFNESS,
-                ARM_ANGLE);
+                ARM_ANGLE,
+                LIMB_ROTATION_LIMIT);
         physics_system.AddEntity(right_bicep_entity);
         tech17->AddChild(right_bicep_entity);
 
@@ -260,7 +268,8 @@ namespace tjg {
                 sf::Vector2f(LIMB_LENGTH / 2.0f, 0),
                 sf::Vector2f(-1 * (LIMB_LENGTH / 2.0f), 0),
                 LIMB_STIFFNESS,
-                -1 * ARM_ANGLE / 2.0f);
+                -1 * ARM_ANGLE / 2.0f,
+                LIMB_ROTATION_LIMIT);
         physics_system.AddEntity(left_forearm_entity);
         tech17->AddChild(left_forearm_entity);
 
@@ -284,7 +293,8 @@ namespace tjg {
                 sf::Vector2f(-1 * (LIMB_LENGTH / 2.0f), 0),
                 sf::Vector2f(LIMB_LENGTH / 2.0f, 0),
                 LIMB_STIFFNESS,
-                ARM_ANGLE / 2.0f);
+                ARM_ANGLE / 2.0f,
+                LIMB_ROTATION_LIMIT);
         physics_system.AddEntity(right_forearm_entity);
         tech17->AddChild(right_forearm_entity);
 
@@ -312,7 +322,9 @@ namespace tjg {
                 abs_body->GetBody(),
                 sf::Vector2f(0, -1 * LIMB_LENGTH / 2.0f),
                 sf::Vector2f(-1 * ABS_WIDTH / 2.0f, ABS_HEIGHT / 2.0f),
-                LIMB_STIFFNESS);
+                LIMB_STIFFNESS,
+                0.0f,
+                LIMB_ROTATION_LIMIT);
         physics_system.AddEntity(left_thigh_entity);
         tech17->AddChild(left_thigh_entity);
 
@@ -335,7 +347,9 @@ namespace tjg {
                 abs_body->GetBody(),
                 sf::Vector2f(0, -1 * LIMB_LENGTH / 2.0f),
                 sf::Vector2f(ABS_WIDTH / 2.0f, ABS_HEIGHT / 2.0f),
-                LIMB_STIFFNESS);
+                LIMB_STIFFNESS,
+                0.0f,
+                LIMB_ROTATION_LIMIT);
         physics_system.AddEntity(right_thigh_entity);
         tech17->AddChild(right_thigh_entity);
 
@@ -364,7 +378,9 @@ namespace tjg {
                 left_thigh_body->GetBody(),
                 sf::Vector2f(0, -1 * LIMB_LENGTH / 2.0f),
                 sf::Vector2f(0, LIMB_LENGTH / 2.0f),
-                LIMB_STIFFNESS);
+                LIMB_STIFFNESS,
+                0.0f,
+                LIMB_ROTATION_LIMIT);
         physics_system.AddEntity(left_shin_entity);
         tech17->AddChild(left_shin_entity);
 
@@ -387,7 +403,9 @@ namespace tjg {
                 right_thigh_body->GetBody(),
                 sf::Vector2f(0, -1 * LIMB_LENGTH / 2.0f),
                 sf::Vector2f(0, LIMB_LENGTH / 2.0f),
-                LIMB_STIFFNESS);
+                LIMB_STIFFNESS,
+                0.0f,
+                LIMB_ROTATION_LIMIT);
         physics_system.AddEntity(right_shin_entity);
         tech17->AddChild(right_shin_entity);
 
