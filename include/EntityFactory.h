@@ -43,6 +43,7 @@ namespace tjg {
         std::shared_ptr<Entity> MakeTech17(const sf::Vector2f &a);
         std::shared_ptr<Entity> MakeEntrance(const sf::Vector2f &a);
         std::shared_ptr<Entity> MakeExit(const sf::Vector2f &a);
+        std::shared_ptr<Entity> MakeExitPoint(const sf::Vector2f &a);
     };
 
 }

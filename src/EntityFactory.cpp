@@ -89,13 +89,8 @@ namespace tjg {
  *
  * @return Tech17 Entity
  */
-<<<<<<< HEAD
     std::shared_ptr<Entity> EntityFactory::MakeTech17(const sf::Vector2f &a) {
-        auto spacesuit_texture = resource_manager.LoadTexture("spacesuit.png");
-=======
-    std::shared_ptr<Entity> EntityFactory::MakeTech17() {
         auto spacesuit_texture = resource_manager.LoadTexture("spritesheet.png");
->>>>>>> sprite-animation
         auto tech17 = std::make_shared<Entity>();
 
         tech17->AddComponent<Location>(a.x, a.y);
@@ -413,7 +408,7 @@ namespace tjg {
         auto entrance_texture = resource_manager.LoadTexture("door-1.png"); // TODO put in sprite
 //        entrance_texture->setRepeated(false);
 
-        // Add Sprite component so walls are visible
+        // Add Sprite component
         sf::Sprite entrance_sprite;
         entrance_sprite.setTexture(*entrance_texture);
         entrance_sprite.setTextureRect(sf::IntRect(0, 0, 128, 240));
@@ -424,25 +419,31 @@ namespace tjg {
 
     std::shared_ptr<Entity> EntityFactory::MakeExit(const sf::Vector2f &a) {
         // Create entrance entity.
-        auto entrance = std::make_shared<Entity>();
+        auto exit = std::make_shared<Entity>();
 
         // Add location component
-        auto entrance_location = entrance->AddComponent<Location>(a.x, a.y);
-
-        // Add static segment component
-//        entrance->AddComponent<StaticSegment>(physics_system.GetSpace(), a.x, a.y);
+        auto exit_location = exit->AddComponent<Location>(a.x, a.y);
 
         // Load entrance texture.
-        auto entrance_texture = resource_manager.LoadTexture("door-1.png"); // TODO put in sprite
-//        entrance_texture->setRepeated(false);
+        auto exit_texture = resource_manager.LoadTexture("door-1.png"); // TODO put in sprite
 
-        // Add Sprite component so walls are visible
-        sf::Sprite entrance_sprite;
-        entrance_sprite.setTexture(*entrance_texture);
-        entrance_sprite.setTextureRect(sf::IntRect(0, 0, 128, 240));
-        entrance->AddComponent<Sprite>(entrance_sprite);
+        // Add Sprite component
+        sf::Sprite exit_sprite;
+        exit_sprite.setTexture(*exit_texture);
+        exit_sprite.setTextureRect(sf::IntRect(0, 0, 128, 240));
+        exit->AddComponent<Sprite>(exit_sprite);
 
-        return entrance;
+        return exit;
+    }
+
+    std::shared_ptr<Entity> EntityFactory::MakeExitPoint(const sf::Vector2f &a) {
+        // Create entrance entity.
+        auto exitpoint = std::make_shared<Entity>();
+
+        // Add location component
+        auto exitpoint_location = exitpoint->AddComponent<Location>(a.x, a.y);
+
+        return exitpoint;
     }
 
     float EntityFactory::calculateAngle(sf::Vector2f p1, sf::Vector2f p2) {

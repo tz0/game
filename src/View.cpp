@@ -15,6 +15,7 @@ namespace tjg {
 
         entrance = entity_factory.MakeEntrance(sf::Vector2f(-500, -500));
         exit = entity_factory.MakeExit(sf::Vector2f(500, 500));
+        exitpoint = entity_factory.MakeExitPoint(sf::Vector2f(500, 500));
 
         // Create boundary walls using the entity factory.
         auto top_wall = entity_factory.MakeWall(sf::Vector2f(-800, -800), sf::Vector2f(800, -800), 40);

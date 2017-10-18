@@ -29,6 +29,7 @@ namespace tjg {
         std::shared_ptr<Entity> tech17;
         std::shared_ptr<Entity> entrance;
         std::shared_ptr<Entity> exit;
+        std::shared_ptr<Entity> exitpoint;
 
         // Temporary for testing purposes.
         std::vector<std::shared_ptr<Entity>> walls;
