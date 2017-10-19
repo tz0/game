@@ -10,18 +10,18 @@ namespace tjg {
 
     void View::Initialize() {
 
-        tech17 = entity_factory.MakeTech17(sf::Vector2f(-500, -500));
+        tech17 = entity_factory.MakeTech17(sf::Vector2f(0, 0));
         control_center.AddEntity(tech17);
 
-        entrance = entity_factory.MakeEntrance(sf::Vector2f(-500, -500));
-        exit = entity_factory.MakeExit(sf::Vector2f(500, 500));
-        exitpoint = entity_factory.MakeExitPoint(sf::Vector2f(500, 500));
+        entrance = entity_factory.MakeEntrance(sf::Vector2f(0, 0));
+        exit = entity_factory.MakeExit(sf::Vector2f(1000, 1000));
+        exitpoint = entity_factory.MakeExitPoint(sf::Vector2f(1000, 1000));
 
         // Create boundary walls using the entity factory.
-        auto top_wall = entity_factory.MakeWall(sf::Vector2f(-800, -800), sf::Vector2f(800, -800), 40);
-        auto bottom_wall = entity_factory.MakeWall(sf::Vector2f(800, 800), sf::Vector2f(-800, 800), 40);
-        auto left_wall = entity_factory.MakeWall(sf::Vector2f(-800, 800), sf::Vector2f(-800, -800), 40);
-        auto right_wall = entity_factory.MakeWall(sf::Vector2f(800, -800), sf::Vector2f(800, 800), 40);
+        auto top_wall = entity_factory.MakeWall(sf::Vector2f(-300, -300), sf::Vector2f(1300, -300), 40);
+        auto bottom_wall = entity_factory.MakeWall(sf::Vector2f(1300, 1300), sf::Vector2f(-300, 1300), 40);
+        auto left_wall = entity_factory.MakeWall(sf::Vector2f(-300, 1300), sf::Vector2f(-300, -300), 40);
+        auto right_wall = entity_factory.MakeWall(sf::Vector2f(1300, -300), sf::Vector2f(1300, 1300), 40);
 
         // Add the walls to the entities vector.
         walls.push_back(top_wall);
