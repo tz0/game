@@ -31,7 +31,7 @@ namespace tjg {
 
         // Temporary for testing purposes.
         std::vector<std::shared_ptr<Entity>> walls;
-        std::vector<std::shared_ptr<Entity>> asteroids;
+        std::vector<std::shared_ptr<Entity>> fans;
 
         // Used for fixed time step
         sf::Clock physics_clock;

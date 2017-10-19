@@ -4,8 +4,8 @@ namespace tjg {
 
     void SpriteRenderSystem::renderEntity(sf::RenderTarget &target, std::shared_ptr<Entity> entity) {
         auto location_component = entity->GetComponent<Location>();
-        auto position = location_component ? location_component->getPosition() : sf::Vector2f(0, 0);
-        auto rotation = location_component ? location_component->getRotation() : 0.0f;
+        auto position = location_component ? location_component->GetPosition() : sf::Vector2f(0, 0);
+        auto rotation = location_component ? location_component->GetRotation() : 0.0f;
         auto sprite = entity->GetComponent<Sprite>()->GetSprite();
         sprite.setPosition(position);
         sprite.setRotation(rotation);

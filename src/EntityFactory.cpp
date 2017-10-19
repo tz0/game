@@ -1,7 +1,3 @@
-// Need these two lines for M_PI to work on Windows.
-#define _USE_MATH_DEFINES
-#include <cmath>
-
 #include "EntityFactory.h"
 
 namespace tjg {
@@ -12,7 +8,7 @@ namespace tjg {
 
         // Add location component
         auto wall_location = wall->AddComponent<Location>((a.x + b.x) / 2.0f, (a.y + b.y) / 2.0f);
-        wall_location->setRotation(calculateAngle(a, b));
+        wall_location->SetRotation(calculateAngle(a, b));
 
         // Add static segment component
         wall->AddComponent<StaticSegment>(physics_system.GetSpace(), a.x, a.y, b.x, b.y, width);
@@ -442,5 +438,31 @@ namespace tjg {
     float EntityFactory::calculateDistance(sf::Vector2f p1, sf::Vector2f p2) {
         // Calculate distance between p1 and p2
         return static_cast<float>(sqrt(pow((p2.x - p1.x), 2) + pow((p2.y - p1.y), 2)));
+    }
+
+    std::shared_ptr<Entity> EntityFactory::MakeFan(const sf::Vector2f &a, const sf::Vector2f &b, const float width, const float strength) {
+
+        auto texture_sheet = resource_manager.LoadTexture("spritesheet.png");
+
+        auto fan = std::make_shared<Entity>();
+        auto fan_location = fan->AddComponent<Location>(a);
+        // Set the rotation so that it is aiming from A to B.
+        fan_location->SetRotation(static_cast<float>(atan2(b.y - a.y, b.x - a.x)) * 180.0f / M_PI + 90.0f);
+        auto fan_sprite = fan->AddComponent<Sprite>(
+                std::vector<sf::Sprite> {
+                        // Define frames of animation
+                        sf::Sprite(*texture_sheet, sf::IntRect(234, 146, 448 - 234, 250 - 146)),
+                        sf::Sprite(*texture_sheet, sf::IntRect(234, 250, 448 - 234, 360 - 250))
+                },
+                20
+        );
+        // Set the size and start the animation
+        fan_sprite->SetSize(sf::Vector2f(width, width / 2.0f));
+        fan_sprite->Play(true);
+        fan->AddComponent<LinearForce>(physics_system.GetSpace(), a, b, width, strength);
+        physics_system.AddEntity(fan);
+
+        return fan;
+
     }
 }

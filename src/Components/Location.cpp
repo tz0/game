@@ -11,19 +11,19 @@ namespace tjg {
         rotation = 0.f;
     }
 
-    float Location::getRotation() {
+    float Location::GetRotation() {
         return rotation;
     }
 
-    void Location::setRotation(float degrees) {
+    void Location::SetRotation(float degrees) {
         this->rotation = degrees;
     }
 
-    sf::Vector2f Location::getPosition() {
+    sf::Vector2f Location::GetPosition() {
         return position;
     }
 
-    void Location::setPosition(sf::Vector2f position) {
+    void Location::SetPosition(sf::Vector2f position) {
         this->position = position;
     }
 }

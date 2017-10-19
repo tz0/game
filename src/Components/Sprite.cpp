@@ -12,11 +12,11 @@ namespace tjg {
     }
 
     Sprite::Sprite(std::vector<sf::Sprite> frames, const int frame_delay, const int layer) {
-        this->frames = frames;
+        this->frames = std::move(frames);
         this->layer = layer;
         this->frame_delay = frame_delay;
         // Center each frame on the origin
-        for (auto frame : this->frames) {
+        for (auto &frame : this->frames) {
             auto bounds = frame.getLocalBounds();
             frame.setOrigin(bounds.width / 2.0f, bounds.height / 2.0f);
         }
@@ -59,5 +59,12 @@ namespace tjg {
 
     int Sprite::GetLayer() {
         return layer;
+    }
+
+    void Sprite::SetSize(sf::Vector2f size) {
+        for (auto &sprite : frames) {
+            auto sprite_size = sf::Vector2f(sprite.getTextureRect().width, sprite.getTextureRect().height);
+            sprite.setScale(size.x / sprite_size.x, size.y / sprite_size.y);
+        }
     }
 }
