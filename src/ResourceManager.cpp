@@ -5,6 +5,26 @@ namespace tjg {
  * @param resource_root Path to resources root folder
  */
     ResourceManager::ResourceManager(const std::string &resource_root) {
+
+        // Generate placeholder image with checkerboard pattern
+        sf::Image placeholder_image;
+        placeholder_image.create(8, 8, sf::Color::Red);
+        for (int x = 0; x < 4; x++) {
+            for (int y = 0; y < 4; y++) {
+                placeholder_image.setPixel(x, y, sf::Color::White);
+                placeholder_image.setPixel(x + 4, y + 4, sf::Color::Blue);
+            }
+        }
+
+        // Load the placeholder texture from the placeholder image generated above.
+        textures[placeholder] = std::make_shared<sf::Texture>();
+        textures[placeholder]->loadFromImage(placeholder_image);
+        textures[placeholder]->setRepeated(true);
+
+        sounds[placeholder] = std::make_shared<sf::SoundBuffer>();
+
+        fonts[placeholder] = std::make_shared<sf::Font>();
+
         this->resource_root = resource_root;
     }
 
