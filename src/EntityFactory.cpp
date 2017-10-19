@@ -436,16 +436,6 @@ namespace tjg {
         return exit;
     }
 
-    std::shared_ptr<Entity> EntityFactory::MakeExitPoint(const sf::Vector2f &a) {
-        // Create entrance entity.
-        auto exitpoint = std::make_shared<Entity>();
-
-        // Add location component
-        auto exitpoint_location = exitpoint->AddComponent<Location>(a.x, a.y);
-
-        return exitpoint;
-    }
-
     float EntityFactory::calculateAngle(sf::Vector2f p1, sf::Vector2f p2) {
         // Calculate the angle between p1 and p2
         double deltaY = p1.y - p2.y;

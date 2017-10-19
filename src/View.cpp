@@ -15,7 +15,6 @@ namespace tjg {
 
         entrance = entity_factory.MakeEntrance(sf::Vector2f(0, 0));
         exit = entity_factory.MakeExit(sf::Vector2f(1000, 1000));
-        exitpoint = entity_factory.MakeExitPoint(sf::Vector2f(1000, 1000));
 
         // Create boundary walls using the entity factory.
         auto top_wall = entity_factory.MakeWall(sf::Vector2f(-300, -300), sf::Vector2f(1300, -300), 40);
@@ -54,8 +53,8 @@ namespace tjg {
     }
     //Naive solution
     bool View::DidReachExit() {
-        if (!did_exit && std::abs(tech17->GetComponent<Location>()->getPosition().x - exitpoint->GetComponent<Location>()->getPosition().x) < 30 &&
-                std::abs(tech17->GetComponent<Location>()->getPosition().y - exitpoint->GetComponent<Location>()->getPosition().y) < 30){
+        if (!did_exit && std::abs(tech17->GetComponent<Location>()->getPosition().x - exit->GetComponent<Location>()->getPosition().x) < 30 &&
+                std::abs(tech17->GetComponent<Location>()->getPosition().y - exit->GetComponent<Location>()->getPosition().y) < 30){
             printf("Reached Exit!\n");
             did_exit = true;
         }
