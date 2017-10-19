@@ -81,7 +81,12 @@ endif()
 # C++ Options #
 ###############
 # Enable C++11
-set(CMAKE_CXX_FLAGS "${CMAKE_CXX_FLAGS} -std=c++11 -Wall -Wextra")
+# Change compiler flag for MSVC, do not check other compiler type.
+if(MSVC)
+  set(CMAKE_CXX_FLAGS "${CMAKE_CXX_FLAGS} -std=c++11")
+else()
+  set(CMAKE_CXX_FLAGS "${CMAKE_CXX_FLAGS} -std=c++11 -Wall -Wextra")
+endif()
 
 # determine build type
 # 1) use build type if specified by the user.

@@ -1,7 +1,3 @@
-// Need these two lines for M_PI to work on Windows.
-#define _USE_MATH_DEFINES
-#include <cmath>
-
 #include "EntityFactory.h"
 
 namespace tjg {
@@ -12,7 +8,7 @@ namespace tjg {
 
         // Add location component
         auto wall_location = wall->AddComponent<Location>((a.x + b.x) / 2.0f, (a.y + b.y) / 2.0f);
-        wall_location->setRotation(calculateAngle(a, b));
+        wall_location->SetRotation(calculateAngle(a, b));
 
         // Add static segment component
         wall->AddComponent<StaticSegment>(physics_system.GetSpace(), a.x, a.y, b.x, b.y, width);
@@ -89,7 +85,7 @@ namespace tjg {
  *
  * @return Tech17 Entity
  */
-    std::shared_ptr<Entity> EntityFactory::MakeTech17(const sf::Vector2f &a) {
+        std::shared_ptr<Entity> EntityFactory::MakeTech17() {
         auto spacesuit_texture = resource_manager.LoadTexture("spritesheet.png");
         auto tech17 = std::make_shared<Entity>();
 
@@ -103,8 +99,10 @@ namespace tjg {
         const auto LIMB_THICKNESS = 10.0f;
         const auto LIMB_LENGTH = 40.0f;
         const auto ARM_ANGLE = M_PI / 3.0f;
-        const auto LIMB_STIFFNESS = 5000.0f; // lower = more loose
+        // The limb's range of movement = its base angle +- LIMB_ROTATION_LIMIT
+        const auto LIMB_ROTATION_LIMIT = M_PI / 10.0f;
 
+        const auto LIMB_STIFFNESS = 5000.0f; // lower = more loose
         const auto SPRITE_SCALE_FACTOR = 1.2f;
         const auto TECH17_BASE_SPRITE_LAYER = 50;
 
@@ -148,7 +146,9 @@ namespace tjg {
                 torso_body->GetBody(),
                 sf::Vector2f(0, -1 * ABS_HEIGHT / 2.0f),
                 sf::Vector2f(0, CHEST_HEIGHT / 2.0f),
-                LIMB_STIFFNESS * 10.0f);
+                LIMB_STIFFNESS * 10.0f,
+                0.0f,
+                LIMB_ROTATION_LIMIT);
         physics_system.AddEntity(abs_entity);
         tech17->AddChild(abs_entity);
 
@@ -175,7 +175,9 @@ namespace tjg {
                 torso_body->GetBody(),
                 sf::Vector2f(0, HEAD_RADIUS),
                 sf::Vector2f(0, -1 * CHEST_HEIGHT / 2.0f),
-                LIMB_STIFFNESS);
+                LIMB_STIFFNESS,
+                0.0f,
+                LIMB_ROTATION_LIMIT);
         physics_system.AddEntity(head_entity);
         tech17->AddChild(head_entity);
 
@@ -206,7 +208,8 @@ namespace tjg {
                 sf::Vector2f(-1 * CHEST_WIDTH / 2.0f, -1 * CHEST_HEIGHT / 2.0f),
                 LIMB_STIFFNESS,
                 // Set the angle to keep the arm at his side.
-                -1 * ARM_ANGLE);
+                -1 * ARM_ANGLE,
+                LIMB_ROTATION_LIMIT);
         physics_system.AddEntity(left_bicep_entity);
         tech17->AddChild(left_bicep_entity);
 
@@ -230,7 +233,8 @@ namespace tjg {
                 sf::Vector2f(-1 * LIMB_LENGTH / 2.0f, 0),
                 sf::Vector2f(CHEST_WIDTH / 2.0f, -1 * CHEST_HEIGHT / 2.0f),
                 LIMB_STIFFNESS,
-                ARM_ANGLE);
+                ARM_ANGLE,
+                LIMB_ROTATION_LIMIT);
         physics_system.AddEntity(right_bicep_entity);
         tech17->AddChild(right_bicep_entity);
 
@@ -260,7 +264,8 @@ namespace tjg {
                 sf::Vector2f(LIMB_LENGTH / 2.0f, 0),
                 sf::Vector2f(-1 * (LIMB_LENGTH / 2.0f), 0),
                 LIMB_STIFFNESS,
-                -1 * ARM_ANGLE / 2.0f);
+                -1 * ARM_ANGLE / 2.0f,
+                LIMB_ROTATION_LIMIT);
         physics_system.AddEntity(left_forearm_entity);
         tech17->AddChild(left_forearm_entity);
 
@@ -284,7 +289,8 @@ namespace tjg {
                 sf::Vector2f(-1 * (LIMB_LENGTH / 2.0f), 0),
                 sf::Vector2f(LIMB_LENGTH / 2.0f, 0),
                 LIMB_STIFFNESS,
-                ARM_ANGLE / 2.0f);
+                ARM_ANGLE / 2.0f,
+                LIMB_ROTATION_LIMIT);
         physics_system.AddEntity(right_forearm_entity);
         tech17->AddChild(right_forearm_entity);
 
@@ -312,7 +318,9 @@ namespace tjg {
                 abs_body->GetBody(),
                 sf::Vector2f(0, -1 * LIMB_LENGTH / 2.0f),
                 sf::Vector2f(-1 * ABS_WIDTH / 2.0f, ABS_HEIGHT / 2.0f),
-                LIMB_STIFFNESS);
+                LIMB_STIFFNESS,
+                0.0f,
+                LIMB_ROTATION_LIMIT);
         physics_system.AddEntity(left_thigh_entity);
         tech17->AddChild(left_thigh_entity);
 
@@ -335,7 +343,9 @@ namespace tjg {
                 abs_body->GetBody(),
                 sf::Vector2f(0, -1 * LIMB_LENGTH / 2.0f),
                 sf::Vector2f(ABS_WIDTH / 2.0f, ABS_HEIGHT / 2.0f),
-                LIMB_STIFFNESS);
+                LIMB_STIFFNESS,
+                0.0f,
+                LIMB_ROTATION_LIMIT);
         physics_system.AddEntity(right_thigh_entity);
         tech17->AddChild(right_thigh_entity);
 
@@ -364,7 +374,9 @@ namespace tjg {
                 left_thigh_body->GetBody(),
                 sf::Vector2f(0, -1 * LIMB_LENGTH / 2.0f),
                 sf::Vector2f(0, LIMB_LENGTH / 2.0f),
-                LIMB_STIFFNESS);
+                LIMB_STIFFNESS,
+                0.0f,
+                LIMB_ROTATION_LIMIT);
         physics_system.AddEntity(left_shin_entity);
         tech17->AddChild(left_shin_entity);
 
@@ -387,7 +399,9 @@ namespace tjg {
                 right_thigh_body->GetBody(),
                 sf::Vector2f(0, -1 * LIMB_LENGTH / 2.0f),
                 sf::Vector2f(0, LIMB_LENGTH / 2.0f),
-                LIMB_STIFFNESS);
+                LIMB_STIFFNESS,
+                0.0f,
+                LIMB_ROTATION_LIMIT);
         physics_system.AddEntity(right_shin_entity);
         tech17->AddChild(right_shin_entity);
 
@@ -401,14 +415,10 @@ namespace tjg {
         // Add location component
         auto entrance_location = entrance->AddComponent<Location>(a.x, a.y);
 
-        // Add static segment component
-//        entrance->AddComponent<StaticSegment>(physics_system.GetSpace(), a.x, a.y);
-
         // Load entrance texture.
         auto entrance_texture = resource_manager.LoadTexture("door-1.png"); // TODO put in sprite
-//        entrance_texture->setRepeated(false);
 
-        // Add Sprite component
+        // Add Sprite component so walls are visible
         sf::Sprite entrance_sprite;
         entrance_sprite.setTexture(*entrance_texture);
         entrance_sprite.setTextureRect(sf::IntRect(0, 0, 128, 240));
@@ -447,5 +457,31 @@ namespace tjg {
     float EntityFactory::calculateDistance(sf::Vector2f p1, sf::Vector2f p2) {
         // Calculate distance between p1 and p2
         return static_cast<float>(sqrt(pow((p2.x - p1.x), 2) + pow((p2.y - p1.y), 2)));
+    }
+
+    std::shared_ptr<Entity> EntityFactory::MakeFan(const sf::Vector2f &a, const sf::Vector2f &b, const float width, const float strength) {
+
+        auto texture_sheet = resource_manager.LoadTexture("spritesheet.png");
+
+        auto fan = std::make_shared<Entity>();
+        auto fan_location = fan->AddComponent<Location>(a);
+        // Set the rotation so that it is aiming from A to B.
+        fan_location->SetRotation(static_cast<float>(atan2(b.y - a.y, b.x - a.x)) * 180.0f / M_PI + 90.0f);
+        auto fan_sprite = fan->AddComponent<Sprite>(
+                std::vector<sf::Sprite> {
+                        // Define frames of animation
+                        sf::Sprite(*texture_sheet, sf::IntRect(234, 146, 448 - 234, 250 - 146)),
+                        sf::Sprite(*texture_sheet, sf::IntRect(234, 250, 448 - 234, 360 - 250))
+                },
+                20
+        );
+        // Set the size and start the animation
+        fan_sprite->SetSize(sf::Vector2f(width, width / 2.0f));
+        fan_sprite->Play(true);
+        fan->AddComponent<LinearForce>(physics_system.GetSpace(), a, b, width, strength);
+        physics_system.AddEntity(fan);
+
+        return fan;
+
     }
 }

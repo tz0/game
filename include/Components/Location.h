@@ -18,10 +18,10 @@ namespace tjg {
         explicit Location(sf::Vector2f pos);
         Location(float x, float y);
         // Accessors
-        float getRotation();
-        void setRotation(float degrees);
-        sf::Vector2f getPosition();
-        void setPosition(sf::Vector2f position);
+        float GetRotation();
+        void SetRotation(float degrees);
+        sf::Vector2f GetPosition();
+        void SetPosition(sf::Vector2f position);
     };
 
 }

@@ -7,8 +7,6 @@ namespace tjg {
             View(resource_manager),
             window(sf::VideoMode(1280, 720, 32), "Game", sf::Style::Titlebar | sf::Style::Close) {
 
-        window.setVerticalSyncEnabled(true);
-
     }
 
     void PlayerView::initialize() {
@@ -40,40 +38,15 @@ namespace tjg {
         // Make background
         sprite_render_system.AddEntity(entity_factory.MakeTiledBackground("background.png"));
 
-
-        // Load asteroid texture.
-        auto texture_sheet = resource_manager.LoadTexture("texturesheet.png");
-//        sf::Sprite asteroid_sprite;
-//        asteroid_sprite.setTexture(*texture_sheet);
-//        asteroid_sprite.setTextureRect(sf::IntRect(1, 1, 160, 150));
-//        auto asteroid_bounds = asteroid_sprite.getGlobalBounds();
-//        // Add all asteroids to the sprite render system.
-//        for (auto asteroid : asteroids) {
-//            asteroid->AddComponent<Sprite>(asteroid_sprite);
-//            asteroid->GetComponent<Sprite>()->GetSprite().setScale(100.0f / asteroid_bounds.width, 100.0f / asteroid_bounds.height);
-//            sprite_render_system.AddEntity(asteroid);
-//        }
-
         // temp Set font for win message
         win_message.setFont(*avenir_bold);
         win_message.setStyle(sf::Text::Bold);
         win_message.setCharacterSize(24);
         win_message.setString("You Reached the Exit!");
 
-
-        //Test of animated sprite component
-        auto fan_entity = std::make_shared<Entity>();
-        fan_entity->AddComponent<Location>(-500,500);
-        fan_entity->AddComponent<Sprite>(
-                std::vector<sf::Sprite> {
-                        // Define frames of animation
-                        sf::Sprite(*texture_sheet, sf::IntRect(234, 146, 448 - 234, 250 - 146)),
-                        sf::Sprite(*texture_sheet, sf::IntRect(234, 250, 448 - 234, 360 - 250))
-                },
-                20
-        );
-        fan_entity->GetComponent<Sprite>()->Play(true);
-        sprite_render_system.AddEntity(fan_entity);
+        for (auto &fan : fans) {
+            sprite_render_system.AddEntity(fan);
+        }
 
 
         // Set up camera
@@ -114,11 +87,11 @@ namespace tjg {
 
     // Update logic that is specific to the player view.
     void PlayerView::update(const sf::Time elapsed) {
-        CheckKeys(elapsed);
+        CheckKeys();
         HandleWindowEvents();
 
         // Example of moving the camera location
-        camera.setCenter(camera.getCenter() * 0.99f + tech17->GetComponent<Location>()->getPosition() * 0.01f);
+        camera.setCenter(camera.getCenter() * 0.99f + tech17->GetComponent<Location>()->GetPosition() * 0.01f);
     }
 
     void PlayerView::HandleWindowEvents() {
@@ -157,7 +130,7 @@ namespace tjg {
         }
     }
 
-    void PlayerView::CheckKeys(const sf::Time) {
+    void PlayerView::CheckKeys() {
         // Temporary/Example control system.
         if (sf::Keyboard::isKeyPressed(sf::Keyboard::Left)) {
             control_center.RotateCounterClockwise();

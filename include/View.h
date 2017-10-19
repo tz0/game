@@ -14,7 +14,7 @@ namespace tjg {
     class View {
     private:
         virtual void initialize() = 0;
-        virtual void update(const sf::Time) = 0;
+        virtual void update(sf::Time) = 0;
     protected:
         // Systems
         // All views need a physical center and control center.
@@ -29,11 +29,14 @@ namespace tjg {
         std::shared_ptr<Entity> tech17;
         std::shared_ptr<Entity> entrance;
         std::shared_ptr<Entity> exit;
+        bool did_exit = false;
 
         // Temporary for testing purposes.
         std::vector<std::shared_ptr<Entity>> walls;
-        std::vector<std::shared_ptr<Entity>> asteroids;
-        bool did_exit = false;
+        std::vector<std::shared_ptr<Entity>> fans;
+
+        // Used for fixed time step
+        sf::Clock physics_clock;
 
     public:
         View(ResourceManager&);
@@ -46,7 +49,7 @@ namespace tjg {
         /**
          * Update will cause the physical center to be updated.
          */
-        void Update(const sf::Time);
+        void Update();
 
         /**
          * @return whether the view is still running

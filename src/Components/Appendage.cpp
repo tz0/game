@@ -3,21 +3,27 @@
 namespace tjg {
 
     Appendage::Appendage(cpSpace *space, cpBody *bodyA, cpBody *bodyB, const sf::Vector2f &offsetA,
-                              const sf::Vector2f &offsetB, const float stiffness, const float restAngle) {
+                         const sf::Vector2f &offsetB, const float stiffness, const float rest_angle,
+                         const double limit_amount) {
 
-        spring = cpDampedRotarySpringNew(bodyA, bodyB, restAngle, stiffness, 1000);
+        // Setup spring rotary joint
+        spring = cpDampedRotarySpringNew(bodyA, bodyB, rest_angle, stiffness, 5000);
         cpSpaceAddConstraint(space, spring);
 
+        // Setup pivot joint
         pivot = cpPivotJointNew2(bodyA, bodyB, cpv(offsetA.x, offsetA.y), cpv(offsetB.x, offsetB.y));
         cpConstraintSetCollideBodies(pivot, cpFalse);
         cpSpaceAddConstraint(space, pivot);
 
-        // TODO: Add rotary limit joint
+        // Setup rotation limiter
+        limiter = cpRotaryLimitJointNew(bodyB, bodyA, rest_angle - limit_amount, rest_angle + limit_amount);
+        cpSpaceAddConstraint(space, limiter);
     }
 
     Appendage::~Appendage() {
         cpConstraintFree(pivot);
         cpConstraintFree(spring);
+        cpConstraintFree(limiter);
     }
 
     cpConstraint *Appendage::GetPivot() {
@@ -26,5 +32,9 @@ namespace tjg {
 
     cpConstraint *Appendage::GetSpring() {
         return spring;
+    }
+
+    cpConstraint* Appendage::GetLimiter() {
+        return limiter;
     }
 }
