@@ -10,7 +10,7 @@ namespace tjg {
 
     void View::Initialize() {
 
-        tech17 = entity_factory.MakeTech17(sf::Vector2f(0, 0));
+        tech17 = entity_factory.MakeTech17();
         control_center.AddEntity(tech17);
 
         entrance = entity_factory.MakeEntrance(sf::Vector2f(0, 0));
@@ -52,8 +52,8 @@ namespace tjg {
     }
     //Naive solution
     bool View::DidReachExit() {
-        if (!did_exit && std::abs(tech17->GetComponent<Location>()->getPosition().x - exit->GetComponent<Location>()->getPosition().x) < 30 &&
-                std::abs(tech17->GetComponent<Location>()->getPosition().y - exit->GetComponent<Location>()->getPosition().y) < 30){
+        if (!did_exit && std::abs(tech17->GetComponent<Location>()->GetPosition().x - exit->GetComponent<Location>()->GetPosition().x) < 30 &&
+                std::abs(tech17->GetComponent<Location>()->GetPosition().y - exit->GetComponent<Location>()->GetPosition().y) < 30){
             printf("Reached Exit!\n");
             did_exit = true;
         }

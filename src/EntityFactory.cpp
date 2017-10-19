@@ -89,7 +89,7 @@ namespace tjg {
         auto spacesuit_texture = resource_manager.LoadTexture("spritesheet.png");
         auto tech17 = std::make_shared<Entity>();
 
-        tech17->AddComponent<Location>(a.x, a.y);
+        tech17->AddComponent<Location>();
 
         const auto CHEST_WIDTH = 50.0f;
         const auto CHEST_HEIGHT = 40.0f;

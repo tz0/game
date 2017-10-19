@@ -19,13 +19,10 @@ namespace tjg {
         while (view.Running()) {
             if(!view.DidReachExit()) {
                 view.Render();
-
-                sf::Time elapsed = clock.restart();
-                view.Update(elapsed);
+                view.Update();
             } else {
                 view.RenderWinMessage();
-                sf::Time elapsed = clock.restart();
-                view.Update(elapsed);
+                view.Update();
             }
         }
 
