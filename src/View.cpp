@@ -52,5 +52,13 @@ namespace tjg {
         physics_system.Update(elapsed);
         update(elapsed);
     }
-
+    //Naive solution
+    bool View::DidReachExit() {
+        if (!did_exit && std::abs(tech17->GetComponent<Location>()->getPosition().x - exitpoint->GetComponent<Location>()->getPosition().x) < 30 &&
+                std::abs(tech17->GetComponent<Location>()->getPosition().y - exitpoint->GetComponent<Location>()->getPosition().y) < 30){
+            printf("Reached Exit!\n");
+            did_exit = true;
+        }
+        return did_exit;
+    }
 }

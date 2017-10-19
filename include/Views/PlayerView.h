@@ -26,6 +26,7 @@ namespace tjg {
         int frames_drawn = 0;
         bool show_info = true;
         sf::Text info;
+        sf::Text win_message;
 
         bool running = true;
 
@@ -36,6 +37,7 @@ namespace tjg {
         // Methods
         void Render();
         bool Running() override;
+        void RenderWinMessage(); //temp
     };
 
 }

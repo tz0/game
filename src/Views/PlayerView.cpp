@@ -54,6 +54,11 @@ namespace tjg {
 //            sprite_render_system.AddEntity(asteroid);
 //        }
 
+        // temp Set font for win message
+        win_message.setFont(*avenir_bold);
+        win_message.setStyle(sf::Text::Bold);
+        win_message.setCharacterSize(24);
+
 
         //Test of animated sprite component
         auto fan_entity = std::make_shared<Entity>();
@@ -168,6 +173,13 @@ namespace tjg {
             // Set body back to its normal color.
             control_center.GetPlayerEntity()->GetComponent<Sprite>()->GetSprite().setColor(sf::Color(255, 255, 255));
         }
+    }
+
+    void PlayerView::RenderWinMessage() {
+        window.clear(sf::Color(50, 50, 50, 255));
+        win_message.setString("You Reached the Exit!");
+        window.draw(win_message);
+        window.display();
     }
 
 }

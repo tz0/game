@@ -17,10 +17,14 @@ namespace tjg {
         view.Initialize();
 
         while (view.Running()) {
-            view.Render();
+            if(!view.DidReachExit()) {
+                view.Render();
 
-            sf::Time elapsed = clock.restart();
-            view.Update(elapsed);
+                sf::Time elapsed = clock.restart();
+                view.Update(elapsed);
+            } else {
+                view.RenderWinMessage();
+            }
         }
 
     }

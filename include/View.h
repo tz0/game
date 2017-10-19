@@ -34,6 +34,7 @@ namespace tjg {
         // Temporary for testing purposes.
         std::vector<std::shared_ptr<Entity>> walls;
         std::vector<std::shared_ptr<Entity>> asteroids;
+        bool did_exit = false;
 
     public:
         View(ResourceManager&);
@@ -52,6 +53,11 @@ namespace tjg {
          * @return whether the view is still running
          */
         virtual bool Running() = 0;
+
+        /**
+         * @return if tech17 reach the exit
+         */
+        bool DidReachExit();
 
     };
 
