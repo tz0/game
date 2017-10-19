@@ -5,7 +5,6 @@ namespace tjg {
     View::View(ResourceManager &resource_manager) :
             resource_manager(resource_manager),
             entity_factory(resource_manager, physics_system) {
-
     }
 
     void View::Initialize() {
@@ -44,9 +43,8 @@ namespace tjg {
     void View::Update() {
         auto elapsed = physics_clock.getElapsedTime();
         if (elapsed.asSeconds() > 1.f/60.f) {
-            std::cout << elapsed.asSeconds() << std::endl;
             physics_system.Update(elapsed);
-            update(elapsed);
+            update();
             physics_clock.restart();
         }
     }

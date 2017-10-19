@@ -6,7 +6,7 @@ namespace tjg {
     PlayerView::PlayerView(ResourceManager &resource_manager) :
             View(resource_manager),
             window(sf::VideoMode(1280, 720, 32), "Game", sf::Style::Titlebar | sf::Style::Close) {
-
+            window.setVerticalSyncEnabled(true);
     }
 
     void PlayerView::initialize() {
@@ -44,15 +44,14 @@ namespace tjg {
         win_message.setCharacterSize(24);
         win_message.setString("You Reached the Exit!");
 
+        // Add fans to sprite render system.
         for (auto &fan : fans) {
             sprite_render_system.AddEntity(fan);
         }
 
-
         // Set up camera
         camera.setCenter(0, 0);
         camera.setSize(1600, 1200);
-
     }
 
     bool PlayerView::Running() {
@@ -86,7 +85,7 @@ namespace tjg {
     }
 
     // Update logic that is specific to the player view.
-    void PlayerView::update(const sf::Time elapsed) {
+    void PlayerView::update() {
         CheckKeys();
         HandleWindowEvents();
 

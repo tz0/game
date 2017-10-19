@@ -2,6 +2,11 @@
 #ifndef GAME_APPENDAGE_H
 #define GAME_APPENDAGE_H
 
+// Make M_PI work on Windows.
+#ifndef M_PI
+    #define M_PI 3.14159265358979323846
+#endif
+
 #include "Component.h"
 #include <chipmunk.h>
 #include <SFML/Audio.hpp>
