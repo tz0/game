@@ -24,6 +24,8 @@ namespace tjg {
                 view.Update(elapsed);
             } else {
                 view.RenderWinMessage();
+                sf::Time elapsed = clock.restart();
+                view.Update(elapsed);
             }
         }
 

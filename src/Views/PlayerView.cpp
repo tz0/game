@@ -58,6 +58,7 @@ namespace tjg {
         win_message.setFont(*avenir_bold);
         win_message.setStyle(sf::Text::Bold);
         win_message.setCharacterSize(24);
+        win_message.setString("You Reached the Exit!");
 
 
         //Test of animated sprite component
@@ -176,8 +177,9 @@ namespace tjg {
     }
 
     void PlayerView::RenderWinMessage() {
+        window.setView(window.getDefaultView());
+
         window.clear(sf::Color(50, 50, 50, 255));
-        win_message.setString("You Reached the Exit!");
         window.draw(win_message);
         window.display();
     }
