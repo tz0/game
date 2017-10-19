@@ -85,11 +85,11 @@ namespace tjg {
  *
  * @return Tech17 Entity
  */
-    std::shared_ptr<Entity> EntityFactory::MakeTech17() {
+        std::shared_ptr<Entity> EntityFactory::MakeTech17() {
         auto spacesuit_texture = resource_manager.LoadTexture("spritesheet.png");
         auto tech17 = std::make_shared<Entity>();
 
-        tech17->AddComponent<Location>();
+        tech17->AddComponent<Location>(a.x, a.y);
 
         const auto CHEST_WIDTH = 50.0f;
         const auto CHEST_HEIGHT = 40.0f;
@@ -425,6 +425,25 @@ namespace tjg {
         entrance->AddComponent<Sprite>(entrance_sprite);
 
         return entrance;
+    }
+
+    std::shared_ptr<Entity> EntityFactory::MakeExit(const sf::Vector2f &a) {
+        // Create entrance entity.
+        auto exit = std::make_shared<Entity>();
+
+        // Add location component
+        auto exit_location = exit->AddComponent<Location>(a.x, a.y);
+
+        // Load entrance texture.
+        auto exit_texture = resource_manager.LoadTexture("door-1.png"); // TODO put in sprite
+
+        // Add Sprite component
+        sf::Sprite exit_sprite;
+        exit_sprite.setTexture(*exit_texture);
+        exit_sprite.setTextureRect(sf::IntRect(0, 0, 128, 240));
+        exit->AddComponent<Sprite>(exit_sprite);
+
+        return exit;
     }
 
     float EntityFactory::calculateAngle(sf::Vector2f p1, sf::Vector2f p2) {

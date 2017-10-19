@@ -11,9 +11,11 @@ namespace tjg {
     private:
         // Called by the base class Initialize/Update methods respectively
         void initialize() override;
+
         void update(sf::Time elapsed) override;
 
         void CheckKeys();
+
         void HandleWindowEvents();
 
         sf::RenderWindow window;
@@ -26,6 +28,7 @@ namespace tjg {
         int frames_drawn = 0;
         bool show_info = true;
         sf::Text info;
+        sf::Text win_message;
 
         bool running = true;
 
@@ -36,6 +39,7 @@ namespace tjg {
         // Methods
         void Render();
         bool Running() override;
+        void RenderWinMessage(); //temp
     };
 
 }

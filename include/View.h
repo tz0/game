@@ -28,6 +28,8 @@ namespace tjg {
         // Entities
         std::shared_ptr<Entity> tech17;
         std::shared_ptr<Entity> entrance;
+        std::shared_ptr<Entity> exit;
+        bool did_exit = false;
 
         // Temporary for testing purposes.
         std::vector<std::shared_ptr<Entity>> walls;
@@ -53,6 +55,11 @@ namespace tjg {
          * @return whether the view is still running
          */
         virtual bool Running() = 0;
+
+        /**
+         * @return if tech17 reach the exit
+         */
+        bool DidReachExit();
 
     };
 

@@ -31,12 +31,18 @@ namespace tjg {
             sprite_render_system.AddEntity(wall);
         }
 
-        //Add the entrance entity to the sprite render system
+        //Add the entrance and exit to the sprite render system
         sprite_render_system.AddEntity(entrance);
+        sprite_render_system.AddEntity(exit);
 
         // Make background
         sprite_render_system.AddEntity(entity_factory.MakeTiledBackground("background.png"));
 
+        // temp Set font for win message
+        win_message.setFont(*avenir_bold);
+        win_message.setStyle(sf::Text::Bold);
+        win_message.setCharacterSize(24);
+        win_message.setString("You Reached the Exit!");
 
         for (auto &fan : fans) {
             sprite_render_system.AddEntity(fan);
@@ -141,6 +147,14 @@ namespace tjg {
             // Set body back to its normal color.
             control_center.GetPlayerEntity()->GetComponent<Sprite>()->GetSprite().setColor(sf::Color(255, 255, 255));
         }
+    }
+
+    void PlayerView::RenderWinMessage() {
+        window.setView(window.getDefaultView());
+
+        window.clear(sf::Color(50, 50, 50, 255));
+        window.draw(win_message);
+        window.display();
     }
 
 }
