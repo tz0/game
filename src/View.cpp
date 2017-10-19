@@ -46,9 +46,14 @@ namespace tjg {
         initialize();
     }
 
-    void View::Update(const sf::Time elapsed) {
-        physics_system.Update(elapsed);
-        update(elapsed);
+    void View::Update() {
+        auto elapsed = physics_clock.getElapsedTime();
+        if (elapsed.asSeconds() > 1.f/60.f) {
+            std::cout << elapsed.asSeconds() << std::endl;
+            physics_system.Update(elapsed);
+            update(elapsed);
+            physics_clock.restart();
+        }
     }
 
 }

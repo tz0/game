@@ -38,7 +38,7 @@ namespace tjg {
         }
 
         // Update the physical simulation
-        cpSpaceStep(space, elapsed.asSeconds() * 2);
+        cpSpaceStep(space, elapsed.asSeconds());
     }
 
     cpSpace* PhysicsSystem::GetSpace() {
