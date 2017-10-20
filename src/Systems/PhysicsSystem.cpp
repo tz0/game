@@ -41,6 +41,9 @@ namespace tjg {
 
             // Perform a space query to get all (non-static) shapes that are overlapping the linear force's area.
             cpSpaceShapeQuery(space, linear_force->GetComponent<LinearForce>()->GetShape(), [](cpShape *shape, cpContactPointSet *points, void *linear_force_data){
+                // Avoid compiler warning about unused points variable.
+                (void)points;
+
                 // Cast the void* user data to an entity pointer. This is used because lambda's with reference captures can't be passed as C function pointers.
                 auto linear_force_entity = static_cast<Entity*>(linear_force_data);
                 auto pos = linear_force_entity->GetComponent<Location>()->GetPosition();

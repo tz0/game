@@ -12,7 +12,7 @@ namespace tjg {
         // Called by the base class Initialize/Update methods respectively
         void initialize() override;
 
-        void update(sf::Time elapsed) override;
+        void update() override;
 
         void CheckKeys();
 

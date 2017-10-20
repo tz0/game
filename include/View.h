@@ -14,7 +14,7 @@ namespace tjg {
     class View {
     private:
         virtual void initialize() = 0;
-        virtual void update(sf::Time) = 0;
+        virtual void update() = 0;
     protected:
         // Systems
         // All views need a physical center and control center.

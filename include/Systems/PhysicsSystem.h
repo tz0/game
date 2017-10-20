@@ -2,6 +2,11 @@
 #ifndef GAME_PHYSICSSYSTEM_H
 #define GAME_PHYSICSSYSTEM_H
 
+// Make M_PI work on Windows.
+#ifndef M_PI
+    #define M_PI 3.14159265358979323846
+#endif
+
 #include <chipmunk.h>
 #include <SFML/System/Time.hpp>
 
