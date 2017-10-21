@@ -15,11 +15,16 @@ namespace tjg {
         entrance = entity_factory.MakeEntrance(sf::Vector2f(0, 0));
         exit = entity_factory.MakeExit(sf::Vector2f(1000, 1000));
 
+        event_manager.RegisterListener<ExitReached>([&](ExitReached &event){
+            printf("Reached Exit!\n");
+            did_exit = true;
+        });
+
         // Create boundary walls using the entity factory.
-        auto top_wall = entity_factory.MakeWall(sf::Vector2f(-300, -300), sf::Vector2f(1300, -300), 40);
-        auto bottom_wall = entity_factory.MakeWall(sf::Vector2f(1300, 1300), sf::Vector2f(-300, 1300), 40);
-        auto left_wall = entity_factory.MakeWall(sf::Vector2f(-300, 1300), sf::Vector2f(-300, -300), 40);
-        auto right_wall = entity_factory.MakeWall(sf::Vector2f(1300, -300), sf::Vector2f(1300, 1300), 40);
+        auto top_wall = entity_factory.MakeWall(sf::Vector2f(-1000, -1000), sf::Vector2f(1300, -1000), 40);
+        auto bottom_wall = entity_factory.MakeWall(sf::Vector2f(1300, 1300), sf::Vector2f(-1000, 1300), 40);
+        auto left_wall = entity_factory.MakeWall(sf::Vector2f(-1000, 1300), sf::Vector2f(-1000, -1000), 40);
+        auto right_wall = entity_factory.MakeWall(sf::Vector2f(1300, -1000), sf::Vector2f(1300, 1300), 40);
 
         // Add the walls to the entities vector.
         walls.push_back(top_wall);
@@ -27,14 +32,15 @@ namespace tjg {
         walls.push_back(left_wall);
         walls.push_back(right_wall);
 
-        fans.push_back(entity_factory.MakeFan(sf::Vector2f(0, -500), sf::Vector2f(0,0), 200, 100.0f));
-        fans.push_back(entity_factory.MakeFan(sf::Vector2f(0, 500), sf::Vector2f(0,0), 200, 100.0f));
-        fans.push_back(entity_factory.MakeFan(sf::Vector2f(500, 0), sf::Vector2f(0,0), 200, 100.0f));
-        fans.push_back(entity_factory.MakeFan(sf::Vector2f(-500, 0), sf::Vector2f(0,0), 200, 100.0f));
-        fans.push_back(entity_factory.MakeFan(sf::Vector2f(-500, -500), sf::Vector2f(0,0), 200, 100.0f));
-        fans.push_back(entity_factory.MakeFan(sf::Vector2f(500, 500), sf::Vector2f(0,0), 200, 100.0f));
-        fans.push_back(entity_factory.MakeFan(sf::Vector2f(500, -500), sf::Vector2f(0,0), 200, 100.0f));
-        fans.push_back(entity_factory.MakeFan(sf::Vector2f(-500, 500), sf::Vector2f(0,0), 200, 100.0f));
+        //fans.push_back(entity_factory.MakeFan(sf::Vector2f(0, -500), 270, 200, 20000.0f));
+        fans.push_back(entity_factory.MakeFan(sf::Vector2f(500, -500), 45+90, 200, 600.0f));
+        fans.push_back(entity_factory.MakeFan(sf::Vector2f(-500, 500), -45, 200, 600.0f));
+        fans.push_back(entity_factory.MakeFan(sf::Vector2f(-500, -500), 45, 200, 600.0f));
+        fans.push_back(entity_factory.MakeFan(sf::Vector2f(500, 500), 45+180, 200, 600.0f));
+        fans.push_back(entity_factory.MakeFan(sf::Vector2f(0, -500), 90, 200, 600.0f));
+        fans.push_back(entity_factory.MakeFan(sf::Vector2f(0, 500), -90, 200, 600.0f));
+        fans.push_back(entity_factory.MakeFan(sf::Vector2f(-500, 0), 0, 200, 600.0f));
+        fans.push_back(entity_factory.MakeFan(sf::Vector2f(500, 0), 180, 200, 600.0f));
 
         // Call specific view's initialization method.
         initialize();
@@ -52,8 +58,7 @@ namespace tjg {
     bool View::DidReachExit() {
         if (!did_exit && std::abs(tech17->GetComponent<Location>()->GetPosition().x - exit->GetComponent<Location>()->GetPosition().x) < 30 &&
                 std::abs(tech17->GetComponent<Location>()->GetPosition().y - exit->GetComponent<Location>()->GetPosition().y) < 30){
-            printf("Reached Exit!\n");
-            did_exit = true;
+            event_manager.Fire<ExitReached>();
         }
         return did_exit;
     }

@@ -46,15 +46,21 @@ namespace tjg {
 
                 // Cast the void* user data to an entity pointer. This is used because lambda's with reference captures can't be passed as C function pointers.
                 auto linear_force_entity = static_cast<Entity*>(linear_force_data);
-                auto pos = linear_force_entity->GetComponent<Location>()->GetPosition();
-                auto str = linear_force_entity->GetComponent<LinearForce>()->GetStrength();
+
+                //convert the location's sf::Vector2f to a cpVect
+                auto force_origin = [=](sf::Vector2f sf_pos) {
+                    return cpv(sf_pos.x, sf_pos.y);
+                }(linear_force_entity->GetComponent<Location>()->GetPosition());
+
+                auto force_direction = linear_force_entity->GetComponent<LinearForce>()->GetForce();
+                auto strength = linear_force_entity->GetComponent<LinearForce>()->GetStrength();
+                auto shape_position = cpBodyGetPosition(cpShapeGetBody(shape));
+                auto force = force_direction * std::max(0., (strength - cpvdist(force_origin, shape_position)));
 
                 // Apply a force to each shape overlapping with this linear force shape.
-                cpBodyApplyForceAtWorldPoint(cpShapeGetBody(shape),
-                        // Calculate force to be applied by normalizing the sum of the linear forces position, and
-                        // shapes position, then multiplying by the linear force strength
-                                             cpvnormalize(cpBodyGetPosition(cpShapeGetBody(shape)) - (cpv(pos.x, pos.y))) * str,
-                                             cpBodyGetPosition(cpShapeGetBody(shape)));
+                // Calculate force to be applied by normalizing the sum of the linear forces position, and
+                // shapes position, then multiplying by the linear force strength
+                cpBodyApplyForceAtWorldPoint(cpShapeGetBody(shape), force, cpBodyGetPosition(cpShapeGetBody(shape)));
 
                 // Pass in a pointer to the linear force
             }, linear_force.get());

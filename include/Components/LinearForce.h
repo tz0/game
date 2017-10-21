@@ -15,11 +15,15 @@ namespace tjg {
         cpShape *shape;
         float strength;
 
+        // normalized vector representing the direction of air flow
+        cpVect force;
+
     public:
-        LinearForce(cpSpace *space, sf::Vector2f a, sf::Vector2f b, float width, float strength);
+        LinearForce(cpSpace *space, const sf::Vector2f position, float angle, float width, float strength);
         ~LinearForce();
         cpShape *GetShape();
         float GetStrength();
+        cpVect GetForce();
     };
 
 }

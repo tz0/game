@@ -459,26 +459,25 @@ namespace tjg {
         return static_cast<float>(sqrt(pow((p2.x - p1.x), 2) + pow((p2.y - p1.y), 2)));
     }
 
-    std::shared_ptr<Entity> EntityFactory::MakeFan(const sf::Vector2f &a, const sf::Vector2f &b, const float width, const float strength) {
+    std::shared_ptr<Entity> EntityFactory::MakeFan(const sf::Vector2f &position, const float angle, const float width, const float strength) {
 
         auto texture_sheet = resource_manager.LoadTexture("spritesheet.png");
 
         auto fan = std::make_shared<Entity>();
-        auto fan_location = fan->AddComponent<Location>(a);
-        // Set the rotation so that it is aiming from A to B.
-        fan_location->SetRotation(static_cast<float>(atan2(b.y - a.y, b.x - a.x)) * 180.0f / M_PI + 90.0f);
+        auto fan_location = fan->AddComponent<Location>(position);
+        fan_location->SetRotation(angle);
         auto fan_sprite = fan->AddComponent<Sprite>(
                 std::vector<sf::Sprite> {
                         // Define frames of animation
-                        sf::Sprite(*texture_sheet, sf::IntRect(234, 146, 448 - 234, 250 - 146)),
-                        sf::Sprite(*texture_sheet, sf::IntRect(234, 250, 448 - 234, 360 - 250))
+                        sf::Sprite(*texture_sheet, sf::IntRect(234, 146, 344 - 234, 360 - 146)),
+                        sf::Sprite(*texture_sheet, sf::IntRect(344, 146, 448 - 344, 360 - 146)),
                 },
                 20
         );
         // Set the size and start the animation
-        fan_sprite->SetSize(sf::Vector2f(width, width / 2.0f));
+        fan_sprite->SetSize(sf::Vector2f(width / 2.0f, width));
         fan_sprite->Play(true);
-        fan->AddComponent<LinearForce>(physics_system.GetSpace(), a, b, width, strength);
+        fan->AddComponent<LinearForce>(physics_system.GetSpace(), position, angle, width, strength);
         physics_system.AddEntity(fan);
 
         return fan;
