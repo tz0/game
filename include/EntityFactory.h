@@ -8,6 +8,10 @@
 
 #include "Entity.h"
 #include "ResourceManager.h"
+
+#include "EventManager.h"
+#include "Events/ExitReached.h"
+
 #include "Components/Appendage.h"
 #include "Components/DynamicBody.h"
 #include "Components/LinearForce.h"
@@ -25,6 +29,7 @@ namespace tjg {
     private:
         ResourceManager &resource_manager;
         PhysicsSystem &physics_system;
+        EventManager &event_manager;
         /**
          * Calculate the angle between two points.
          * @return angle in degrees
@@ -37,9 +42,10 @@ namespace tjg {
         float calculateDistance(sf::Vector2f p1, sf::Vector2f p2);
     public:
         // Constructor
-        EntityFactory(ResourceManager &resource_manager, PhysicsSystem &physics_system) :
+        EntityFactory(ResourceManager &resource_manager, PhysicsSystem &physics_system, EventManager &event_manager) :
                 resource_manager(resource_manager),
-                physics_system(physics_system) {}
+                physics_system(physics_system),
+                event_manager(event_manager) {}
 
         // Entity factory methods.
         std::shared_ptr<Entity> MakeWall(const sf::Vector2f &a, const sf::Vector2f &b, float width);

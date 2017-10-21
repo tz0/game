@@ -7,6 +7,9 @@ namespace tjg {
     PhysicsSystem::PhysicsSystem() : space(cpSpaceNew()) {
         // Set zero gravity
         cpSpaceSetGravity(space, cpvzero);
+
+        // Set some friction
+        cpSpaceSetDamping(space, 0.9);
     }
 
     PhysicsSystem::~PhysicsSystem() {
@@ -15,15 +18,13 @@ namespace tjg {
     }
 
     void PhysicsSystem::AddEntity(std::shared_ptr<Entity> entity) {
-        // Check for required components (Location + Dynamic Body)
+        // Check for required components (Location + Dynamic Body / Sensor Shape)
         if (!entity->GetComponent<DynamicBody>() && !entity->GetComponent<SensorShape>())
             throw std::runtime_error("missing Dynamic Body or Sensor Shape component");
         if (!entity->GetComponent<Location>())
             throw std::runtime_error("missing location component");
 
         entities.push_back(entity);
-        //if (entity->GetComponent<DynamicBody>()) bodies.push_back(entity);
-        //if (entity->GetComponent<LinearForce>()) linear_forces.push_back(entity);
     }
 
     void PhysicsSystem::Update(const sf::Time elapsed) {
@@ -42,9 +43,10 @@ namespace tjg {
                 location->SetRotation(body_angle * 180.0f / M_PI);
             }
 
+            // Check if the entity has a sensor shape
             auto sensor = entity->GetComponent<SensorShape>();
             if (sensor) {
-                cpSpaceShapeQuery(space, sensor->GetShape(), sensor->GetCallback(), entity.get());
+                sensor->Query(space);
             }
 
         }

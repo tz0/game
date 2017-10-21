@@ -4,7 +4,7 @@
 namespace tjg {
     View::View(ResourceManager &resource_manager) :
             resource_manager(resource_manager),
-            entity_factory(resource_manager, physics_system) {
+            entity_factory(resource_manager, physics_system, event_manager) {
     }
 
     void View::Initialize() {
@@ -17,7 +17,6 @@ namespace tjg {
 
         event_manager.RegisterListener<ExitReached>([&](ExitReached &event){
             (void)event;
-            printf("Reached Exit!\n");
             did_exit = true;
         });
 
@@ -37,9 +36,9 @@ namespace tjg {
         fans.push_back(entity_factory.MakeFan(sf::Vector2f(500, -500), 45+90, 200, 600.0f));
         fans.push_back(entity_factory.MakeFan(sf::Vector2f(-500, 500), -45, 200, 600.0f));
         fans.push_back(entity_factory.MakeFan(sf::Vector2f(-500, -500), 45, 200, 600.0f));
-        fans.push_back(entity_factory.MakeFan(sf::Vector2f(500, 500), 45+180, 200, 600.0f));
+        //fans.push_back(entity_factory.MakeFan(sf::Vector2f(500, 500), 45+180, 200, 600.0f));
         fans.push_back(entity_factory.MakeFan(sf::Vector2f(0, -500), 90, 200, 600.0f));
-        fans.push_back(entity_factory.MakeFan(sf::Vector2f(0, 500), -90, 200, 600.0f));
+        //fans.push_back(entity_factory.MakeFan(sf::Vector2f(0, 500), -90, 200, 600.0f));
         fans.push_back(entity_factory.MakeFan(sf::Vector2f(-500, 0), 0, 200, 600.0f));
         fans.push_back(entity_factory.MakeFan(sf::Vector2f(500, 0), 180, 200, 600.0f));
 
@@ -57,10 +56,6 @@ namespace tjg {
     }
     //Naive solution
     bool View::DidReachExit() {
-        if (!did_exit && std::abs(tech17->GetComponent<Location>()->GetPosition().x - exit->GetComponent<Location>()->GetPosition().x) < 30 &&
-                std::abs(tech17->GetComponent<Location>()->GetPosition().y - exit->GetComponent<Location>()->GetPosition().y) < 30){
-            event_manager.Fire<ExitReached>();
-        }
         return did_exit;
     }
 }
