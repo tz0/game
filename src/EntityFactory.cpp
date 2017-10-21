@@ -53,7 +53,7 @@ namespace tjg {
     }
 
 /**
- * MakeTech17 Creates an Entity representating the player character.
+ * MakeTech17 Creates an Entity representing the player character.
  * Tech17 is a ragdoll and is constructed as follows:
  *      All limbs are attached directly/indirectly to the "chest"
  *      The "chest" has a Rotational "Moment" of INFINITY, preventing the entire body from spinning
@@ -477,7 +477,29 @@ namespace tjg {
         // Set the size and start the animation
         fan_sprite->SetSize(sf::Vector2f(width / 2.0f, width));
         fan_sprite->Play(true);
-        fan->AddComponent<LinearForce>(physics_system.GetSpace(), position, angle, width, strength);
+        auto linear_force = fan->AddComponent<LinearForce>(physics_system.GetSpace(), position, angle, width, strength);
+        fan->AddComponent<SensorShape>(linear_force->GetShape(), [](cpShape *shape, cpContactPointSet *points, void *entity_ptr){
+            // Avoid compiler warning about unused points variable.
+            (void)points;
+
+            // Cast the void* user data to an entity pointer. This is used because lambda's with reference captures can't be passed as C function pointers.
+            auto entity = static_cast<Entity*>(entity_ptr);
+
+            //convert the location's sf::Vector2f to a cpVect
+            auto force_origin = [=](sf::Vector2f sf_pos) {
+                return cpv(sf_pos.x, sf_pos.y);
+            }(entity->GetComponent<Location>()->GetPosition());
+
+            auto force_direction = entity->GetComponent<LinearForce>()->GetForce();
+            auto strength = entity->GetComponent<LinearForce>()->GetStrength();
+            auto shape_position = cpBodyGetPosition(cpShapeGetBody(shape));
+            auto force = force_direction * std::max(0., (strength - cpvdist(force_origin, shape_position)));
+
+            // Apply a force to each shape overlapping with this linear force shape.
+            // Calculate force to be applied by normalizing the sum of the linear forces position, and
+            // shapes position, then multiplying by the linear force strength
+            cpBodyApplyForceAtWorldPoint(cpShapeGetBody(shape), force, cpBodyGetPosition(cpShapeGetBody(shape)));
+        });
         physics_system.AddEntity(fan);
 
         return fan;

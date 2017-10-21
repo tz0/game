@@ -12,6 +12,7 @@
 #include "Components/DynamicBody.h"
 #include "Components/LinearForce.h"
 #include "Components/Location.h"
+#include "Components/SensorShape.h"
 #include "Components/Sprite.h"
 #include "Components/StaticSegment.h"
 

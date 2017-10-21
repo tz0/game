@@ -16,6 +16,7 @@ namespace tjg {
         exit = entity_factory.MakeExit(sf::Vector2f(1000, 1000));
 
         event_manager.RegisterListener<ExitReached>([&](ExitReached &event){
+            (void)event;
             printf("Reached Exit!\n");
             did_exit = true;
         });
