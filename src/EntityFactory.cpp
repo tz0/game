@@ -500,9 +500,8 @@ namespace tjg {
             // At 0 distance away from the fan, a force of `strength` will be applied.
             // At `strength` distance away, a force of 0 will be applied.
             auto force_direction = fan->GetComponent<LinearForce>()->GetForce();
-            auto str = fan->GetComponent<LinearForce>()->GetStrength();
             auto shape_position = cpBodyGetPosition(cpShapeGetBody(shape));
-            auto force = force_direction * std::max(0., (str - cpvdist(force_origin, shape_position)));
+            auto force = force_direction * std::max(0., (strength - cpvdist(force_origin, shape_position)));
 
             cpBodyApplyForceAtWorldPoint(cpShapeGetBody(shape), force, cpBodyGetPosition(cpShapeGetBody(shape)));
         });

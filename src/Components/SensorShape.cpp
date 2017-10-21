@@ -12,13 +12,13 @@ namespace tjg {
     void SensorShape::Query(cpSpace *space) {
         // Create a capture-less lambda which casts the void* user_data to the correct function type
         // And call it with the shape pointer.
-        auto closure = [](cpShape *shape, cpContactPointSet *points, void *f){
+        auto callback_wrapper = [](cpShape *shape, cpContactPointSet *points, void *f){
             (void)points;
             (*static_cast<std::function<void(cpShape*)>*>(f))(shape);
         };
 
         // Pass the "actual" callback as the user_data pointer, to allow callbacks with captures to be used.
-        cpSpaceShapeQuery(space, shape, closure, &callback);
+        cpSpaceShapeQuery(space, shape, callback_wrapper, &callback);
     }
 
     // Accessors
