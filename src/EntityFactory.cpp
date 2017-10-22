@@ -25,7 +25,6 @@ namespace tjg {
         sf::Sprite wall_sprite;
         wall_sprite.setTexture(*wall_texture);
         wall_sprite.setTextureRect(sf::IntRect(0, 0, length, (int) width));
-        wall_sprite.setRotation(calculateAngle(a, b));
         wall->AddComponent<Sprite>(wall_sprite);
 
         return wall;
@@ -473,7 +472,7 @@ namespace tjg {
         double deltaY = p1.y - p2.y;
         double deltaX = p2.x - p1.x;
         double angle = atan2(deltaY, deltaX) * 180 / M_PI;
-        return (angle < 0) ? static_cast<float>(angle + 360.0) : static_cast<float>(angle);
+        return -static_cast<float>(angle);
     }
 
     float EntityFactory::calculateDistance(sf::Vector2f p1, sf::Vector2f p2) {

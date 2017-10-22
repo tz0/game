@@ -5,7 +5,7 @@ namespace tjg {
 
     PlayerView::PlayerView(ResourceManager &resource_manager) :
             View(resource_manager),
-            window(sf::VideoMode(1280, 720, 32), "Game", sf::Style::Titlebar | sf::Style::Close) {
+            window(sf::VideoMode(WINDOW_WIDTH, WINDOW_HEIGHT, 32), "Game", sf::Style::Titlebar | sf::Style::Close) {
             window.setVerticalSyncEnabled(true);
     }
 
@@ -40,9 +40,15 @@ namespace tjg {
 
         // temp Set font for win message
         win_message.setFont(*avenir_bold);
+        // Create a win message.
         win_message.setStyle(sf::Text::Bold);
         win_message.setCharacterSize(24);
         win_message.setString("You Reached the Exit!");
+        // Center the win message on the screen.
+        sf::FloatRect textRect = win_message.getLocalBounds();
+        win_message.setOrigin(textRect.left + (textRect.width / 2), textRect.top + (textRect.height / 2));
+        win_message.setPosition(WINDOW_WIDTH / 2, WINDOW_HEIGHT/ 2);
+
 
         // Add fans to sprite render system.
         for (auto &fan : fans) {
@@ -50,8 +56,9 @@ namespace tjg {
         }
 
         // Set up camera
-        camera.setCenter(0, 0);
-        camera.setSize(1600, 1200);
+        // TODO: This needs to change depending on the level.
+        camera.setCenter(-500, 0);
+        camera.setSize(2080, 1280);
     }
 
     bool PlayerView::Running() {
@@ -90,7 +97,7 @@ namespace tjg {
         HandleWindowEvents();
 
         // Example of moving the camera location
-        camera.setCenter(camera.getCenter() * 0.99f + tech17->GetComponent<Location>()->GetPosition() * 0.01f);
+        //camera.setCenter(camera.getCenter() * 0.90f + tech17->GetComponent<Location>()->GetPosition() * 0.10f);
     }
 
     void PlayerView::HandleWindowEvents() {

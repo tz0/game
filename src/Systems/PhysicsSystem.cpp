@@ -12,7 +12,7 @@ namespace tjg {
         cpSpaceSetGravity(space, cpvzero);
 
         // Set some friction
-        cpSpaceSetDamping(space, 0.9);
+        cpSpaceSetDamping(space, 0.75);
 
         // Create a collision center handler that will fire an event when TECH17 hits a wall.
         collision_center.AddHandler(

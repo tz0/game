@@ -14,7 +14,7 @@ namespace tjg {
         control_center.AddEntity(tech17);
 
         entrance = entity_factory.MakeEntrance(sf::Vector2f(0, 0));
-        exit = entity_factory.MakeExit(sf::Vector2f(1000, 1000));
+        exit = entity_factory.MakeExit(sf::Vector2f(-1400, -200));
 
         event_manager.RegisterListener<ReachedExit>([&](ReachedExit &event){
             (void)event;
@@ -27,10 +27,10 @@ namespace tjg {
         });
 
         // Create boundary walls using the entity factory.
-        auto top_wall = entity_factory.MakeWall(sf::Vector2f(-1000, -1000), sf::Vector2f(1300, -1000), 40);
-        auto bottom_wall = entity_factory.MakeWall(sf::Vector2f(1300, 1300), sf::Vector2f(-1000, 1300), 40);
-        auto left_wall = entity_factory.MakeWall(sf::Vector2f(-1000, 1300), sf::Vector2f(-1000, -1000), 40);
-        auto right_wall = entity_factory.MakeWall(sf::Vector2f(1300, -1000), sf::Vector2f(1300, 1300), 40);
+        auto top_wall = entity_factory.MakeWall(sf::Vector2f(-1540, -600), sf::Vector2f(540, -600), 80);
+        auto bottom_wall = entity_factory.MakeWall(sf::Vector2f(-1540, 600), sf::Vector2f(540, 600), 80);
+        auto left_wall = entity_factory.MakeWall(sf::Vector2f(-1500, -600), sf::Vector2f(-1500, 600), 80);
+        auto right_wall = entity_factory.MakeWall(sf::Vector2f(500, -600), sf::Vector2f(500, 600), 80);
 
         // Add the walls to the entities vector.
         walls.push_back(top_wall);
@@ -38,15 +38,19 @@ namespace tjg {
         walls.push_back(left_wall);
         walls.push_back(right_wall);
 
-        //fans.push_back(entity_factory.MakeFan(sf::Vector2f(0, -500), 270, 200, 20000.0f));
-        fans.push_back(entity_factory.MakeFan(sf::Vector2f(500, -500), 45+90, 200, 600.0f));
-        fans.push_back(entity_factory.MakeFan(sf::Vector2f(-500, 500), -45, 200, 600.0f));
-        fans.push_back(entity_factory.MakeFan(sf::Vector2f(-500, -500), 45, 200, 600.0f));
-        //fans.push_back(entity_factory.MakeFan(sf::Vector2f(500, 500), 45+180, 200, 600.0f));
-        fans.push_back(entity_factory.MakeFan(sf::Vector2f(0, -500), 90, 200, 600.0f));
-        //fans.push_back(entity_factory.MakeFan(sf::Vector2f(0, 500), -90, 200, 600.0f));
-        fans.push_back(entity_factory.MakeFan(sf::Vector2f(-500, 0), 0, 200, 600.0f));
-        fans.push_back(entity_factory.MakeFan(sf::Vector2f(500, 0), 180, 200, 600.0f));
+        // Create fans and add them to the fans vector.
+        // Top fan above span
+        fans.push_back(entity_factory.MakeFan(sf::Vector2f(0, -600), 90, 200, 500.0f));
+        // Bottom fan below spawn
+        fans.push_back(entity_factory.MakeFan(sf::Vector2f(0, 600), 270, 200, 500.0f));
+        // Top fan to right of spawn.
+        fans.push_back(entity_factory.MakeFan(sf::Vector2f(300, -600), 90, 200, 700.0f));
+        // Right fan below spawn.
+        fans.push_back(entity_factory.MakeFan(sf::Vector2f(500, 400), 180, 200, 700.0f));
+        // Bottom fan near exit.
+        fans.push_back(entity_factory.MakeFan(sf::Vector2f(-1000, 600), 270, 200, 700.0f));
+        // Top fan near exit.
+        fans.push_back(entity_factory.MakeFan(sf::Vector2f(-1300, -600), 90, 200, 700.0f));
 
         // Call specific view's initialization method.
         initialize();
