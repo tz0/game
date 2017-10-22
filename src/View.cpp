@@ -4,7 +4,8 @@
 namespace tjg {
     View::View(ResourceManager &resource_manager) :
             resource_manager(resource_manager),
-            physics_system(event_manager),
+            physics_system(),
+            collision_center(physics_system.GetSpace()),
             entity_factory(resource_manager, physics_system, event_manager) {
     }
 
@@ -51,6 +52,18 @@ namespace tjg {
         fans.push_back(entity_factory.MakeFan(sf::Vector2f(-1000, 600), sf::Vector2f(-1000, -600), 200, 250.0f, 0.f));
         // Top fan near exit.
         fans.push_back(entity_factory.MakeFan(sf::Vector2f(-1300, -600), sf::Vector2f(-1300, 600), 200, 300.0f, 0.f));
+
+        // Create a collision center handler that will fire a HitWall event when TECH17 hits a wall.
+        collision_center.AddHandler(
+            CollisionGroup::TECH17,
+            CollisionGroup::WALL,
+            [&](cpArbiter *arb, cpSpace *space) -> cpBool {
+                (void)arb;
+                (void)space;
+                event_manager.Fire<HitWall>();
+                return cpTrue;
+            }
+        );
 
         // Call specific view's initialization method.
         initialize();

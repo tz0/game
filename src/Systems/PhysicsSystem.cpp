@@ -3,27 +3,14 @@
 
 namespace tjg {
 
-    PhysicsSystem::PhysicsSystem(EventManager &event_manager) :
-            space(cpSpaceNew()),
-            event_manager(event_manager),
-            collision_center(space)
+    PhysicsSystem::PhysicsSystem() :
+            space(cpSpaceNew())
     {
         // Set zero gravity
         cpSpaceSetGravity(space, cpvzero);
 
         // Set some friction
         cpSpaceSetDamping(space, 0.7);
-
-        // Create a collision center handler that will fire an event when TECH17 hits a wall.
-        collision_center.AddHandler(
-            CollisionGroup::TECH17,
-            CollisionGroup::WALL,
-            [&](cpArbiter *arb, cpSpace *space) -> cpBool {
-                (void)arb;
-                (void)space;
-                event_manager.Fire<HitWall>();
-                return cpTrue;
-            });
 
     }
 

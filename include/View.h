@@ -23,6 +23,7 @@ namespace tjg {
         // All views need a physical center and control center.
         PhysicsSystem physics_system;
         ControlCenter control_center;
+        CollisionCenter collision_center;
 
         EntityFactory entity_factory;
         EventManager event_manager;
