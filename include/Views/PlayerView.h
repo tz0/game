@@ -34,13 +34,7 @@ namespace tjg {
         
         sf::Text info;        
         sf::Text win_message;
-
-        sf::Clock countdown_clock;
-        sf::Time time_countdown;
-        bool show_countdown = true;
-        bool countdown_mode_binary = true; // set it to fasle for a regular decimal timer
         sf::Text countdown;
-        unsigned int max_countdown = 30;
 
         bool running = true;
 

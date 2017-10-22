@@ -88,17 +88,13 @@ namespace tjg {
             window.draw(info);
         }
         
-        // the current countdown timer is not implemented as an entity. Since there is only one unphysical timer for player and we are using the hybrid event system, I think it might be okay this way.  
+        // Drawing countdown timer  
         if (show_countdown) {
-            time_countdown = countdown_clock.getElapsedTime();
-            unsigned int remaining_seconds = max_countdown > time_countdown.asSeconds() ? static_cast<unsigned int>(max_countdown - time_countdown.asSeconds()) : 0;
             if (countdown_mode_binary)
                 countdown.setString("Time Left " + std::bitset<8>(remaining_seconds).to_string());
             else
                 countdown.setString(std::to_string(remaining_seconds) + " Seconds");
             window.draw(countdown);
-            if (!remaining_seconds)            
-                std::cout << "Time's up! Consider to restart this level. " << std::endl;
         }
 
         window.display();
