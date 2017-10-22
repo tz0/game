@@ -2,11 +2,10 @@
 #ifndef GAME_COLLISIONCENTER_H
 #define GAME_COLLISIONCENTER_H
 
-#include <functional>
-#include <vector>
-
+#include <iostream>
 #include <chipmunk.h>
-
+#include <functional>
+#include <unordered_map>
 
 namespace tjg {
 
@@ -21,11 +20,11 @@ namespace tjg {
     class CollisionCenter {
     private:
         cpSpace *space;
-        std::vector<std::pair<cpCollisionHandler *, std::function<cpBool(cpArbiter *arb, cpSpace *space)>>> handlers;
+        std::unordered_map<cpCollisionHandler *, std::function<void(cpArbiter *arb, cpSpace *space)>> callbacks;
 
     public:
         explicit CollisionCenter(cpSpace* space) : space(space) {};
-        void AddHandler(CollisionGroup, CollisionGroup, std::function<cpBool(cpArbiter *arb, cpSpace *space)> callback);
+        void AddHandler(CollisionGroup, CollisionGroup, std::function<void(cpArbiter *arb, cpSpace *space)> callback);
     };
 
 }

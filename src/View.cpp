@@ -57,11 +57,21 @@ namespace tjg {
         collision_center.AddHandler(
             CollisionGroup::TECH17,
             CollisionGroup::WALL,
-            [&](cpArbiter *arb, cpSpace *space) -> cpBool {
+            [&](cpArbiter *arb, cpSpace *space) {
                 (void)arb;
                 (void)space;
                 event_manager.Fire<HitWall>();
-                return cpTrue;
+            }
+        );
+
+        // Check if Tech17's chest overlaps with the exit door
+        collision_center.AddHandler(
+            CollisionGroup::TECH17,
+            CollisionGroup::EXIT,
+            [&](cpArbiter *arb, cpSpace *space) {
+                (void)arb;
+                (void)space;
+                event_manager.Fire<ReachedExit>();
             }
         );
 
