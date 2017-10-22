@@ -1,4 +1,3 @@
-
 #ifndef GAME_HITWALL_H
 #define GAME_HITWALL_H
 

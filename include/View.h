@@ -41,6 +41,14 @@ namespace tjg {
         // Used for fixed time step
         sf::Clock physics_clock;
 
+        // Countdown timer set
+        sf::Clock countdown_clock;
+        sf::Time time_countdown;
+        bool show_countdown = true;
+        bool countdown_mode_binary = true; // set it to fasle for a regular decimal timer
+        unsigned int max_countdown = 30;
+        unsigned int remaining_seconds = max_countdown;
+
     public:
         View(ResourceManager&);
 

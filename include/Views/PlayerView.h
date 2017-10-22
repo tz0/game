@@ -26,12 +26,15 @@ namespace tjg {
 
         SpriteRenderSystem sprite_render_system;
 
+        
         sf::Clock fps_clock;
         int fps = 0;
         int frames_drawn = 0;
         bool show_info = true;
-        sf::Text info;
+        
+        sf::Text info;        
         sf::Text win_message;
+        sf::Text countdown;
 
         bool running = true;
 
