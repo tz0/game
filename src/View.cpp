@@ -84,8 +84,7 @@ namespace tjg {
         // Countdown timer - start counting. The reason of fairness, do not start to count during initialization.  The current countdown timer is not implemented as an entity. Since there is only one unphysical timer for player and we are using the hybrid event system, I think it might be okay this way.                  
         time_countdown = countdown_clock.getElapsedTime();
         remaining_seconds = max_countdown > time_countdown.asSeconds() ? static_cast<unsigned int>(max_countdown - time_countdown.asSeconds()) : 0;        
-        if (!remaining_seconds){
-            //std::cout << "Time's up! Consider to restart this level. " << std::endl;
+        if (!remaining_seconds){            
             event_manager.Fire<TimeExpired>();
         }
             
