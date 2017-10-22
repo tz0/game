@@ -29,7 +29,8 @@ namespace tjg {
 
         enum class CollisionGroup : cpCollisionType {
             DEFAULT = 0,
-            TECH17_CHEST,
+            TECH17,
+            WALL,
             EXIT
         };
 
