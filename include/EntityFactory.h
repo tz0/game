@@ -8,10 +8,15 @@
 
 #include "Entity.h"
 #include "ResourceManager.h"
+
+#include "EventManager.h"
+#include "Events/ExitReached.h"
+
 #include "Components/Appendage.h"
 #include "Components/DynamicBody.h"
 #include "Components/LinearForce.h"
 #include "Components/Location.h"
+#include "Components/SensorShape.h"
 #include "Components/Sprite.h"
 #include "Components/StaticSegment.h"
 
@@ -24,6 +29,7 @@ namespace tjg {
     private:
         ResourceManager &resource_manager;
         PhysicsSystem &physics_system;
+        EventManager &event_manager;
         /**
          * Calculate the angle between two points.
          * @return angle in degrees
@@ -36,16 +42,17 @@ namespace tjg {
         float calculateDistance(sf::Vector2f p1, sf::Vector2f p2);
     public:
         // Constructor
-        EntityFactory(ResourceManager &resource_manager, PhysicsSystem &physics_system) :
+        EntityFactory(ResourceManager &resource_manager, PhysicsSystem &physics_system, EventManager &event_manager) :
                 resource_manager(resource_manager),
-                physics_system(physics_system) {}
+                physics_system(physics_system),
+                event_manager(event_manager) {}
 
         // Entity factory methods.
         std::shared_ptr<Entity> MakeWall(const sf::Vector2f &a, const sf::Vector2f &b, float width);
         std::shared_ptr<Entity> MakeStaticSprite(sf::Sprite sprite, const sf::Vector2f &position);
         std::shared_ptr<Entity> MakeTiledBackground(const std::string &path);
         std::shared_ptr<Entity> MakeTech17();
-        std::shared_ptr<Entity> MakeFan(const sf::Vector2f &a, const sf::Vector2f &b, float width, float strength);
+        std::shared_ptr<Entity> MakeFan(const sf::Vector2f &position, float angle, float width, float strength);
         std::shared_ptr<Entity> MakeEntrance(const sf::Vector2f &a);
         std::shared_ptr<Entity> MakeExit(const sf::Vector2f &a);
     };

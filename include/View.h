@@ -8,6 +8,7 @@
 #include "Systems/ControlCenter.h"
 #include "EntityFactory.h"
 #include "EventManager.h"
+#include "Events/ExitReached.h"
 
 namespace tjg {
 

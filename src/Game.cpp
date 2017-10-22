@@ -9,8 +9,7 @@ namespace tjg {
             view(resource_manager) {}
 
     // Teardown.
-    Game::~Game() {
-    }
+    Game::~Game() = default;
 
     // Begin the game loop.
     void Game::Run() {

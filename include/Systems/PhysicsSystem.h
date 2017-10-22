@@ -12,19 +12,26 @@
 
 #include "Components/DynamicBody.h"
 #include "Components/LinearForce.h"
+#include "Components/SensorShape.h"
 #include "System.h"
 
 namespace tjg {
     class PhysicsSystem : public System {
     private:
         cpSpace* space;
-        std::vector<std::shared_ptr<Entity>> bodies;
-        std::vector<std::shared_ptr<Entity>> linear_forces;
+        std::vector<std::shared_ptr<Entity>> entities;
+
     public:
         // Constructor
         PhysicsSystem();
         // Destructor
         ~PhysicsSystem();
+
+        enum class CollisionGroup : cpCollisionType {
+            DEFAULT = 0,
+            TECH17_CHEST,
+            EXIT
+        };
 
         /**
          * Add an entity to be simulated. Requires DynamicBody and Location components to be present
@@ -41,6 +48,7 @@ namespace tjg {
          * Updates the positions of all entities in the system, and step forward the physical simulation
          */
         void Update(sf::Time elapsed);
+
     };
 }
 

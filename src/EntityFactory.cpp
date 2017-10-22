@@ -53,7 +53,7 @@ namespace tjg {
     }
 
 /**
- * MakeTech17 Creates an Entity representating the player character.
+ * MakeTech17 Creates an Entity representing the player character.
  * Tech17 is a ragdoll and is constructed as follows:
  *      All limbs are attached directly/indirectly to the "chest"
  *      The "chest" has a Rotational "Moment" of INFINITY, preventing the entire body from spinning
@@ -121,6 +121,7 @@ namespace tjg {
                 sf::Vector2f(0, 0),
                 1,
                 sf::Vector2f(CHEST_WIDTH, CHEST_HEIGHT));
+        cpShapeSetCollisionType(torso_body->GetShape(), static_cast<cpCollisionType>(PhysicsSystem::CollisionGroup::TECH17_CHEST));
         physics_system.AddEntity(tech17);
 
         //
@@ -443,6 +444,16 @@ namespace tjg {
         exit_sprite.setTextureRect(sf::IntRect(0, 0, 128, 240));
         exit->AddComponent<Sprite>(exit_sprite);
 
+        auto segment = exit->AddComponent<StaticSegment>(physics_system.GetSpace(), a + sf::Vector2f(0, -60), a + sf::Vector2f(0, 60), 75);
+        cpShapeSetCollisionType(segment->GetShape(), static_cast<cpCollisionType>(PhysicsSystem::CollisionGroup::EXIT));
+        exit->AddComponent<SensorShape>(segment->GetShape(), [&](cpShape *shape){
+            // Check if Tech17's chest overlaps with the exit door
+            if (cpShapeGetCollisionType(shape) == static_cast<cpCollisionType>(PhysicsSystem::CollisionGroup::TECH17_CHEST)) {
+                event_manager.Fire<ExitReached>();
+            }
+        });
+        physics_system.AddEntity(exit);
+
         return exit;
     }
 
@@ -459,26 +470,41 @@ namespace tjg {
         return static_cast<float>(sqrt(pow((p2.x - p1.x), 2) + pow((p2.y - p1.y), 2)));
     }
 
-    std::shared_ptr<Entity> EntityFactory::MakeFan(const sf::Vector2f &a, const sf::Vector2f &b, const float width, const float strength) {
+    std::shared_ptr<Entity> EntityFactory::MakeFan(const sf::Vector2f &position, const float angle, const float width, const float strength) {
 
         auto texture_sheet = resource_manager.LoadTexture("spritesheet.png");
-
         auto fan = std::make_shared<Entity>();
-        auto fan_location = fan->AddComponent<Location>(a);
-        // Set the rotation so that it is aiming from A to B.
-        fan_location->SetRotation(static_cast<float>(atan2(b.y - a.y, b.x - a.x)) * 180.0f / M_PI + 90.0f);
+        auto fan_location = fan->AddComponent<Location>(position);
+        fan_location->SetRotation(angle);
         auto fan_sprite = fan->AddComponent<Sprite>(
                 std::vector<sf::Sprite> {
                         // Define frames of animation
-                        sf::Sprite(*texture_sheet, sf::IntRect(234, 146, 448 - 234, 250 - 146)),
-                        sf::Sprite(*texture_sheet, sf::IntRect(234, 250, 448 - 234, 360 - 250))
+                        sf::Sprite(*texture_sheet, sf::IntRect(234, 146, 344 - 234, 360 - 146)),
+                        sf::Sprite(*texture_sheet, sf::IntRect(344, 146, 448 - 344, 360 - 146)),
                 },
                 20
         );
         // Set the size and start the animation
-        fan_sprite->SetSize(sf::Vector2f(width, width / 2.0f));
+        fan_sprite->SetSize(sf::Vector2f(width / 2.0f, width));
         fan_sprite->Play(true);
-        fan->AddComponent<LinearForce>(physics_system.GetSpace(), a, b, width, strength);
+        auto linear_force = fan->AddComponent<LinearForce>(physics_system.GetSpace(), position, angle, width, strength);
+        fan->AddComponent<SensorShape>(linear_force->GetShape(), [=](cpShape *shape){
+            // Apply a force to each shape overlapping with this linear force shape.
+
+            //convert the location's sf::Vector2f to a cpVect
+            auto force_origin = [=](sf::Vector2f sf_pos) {
+                return cpv(sf_pos.x, sf_pos.y);
+            }(fan->GetComponent<Location>()->GetPosition());
+
+            // Calculate force to be applied by a linear equation.
+            // At 0 distance away from the fan, a force of `strength` will be applied.
+            // At `strength` distance away, a force of 0 will be applied.
+            auto force_direction = fan->GetComponent<LinearForce>()->GetForce();
+            auto shape_position = cpBodyGetPosition(cpShapeGetBody(shape));
+            auto force = force_direction * std::max(0., (strength - cpvdist(force_origin, shape_position)));
+
+            cpBodyApplyForceAtWorldPoint(cpShapeGetBody(shape), force, cpBodyGetPosition(cpShapeGetBody(shape)));
+        });
         physics_system.AddEntity(fan);
 
         return fan;
