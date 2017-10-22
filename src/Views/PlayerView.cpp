@@ -50,8 +50,9 @@ namespace tjg {
         }
 
         // Set up camera
-        camera.setCenter(0, 0);
-        camera.setSize(1600, 1200);
+        // TODO: This needs to change depending on the level.
+        camera.setCenter(-500, 0);
+        camera.setSize(2080, 1280);
     }
 
     bool PlayerView::Running() {
@@ -90,7 +91,7 @@ namespace tjg {
         HandleWindowEvents();
 
         // Example of moving the camera location
-        camera.setCenter(camera.getCenter() * 0.90f + tech17->GetComponent<Location>()->GetPosition() * 0.10f);
+        //camera.setCenter(camera.getCenter() * 0.90f + tech17->GetComponent<Location>()->GetPosition() * 0.10f);
     }
 
     void PlayerView::HandleWindowEvents() {

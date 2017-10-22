@@ -8,17 +8,17 @@ namespace tjg {
 
     void ControlCenter::RotateClockwise() {
         auto body = player_entity->GetComponent<DynamicBody>()->GetBody();
-        cpBodySetTorque(body, 150000.f);
+        cpBodySetTorque(body, 250000.f);
     }
 
     void ControlCenter::RotateCounterClockwise() {
         auto body = player_entity->GetComponent<DynamicBody>()->GetBody();
-        cpBodySetTorque(body, -150000.f);
+        cpBodySetTorque(body, -250000.f);
     }
 
     void ControlCenter::FireJetpack() {
         auto body = player_entity->GetComponent<DynamicBody>()->GetBody();
-        cpBodyApplyImpulseAtLocalPoint(body, cpv(0, -20), cpv(0, 0));
+        cpBodyApplyImpulseAtLocalPoint(body, cpv(0, -25), cpv(0, 0));
     }
 
     std::shared_ptr<Entity> ControlCenter::GetPlayerEntity() {
