@@ -9,6 +9,7 @@
 #include "EntityFactory.h"
 #include "EventManager.h"
 #include "Events/ReachedExit.h"
+#include "Events/TimeExpired.h"
 
 namespace tjg {
 
