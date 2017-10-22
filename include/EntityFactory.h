@@ -10,7 +10,7 @@
 #include "ResourceManager.h"
 
 #include "EventManager.h"
-#include "Events/ExitReached.h"
+#include "Events/ReachedExit.h"
 
 #include "Components/Appendage.h"
 #include "Components/DynamicBody.h"

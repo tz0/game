@@ -1,12 +1,12 @@
 
-#include <iostream>
 #include "Systems/PhysicsSystem.h"
 
 namespace tjg {
 
     PhysicsSystem::PhysicsSystem(EventManager &event_manager) :
             space(cpSpaceNew()),
-            event_manager(event_manager)
+            event_manager(event_manager),
+            collision_center(space)
     {
         // Set zero gravity
         cpSpaceSetGravity(space, cpvzero);
@@ -14,17 +14,16 @@ namespace tjg {
         // Set some friction
         cpSpaceSetDamping(space, 0.9);
 
-        auto wall_collision_handler = cpSpaceAddCollisionHandler(
-                space,
-                static_cast<cpCollisionType>(PhysicsSystem::CollisionGroup::TECH17),
-                static_cast<cpCollisionType>(PhysicsSystem::CollisionGroup::WALL)
-        );
-
-        wall_collision_handler->beginFunc = [&](cpArbiter *arb, struct cpSpace *space, cpDataPointer data) -> cpBool {
-            event_manager.Fire<ExitReached>();
-            std::cout << "bumped the wall" << std::endl;
-            return cpTrue;
-        };
+        // Create a collision center handler that will fire an event when TECH17 hits a wall.
+        collision_center.AddHandler(
+            CollisionGroup::TECH17,
+            CollisionGroup::WALL,
+            [&](cpArbiter *arb, cpSpace *space) -> cpBool {
+                (void)arb;
+                (void)space;
+                event_manager.Fire<HitWall>();
+                return cpTrue;
+            });
 
     }
 

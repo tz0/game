@@ -7,19 +7,24 @@
     #define M_PI 3.14159265358979323846
 #endif
 
+#include <iostream>
+
 #include <chipmunk.h>
 #include <SFML/System/Time.hpp>
+
+#include "CollisionCenter.h"
 
 #include "Components/DynamicBody.h"
 #include "Components/LinearForce.h"
 #include "Components/SensorShape.h"
 
 #include "EventManager.h"
-#include "Events/ExitReached.h"
+#include "Events/HitWall.h"
 
 #include "System.h"
 
 namespace tjg {
+
     class PhysicsSystem : public System {
     private:
         cpSpace* space;
@@ -27,18 +32,13 @@ namespace tjg {
 
         std::vector<std::shared_ptr<Entity>> entities;
 
+        CollisionCenter collision_center;
+
     public:
         // Constructor
         PhysicsSystem(EventManager &event_manager);
         // Destructor
         ~PhysicsSystem();
-
-        enum class CollisionGroup : cpCollisionType {
-            DEFAULT = 0,
-            TECH17,
-            WALL,
-            EXIT
-        };
 
         /**
          * Add an entity to be simulated. Requires DynamicBody and Location components to be present

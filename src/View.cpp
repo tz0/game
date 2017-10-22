@@ -16,9 +16,14 @@ namespace tjg {
         entrance = entity_factory.MakeEntrance(sf::Vector2f(0, 0));
         exit = entity_factory.MakeExit(sf::Vector2f(1000, 1000));
 
-        event_manager.RegisterListener<ExitReached>([&](ExitReached &event){
+        event_manager.RegisterListener<ReachedExit>([&](ReachedExit &event){
             (void)event;
             did_exit = true;
+        });
+
+        event_manager.RegisterListener<HitWall>([&](HitWall &event){
+            (void)event;
+            std::cout << "TECH17 just died." << std::endl;
         });
 
         // Create boundary walls using the entity factory.

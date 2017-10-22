@@ -8,7 +8,7 @@
 #include "Systems/ControlCenter.h"
 #include "EntityFactory.h"
 #include "EventManager.h"
-#include "Events/ExitReached.h"
+#include "Events/ReachedExit.h"
 
 namespace tjg {
 
@@ -17,12 +17,13 @@ namespace tjg {
         virtual void initialize() = 0;
         virtual void update() = 0;
     protected:
+        ResourceManager &resource_manager;
+
         // Systems
         // All views need a physical center and control center.
         PhysicsSystem physics_system;
         ControlCenter control_center;
 
-        ResourceManager &resource_manager;
         EntityFactory entity_factory;
         EventManager event_manager;
 
