@@ -1,6 +1,6 @@
 # Jetpack Game
 
-This game is being build for Professor Pieter Peers' Introduction to Video Game Design (CSCI437) class at The College of William & Mary.
+This game is being built for Professor Pieter Peers' Introduction to Video Game Design (CSCI437) class at The College of William & Mary.
 
 ## Executive Summary
 
@@ -20,7 +20,6 @@ Jetpack Game takes place in the future on a spaceship, run by a seemingly benevo
 ```bash
 git clone --recursive https://github.com/tz0/game
 cd game
-git submodule init && git submodule update
 mkdir Release
 cd Release
 cmake ..
