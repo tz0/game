@@ -28,15 +28,12 @@ namespace tjg {
     class PhysicsSystem : public System {
     private:
         cpSpace* space;
-        EventManager &event_manager;
 
         std::vector<std::shared_ptr<Entity>> entities;
 
-        CollisionCenter collision_center;
-
     public:
         // Constructor
-        PhysicsSystem(EventManager &event_manager);
+        PhysicsSystem();
         // Destructor
         ~PhysicsSystem();
 
