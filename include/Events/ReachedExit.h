@@ -1,18 +1,18 @@
 
-#ifndef GAME_EXITREACHED_H
-#define GAME_EXITREACHED_H
+#ifndef GAME_REACHEDEXIT_H
+#define GAME_REACHEDEXIT_H
 
 #include "Event.h"
 
 namespace tjg {
-    class ExitReached : public Event {
+    class ReachedExit : public Event {
     private:
         // could possible contain information such as:
         //  - time elapsed
         //  - fuel remaining
     public:
-        explicit ExitReached();
+        explicit ReachedExit();
     };
 }
 
-#endif //GAME_EXITREACHED_H
+#endif //GAME_REACHEDEXIT_H

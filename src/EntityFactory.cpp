@@ -11,7 +11,8 @@ namespace tjg {
         wall_location->SetRotation(calculateAngle(a, b));
 
         // Add static segment component
-        wall->AddComponent<StaticSegment>(physics_system.GetSpace(), a.x, a.y, b.x, b.y, width);
+        auto static_segment = wall->AddComponent<StaticSegment>(physics_system.GetSpace(), a.x, a.y, b.x, b.y, width);
+        cpShapeSetCollisionType(static_segment->GetShape(), static_cast<cpCollisionType>(CollisionGroup::WALL));
 
         // Load wall texture.
         auto wall_texture = resource_manager.LoadTexture("wall-texture.png"); // TODO get a real wall texture
@@ -120,7 +121,7 @@ namespace tjg {
                 sf::Vector2f(0, 0),
                 1,
                 sf::Vector2f(CHEST_WIDTH, CHEST_HEIGHT));
-        cpShapeSetCollisionType(torso_body->GetShape(), static_cast<cpCollisionType>(PhysicsSystem::CollisionGroup::TECH17_CHEST));
+        cpShapeSetCollisionType(torso_body->GetShape(), static_cast<cpCollisionType>(CollisionGroup::TECH17));
         physics_system.AddEntity(tech17);
 
         //
@@ -149,6 +150,7 @@ namespace tjg {
                 LIMB_STIFFNESS * 10.0f,
                 0.0f,
                 LIMB_ROTATION_LIMIT);
+        cpShapeSetCollisionType(abs_body->GetShape(), static_cast<cpCollisionType>(CollisionGroup::TECH17));
         physics_system.AddEntity(abs_entity);
         tech17->AddChild(abs_entity);
 
@@ -178,6 +180,7 @@ namespace tjg {
                 LIMB_STIFFNESS,
                 0.0f,
                 LIMB_ROTATION_LIMIT);
+        cpShapeSetCollisionType(head_body->GetShape(), static_cast<cpCollisionType>(CollisionGroup::TECH17));
         physics_system.AddEntity(head_entity);
         tech17->AddChild(head_entity);
 
@@ -210,6 +213,7 @@ namespace tjg {
                 // Set the angle to keep the arm at his side.
                 -1 * ARM_ANGLE,
                 LIMB_ROTATION_LIMIT);
+        cpShapeSetCollisionType(left_bicep_body->GetShape(), static_cast<cpCollisionType>(CollisionGroup::TECH17));
         physics_system.AddEntity(left_bicep_entity);
         tech17->AddChild(left_bicep_entity);
 
@@ -235,6 +239,7 @@ namespace tjg {
                 LIMB_STIFFNESS,
                 ARM_ANGLE,
                 LIMB_ROTATION_LIMIT);
+        cpShapeSetCollisionType(right_bicep_body->GetShape(), static_cast<cpCollisionType>(CollisionGroup::TECH17));
         physics_system.AddEntity(right_bicep_entity);
         tech17->AddChild(right_bicep_entity);
 
@@ -266,6 +271,7 @@ namespace tjg {
                 LIMB_STIFFNESS,
                 -1 * ARM_ANGLE / 2.0f,
                 LIMB_ROTATION_LIMIT);
+        cpShapeSetCollisionType(left_forearm_body->GetShape(), static_cast<cpCollisionType>(CollisionGroup::TECH17));
         physics_system.AddEntity(left_forearm_entity);
         tech17->AddChild(left_forearm_entity);
 
@@ -291,6 +297,7 @@ namespace tjg {
                 LIMB_STIFFNESS,
                 ARM_ANGLE / 2.0f,
                 LIMB_ROTATION_LIMIT);
+        cpShapeSetCollisionType(right_forearm_body->GetShape(), static_cast<cpCollisionType>(CollisionGroup::TECH17));
         physics_system.AddEntity(right_forearm_entity);
         tech17->AddChild(right_forearm_entity);
 
@@ -321,6 +328,7 @@ namespace tjg {
                 LIMB_STIFFNESS,
                 0.0f,
                 LIMB_ROTATION_LIMIT);
+        cpShapeSetCollisionType(left_thigh_body->GetShape(), static_cast<cpCollisionType>(CollisionGroup::TECH17));
         physics_system.AddEntity(left_thigh_entity);
         tech17->AddChild(left_thigh_entity);
 
@@ -346,6 +354,7 @@ namespace tjg {
                 LIMB_STIFFNESS,
                 0.0f,
                 LIMB_ROTATION_LIMIT);
+        cpShapeSetCollisionType(right_thigh_body->GetShape(), static_cast<cpCollisionType>(CollisionGroup::TECH17));
         physics_system.AddEntity(right_thigh_entity);
         tech17->AddChild(right_thigh_entity);
 
@@ -377,6 +386,7 @@ namespace tjg {
                 LIMB_STIFFNESS,
                 0.0f,
                 LIMB_ROTATION_LIMIT);
+        cpShapeSetCollisionType(left_shin_body->GetShape(), static_cast<cpCollisionType>(CollisionGroup::TECH17));
         physics_system.AddEntity(left_shin_entity);
         tech17->AddChild(left_shin_entity);
 
@@ -402,6 +412,7 @@ namespace tjg {
                 LIMB_STIFFNESS,
                 0.0f,
                 LIMB_ROTATION_LIMIT);
+        cpShapeSetCollisionType(right_shin_body->GetShape(), static_cast<cpCollisionType>(CollisionGroup::TECH17));
         physics_system.AddEntity(right_shin_entity);
         tech17->AddChild(right_shin_entity);
 
@@ -499,12 +510,12 @@ namespace tjg {
         exit_sprite.setTextureRect(sf::IntRect(0, 0, 128, 240));
         exit->AddComponent<Sprite>(exit_sprite);
 
-        auto segment = exit->AddComponent<StaticSegment>(physics_system.GetSpace(), a + sf::Vector2f(0, -60), a + sf::Vector2f(0, 60), 75);
-        cpShapeSetCollisionType(segment->GetShape(), static_cast<cpCollisionType>(PhysicsSystem::CollisionGroup::EXIT));
+        auto segment = exit->AddComponent<StaticSegment>(physics_system.GetSpace(), a + sf::Vector2f(0, -10), a + sf::Vector2f(0, 10), 20);
+        cpShapeSetCollisionType(segment->GetShape(), static_cast<cpCollisionType>(CollisionGroup::EXIT));
         exit->AddComponent<SensorShape>(segment->GetShape(), [&](cpShape *shape){
             // Check if Tech17's chest overlaps with the exit door
-            if (cpShapeGetCollisionType(shape) == static_cast<cpCollisionType>(PhysicsSystem::CollisionGroup::TECH17_CHEST)) {
-                event_manager.Fire<ExitReached>();
+            if (cpShapeGetCollisionType(shape) == static_cast<cpCollisionType>(CollisionGroup::TECH17)) {
+                event_manager.Fire<ReachedExit>();
             }
         });
         physics_system.AddEntity(exit);
