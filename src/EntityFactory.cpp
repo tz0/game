@@ -85,7 +85,7 @@ namespace tjg {
  *
  * @return Tech17 Entity
  */
-        std::shared_ptr<Entity> EntityFactory::MakeTech17() {
+    std::shared_ptr<Entity> EntityFactory::MakeTech17() {
         auto spacesuit_texture = resource_manager.LoadTexture("spritesheet.png");
         auto tech17 = std::make_shared<Entity>();
 
@@ -419,6 +419,62 @@ namespace tjg {
         return tech17;
     }
 
+    std::shared_ptr<Entity> EntityFactory::MakeFan(const sf::Vector2f &origin_point, const sf::Vector2f &end_point, const float width, const float origin_strength, const float end_strength) {
+        // Load texture sheet.
+        auto texture_sheet = resource_manager.LoadTexture("spritesheet.png");
+
+        // Build fan entity.
+        auto fan = std::make_shared<Entity>();
+
+        // Add location component pointing to the origin.
+        auto fan_location = fan->AddComponent<Location>(origin_point);
+        fan_location->SetRotation(calculateAngle(origin_point, end_point));
+
+        // Add sprite component (load from texture sheet).
+        auto fan_sprite = fan->AddComponent<Sprite>(
+                std::vector<sf::Sprite> {
+                        // Define frames of animation
+                        sf::Sprite(*texture_sheet, sf::IntRect(234, 146, 344 - 234, 360 - 146)),
+                        sf::Sprite(*texture_sheet, sf::IntRect(344, 146, 448 - 344, 360 - 146)),
+                },
+                20
+        );
+
+        // Set the size and start the animation
+        fan_sprite->SetSize(sf::Vector2f(width / 2.0f, width));
+        fan_sprite->Play(true);
+
+        // Create linear force component for physics system
+        auto linear_force = fan->AddComponent<LinearForce>(physics_system.GetSpace(), origin_point, end_point, width, origin_strength, end_strength);
+
+        // Create sensor shape component (the physics system uses this to check if a DynamicBody is inside the sensor shape).
+        fan->AddComponent<SensorShape>(linear_force->GetShape(), [=](cpShape *shape){
+            // Apply a force to each shape overlapping with this linear force shape.
+
+            // Convert the sf::Vector2f to a cpVect
+            auto force_origin = cpv(origin_point.x, origin_point.y);
+            auto force_end = cpv(end_point.x, end_point.y);
+
+            // Calculate force to be applied by a linear equation.
+            // At the fan's origin_point, a force of origin_strength will be applied.
+            // At the fan's end_point, a force of end_strength will be applied.
+            auto force_direction = fan->GetComponent<LinearForce>()->GetForce();
+            auto shape_position = cpBodyGetPosition(cpShapeGetBody(shape));
+            //auto force = force_direction * std::max(end_strength, (float)(origin_strength - cpvdist(force_origin, shape_position)));
+
+            // Calculate the amount of force to apply.
+            auto origin_end_dist = cpvdist(force_origin, force_end);
+            auto origin_shape_dist = cpvdist(force_origin, shape_position);
+            auto force = force_direction * (end_strength + (((origin_end_dist - origin_shape_dist) / origin_end_dist) * (origin_strength - end_strength)));
+
+            // Apply the force to the affected shape.
+            cpBodyApplyForceAtWorldPoint(cpShapeGetBody(shape), force, cpBodyGetPosition(cpShapeGetBody(shape)));
+        });
+        physics_system.AddEntity(fan);
+
+        return fan;
+    }
+
     std::shared_ptr<Entity> EntityFactory::MakeEntrance(const sf::Vector2f &a) {
         // Create entrance entity.
         auto entrance = std::make_shared<Entity>();
@@ -478,46 +534,5 @@ namespace tjg {
     float EntityFactory::calculateDistance(sf::Vector2f p1, sf::Vector2f p2) {
         // Calculate distance between p1 and p2
         return static_cast<float>(sqrt(pow((p2.x - p1.x), 2) + pow((p2.y - p1.y), 2)));
-    }
-
-    std::shared_ptr<Entity> EntityFactory::MakeFan(const sf::Vector2f &position, const float angle, const float width, const float strength) {
-
-        auto texture_sheet = resource_manager.LoadTexture("spritesheet.png");
-        auto fan = std::make_shared<Entity>();
-        auto fan_location = fan->AddComponent<Location>(position);
-        fan_location->SetRotation(angle);
-        auto fan_sprite = fan->AddComponent<Sprite>(
-                std::vector<sf::Sprite> {
-                        // Define frames of animation
-                        sf::Sprite(*texture_sheet, sf::IntRect(234, 146, 344 - 234, 360 - 146)),
-                        sf::Sprite(*texture_sheet, sf::IntRect(344, 146, 448 - 344, 360 - 146)),
-                },
-                20
-        );
-        // Set the size and start the animation
-        fan_sprite->SetSize(sf::Vector2f(width / 2.0f, width));
-        fan_sprite->Play(true);
-        auto linear_force = fan->AddComponent<LinearForce>(physics_system.GetSpace(), position, angle, width, strength);
-        fan->AddComponent<SensorShape>(linear_force->GetShape(), [=](cpShape *shape){
-            // Apply a force to each shape overlapping with this linear force shape.
-
-            //convert the location's sf::Vector2f to a cpVect
-            auto force_origin = [=](sf::Vector2f sf_pos) {
-                return cpv(sf_pos.x, sf_pos.y);
-            }(fan->GetComponent<Location>()->GetPosition());
-
-            // Calculate force to be applied by a linear equation.
-            // At 0 distance away from the fan, a force of `strength` will be applied.
-            // At `strength` distance away, a force of 0 will be applied.
-            auto force_direction = fan->GetComponent<LinearForce>()->GetForce();
-            auto shape_position = cpBodyGetPosition(cpShapeGetBody(shape));
-            auto force = force_direction * std::max(0., (strength - cpvdist(force_origin, shape_position)));
-
-            cpBodyApplyForceAtWorldPoint(cpShapeGetBody(shape), force, cpBodyGetPosition(cpShapeGetBody(shape)));
-        });
-        physics_system.AddEntity(fan);
-
-        return fan;
-
     }
 }
