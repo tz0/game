@@ -40,11 +40,11 @@ namespace tjg {
         // Top fan to right of spawn.
         fans.push_back(entity_factory.MakeFan(sf::Vector2f(300, -600), sf::Vector2f(300, 600), 200, 250.0f, 0.f));
         // Right fan below spawn.
-        fans.push_back(entity_factory.MakeFan(sf::Vector2f(500, 400), sf::Vector2f(-1500, 400), 200, 250.0f, 0.f));
+        fans.push_back(entity_factory.MakeFan(sf::Vector2f(500, 400), sf::Vector2f(-1500, 400), 200, 250.0f, 50.f));
         // Bottom fan near exit.
         fans.push_back(entity_factory.MakeFan(sf::Vector2f(-1000, 600), sf::Vector2f(-1000, -600), 200, 250.0f, 0.f));
         // Top fan near exit.
-        fans.push_back(entity_factory.MakeFan(sf::Vector2f(-1300, -600), sf::Vector2f(-1300, 600), 200, 250.0f, 0.f));
+        fans.push_back(entity_factory.MakeFan(sf::Vector2f(-1300, -600), sf::Vector2f(-1300, 600), 200, 300.0f, 0.f));
 
         // Call specific view's initialization method.
         initialize();
