@@ -13,17 +13,23 @@
 #include "Components/DynamicBody.h"
 #include "Components/LinearForce.h"
 #include "Components/SensorShape.h"
+
+#include "EventManager.h"
+#include "Events/ExitReached.h"
+
 #include "System.h"
 
 namespace tjg {
     class PhysicsSystem : public System {
     private:
         cpSpace* space;
+        EventManager &event_manager;
+
         std::vector<std::shared_ptr<Entity>> entities;
 
     public:
         // Constructor
-        PhysicsSystem();
+        PhysicsSystem(EventManager &event_manager);
         // Destructor
         ~PhysicsSystem();
 

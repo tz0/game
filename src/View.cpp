@@ -4,6 +4,7 @@
 namespace tjg {
     View::View(ResourceManager &resource_manager) :
             resource_manager(resource_manager),
+            physics_system(event_manager),
             entity_factory(resource_manager, physics_system, event_manager) {
     }
 

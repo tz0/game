@@ -4,12 +4,28 @@
 
 namespace tjg {
 
-    PhysicsSystem::PhysicsSystem() : space(cpSpaceNew()) {
+    PhysicsSystem::PhysicsSystem(EventManager &event_manager) :
+            space(cpSpaceNew()),
+            event_manager(event_manager)
+    {
         // Set zero gravity
         cpSpaceSetGravity(space, cpvzero);
 
         // Set some friction
         cpSpaceSetDamping(space, 0.9);
+
+        auto wall_collision_handler = cpSpaceAddCollisionHandler(
+                space,
+                static_cast<cpCollisionType>(PhysicsSystem::CollisionGroup::TECH17),
+                static_cast<cpCollisionType>(PhysicsSystem::CollisionGroup::WALL)
+        );
+
+        wall_collision_handler->beginFunc = [&](cpArbiter *arb, struct cpSpace *space, cpDataPointer data) -> cpBool {
+            event_manager.Fire<ExitReached>();
+            std::cout << "bumped the wall" << std::endl;
+            return cpTrue;
+        };
+
     }
 
     PhysicsSystem::~PhysicsSystem() {

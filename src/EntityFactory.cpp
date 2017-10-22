@@ -11,7 +11,8 @@ namespace tjg {
         wall_location->SetRotation(calculateAngle(a, b));
 
         // Add static segment component
-        wall->AddComponent<StaticSegment>(physics_system.GetSpace(), a.x, a.y, b.x, b.y, width);
+        auto static_segment = wall->AddComponent<StaticSegment>(physics_system.GetSpace(), a.x, a.y, b.x, b.y, width);
+        cpShapeSetCollisionType(static_segment->GetShape(), static_cast<cpCollisionType>(PhysicsSystem::CollisionGroup::WALL));
 
         // Load wall texture.
         auto wall_texture = resource_manager.LoadTexture("wall-texture.png"); // TODO get a real wall texture
