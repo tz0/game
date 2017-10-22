@@ -18,16 +18,18 @@ namespace tjg {
 
     private:
         cpShape *shape;
-        float strength;
+        float origin_strength;
+        float end_strength;
 
         // normalized vector representing the direction of air flow
         cpVect force;
 
     public:
-        LinearForce(cpSpace *space, const sf::Vector2f position, float angle, float width, float strength);
+        LinearForce(cpSpace *space, sf::Vector2f origin_point, sf::Vector2f end_point, float width, float origin_strength, float end_strength);
         ~LinearForce();
         cpShape *GetShape();
-        float GetStrength();
+        float GetOriginStrength();
+        float GetEndStrength();
         cpVect GetForce();
     };
 
