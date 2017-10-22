@@ -1,3 +1,4 @@
+#include <bitset>
 
 #include "Views/PlayerView.h"
 
@@ -19,6 +20,13 @@ namespace tjg {
         info.setFont(*avenir_bold);
         info.setStyle(sf::Text::Bold);
         info.setCharacterSize(24);
+
+        // set font for user countdown clock
+        countdown.setFont(*lcd_regular);
+        countdown.setStyle(sf::Text::Bold);
+        countdown.setCharacterSize(32);
+        //countdown.setPosition(WINDOW_WIDTH / 2 - 165, WINDOW_HEIGHT * .054f); // position - outside the wall
+        countdown.setPosition(WINDOW_WIDTH / 2 - 165, WINDOW_HEIGHT * .001f); // position - inside the wall
 
         // Add tech17 + child components to the sprite render system
         sprite_render_system.AddEntity(tech17);
@@ -78,6 +86,19 @@ namespace tjg {
         if (show_info) {
             info.setString(std::to_string(fps) + " FPS");
             window.draw(info);
+        }
+        
+        // the current countdown timer is not implemented as an entity. Since there is only one unphysical timer for player and we are using the hybrid event system, I think it might be okay this way.  
+        if (show_countdown) {
+            time_countdown = countdown_clock.getElapsedTime();
+            unsigned int remaining_seconds = max_countdown > time_countdown.asSeconds() ? static_cast<unsigned int>(max_countdown - time_countdown.asSeconds()) : 0;
+            if (countdown_mode_binary)
+                countdown.setString("Time Left " + std::bitset<8>(remaining_seconds).to_string());
+            else
+                countdown.setString(std::to_string(remaining_seconds) + " Seconds");
+            window.draw(countdown);
+            if (!remaining_seconds)            
+                std::cout << "Time's up! Consider to restart this level. " << std::endl;
         }
 
         window.display();

@@ -1,0 +1,15 @@
+{
+  "ExpandedNodes": [
+    "",
+    "\\include",
+    "\\include\\Components",
+    "\\include\\Events",
+    "\\src",
+    "\\src\\Components",
+    "\\src\\Events",
+    "\\src\\Systems",
+    "\\src\\Views"
+  ],
+  "SelectedNode": "\\src\\Events\\ReachedExit.cpp",
+  "PreviewInSolutionExplorer": false
+}
