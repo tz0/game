@@ -90,7 +90,7 @@ namespace tjg {
         HandleWindowEvents();
 
         // Example of moving the camera location
-        camera.setCenter(camera.getCenter() * 0.99f + tech17->GetComponent<Location>()->GetPosition() * 0.01f);
+        camera.setCenter(camera.getCenter() * 0.90f + tech17->GetComponent<Location>()->GetPosition() * 0.10f);
     }
 
     void PlayerView::HandleWindowEvents() {
