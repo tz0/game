@@ -34,9 +34,9 @@ namespace tjg {
 
         // Create fans and add them to the fans vector.
         // Top fan above span
-        fans.push_back(entity_factory.MakeFan(sf::Vector2f(0, -600), 90, 200, 700.0f));
+        fans.push_back(entity_factory.MakeFan(sf::Vector2f(0, -600), 90, 200, 500.0f));
         // Bottom fan below spawn
-        fans.push_back(entity_factory.MakeFan(sf::Vector2f(0, 600), 270, 200, 700.0f));
+        fans.push_back(entity_factory.MakeFan(sf::Vector2f(0, 600), 270, 200, 500.0f));
         // Top fan to right of spawn.
         fans.push_back(entity_factory.MakeFan(sf::Vector2f(300, -600), 90, 200, 700.0f));
         // Right fan below spawn.
