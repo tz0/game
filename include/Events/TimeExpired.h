@@ -1,5 +1,5 @@
-#ifndef TIME_EXPIRED_H
-#define TIME_EXPIRED_H
+#ifndef GAME_TIMEEXPIRED_H
+#define GAME_TIMEEXPIRED_H
 
 #include "Event.h"
 
@@ -12,4 +12,4 @@ namespace tjg {
     };
 }
 
-#endif // !TIME_EXPIRED_H
+#endif //GAME_TIMEEXPIRED_H
