@@ -2,6 +2,11 @@
 #ifndef GAME_LINEARFORCE_H
 #define GAME_LINEARFORCE_H
 
+// Make M_PI work on Windows.
+#ifndef M_PI
+    #define M_PI 3.14159265358979323846
+#endif
+
 #include <chipmunk.h>
 #include <SFML/System/Vector2.hpp>
 

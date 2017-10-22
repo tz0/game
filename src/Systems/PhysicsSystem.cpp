@@ -9,7 +9,7 @@ namespace tjg {
         cpSpaceSetGravity(space, cpvzero);
 
         // Set some friction
-        cpSpaceSetDamping(space, 0.9);
+        cpSpaceSetDamping(space, 0.75);
     }
 
     PhysicsSystem::~PhysicsSystem() {
