@@ -512,13 +512,6 @@ namespace tjg {
 
         auto segment = exit->AddComponent<StaticSegment>(physics_system.GetSpace(), a + sf::Vector2f(0, -10), a + sf::Vector2f(0, 10), 20);
         cpShapeSetCollisionType(segment->GetShape(), static_cast<cpCollisionType>(CollisionGroup::EXIT));
-        exit->AddComponent<SensorShape>(segment->GetShape(), [&](cpShape *shape){
-            // Check if Tech17's chest overlaps with the exit door
-            if (cpShapeGetCollisionType(shape) == static_cast<cpCollisionType>(CollisionGroup::TECH17)) {
-                event_manager.Fire<ReachedExit>();
-            }
-        });
-        physics_system.AddEntity(exit);
 
         return exit;
     }

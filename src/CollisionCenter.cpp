@@ -2,7 +2,7 @@
 
 namespace tjg {
     void CollisionCenter::AddHandler(CollisionGroup group1, CollisionGroup group2,
-                                     std::function<cpBool(cpArbiter *arb, cpSpace *space)> callback) {
+                                     std::function<void(cpArbiter *arb, cpSpace *space)> callback) {
 
         auto handler = cpSpaceAddCollisionHandler(
             space,
@@ -10,13 +10,22 @@ namespace tjg {
             static_cast<cpCollisionType>(group2)
         );
 
-        handlers.emplace_back(std::pair<cpCollisionHandler*, std::function<cpBool(cpArbiter *, cpSpace *)>>(
-                handler, std::move(callback)
-        ));
-        handler->userData = &handlers.back().second;
-        handler->beginFunc = [](cpArbiter *arb, struct cpSpace *space, cpDataPointer f) -> cpBool {
-            return (*static_cast<std::function<cpBool (cpArbiter*, cpSpace*)>*>(f))(arb, space);
-        };
+        // Check if an identical handler has already been created. If so, display a warning.
+        if (callbacks.find(handler) != callbacks.end()) {
+            std::cout << "Warning: Overwriting collision handler for groups: "
+                      << static_cast<int>(group1) << ", "
+                      << static_cast<int>(group2) << "." << std::endl;
+        }
 
+        // Insert the callback into the map
+        callbacks[handler] = std::move(callback);
+
+        // Assign the callback as user data
+        handler->userData = &callbacks[handler];
+
+        // Setup the callback wrapper
+        handler->postSolveFunc = [](cpArbiter *arb, cpSpace *space, cpDataPointer f) {
+            (*static_cast<std::function<void (cpArbiter*, cpSpace*)>*>(f))(arb, space);
+        };
     }
 }
