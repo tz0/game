@@ -16,9 +16,11 @@ namespace tjg {
         ~Game();
         void Run();
     private:
-
         ResourceManager resource_manager;
+        LogicCenter logic_center;
         PlayerView view;
+
+        sf::Clock update_clock;
     };
 }
 #endif //GAME_H

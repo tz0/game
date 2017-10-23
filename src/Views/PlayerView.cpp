@@ -4,13 +4,14 @@
 
 namespace tjg {
 
-    PlayerView::PlayerView(ResourceManager &resource_manager) :
-            View(resource_manager),
+    PlayerView::PlayerView(ResourceManager &resource_manager, LogicCenter &logic_center) :
+            View(logic_center),
+            resource_manager(resource_manager),
             window(sf::VideoMode(WINDOW_WIDTH, WINDOW_HEIGHT, 32), "Game", sf::Style::Titlebar | sf::Style::Close) {
             window.setVerticalSyncEnabled(true);
     }
 
-    void PlayerView::initialize() {
+    void PlayerView::Initialize() {
 
         // Load fonts and the texture sheet
         auto avenir_bold = resource_manager.LoadFont("Avenir-Bold.ttf");
@@ -29,22 +30,22 @@ namespace tjg {
         countdown.setPosition(WINDOW_WIDTH / 2 - 165, WINDOW_HEIGHT * .001f); // position - inside the wall
 
         // Add tech17 + child components to the sprite render system
-        sprite_render_system.AddEntity(tech17);
-        tech17->ForEachChild([&](std::shared_ptr<Entity> child){
+        sprite_render_system.AddEntity(logic_center.GetTech17());
+        logic_center.GetTech17()->ForEachChild([&](std::shared_ptr<Entity> child){
             sprite_render_system.AddEntity(child);
         });
 
         // Add the wall entities to the sprite render system
-        for (auto wall : walls) {
+        for (const auto &wall : logic_center.GetWalls()) {
             sprite_render_system.AddEntity(wall);
         }
 
         //Add the entrance and exit to the sprite render system
-        sprite_render_system.AddEntity(entrance);
-        sprite_render_system.AddEntity(exit);
+        sprite_render_system.AddEntity(logic_center.GetEntrance());
+        sprite_render_system.AddEntity(logic_center.GetExit());
 
         // Make background
-        sprite_render_system.AddEntity(entity_factory.MakeTiledBackground("background.png"));
+        sprite_render_system.AddEntity(logic_center.GetEntityFactory().MakeTiledBackground("background.png"));
 
         // temp Set font for win message
         win_message.setFont(*avenir_bold);
@@ -59,7 +60,7 @@ namespace tjg {
 
 
         // Add fans to sprite render system.
-        for (auto &fan : fans) {
+        for (const auto &fan : logic_center.GetFans()) {
             sprite_render_system.AddEntity(fan);
         }
 
@@ -91,9 +92,12 @@ namespace tjg {
         // Drawing countdown timer  
         if (show_countdown) {
             if (countdown_mode_binary)
-                countdown.setString("Time Left " + std::bitset<8>(remaining_seconds).to_string());
+                countdown.setString(
+                        "Time Left " +
+                        std::bitset<8>(logic_center.GetRemainingSeconds()).to_string());
             else
-                countdown.setString(std::to_string(remaining_seconds) + " Seconds");
+                countdown.setString(
+                        std::to_string(logic_center.GetRemainingSeconds()) + " Seconds");
             window.draw(countdown);
         }
 
@@ -109,12 +113,9 @@ namespace tjg {
     }
 
     // Update logic that is specific to the player view.
-    void PlayerView::update() {
+    void PlayerView::Update() {
         CheckKeys();
         HandleWindowEvents();
-
-        // Example of moving the camera location
-        //camera.setCenter(camera.getCenter() * 0.90f + tech17->GetComponent<Location>()->GetPosition() * 0.10f);
     }
 
     void PlayerView::HandleWindowEvents() {
@@ -154,6 +155,9 @@ namespace tjg {
     }
 
     void PlayerView::CheckKeys() {
+
+        auto control_center = logic_center.GetControlCenter();
+
         // Temporary/Example control system.
         if (sf::Keyboard::isKeyPressed(sf::Keyboard::Left)) {
             control_center.RotateCounterClockwise();
