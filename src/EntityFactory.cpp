@@ -15,7 +15,7 @@ namespace tjg {
         cpShapeSetCollisionType(static_segment->GetShape(), static_cast<cpCollisionType>(CollisionGroup::WALL));
 
         // Load wall texture.
-        auto wall_texture = resource_manager.LoadTexture("wall-texture.png"); // TODO get a real wall texture
+        auto wall_texture = resource_manager.LoadTexture("white-tile.jpg");
         wall_texture->setRepeated(true);
 
         // Get wall length.
@@ -25,6 +25,7 @@ namespace tjg {
         sf::Sprite wall_sprite;
         wall_sprite.setTexture(*wall_texture);
         wall_sprite.setTextureRect(sf::IntRect(0, 0, length, (int) width));
+        wall_sprite.setColor(sf::Color(150, 150, 150)); // Dark gray
         wall->AddComponent<Sprite>(wall_sprite);
 
         return wall;
@@ -48,6 +49,7 @@ namespace tjg {
         sf::Sprite background_sprite;
         background_sprite.setTexture(*background_texture);
         background_sprite.setTextureRect(sf::IntRect(INT16_MIN, INT16_MIN, INT16_MAX, INT16_MAX));
+        background_sprite.setColor(sf::Color(220, 220, 220)); // Light gray
         background->AddComponent<Sprite>(background_sprite, -1000);
         return background;
     }

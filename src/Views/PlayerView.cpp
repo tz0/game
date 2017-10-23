@@ -44,7 +44,7 @@ namespace tjg {
         sprite_render_system.AddEntity(exit);
 
         // Make background
-        sprite_render_system.AddEntity(entity_factory.MakeTiledBackground("background.png"));
+        sprite_render_system.AddEntity(entity_factory.MakeTiledBackground("white-tile.jpg"));
 
         // temp Set font for win message
         win_message.setFont(*avenir_bold);
