@@ -38,10 +38,10 @@ namespace tjg {
         auto right_wall = entity_factory.MakeWall(sf::Vector2f(500, -600), sf::Vector2f(500, 600), 80);
 
         // Add the walls to the entities vector.
-        walls.push_back(top_wall);
-        walls.push_back(bottom_wall);
         walls.push_back(left_wall);
         walls.push_back(right_wall);
+        walls.push_back(top_wall);
+        walls.push_back(bottom_wall);
 
         // Create fans and add them to the fans vector.
         // Top fan above span
