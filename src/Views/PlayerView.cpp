@@ -45,7 +45,7 @@ namespace tjg {
         sprite_render_system.AddEntity(logic_center.GetExit());
 
         // Make background
-        sprite_render_system.AddEntity(logic_center.GetEntityFactory().MakeTiledBackground("background.png"));
+        sprite_render_system.AddEntity(logic_center.GetEntityFactory().MakeTiledBackground("white-tile.jpg"));
 
         // temp Set font for win message
         win_message.setFont(*avenir_bold);
