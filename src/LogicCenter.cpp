@@ -1,4 +1,3 @@
-
 #include "LogicCenter.h"
 
 namespace tjg {
@@ -10,22 +9,23 @@ namespace tjg {
     }
 
     void LogicCenter::Initialize() {
+        // Make TECH-17
         tech17 = entity_factory.MakeTech17();
         control_center.AddEntity(tech17);
 
+        // Make entrance and exit.
         entrance = entity_factory.MakeEntrance(sf::Vector2f(0, 0));
         exit = entity_factory.MakeExit(sf::Vector2f(-1400, -200));
 
+        // Register listengers/
         event_manager.RegisterListener<ReachedExit>([&](ReachedExit &event){
             (void)event;
             did_exit = true;
         });
-
         event_manager.RegisterListener<HitWall>([&](HitWall &event){
             (void)event;
             std::cout << "TECH17 just died." << std::endl;
         });
-
         event_manager.RegisterListener<TimeExpired>([&](TimeExpired &event) {
             (void)event;
             std::cout << "Time's up! Consider to restart this level." << std::endl;
@@ -79,17 +79,23 @@ namespace tjg {
             }
         );
 
+        // Build resource trackers.
+        // TODO: Don't hardcode values.
+        std::string tracker_texture_path = "white-texture.jpg";
+        fuel_tracker = entity_factory.MakeResourceTracker(sf::Vector2f(100, 36), 5, tracker_texture_path);
+        oxygen_tracker = entity_factory.MakeResourceTracker(sf::Vector2f(400, 36), 30, tracker_texture_path);
     }
 
     void LogicCenter::Update(const sf::Time elapsed) {
 
         physics_system.Update(elapsed);
 
-        // Countdown timer - start counting. The reason of fairness, do not start to count during initialization.  The current countdown timer is not implemented as an entity. Since there is only one unphysical timer for player and we are using the hybrid event system, I think it might be okay this way.                  
-        time_countdown = countdown_clock.getElapsedTime();
-        remaining_seconds = max_countdown > time_countdown.asSeconds() ? static_cast<unsigned int>(max_countdown - time_countdown.asSeconds()) : 0;        
-      
-        if (!remaining_seconds){            
+        // Countdown timer - start counting. To be more fair, do not start to count during initialization.
+        auto elapsed_seconds = oxygen_clock.getElapsedTime().asSeconds();
+        auto oxygen_finite_resource = oxygen_tracker->GetComponent<FiniteResource>();
+        auto max_oxygen = oxygen_finite_resource->GetMaxLevel();
+        oxygen_finite_resource->SetCurrentLevel(max_oxygen - elapsed_seconds);
+        if (oxygen_finite_resource->IsDepleted()){
             event_manager.Fire<TimeExpired>();
         }
 
@@ -115,6 +121,14 @@ namespace tjg {
         return exit;
     }
 
+    std::shared_ptr<Entity> LogicCenter::GetFuelTracker() {
+        return fuel_tracker;
+    }
+
+    std::shared_ptr<Entity> LogicCenter::GetOxygenTracker() {
+        return oxygen_tracker;
+    }
+
     std::vector<std::shared_ptr<Entity>>& LogicCenter::GetFans() {
         return fans;
     }
@@ -125,9 +139,5 @@ namespace tjg {
 
     ControlCenter& LogicCenter::GetControlCenter() {
         return control_center;
-    }
-
-    unsigned int LogicCenter::GetRemainingSeconds() {
-        return remaining_seconds;
     }
 }

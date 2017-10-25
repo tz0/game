@@ -7,7 +7,7 @@ namespace tjg {
     PlayerView::PlayerView(ResourceManager &resource_manager, LogicCenter &logic_center) :
             View(logic_center),
             resource_manager(resource_manager),
-            window(sf::VideoMode(WINDOW_WIDTH, WINDOW_HEIGHT, 32), "Game", sf::Style::Titlebar | sf::Style::Close) {
+            window(sf::VideoMode(WINDOW_WIDTH, WINDOW_HEIGHT, 32), "Jetpack Game", sf::Style::Titlebar | sf::Style::Close) {
             window.setVerticalSyncEnabled(true);
     }
 
@@ -26,8 +26,7 @@ namespace tjg {
         countdown.setFont(*lcd_regular);
         countdown.setStyle(sf::Text::Bold);
         countdown.setCharacterSize(32);
-        //countdown.setPosition(WINDOW_WIDTH / 2 - 165, WINDOW_HEIGHT * .054f); // position - outside the wall
-        countdown.setPosition(WINDOW_WIDTH / 2 - 165, WINDOW_HEIGHT * .001f); // position - inside the wall
+        countdown.setPosition(WINDOW_WIDTH / 2.f, STATUSBAR_HEIGHT / 4.f);
 
         // Add tech17 + child components to the sprite render system
         sprite_render_system.AddEntity(logic_center.GetTech17());
@@ -84,23 +83,16 @@ namespace tjg {
         // Drawing that should take place separate from the "camera" should go below here.
         window.setView(window.getDefaultView());
 
+        // Draw FPS counter.
         if (show_info) {
             info.setString(std::to_string(fps) + " FPS");
             window.draw(info);
         }
-        
-        // Drawing countdown timer  
-        if (show_countdown) {
-            if (countdown_mode_binary)
-                countdown.setString(
-                        "Time Left " +
-                        std::bitset<8>(logic_center.GetRemainingSeconds()).to_string());
-            else
-                countdown.setString(
-                        std::to_string(logic_center.GetRemainingSeconds()) + " Seconds");
-            window.draw(countdown);
-        }
 
+        // Draw status bar on top of everything else.
+        renderStatusBar();
+
+        // Show the newly drawn frame.
         window.display();
 
         // Count FPS
@@ -176,12 +168,29 @@ namespace tjg {
         }
     }
 
+    // TODO: This is a temporary solution.
     void PlayerView::RenderWinMessage() {
         window.setView(window.getDefaultView());
-
         window.clear(sf::Color(50, 50, 50, 255));
         window.draw(win_message);
         window.display();
+    }
+
+    // Render the status bar. Used in Render().
+    void PlayerView::renderStatusBar() {
+        // Draw a dark background.
+        // TODO: Make this a StaticSprite  (?)
+        sf::RectangleShape status_bar_background = sf::RectangleShape(sf::Vector2f(WINDOW_WIDTH, STATUSBAR_HEIGHT));
+        status_bar_background.setFillColor(sf::Color(30, 30, 30));
+        status_bar_background.setPosition(0, 0);
+        window.draw(status_bar_background);
+
+        // Draw countdown timer
+        if (show_countdown) {
+            auto oxygen_resource = logic_center.GetOxygenTracker()->GetComponent<FiniteResource>();
+            countdown.setString(std::to_string(oxygen_resource->GetCurrentLevelAsInt()) + " Seconds");
+            window.draw(countdown);
+        }
     }
 
 }

@@ -9,13 +9,11 @@ namespace tjg {
     void ControlCenter::RotateClockwise() {
         auto body = player_entity->GetComponent<DynamicBody>()->GetBody();
         cpBodySetTorque(body, 250000.f);
-        //cpBodySetAngularVelocity(body, 3.f);
     }
 
     void ControlCenter::RotateCounterClockwise() {
         auto body = player_entity->GetComponent<DynamicBody>()->GetBody();
         cpBodySetTorque(body, -250000.f);
-        //cpBodySetAngularVelocity(body, -3.f);
     }
 
     void ControlCenter::FireJetpack() {

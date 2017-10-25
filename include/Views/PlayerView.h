@@ -4,6 +4,7 @@
 
 #define WINDOW_WIDTH 1280u
 #define WINDOW_HEIGHT 720u
+#define STATUSBAR_HEIGHT 72u
 
 #include <SFML/Graphics.hpp>
 
@@ -28,20 +29,23 @@ namespace tjg {
 
         SpriteRenderSystem sprite_render_system;
 
+        // FPS display
         sf::Clock fps_clock;
         int fps = 0;
         int frames_drawn = 0;
-
         sf::Text info;
-        bool show_info = true;
-
-        sf::Text countdown;
-        bool show_countdown = true;
-        bool countdown_mode_binary = true; // set it to false for a regular decimal timer
+        bool show_info = false;
 
         sf::Text win_message;
 
         bool running = true;
+
+        // Status bar pieces.
+        sf::Text countdown;
+        bool show_countdown = true;
+
+        // Render status bar.
+        void renderStatusBar();
 
     public:
         // Constructor
@@ -52,7 +56,7 @@ namespace tjg {
         void Render();
         void Update();
         bool Running() override;
-        void RenderWinMessage(); //temp
+        void RenderWinMessage(); //TODO: This is a temporary solution
     };
 
 }
