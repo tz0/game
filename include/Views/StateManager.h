@@ -14,7 +14,9 @@ namespace tjg {
     public:
         explicit StateManager(sf::RenderWindow &window);
         void SetState(State state);
-        void Draw(State state);
+        void Draw();
+        void DrawMainMenu();
+        void DrawLevelMenu();
         void DrawPauseMenu();
         void DrawPlaying();
     };

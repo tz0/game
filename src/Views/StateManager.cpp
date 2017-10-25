@@ -2,13 +2,13 @@
 
 namespace tjg {
     StateManager::StateManager(sf::RenderWindow &window):
-        window(&window),
-        state(State::PLAYING);
+        window(window),
+        state(State::PLAYING){}
 
     void StateManager::SetState(State state){
         this -> state = state;
     }
-    void StateManager::Draw(State state){
+    void StateManager::Draw(){
         switch (state) {
             case PAUSE_MENU:
                 DrawPauseMenu();
@@ -21,9 +21,16 @@ namespace tjg {
         }
     }
 
-    void StateManager::DrawPauseMenu(){
-        window->setView(window->getDefaultView());
+    void StateManager::DrawMainMenu() {
 
+    }
+
+    void StateManager::DrawLevelMenu() {
+        
+    }
+
+    void StateManager::DrawPauseMenu(){
+        window.setView(window.getDefaultView());
         window.clear(sf::Color(50, 50, 50, 255));
         window.draw(win_message);
         window.display();

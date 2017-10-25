@@ -7,7 +7,7 @@ namespace tjg {
     PlayerView::PlayerView(ResourceManager &resource_manager, LogicCenter &logic_center) :
             View(logic_center),
             resource_manager(resource_manager),
-            state_manager(*window),
+            state_manager(window),
             window(sf::VideoMode(WINDOW_WIDTH, WINDOW_HEIGHT, 32), "Game", sf::Style::Titlebar | sf::Style::Close) {
             window.setVerticalSyncEnabled(true);
     }
