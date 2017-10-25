@@ -6,6 +6,8 @@
 #define WINDOW_HEIGHT 720u
 
 #include <SFML/Graphics.hpp>
+#include <Views/PlayerView.h>
+#include "LogicCenter.h"
 
 namespace tjg {
     enum class State {MAIN_MENU, LEVEL_MENU, PAUSE_MENU, PLAYING};
@@ -13,15 +15,21 @@ namespace tjg {
     class StateManager {
     private:
         State state;
-        sf::RenderWindow &window;
+        ResourceManager &resource_manager;
+        LogicCenter &logic_center;
+        PlayerView view;
+
+        sf::Clock update_clock;
         bool running = true;
 
-        sf::Text win_message;
     public:
-        explicit StateManager(sf::RenderWindow &window);
-        void Initialize(sf::Font &font);
+        explicit StateManager(ResourceManager &resource_manager, LogicCenter &logic_center);
+        void Initialize();
         void SetState(State state);
-        void Draw();
+        bool Running();
+        void Update();
+        void SwitchToPlayerView();
+        void Render();
         void DrawMainMenu();
         void DrawLevelMenu();
         void DrawPauseMenu();

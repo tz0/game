@@ -11,7 +11,6 @@
 #include "ResourceManager.h"
 #include "Systems/SpriteRenderSystem.h"
 #include "View.h"
-#include "Views/StateManager.h"
 
 namespace tjg {
 
@@ -20,7 +19,6 @@ namespace tjg {
     private:
 
         ResourceManager &resource_manager;
-        StateManager state_manager;
 
         void CheckKeys();
         void HandleWindowEvents();
@@ -40,8 +38,6 @@ namespace tjg {
         sf::Text countdown;
         bool show_countdown = true;
         bool countdown_mode_binary = true; // set it to false for a regular decimal timer
-
-        sf::Text win_message;
 
         bool running = true;
 

@@ -1,4 +1,5 @@
-//
-// Created by HYY on 10/24/17.
-//
+#include "Views/LevelMenuView.h"
 
+namespace tjg {
+    LevelMenuView::LevelMenuView() = default;
+}

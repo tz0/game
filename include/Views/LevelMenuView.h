@@ -1,8 +1,13 @@
-//
-// Created by HYY on 10/24/17.
-//
 
-#ifndef GAME_LEVELMENU_H
-#define GAME_LEVELMENU_H
+#ifndef GAME_LEVELMENUVIEW_H
+#define GAME_LEVELMENUVIEW_H
 
-#endif //GAME_LEVELMENU_H
+namespace tjg {
+    class LevelMenuView {
+    private:
+    public:
+        LevelMenuView();
+    };
+}
+
+#endif //GAME_LEVELMENUVIEW_H

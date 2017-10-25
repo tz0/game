@@ -7,7 +7,6 @@ namespace tjg {
     PlayerView::PlayerView(ResourceManager &resource_manager, LogicCenter &logic_center) :
             View(logic_center),
             resource_manager(resource_manager),
-            state_manager(window),
             window(sf::VideoMode(WINDOW_WIDTH, WINDOW_HEIGHT, 32), "Game", sf::Style::Titlebar | sf::Style::Close) {
             window.setVerticalSyncEnabled(true);
     }
@@ -17,8 +16,6 @@ namespace tjg {
         // Load fonts and the texture sheet
         auto avenir_bold = resource_manager.LoadFont("Avenir-Bold.ttf");
         auto lcd_regular = resource_manager.LoadFont("LCD-Regular.ttf");
-
-        state_manager.Initialize(*avenir_bold);
 
         // Set font for FPS clock
         info.setFont(*avenir_bold);
@@ -75,7 +72,6 @@ namespace tjg {
         // Drawing that should take place separate from the "camera" should go below here.
         window.setView(window.getDefaultView());
 
-        state_manager.Draw();
 
         if (show_info) {
             info.setString(std::to_string(fps) + " FPS");
@@ -175,8 +171,8 @@ namespace tjg {
 //        window.clear(sf::Color(50, 50, 50, 255));
 //        window.draw(win_message);
 //        window.display();
-        state_manager.SetState(State::PAUSE_MENU);
-        state_manager.Draw();
+//        state_manager.SetState(State::PAUSE_MENU);
+//        state_manager.Draw();
     }
 
 }

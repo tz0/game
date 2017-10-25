@@ -1,5 +1,11 @@
+#ifndef GAME_MAINMENUVIEW_H
+#define GAME_MAINMENUVIEW_H
 
-#ifndef GAME_MAINMENU_H
-#define GAME_MAINMENU_H
-
-#endif //GAME_MAINMENU_H
+namespace tjg {
+    class MainMenuView{
+    private:
+    public:
+        MainMenuView();
+    };
+}
+#endif //GAME_MAINMENUVIEW_H
