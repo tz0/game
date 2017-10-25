@@ -82,8 +82,8 @@ namespace tjg {
         // Build resource trackers.
         // TODO: Don't hardcode values.
         std::string tracker_texture_path = "white-texture.jpg";
-        fuel_tracker = entity_factory.MakeResourceTracker(sf::Vector2f(100, 36), 5, tracker_texture_path);
-        oxygen_tracker = entity_factory.MakeResourceTracker(sf::Vector2f(400, 36), 30, tracker_texture_path);
+        fuel_tracker = entity_factory.MakeResourceTracker(sf::Vector2f(0, 0), 5, tracker_texture_path);
+        oxygen_tracker = entity_factory.MakeResourceTracker(sf::Vector2f(0, 0), 30, tracker_texture_path);
     }
 
     void LogicCenter::Update(const sf::Time elapsed) {

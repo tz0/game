@@ -520,25 +520,24 @@ namespace tjg {
         return exit;
     }
 
-    std::shared_ptr<Entity> EntityFactory::MakeResourceTracker(const sf::Vector2f &position, float max_value, std::string &texture_path) {
+    std::shared_ptr<Entity> EntityFactory::MakeResourceTracker(const sf::Vector2f &size, float max_value, std::string &texture_path) {
         // Create resource bar entity.
         auto resource_tracker = std::make_shared<Entity>();
 
         // Add Location component.
-        auto location = resource_tracker->AddComponent<Location>(position.x, position.y);
+        auto location = resource_tracker->AddComponent<Location>(0, 0);
 
         // Add FiniteResource component.
         auto finite_resource = resource_tracker->AddComponent<FiniteResource>(max_value);
 
         // Load texture.
         auto texture = resource_manager.LoadTexture(texture_path);
-        auto texture_size = texture->getSize();
         texture->setRepeated(true);
 
         // Add Sprite component.
         sf::Sprite sprite;
         sprite.setTexture(*texture);
-        sprite.setTextureRect(sf::IntRect(0, 0, texture_size.x, texture_size.y / 2));
+        sprite.setTextureRect(sf::IntRect(0, 0, (int)(size.x), (int)(size.y / 2)));
         resource_tracker->AddComponent<Sprite>(sprite);
 
         return resource_tracker;

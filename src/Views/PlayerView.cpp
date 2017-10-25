@@ -65,6 +65,8 @@ namespace tjg {
 
         // Set up camera
         // TODO: This needs to change depending on the level.
+        // We are accounting for status bar height here since the walls were built before the status bar.
+        // Typically, the level design should account for the status bar.
         camera.setCenter(-500, 0 - STATUSBAR_HEIGHT);
         camera.setSize(2080, 1280 + (STATUSBAR_HEIGHT * 2));
     }
@@ -185,21 +187,34 @@ namespace tjg {
         status_bar_background.setPosition(0, 0);
         window.draw(status_bar_background);
 
-        // Draw fuel tank.
+        // Draw fuel tank background.
         // TODO: Replace with a textured StaticSprite
         sf::RectangleShape fuel_tank_background = sf::RectangleShape(sf::Vector2f((WINDOW_WIDTH / 5.f), (STATUSBAR_HEIGHT * (3.f / 4.f))));
         fuel_tank_background.setFillColor(sf::Color(0, 0, 0));
         fuel_tank_background.setPosition((WINDOW_WIDTH / 40.f), STATUSBAR_HEIGHT * (1.f / 8.f));
         window.draw(fuel_tank_background);
 
-        // Draw oxygen meter.
+        // TODO: Draw fuel meter. DOES NOT WORK.
+        auto fuel_meter_sprite = logic_center.GetFuelTracker()->GetComponent<Sprite>();
+        auto fuel_meter_location = logic_center.GetFuelTracker()->GetComponent<Location>();
+        fuel_meter_location->SetPosition(sf::Vector2f((WINDOW_WIDTH / 40.f), STATUSBAR_HEIGHT * (1.f / 8.f)));
+        sprite_render_system.RenderEntity(window, logic_center.GetFuelTracker());
+
+        // Draw oxygen tank background.
         // TODO: Replace with a textured StaticSprite
         sf::RectangleShape oxygen_tank_background = sf::RectangleShape(sf::Vector2f((WINDOW_WIDTH / 5.f), (STATUSBAR_HEIGHT * (3.f / 4.f))));
         oxygen_tank_background.setFillColor(sf::Color(0, 0, 0));
         oxygen_tank_background.setPosition((WINDOW_WIDTH / 4.f), STATUSBAR_HEIGHT * (1.f / 8.f));
         window.draw(oxygen_tank_background);
 
-        // Draw countdown timer
+        // TODO: Draw oxygen meter. DOES NOT WORK.
+        auto oxygen_meter_sprite = logic_center.GetOxygenTracker()->GetComponent<Sprite>();
+        auto oxygen_meter_location = logic_center.GetOxygenTracker()->GetComponent<Location>();
+        oxygen_meter_location->SetPosition(sf::Vector2f((WINDOW_WIDTH / 4.f), STATUSBAR_HEIGHT * (1.f / 8.f)));
+        sprite_render_system.RenderEntity(window, logic_center.GetOxygenTracker());
+
+        // Draw oxygen countdown timer
+        // TODO: This is a temporary solution.
         if (show_countdown) {
             auto oxygen_resource = logic_center.GetOxygenTracker()->GetComponent<FiniteResource>();
             countdown.setString("Oxygen: " + std::to_string(oxygen_resource->GetCurrentLevelAsInt()));
