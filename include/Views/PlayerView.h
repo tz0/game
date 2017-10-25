@@ -2,9 +2,9 @@
 #ifndef GAME_PLAYERVIEW_H
 #define GAME_PLAYERVIEW_H
 
-#define WINDOW_WIDTH 1280u
-#define WINDOW_HEIGHT 720u
-#define STATUSBAR_HEIGHT 72u
+#define WINDOW_WIDTH 1280
+#define WINDOW_HEIGHT 720
+#define STATUSBAR_HEIGHT 72
 
 #include <SFML/Graphics.hpp>
 

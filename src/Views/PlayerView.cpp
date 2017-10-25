@@ -26,7 +26,7 @@ namespace tjg {
         countdown.setFont(*lcd_regular);
         countdown.setStyle(sf::Text::Bold);
         countdown.setCharacterSize(32);
-        countdown.setPosition(WINDOW_WIDTH / 2.f, STATUSBAR_HEIGHT / 4.f);
+        countdown.setPosition((WINDOW_WIDTH / 4.f), STATUSBAR_HEIGHT / 4.f);
 
         // Add tech17 + child components to the sprite render system
         sprite_render_system.AddEntity(logic_center.GetTech17());
@@ -65,8 +65,8 @@ namespace tjg {
 
         // Set up camera
         // TODO: This needs to change depending on the level.
-        camera.setCenter(-500, 0);
-        camera.setSize(2080, 1280);
+        camera.setCenter(-500, 0 - STATUSBAR_HEIGHT);
+        camera.setSize(2080, 1280 + (STATUSBAR_HEIGHT * 2));
     }
 
     bool PlayerView::Running() {
@@ -179,16 +179,30 @@ namespace tjg {
     // Render the status bar. Used in Render().
     void PlayerView::renderStatusBar() {
         // Draw a dark background.
-        // TODO: Make this a StaticSprite  (?)
+        // TODO: Replace with a textured StaticSprite
         sf::RectangleShape status_bar_background = sf::RectangleShape(sf::Vector2f(WINDOW_WIDTH, STATUSBAR_HEIGHT));
-        status_bar_background.setFillColor(sf::Color(30, 30, 30));
+        status_bar_background.setFillColor(sf::Color(50, 50, 50));
         status_bar_background.setPosition(0, 0);
         window.draw(status_bar_background);
+
+        // Draw fuel tank.
+        // TODO: Replace with a textured StaticSprite
+        sf::RectangleShape fuel_tank_background = sf::RectangleShape(sf::Vector2f((WINDOW_WIDTH / 5.f), (STATUSBAR_HEIGHT * (3.f / 4.f))));
+        fuel_tank_background.setFillColor(sf::Color(0, 0, 0));
+        fuel_tank_background.setPosition((WINDOW_WIDTH / 40.f), STATUSBAR_HEIGHT * (1.f / 8.f));
+        window.draw(fuel_tank_background);
+
+        // Draw oxygen meter.
+        // TODO: Replace with a textured StaticSprite
+        sf::RectangleShape oxygen_tank_background = sf::RectangleShape(sf::Vector2f((WINDOW_WIDTH / 5.f), (STATUSBAR_HEIGHT * (3.f / 4.f))));
+        oxygen_tank_background.setFillColor(sf::Color(0, 0, 0));
+        oxygen_tank_background.setPosition((WINDOW_WIDTH / 4.f), STATUSBAR_HEIGHT * (1.f / 8.f));
+        window.draw(oxygen_tank_background);
 
         // Draw countdown timer
         if (show_countdown) {
             auto oxygen_resource = logic_center.GetOxygenTracker()->GetComponent<FiniteResource>();
-            countdown.setString(std::to_string(oxygen_resource->GetCurrentLevelAsInt()) + " Seconds");
+            countdown.setString("Oxygen: " + std::to_string(oxygen_resource->GetCurrentLevelAsInt()));
             window.draw(countdown);
         }
     }
