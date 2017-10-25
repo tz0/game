@@ -70,7 +70,6 @@ namespace tjg {
         std::shared_ptr<Entity> GetExit();
         std::shared_ptr<Entity> GetFuelTracker();
         std::shared_ptr<Entity> GetOxygenTracker();
-        unsigned int GetRemainingSeconds();
 
     };
 

@@ -28,7 +28,7 @@ namespace tjg {
         });
         event_manager.RegisterListener<TimeExpired>([&](TimeExpired &event) {
             (void)event;
-            std::cout << "Time's up! Consider to restart this level." << std::endl;
+            std::cout << "Time's up!" << std::endl;
         });
 
         // Create boundary walls using the entity factory.

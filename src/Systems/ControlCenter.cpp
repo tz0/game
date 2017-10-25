@@ -18,7 +18,7 @@ namespace tjg {
 
     void ControlCenter::FireJetpack() {
         auto body = player_entity->GetComponent<DynamicBody>()->GetBody();
-        cpBodyApplyImpulseAtLocalPoint(body, cpv(0, -25), cpv(0, 0));
+        cpBodyApplyImpulseAtLocalPoint(body, cpv(0, -40), cpv(0, 0));
     }
 
     std::shared_ptr<Entity> ControlCenter::GetPlayerEntity() {
