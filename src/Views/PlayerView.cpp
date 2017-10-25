@@ -104,7 +104,7 @@ namespace tjg {
     // Update logic that is specific to the player view.
     void PlayerView::Update() {
         CheckKeys();
-//        HandleWindowEvents();
+        HandleWindowEvents();
     }
 
     void PlayerView::HandleWindowEvents() {

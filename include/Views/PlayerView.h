@@ -19,14 +19,13 @@ namespace tjg {
     private:
 
         ResourceManager &resource_manager;
+        sf::RenderWindow &window;
+        sf::View camera;
+        SpriteRenderSystem sprite_render_system;
+        bool running = true;
 
         void CheckKeys();
         void HandleWindowEvents();
-
-        sf::RenderWindow &window;
-        sf::View camera;
-
-        SpriteRenderSystem sprite_render_system;
 
         sf::Clock fps_clock;
         int fps = 0;
@@ -38,8 +37,6 @@ namespace tjg {
         sf::Text countdown;
         bool show_countdown = true;
         bool countdown_mode_binary = true; // set it to false for a regular decimal timer
-
-        bool running = true;
 
     public:
         // Constructor

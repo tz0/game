@@ -3,12 +3,10 @@
 namespace tjg{
     PauseMenuView::PauseMenuView(ResourceManager &resource_manager, sf::RenderWindow &window) :
             resource_manager(resource_manager),
-            window(window) {
-            window.setVerticalSyncEnabled(true);
-    }
+            window(window) {}
+
 
     void PauseMenuView::Initialize() {
-
         auto avenir_bold = resource_manager.LoadFont("Avenir-Bold.ttf");
         // temp Set font for win message
         message.setFont(*avenir_bold);
@@ -22,19 +20,16 @@ namespace tjg{
         message.setPosition(WINDOW_WIDTH / 2, WINDOW_HEIGHT/ 2);
     }
 
+    //Handle keyboard control of the menu
     void PauseMenuView::Update() {
-//        HandleWindowEvents();
     }
+
 
     void PauseMenuView::Render() {
         window.setView(window.getDefaultView());
         window.clear(sf::Color(50, 50, 50, 255));
         window.draw(message);
         window.display();
-    }
-
-    bool PauseMenuView::Running(){
-        return running;
     }
 
 }

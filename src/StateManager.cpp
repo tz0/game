@@ -4,8 +4,10 @@ namespace tjg {
     StateManager::StateManager(ResourceManager &resource_manager, LogicCenter &logic_center):
         resource_manager(resource_manager),
         logic_center(logic_center),
-        state(State::PLAYING),
+        state(State::MAIN_MENU),
         window(sf::VideoMode(WINDOW_WIDTH, WINDOW_HEIGHT, 32), "Game", sf::Style::Titlebar | sf::Style::Close),
+        main_menu_view(resource_manager, window),
+        level_menu_view(resource_manager, window),
         player_view(resource_manager, logic_center, window),
         pause_menu_view(resource_manager, window){
         window.setVerticalSyncEnabled(true);
@@ -33,31 +35,30 @@ namespace tjg {
     }
 
     void StateManager::SwitchToMainMenuView() {
+        main_menu_view.Initialize();
         state = State::MAIN_MENU;
     }
 
     void StateManager::SwitchToLevelMenuView() {
+        level_menu_view.Initialize();
         state = State::LEVEL_MENU;
     }
 
-    void StateManager::Update(){
+    void StateManager::Update(sf::Time elapsed){
         HandleWindowEvents();
         switch (state) {
             case State::MAIN_MENU:
-                DrawMainMenu();
+                main_menu_view.Update();
                 break;
             case State::LEVEL_MENU:
-                DrawLevelMenu();
+                level_menu_view.Update();
+                break;
             case State::PAUSE_MENU:
+                pause_menu_view.Update();
                 break;
             case State::PLAYING:
-                // Update the logic and handle input 60 times per second
-                auto elapsed = update_clock.getElapsedTime();
-                if (elapsed.asSeconds() > 1.f/60.f) {
-                    logic_center.Update(elapsed);
-                    player_view.Update();
-                    update_clock.restart();
-                }
+                logic_center.Update(elapsed);
+                player_view.Update();
                 break;
         }
     }
@@ -65,8 +66,10 @@ namespace tjg {
     void StateManager::Render(){
         switch (state) {
             case State::MAIN_MENU:
+                main_menu_view.Render();
                 break;
             case State::LEVEL_MENU:
+                level_menu_view.Render();
                 break;
             case State::PAUSE_MENU:
                 pause_menu_view.Render();

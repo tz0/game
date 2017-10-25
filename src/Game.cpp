@@ -7,7 +7,6 @@ namespace tjg {
             // Set the default search folder to "media"
             resource_manager("media"),
             logic_center(resource_manager),
-//            view(resource_manager, logic_center),
             state_manager(resource_manager, logic_center){}
 
     // Teardown.
@@ -15,22 +14,21 @@ namespace tjg {
 
     // Begin the game loop.
     void Game::Run() {
-//        logic_center.Initialize();
-//        view.Initialize();
         state_manager.Initialize();
-        //state_manager.SwitchToMenuView();
+        state_manager.SwitchToMainMenuView();
+        state_manager.SwitchToLevelMenuView();
         state_manager.SwitchToPlayerView();
 
         while (state_manager.Running()) {
-            state_manager.Update();
             // Update the logic and handle input 60 times per second
-//            auto elapsed = update_clock.getElapsedTime();
-//            if (elapsed.asSeconds() > 1.f/60.f) {
-//                logic_center.Update(elapsed);
-//                view.Update();
-//                update_clock.restart();
-//            }
+            auto elapsed = update_clock.getElapsedTime();
+            if (elapsed.asSeconds() > 1.f/60.f) {
+                state_manager.Update(elapsed);
+                update_clock.restart();
+            }
+            //Render current state
             state_manager.Render();
+            //Switch to menu if reached exit
             if(logic_center.DidReachExit()) {
                 state_manager.SwitchToPauseMenuView();
                 logic_center.Reset();

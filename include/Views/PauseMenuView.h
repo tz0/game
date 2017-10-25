@@ -8,22 +8,19 @@
 
 #include "LogicCenter.h"
 #include "ResourceManager.h"
-
+#include "View.h"
 
 namespace tjg {
-    class PauseMenuView{
+    class PauseMenuView {
     private:
         ResourceManager &resource_manager;
-//        void HandleWindowEvents();
         sf::RenderWindow &window;
-        bool running = true;
         sf::Text message;
     public:
         PauseMenuView(ResourceManager &resource_manager, sf::RenderWindow &window);
         void Initialize();
         void Update();
         void Render();
-        bool Running();
     };
 }
 #endif //GAME_PAUSEMENU_H
