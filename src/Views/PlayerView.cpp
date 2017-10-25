@@ -18,6 +18,8 @@ namespace tjg {
         auto avenir_bold = resource_manager.LoadFont("Avenir-Bold.ttf");
         auto lcd_regular = resource_manager.LoadFont("LCD-Regular.ttf");
 
+        state_manager.Initialize(*avenir_bold);
+
         // Set font for FPS clock
         info.setFont(*avenir_bold);
         info.setStyle(sf::Text::Bold);
@@ -48,18 +50,6 @@ namespace tjg {
         // Make background
         sprite_render_system.AddEntity(logic_center.GetEntityFactory().MakeTiledBackground("white-tile.jpg"));
 
-        // temp Set font for win message
-        win_message.setFont(*avenir_bold);
-        // Create a win message.
-        win_message.setStyle(sf::Text::Bold);
-        win_message.setCharacterSize(24);
-        win_message.setString("You Reached the Exit!");
-        // Center the win message on the screen.
-        sf::FloatRect textRect = win_message.getLocalBounds();
-        win_message.setOrigin(textRect.left + (textRect.width / 2), textRect.top + (textRect.height / 2));
-        win_message.setPosition(WINDOW_WIDTH / 2, WINDOW_HEIGHT/ 2);
-
-
         // Add fans to sprite render system.
         for (const auto &fan : logic_center.GetFans()) {
             sprite_render_system.AddEntity(fan);
@@ -84,6 +74,8 @@ namespace tjg {
 
         // Drawing that should take place separate from the "camera" should go below here.
         window.setView(window.getDefaultView());
+
+        state_manager.Draw();
 
         if (show_info) {
             info.setString(std::to_string(fps) + " FPS");
@@ -178,11 +170,13 @@ namespace tjg {
     }
 
     void PlayerView::RenderWinMessage() {
-        window.setView(window.getDefaultView());
-
-        window.clear(sf::Color(50, 50, 50, 255));
-        window.draw(win_message);
-        window.display();
+//        window.setView(window.getDefaultView());
+//
+//        window.clear(sf::Color(50, 50, 50, 255));
+//        window.draw(win_message);
+//        window.display();
+        state_manager.SetState(State::PAUSE_MENU);
+        state_manager.Draw();
     }
 
 }
