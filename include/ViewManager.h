@@ -15,7 +15,7 @@
 namespace tjg {
     enum class State {MAIN_MENU, LEVEL_MENU, PAUSE_MENU, PLAYING};
 
-    class StateManager {
+    class ViewManager {
     private:
         State state;
         ResourceManager &resource_manager;
@@ -29,7 +29,7 @@ namespace tjg {
         bool running = true;
 
     public:
-        explicit StateManager(ResourceManager &resource_manager, LogicCenter &logic_center);
+        explicit ViewManager(ResourceManager &resource_manager, LogicCenter &logic_center);
         void Initialize();
         bool Running();
         void Update(sf::Time elapsed);

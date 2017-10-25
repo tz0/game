@@ -1,7 +1,7 @@
-#include "StateManager.h"
+#include "ViewManager.h"
 
 namespace tjg {
-    StateManager::StateManager(ResourceManager &resource_manager, LogicCenter &logic_center):
+    ViewManager::ViewManager(ResourceManager &resource_manager, LogicCenter &logic_center):
         resource_manager(resource_manager),
         logic_center(logic_center),
         state(State::MAIN_MENU),
@@ -13,38 +13,38 @@ namespace tjg {
         window.setVerticalSyncEnabled(true);
     }
 
-    void StateManager::Initialize() {
+    void ViewManager::Initialize() {
         // Load fonts and the texture sheet
         auto avenir_bold = resource_manager.LoadFont("Avenir-Bold.ttf");
         auto lcd_regular = resource_manager.LoadFont("LCD-Regular.ttf");
     }
 
-    bool StateManager::Running(){
+    bool ViewManager::Running(){
         return running;
     }
 
-    void StateManager::SwitchToPlayerView() {
+    void ViewManager::SwitchToPlayerView() {
         logic_center.Initialize();
         player_view.Initialize();
         state = State::PLAYING;
     }
 
-    void StateManager::SwitchToPauseMenuView() {
+    void ViewManager::SwitchToPauseMenuView() {
         pause_menu_view.Initialize();
         state = State::PAUSE_MENU;
     }
 
-    void StateManager::SwitchToMainMenuView() {
+    void ViewManager::SwitchToMainMenuView() {
         main_menu_view.Initialize();
         state = State::MAIN_MENU;
     }
 
-    void StateManager::SwitchToLevelMenuView() {
+    void ViewManager::SwitchToLevelMenuView() {
         level_menu_view.Initialize();
         state = State::LEVEL_MENU;
     }
 
-    void StateManager::Update(sf::Time elapsed){
+    void ViewManager::Update(sf::Time elapsed){
         HandleWindowEvents();
         switch (state) {
             case State::MAIN_MENU:
@@ -63,7 +63,7 @@ namespace tjg {
         }
     }
 
-    void StateManager::Render(){
+    void ViewManager::Render(){
         switch (state) {
             case State::MAIN_MENU:
                 main_menu_view.Render();
@@ -80,7 +80,7 @@ namespace tjg {
         }
     }
 
-    void StateManager::HandleWindowEvents() {
+    void ViewManager::HandleWindowEvents() {
         sf::Event event;
         // Look for window events.
         while (window.pollEvent(event)) {

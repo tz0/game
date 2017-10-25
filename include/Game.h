@@ -7,7 +7,7 @@
 
 #include <chipmunk.h>
 #include <Views/PlayerView.h>
-#include "StateManager.h"
+#include "ViewManager.h"
 
 namespace tjg {
 
@@ -19,7 +19,7 @@ namespace tjg {
     private:
         ResourceManager resource_manager;
         LogicCenter logic_center;
-        StateManager state_manager;
+        ViewManager state_manager;
 
         sf::Clock update_clock;
     };
