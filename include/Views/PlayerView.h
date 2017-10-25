@@ -11,6 +11,7 @@
 #include "ResourceManager.h"
 #include "Systems/SpriteRenderSystem.h"
 #include "View.h"
+#include "Views/StateManager.h"
 
 namespace tjg {
 
@@ -19,6 +20,7 @@ namespace tjg {
     private:
 
         ResourceManager &resource_manager;
+        StateManager state_manager;
 
         void CheckKeys();
         void HandleWindowEvents();

@@ -133,7 +133,7 @@ endif()
 # executables (any CPP file in 'bin' dir)
 foreach(EXEC ${EXECLIST})
   get_filename_component(EXECNAME ${EXEC} NAME_WE)
-  add_executable(${EXECNAME} ${EXEC} ${SRC} ${HEADERS} src/States/MainMenu.cpp include/States/MainMenu.h src/States/LevelMenu.cpp include/States/LevelMenu.h include/States/Playing.h src/States/Playing.cpp include/States/PauseMenu.h src/States/PauseMenu.cpp)
+  add_executable(${EXECNAME} ${EXEC} ${SRC} ${HEADERS} src/States/MainMenu.cpp include/States/MainMenu.h src/States/LevelMenu.cpp include/States/LevelMenu.h include/States/Playing.h src/States/Playing.cpp include/States/PauseMenu.h src/States/PauseMenu.cpp include/Views/StateManager.h src/Views/StateManager.cpp)
 
   if(NOT SRC STREQUAL "")
     target_link_libraries(${EXECNAME} LINK_PUBLIC ${LIBNAME})
