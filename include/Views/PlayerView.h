@@ -23,7 +23,7 @@ namespace tjg {
         void CheckKeys();
         void HandleWindowEvents();
 
-        sf::RenderWindow window;
+        sf::RenderWindow &window;
         sf::View camera;
 
         SpriteRenderSystem sprite_render_system;
@@ -43,14 +43,13 @@ namespace tjg {
 
     public:
         // Constructor
-        explicit PlayerView(ResourceManager &resource_manager, LogicCenter &logic_center);
+        explicit PlayerView(ResourceManager &resource_manager, LogicCenter &logic_center, sf::RenderWindow &window);
 
         // Methods
         void Initialize() override;
         void Render();
         void Update();
         bool Running() override;
-        void RenderWinMessage(); //temp
     };
 
 }

@@ -60,6 +60,12 @@ namespace tjg {
          */
         bool DidReachExit();
 
+        /**
+         *
+         * @return
+         */
+        void Reset();
+
         // Accessors
         EntityFactory& GetEntityFactory();
         ControlCenter& GetControlCenter();

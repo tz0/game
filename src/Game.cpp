@@ -31,11 +31,10 @@ namespace tjg {
 //                update_clock.restart();
 //            }
             state_manager.Render();
-//            if(!logic_center.DidReachExit()) {
-//                view.Render();
-//            } else {
-//                view.RenderWinMessage();
-//            }
+            if(logic_center.DidReachExit()) {
+                state_manager.SwitchToPauseMenuView();
+                logic_center.Reset();
+            }
         }
 
     }

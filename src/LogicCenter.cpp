@@ -99,6 +99,10 @@ namespace tjg {
         return did_exit;
     }
 
+    void LogicCenter::Reset() {
+        did_exit = false;
+    }
+
     std::shared_ptr<Entity> LogicCenter::GetTech17() {
         return tech17;
     }

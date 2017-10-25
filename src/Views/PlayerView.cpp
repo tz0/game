@@ -4,10 +4,10 @@
 
 namespace tjg {
 
-    PlayerView::PlayerView(ResourceManager &resource_manager, LogicCenter &logic_center) :
+    PlayerView::PlayerView(ResourceManager &resource_manager, LogicCenter &logic_center, sf::RenderWindow &window) :
             View(logic_center),
             resource_manager(resource_manager),
-            window(sf::VideoMode(WINDOW_WIDTH, WINDOW_HEIGHT, 32), "Game", sf::Style::Titlebar | sf::Style::Close) {
+            window(window) {
             window.setVerticalSyncEnabled(true);
     }
 
@@ -104,7 +104,7 @@ namespace tjg {
     // Update logic that is specific to the player view.
     void PlayerView::Update() {
         CheckKeys();
-        HandleWindowEvents();
+//        HandleWindowEvents();
     }
 
     void PlayerView::HandleWindowEvents() {
@@ -163,16 +163,6 @@ namespace tjg {
             // Set body back to its normal color.
             control_center.GetPlayerEntity()->GetComponent<Sprite>()->GetSprite().setColor(sf::Color(255, 255, 255));
         }
-    }
-
-    void PlayerView::RenderWinMessage() {
-//        window.setView(window.getDefaultView());
-//
-//        window.clear(sf::Color(50, 50, 50, 255));
-//        window.draw(win_message);
-//        window.display();
-//        state_manager.SetState(State::PAUSE_MENU);
-//        state_manager.Draw();
     }
 
 }
