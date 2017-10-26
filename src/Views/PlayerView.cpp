@@ -118,6 +118,7 @@ namespace tjg {
         CheckKeys(elapsed);
         HandleWindowEvents();
         dialog_system.Update(elapsed);
+        printf("Dialog box: %s\n", dialog_box.getString().toAnsiString().c_str());
     }
 
     void PlayerView::HandleWindowEvents() {
