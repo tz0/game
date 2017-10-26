@@ -7,12 +7,11 @@ namespace tjg {
     PlayerView::PlayerView(ResourceManager &resource_manager, LogicCenter &logic_center) :
             View(logic_center),
             resource_manager(resource_manager),
-            window(sf::VideoMode(WINDOW_WIDTH, WINDOW_HEIGHT, 32), "Jetpack Game", sf::Style::Titlebar | sf::Style::Close) {
+            window(sf::VideoMode(WINDOW_WIDTH, WINDOW_HEIGHT, 32), "Jetpack Game - Alpha", sf::Style::Titlebar | sf::Style::Close) {
         window.setVerticalSyncEnabled(true);
     }
 
     void PlayerView::Initialize() {
-
         // Load fonts and the texture sheet
         auto avenir_bold = resource_manager.LoadFont("Avenir-Bold.ttf");
         auto lcd_regular = resource_manager.LoadFont("LCD-Regular.ttf");
@@ -37,9 +36,15 @@ namespace tjg {
         gameview_render_system.AddEntity(logic_center.GetEntrance());
         gameview_render_system.AddEntity(logic_center.GetExit());
 
-        // Make background
+        // Make game view background
         gameview_render_system.AddEntity(logic_center.GetEntityFactory().MakeTiledBackground("white-tile.jpg"));
 
+        // Add fans to sprite render system.
+        for (const auto &fan : logic_center.GetFans()) {
+            gameview_render_system.AddEntity(fan);
+        }
+
+        // TODO: Delete this section once menu system is implemented.
         // temp Set font for win message
         win_message.setFont(*avenir_bold);
         // Create a win message.
@@ -50,12 +55,6 @@ namespace tjg {
         sf::FloatRect textRect = win_message.getLocalBounds();
         win_message.setOrigin(textRect.left + (textRect.width / 2), textRect.top + (textRect.height / 2));
         win_message.setPosition(WINDOW_WIDTH / 2, WINDOW_HEIGHT/ 2);
-
-
-        // Add fans to sprite render system.
-        for (const auto &fan : logic_center.GetFans()) {
-            gameview_render_system.AddEntity(fan);
-        }
 
         // Initialize status bar.
         initializeStatusBar();

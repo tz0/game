@@ -1,0 +1,54 @@
+#include "Systems/DialogSystem.h"
+
+namespace tjg {
+
+    DialogSystem::DialogSystem(const sf::Text &dialog_box, std::vector<std::string> &dialog_snippets, float seconds_to_show_dialog) {
+        // Store dialog box reference.
+        this->dialog_box = dialog_box;
+
+        // Store dialog snippets and the number of seconds to show each snippet.
+        this->dialog_snippets = dialog_snippets;
+        this->seconds_to_show_dialog = seconds_to_show_dialog;
+
+        // Set initial dialog index to 0.
+        this->dialog_index = 0;
+
+        // Set urgent message flag to false.
+        showing_urgent_message = false;
+    }
+
+    void DialogSystem::UpdateDialog(const sf::Time &elapsed) {
+        if (showing_urgent_message && seconds_urgent_message_shown <= seconds_to_show_urgent_message) {
+            // If showing an urgent message and need to keep showing it, increment the time it has been shown.
+            seconds_urgent_message_shown += elapsed.asSeconds();
+        }
+        else if (showing_urgent_message) {
+            // If showing an urgent message and don't need to show it anymore, switch back to dialog.
+            showing_urgent_message = false;
+            dialog_box.setString(dialog_snippets[dialog_index]);
+        }
+        else if (seconds_dialog_shown <= seconds_to_show_dialog) {
+            // If the current dialog hasn't been shown long enough, just increment the time.
+            seconds_dialog_shown += elapsed.asSeconds();
+        }
+        else {
+            // Move to the next dialog snippet.
+            dialog_index++;
+            // Update the text in the dialog box.
+            dialog_box.setString(dialog_snippets[dialog_index]);
+            // Reset the time this dialog has been shown.
+            seconds_dialog_shown = 0;
+        }
+    }
+
+    void DialogSystem::ShowUrgentMessage(std::string message, float seconds_to_show) {
+        // Reset the time the urgent message has been shown and set the urgent message flag.
+        showing_urgent_message = true;
+        seconds_urgent_message_shown = 0;
+        // Store the amount of time to show this urgent message.
+        seconds_to_show_urgent_message = seconds_to_show;
+        // Update the text in the dialog box.
+        dialog_box.setString(message);
+    }
+
+}
