@@ -12,9 +12,9 @@
 #include "Views/PauseMenuView.h"
 #include "View.h"
 #include "LogicCenter.h"
+#include "States.h"
 
 namespace tjg {
-    enum class State {MAIN_MENU, LEVEL_MENU, PAUSE_MENU, PLAYING};
 
     class ViewManager {
     private:
@@ -37,8 +37,9 @@ namespace tjg {
         void Render();
         void SwitchToMainMenuView();
         void SwitchToLevelMenuView();
-        void SwitchToPauseMenuView();
+        void SwitchToPauseMenuView(State state);
         void SwitchToPlayerView();
+        void ResumePlayerView();
         void HandleWindowEvents(View &current_view);
     };
 }

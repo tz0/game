@@ -14,14 +14,31 @@ namespace tjg {
     }
 
     void ViewManager::Initialize() {
-        // Load fonts and the texture sheet
-        auto avenir_bold = resource_manager.LoadFont("Avenir-Bold.ttf");
-        auto lcd_regular = resource_manager.LoadFont("LCD-Regular.ttf");
+
     }
 
     bool ViewManager::Running(){
         return running;
     }
+
+
+    void ViewManager::SwitchToMainMenuView() {
+        main_menu_view.Initialize();
+        state = State::MAIN_MENU;
+    }
+
+
+    void ViewManager::SwitchToLevelMenuView() {
+        level_menu_view.Initialize();
+        state = State::LEVEL_MENU;
+    }
+
+
+    void ViewManager::SwitchToPauseMenuView(State state) {
+        pause_menu_view.Initialize(state);
+        this->state = state;
+    }
+
 
     void ViewManager::SwitchToPlayerView() {
         logic_center.Initialize();
@@ -29,19 +46,8 @@ namespace tjg {
         state = State::PLAYING;
     }
 
-    void ViewManager::SwitchToPauseMenuView() {
-        pause_menu_view.Initialize();
-        state = State::PAUSE_MENU;
-    }
-
-    void ViewManager::SwitchToMainMenuView() {
-        main_menu_view.Initialize();
-        state = State::MAIN_MENU;
-    }
-
-    void ViewManager::SwitchToLevelMenuView() {
-        level_menu_view.Initialize();
-        state = State::LEVEL_MENU;
+    void ViewManager::ResumePlayerView() {
+        state = State::PLAYING;
     }
 
     void ViewManager::Update(sf::Time elapsed){
@@ -54,7 +60,9 @@ namespace tjg {
                 HandleWindowEvents(level_menu_view);
                 level_menu_view.Update();
                 break;
-            case State::PAUSE_MENU:
+            case State::PAUSED:
+            case State::WON:
+            case State::FAILED:
                 HandleWindowEvents(pause_menu_view);
                 pause_menu_view.Update();
                 break;
@@ -74,7 +82,9 @@ namespace tjg {
             case State::LEVEL_MENU:
                 level_menu_view.Render();
                 break;
-            case State::PAUSE_MENU:
+            case State::PAUSED:
+            case State::WON:
+            case State::FAILED:
                 pause_menu_view.Render();
                 break;
             case State::PLAYING:

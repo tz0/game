@@ -30,7 +30,7 @@ namespace tjg {
             state_manager.Render();
             //Switch to menu if reached exit
             if(logic_center.DidReachExit()) {
-                state_manager.SwitchToPauseMenuView();
+                state_manager.SwitchToPauseMenuView(State::WON);
                 logic_center.Reset();
             }
         }

@@ -8,6 +8,7 @@
 #include <chipmunk.h>
 #include <Views/PlayerView.h>
 #include "ViewManager.h"
+#include "States.h"
 
 namespace tjg {
 
