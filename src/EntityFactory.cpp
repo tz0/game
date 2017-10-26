@@ -25,7 +25,7 @@ namespace tjg {
         // Add Sprite component so walls are visible
         sf::Sprite wall_sprite;
         wall_sprite.setTexture(*wall_texture);
-        wall_sprite.setTextureRect(sf::IntRect(0, 0, (int)(length + radius), (int)radius*2));
+        wall_sprite.setTextureRect(sf::IntRect(0, 0, (int)(length + radius*2), (int)radius*2));
         wall_sprite.setColor(sf::Color(150, 150, 150)); // Dark gray
         wall->AddComponent<Sprite>(wall_sprite);
 

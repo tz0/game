@@ -40,7 +40,7 @@ namespace tjg {
         auto bottom_wall = entity_factory.MakeWall(sf::Vector2f(-1520, 600), sf::Vector2f(520, 600), 40);
         auto left_wall = entity_factory.MakeWall(sf::Vector2f(-1500, -600), sf::Vector2f(-1500, 600), 40);
         auto right_wall = entity_factory.MakeWall(sf::Vector2f(500, -600), sf::Vector2f(500, 600), 40);
-        auto middle_wall = entity_factory.MakeWall(sf::Vector2f(-800, -600), sf::Vector2f(-800, 200), 40);
+        auto middle_wall = entity_factory.MakeWall(sf::Vector2f(-800, -600), sf::Vector2f(-800, 100), 40);
 
         // Add the walls to the entities vector.
         walls.push_back(middle_wall);
@@ -87,7 +87,7 @@ namespace tjg {
 
         // Build resource trackers.
         std::string tracker_texture_path = "white-texture.jpg";
-        fuel_tracker = entity_factory.MakeResourceTracker(4, tracker_texture_path, sf::Color(255, 100, 0));
+        fuel_tracker = entity_factory.MakeResourceTracker(5, tracker_texture_path, sf::Color(255, 100, 0));
         oxygen_tracker = entity_factory.MakeResourceTracker(30, tracker_texture_path, sf::Color(0, 100, 255));
 
         // Link the fuel resource to the control center.

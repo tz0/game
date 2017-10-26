@@ -43,10 +43,15 @@ namespace tjg {
         bool running = true;
 
         // Status bar pieces.
-        sf::RectangleShape status_bar_background;
-        sf::RectangleShape fuel_tank_background; // TODO: Remove
-        sf::RectangleShape oxygen_tank_background; // TODO: Remove
+        sf::RectangleShape statusbar_background;
+        sf::RectangleShape fuel_tank_background;
+        sf::RectangleShape oxygen_tank_background;
+        sf::RectangleShape dialog_background;
+        float statusbar_element_height;
+        float statusbar_x_padding;
+        float statusbar_y_padding;
         sf::Vector2f trackers_initial_size;
+        sf::Vector2f dialog_initial_size;
 
         // Status bar
         void initializeStatusBar();

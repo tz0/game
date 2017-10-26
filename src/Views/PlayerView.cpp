@@ -180,26 +180,34 @@ namespace tjg {
     }
 
     void PlayerView::initializeStatusBar() {
-        // Store bar starting size.
-        trackers_initial_size = sf::Vector2f((WINDOW_WIDTH / 5.f), (STATUSBAR_HEIGHT * (3.f / 4.f)));
+        // Store reusable values.
+        statusbar_element_height = STATUSBAR_HEIGHT * (3.f / 4.f);
+        statusbar_x_padding =  WINDOW_WIDTH / 40.f;
+        statusbar_y_padding = STATUSBAR_HEIGHT / 8.f;
+        trackers_initial_size = sf::Vector2f((WINDOW_WIDTH / 5.f), statusbar_element_height);
+        dialog_initial_size = sf::Vector2f((WINDOW_WIDTH / 2.f), statusbar_element_height);
 
         // Create a dark background.
-        // TODO: Replace with a textured StaticSprite
-        status_bar_background = sf::RectangleShape(sf::Vector2f(WINDOW_WIDTH, STATUSBAR_HEIGHT));
-        status_bar_background.setFillColor(sf::Color(60, 60, 60));
-        status_bar_background.setPosition(0, 0);
+        statusbar_background = sf::RectangleShape(sf::Vector2f(WINDOW_WIDTH, STATUSBAR_HEIGHT));
+        statusbar_background.setFillColor(sf::Color(60, 60, 60));
+        statusbar_background.setPosition(0, 0);
 
         // Create fuel tank background.
-        // TODO: Replace with a textured StaticSprite (will be part of the status bar background -- can delete this after.)
         fuel_tank_background = sf::RectangleShape(trackers_initial_size);
         fuel_tank_background.setFillColor(sf::Color(0, 0, 0));
-        fuel_tank_background.setPosition((WINDOW_WIDTH / 40.f), STATUSBAR_HEIGHT * (1.f / 8.f));
+        fuel_tank_background.setPosition(statusbar_x_padding, statusbar_y_padding);
 
         // Create oxygen tank background.
-        // TODO: Replace with a textured StaticSprite (will be part of the status bar background -- can delete this after.)
         oxygen_tank_background = sf::RectangleShape(trackers_initial_size);
         oxygen_tank_background.setFillColor(sf::Color(0, 0, 0));
-        oxygen_tank_background.setPosition((WINDOW_WIDTH / 4.f), STATUSBAR_HEIGHT * (1.f / 8.f));
+        auto oxygen_tank_x_position = fuel_tank_background.getPosition().x + fuel_tank_background.getLocalBounds().width + statusbar_x_padding;
+        oxygen_tank_background.setPosition(oxygen_tank_x_position, statusbar_y_padding);
+
+        // Create dialog box background
+        dialog_background = sf::RectangleShape(dialog_initial_size);
+        dialog_background.setFillColor(sf::Color(0, 0, 0));
+        auto dialog_x_position = oxygen_tank_x_position + oxygen_tank_background.getLocalBounds().width + statusbar_x_padding;
+        dialog_background.setPosition(dialog_x_position, statusbar_y_padding);
 
         // Set up fuel meter.
         auto fuel_tracker_entity = logic_center.GetFuelTracker();
@@ -224,9 +232,10 @@ namespace tjg {
 
     void PlayerView::renderStatusBarBackground() {
         // Draw background elements.
-        window.draw(status_bar_background);
+        window.draw(statusbar_background);
         window.draw(fuel_tank_background);
         window.draw(oxygen_tank_background);
+        window.draw(dialog_background);
     }
 
     void PlayerView::updateStatusBarTrackers() {
