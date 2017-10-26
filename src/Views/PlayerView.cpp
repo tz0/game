@@ -184,7 +184,7 @@ namespace tjg {
         // Create a dark background.
         // TODO: Replace with a textured StaticSprite
         status_bar_background = sf::RectangleShape(sf::Vector2f(WINDOW_WIDTH, STATUSBAR_HEIGHT));
-        status_bar_background.setFillColor(sf::Color(50, 50, 50));
+        status_bar_background.setFillColor(sf::Color(60, 60, 60));
         status_bar_background.setPosition(0, 0);
 
         // Create fuel tank background.

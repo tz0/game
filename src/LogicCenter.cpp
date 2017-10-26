@@ -17,18 +17,22 @@ namespace tjg {
         entrance = entity_factory.MakeEntrance(sf::Vector2f(0, 0));
         exit = entity_factory.MakeExit(sf::Vector2f(-1400, -200));
 
-        // Register listengers/
+        // Register listeners.
         event_manager.RegisterListener<ReachedExit>([&](ReachedExit &event){
             (void)event;
             did_exit = true;
         });
         event_manager.RegisterListener<HitWall>([&](HitWall &event){
             (void)event;
-            std::cout << "TECH17 just died." << std::endl;
+            std::cout << "Hit a wall!" << std::endl;
         });
-        event_manager.RegisterListener<TimeExpired>([&](TimeExpired &event) {
+        event_manager.RegisterListener<OxygenExpired>([&](OxygenExpired &event) {
             (void)event;
-            std::cout << "Time's up!" << std::endl;
+            std::cout << "Out of oxygen!" << std::endl;
+        });
+        event_manager.RegisterListener<FuelExpired>([&](FuelExpired &event) {
+            (void)event;
+            std::cout << "Out of fuel!" << std::endl;
         });
 
         // Create boundary walls using the entity factory.
@@ -98,8 +102,16 @@ namespace tjg {
         auto oxygen_finite_resource = oxygen_tracker->GetComponent<FiniteResource>();
         auto max_oxygen = oxygen_finite_resource->GetMaxLevel();
         oxygen_finite_resource->SetCurrentLevel(max_oxygen - elapsed_seconds);
+
+        // If out of oxygen, fire an event.
         if (oxygen_finite_resource->IsDepleted()){
-            event_manager.Fire<TimeExpired>();
+            event_manager.Fire<OxygenExpired>();
+        }
+
+        // If out of fuel, fire an event.
+        auto fuel_finite_resource = fuel_tracker->GetComponent<FiniteResource>();
+        if (fuel_finite_resource->IsDepleted()){
+            event_manager.Fire<FuelExpired>();
         }
     }
 

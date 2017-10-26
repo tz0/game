@@ -9,7 +9,8 @@
 #include "EntityFactory.h"
 #include "EventManager.h"
 #include "Events/ReachedExit.h"
-#include "Events/TimeExpired.h"
+#include "Events/OxygenExpired.h"
+#include "Events/FuelExpired.h"
 #include "Components/FiniteResource.h"
 
 namespace tjg {
