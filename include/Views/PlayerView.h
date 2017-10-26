@@ -11,6 +11,7 @@
 #include "LogicCenter.h"
 #include "ResourceManager.h"
 #include "Systems/SpriteRenderSystem.h"
+#include "Systems/DialogSystem.h"
 #include "View.h"
 
 namespace tjg {
@@ -53,10 +54,17 @@ namespace tjg {
         sf::Vector2f trackers_initial_size;
         sf::Vector2f dialog_initial_size;
 
-        // Status bar
+        // Status bar methods.
         void initializeStatusBar();
         void renderStatusBarBackground();
         void updateStatusBarTrackers();
+
+        // Dialog box pieces.
+        sf::Text dialog_box;
+        DialogSystem dialog_system;
+
+        // Dialog box methods.
+        void initializeDialogSystem(std::vector<std::string> &dialog_snippets, float seconds_to_show_dialog, std::shared_ptr<sf::Font> font);
 
     public:
         // Constructor

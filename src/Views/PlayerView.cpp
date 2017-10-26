@@ -59,6 +59,12 @@ namespace tjg {
         // Initialize status bar.
         initializeStatusBar();
 
+        // Initialize dialog system
+        std::vector<std::string> dialog_snippets;
+        dialog_snippets.emplace_back("This is some test dialog.");
+        dialog_snippets.emplace_back("This is some more test dialog.");
+        initializeDialogSystem(dialog_snippets, 5, lcd_regular);
+
         // Set up camera
         // TODO: This needs to change depending on the level.
         // We are accounting for status bar height here since the walls were built before the status bar.
@@ -81,10 +87,13 @@ namespace tjg {
         // Drawing that should take place separate from the "camera" should go below here.
         window.setView(window.getDefaultView());
 
-        // Render status bar
+        // Draw the status bar
         renderStatusBarBackground();
         updateStatusBarTrackers();
         statusbar_render_system.render(window);
+
+        // Draw the dialog box on top of the status bar.
+        window.draw(dialog_box);
 
         // Draw FPS counter.
         if (show_info) {
@@ -108,6 +117,7 @@ namespace tjg {
     void PlayerView::Update(const sf::Time &elapsed) {
         CheckKeys(elapsed);
         HandleWindowEvents();
+        dialog_system.Update(elapsed);
     }
 
     void PlayerView::HandleWindowEvents() {
@@ -253,5 +263,16 @@ namespace tjg {
         float new_oxygen_width = trackers_initial_size.x * (oxygen_tracker_resource->GetCurrentLevel() / oxygen_tracker_resource->GetMaxLevel());
         auto new_oxygen_size = sf::Vector2f(new_oxygen_width, trackers_initial_size.y);
         oxygen_tracker_sprite->SetSize(new_oxygen_size);
+    }
+
+    void PlayerView::initializeDialogSystem(std::vector<std::string> &dialog_snippets, float seconds_to_show_dialog, std::shared_ptr<sf::Font> font) {
+        // Create dialog box Text object.
+        dialog_box.setFont(*font);
+        dialog_box.setFillColor(sf::Color(255, 255, 255));
+        dialog_box.setCharacterSize(16);
+        float dialog_box_x = trackers_initial_size.x*2 + statusbar_x_padding*3;
+        dialog_box.setPosition(dialog_box_x, statusbar_y_padding);
+        // Build the dialog system.
+        dialog_system.Initialize(dialog_box, dialog_snippets, seconds_to_show_dialog);
     }
 }

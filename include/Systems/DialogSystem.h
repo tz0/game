@@ -29,10 +29,10 @@ namespace tjg {
         // Flag to indicate an urgent message is being shown.
         bool showing_urgent_message;
     public:
-        // Constructor
-        DialogSystem(const sf::Text &dialog_box, std::vector<std::string> &dialog_snippets, float seconds_to_show_dialog);
+        // Initialize dialog system.
+        void Initialize(sf::Text &dialog_box, std::vector<std::string> &dialog_snippets, float seconds_to_show_dialog);
         // Update the current dialog being shown.
-        void UpdateDialog(const sf::Time &elapsed);
+        void Update(const sf::Time &elapsed);
         // Show an urgent message.
         void ShowUrgentMessage(std::string message, float seconds_to_show);
     };

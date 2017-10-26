@@ -2,7 +2,7 @@
 
 namespace tjg {
 
-    DialogSystem::DialogSystem(const sf::Text &dialog_box, std::vector<std::string> &dialog_snippets, float seconds_to_show_dialog) {
+    void DialogSystem::Initialize(sf::Text &dialog_box, std::vector<std::string> &dialog_snippets, float seconds_to_show_dialog) {
         // Store dialog box reference.
         this->dialog_box = dialog_box;
 
@@ -13,11 +13,18 @@ namespace tjg {
         // Set initial dialog index to 0.
         this->dialog_index = 0;
 
+        // Set initial text.
+        if (!this->dialog_snippets.empty()) {
+            auto first_string = this->dialog_snippets[0];
+            this->dialog_box.setString(first_string);
+            this->seconds_dialog_shown = 0;
+        }
+
         // Set urgent message flag to false.
         showing_urgent_message = false;
     }
 
-    void DialogSystem::UpdateDialog(const sf::Time &elapsed) {
+    void DialogSystem::Update(const sf::Time &elapsed) {
         if (showing_urgent_message && seconds_urgent_message_shown <= seconds_to_show_urgent_message) {
             // If showing an urgent message and need to keep showing it, increment the time it has been shown.
             seconds_urgent_message_shown += elapsed.asSeconds();
@@ -31,13 +38,15 @@ namespace tjg {
             // If the current dialog hasn't been shown long enough, just increment the time.
             seconds_dialog_shown += elapsed.asSeconds();
         }
-        else {
-            // Move to the next dialog snippet.
+        else if (dialog_index < dialog_snippets.size()){
+            // Move to the next dialog snippet if there is one.
             dialog_index++;
-            // Update the text in the dialog box.
-            dialog_box.setString(dialog_snippets[dialog_index]);
-            // Reset the time this dialog has been shown.
-            seconds_dialog_shown = 0;
+            if (dialog_index < dialog_snippets.size()) {
+                // Update the text in the dialog box.
+                dialog_box.setString(dialog_snippets[dialog_index]);
+                // Reset the time this dialog has been shown.
+                seconds_dialog_shown = 0;
+            }
         }
     }
 
