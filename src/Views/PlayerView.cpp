@@ -63,10 +63,10 @@ namespace tjg {
         std::vector<std::string> dialog_snippets;
         dialog_snippets.emplace_back("Hello, TECH-17. Welcome to the demo level.");
         dialog_snippets.emplace_back("Your goal is to reach the exit to your left without flying into anything.");
-        dialog_snippets.emplace_back("Oh, and you have 22 seconds of oxygen remaining. Forgot to mention that.");
+        dialog_snippets.emplace_back("Oh, and you have 22 seconds of oxygen left in the chamber. Forgot to mention that. Oops.");
         dialog_snippets.emplace_back("Press space to fire your jetpack and use the left and right arrow keys to rotate.");
         dialog_snippets.emplace_back("Good luck!");
-        initializeDialogSystem(dialog_snippets, 3, lcd_regular);
+        initializeDialogSystem(dialog_snippets, 4, lcd_regular);
 
         // Set up camera
         // TODO: This needs to change depending on the level.
@@ -227,7 +227,7 @@ namespace tjg {
         auto fuel_meter_sprite = fuel_tracker_entity->GetComponent<Sprite>();
         fuel_meter_sprite->GetSprite().setOrigin(0, 0);
         fuel_meter_sprite->SetSize(trackers_initial_size);
-        fuel_meter_location->SetPosition(sf::Vector2f((WINDOW_WIDTH / 40.f), STATUSBAR_HEIGHT * (1.f / 8.f)));
+        fuel_meter_location->SetPosition(fuel_tank_background.getPosition());
 
         // Set up oxygen meter.
         auto oxygen_tracker_entity = logic_center.GetOxygenTracker();
@@ -235,7 +235,7 @@ namespace tjg {
         auto oxygen_meter_sprite = oxygen_tracker_entity->GetComponent<Sprite>();
         oxygen_meter_sprite->GetSprite().setOrigin(0, 0);
         oxygen_meter_sprite->SetSize(trackers_initial_size);
-        oxygen_meter_location->SetPosition(sf::Vector2f((WINDOW_WIDTH / 4.f), STATUSBAR_HEIGHT * (1.f / 8.f)));
+        oxygen_meter_location->SetPosition(oxygen_tank_background.getPosition());
 
         // Add meters to status bar render system.
         statusbar_render_system.AddEntity(logic_center.GetFuelTracker());
@@ -272,11 +272,11 @@ namespace tjg {
         // Create dialog box Text object.
         sf::Text dialog_box;
         dialog_box.setFont(*font);
-        dialog_box.setColor(sf::Color(255, 255, 255));
+        dialog_box.setFillColor(sf::Color(255, 255, 255));
         dialog_box.setCharacterSize(20);
         float dialog_box_x = trackers_initial_size.x*2 + statusbar_x_padding*3;
         dialog_box.setPosition(dialog_box_x, statusbar_y_padding);
         // Build the dialog system.
-        dialog_system.Initialize(dialog_box, dialog_snippets, seconds_to_show_dialog);
+        dialog_system.Initialize(dialog_box, dialog_snippets, seconds_to_show_dialog, (unsigned int)(dialog_background.getLocalBounds().width));
     }
 }

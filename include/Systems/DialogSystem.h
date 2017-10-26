@@ -17,6 +17,9 @@ namespace tjg {
         std::vector<std::string> dialog_snippets;
         unsigned int dialog_index;
 
+        // Width to wrap text to.
+        unsigned wrap_width;
+
         // Current urgent message to show.
         std::string urgent_message;
 
@@ -28,9 +31,12 @@ namespace tjg {
 
         // Flag to indicate an urgent message is being shown.
         bool showing_urgent_message;
+
+        // Used to wrap text to the proper size.
+        sf::String wrapText(sf::String string, unsigned width, const sf::Font &font, unsigned characterSize, bool bold = false);
     public:
         // Initialize dialog system.
-        void Initialize(sf::Text dialog_box, std::vector<std::string> &dialog_snippets, float seconds_to_show_dialog);
+        void Initialize(sf::Text dialog_box, std::vector<std::string> &dialog_snippets, float seconds_to_show_dialog, unsigned wrap_width);
         // Update the current dialog being shown.
         void Update(const sf::Time &elapsed);
         // Show an urgent message.
