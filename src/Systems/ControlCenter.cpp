@@ -26,16 +26,16 @@ namespace tjg {
         cpBodySetTorque(body, -250000.f);
     }
 
-    void ControlCenter::FireJetpack() {
+    void ControlCenter::FireJetpack(const sf::Time &elapsed) {
         // Get body.
         auto body = player_entity->GetComponent<DynamicBody>()->GetBody();
 
         // Apply impulse.
         cpBodyApplyImpulseAtLocalPoint(body, cpv(0, -40), cpv(0, 0));
 
-        // Since this method should be called 60 times a second, we can expend 1/60th of a second worth of a fuel.
+        // Expend the proper amount of fuel.
         if (fuel) {
-            fuel->ExpendResource(1.f / 60.f);
+            fuel->ExpendResource(elapsed.asSeconds());
         }
     }
 

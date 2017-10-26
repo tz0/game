@@ -106,8 +106,8 @@ namespace tjg {
     }
 
     // Update logic that is specific to the player view.
-    void PlayerView::Update() {
-        CheckKeys();
+    void PlayerView::Update(const sf::Time &elapsed) {
+        CheckKeys(elapsed);
         HandleWindowEvents();
     }
 
@@ -147,7 +147,7 @@ namespace tjg {
         }
     }
 
-    void PlayerView::CheckKeys() {
+    void PlayerView::CheckKeys(const sf::Time &elapsed) {
 
         auto control_center = logic_center.GetControlCenter();
 
@@ -159,7 +159,7 @@ namespace tjg {
             control_center.RotateClockwise();
         }
         if (sf::Keyboard::isKeyPressed(sf::Keyboard::Space) || sf::Keyboard::isKeyPressed(sf::Keyboard::Up)) {
-            control_center.FireJetpack();
+            control_center.FireJetpack(elapsed);
             // Set body to red for testing.
             control_center.GetPlayerEntity()->GetComponent<Sprite>()->GetSprite().setColor(sf::Color(255, 0, 0));
         } else if (control_center.GetPlayerEntity()->GetComponent<Sprite>()->GetSprite().getColor() ==

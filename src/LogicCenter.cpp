@@ -89,7 +89,7 @@ namespace tjg {
         control_center.SetFuelResource(fuel_resource);
     }
 
-    void LogicCenter::Update(const sf::Time elapsed) {
+    void LogicCenter::Update(const sf::Time &elapsed) {
         // Update physics system.
         physics_system.Update(elapsed);
 

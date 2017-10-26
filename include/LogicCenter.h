@@ -59,7 +59,7 @@ namespace tjg {
         /**
          * Update will cause the physical center to be updated.
          */
-        void Update(sf::Time elapsed);
+        void Update(const sf::Time &elapsed);
 
         /**
          * @return if tech17 reach the exit

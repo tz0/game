@@ -22,7 +22,7 @@ namespace tjg {
         // Player controls.
         void RotateClockwise();
         void RotateCounterClockwise();
-        void FireJetpack();
+        void FireJetpack(const sf::Time &elapsed);
         // Accessor methods
         std::shared_ptr<Entity> GetPlayerEntity();
     };

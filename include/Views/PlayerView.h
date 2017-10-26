@@ -21,7 +21,7 @@ namespace tjg {
 
         ResourceManager &resource_manager;
 
-        void CheckKeys();
+        void CheckKeys(const sf::Time &elapsed);
         void HandleWindowEvents();
 
         sf::RenderWindow window;
@@ -60,7 +60,7 @@ namespace tjg {
         // Methods
         void Initialize() override;
         void Render();
-        void Update();
+        void Update(const sf::Time &elapsed);
         bool Running() override;
         void RenderWinMessage(); //TODO: This is a temporary solution
     };

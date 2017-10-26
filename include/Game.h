@@ -18,7 +18,7 @@ namespace tjg {
     private:
         ResourceManager resource_manager;
         LogicCenter logic_center;
-        PlayerView view;
+        PlayerView player_view;
 
         sf::Clock update_clock;
     };
