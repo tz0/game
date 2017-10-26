@@ -20,8 +20,8 @@ namespace tjg {
         // Add fuel tracker.
         void SetFuelResource(std::shared_ptr<FiniteResource> &fuel_resource);
         // Player controls.
-        void RotateClockwise();
-        void RotateCounterClockwise();
+        void RotateClockwise(const sf::Time &elapsed);
+        void RotateCounterClockwise(const sf::Time &elapsed);
         void FireJetpack(const sf::Time &elapsed);
         // Accessor methods
         std::shared_ptr<Entity> GetPlayerEntity();

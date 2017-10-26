@@ -85,7 +85,7 @@ namespace tjg {
 
         // Build resource trackers.
         std::string tracker_texture_path = "white-texture.jpg";
-        fuel_tracker = entity_factory.MakeResourceTracker(3, tracker_texture_path, sf::Color(255, 100, 0));
+        fuel_tracker = entity_factory.MakeResourceTracker(4, tracker_texture_path, sf::Color(255, 100, 0));
         oxygen_tracker = entity_factory.MakeResourceTracker(30, tracker_texture_path, sf::Color(0, 100, 255));
 
         // Link the fuel resource to the control center.

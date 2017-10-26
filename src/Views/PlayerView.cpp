@@ -153,10 +153,10 @@ namespace tjg {
 
         // Temporary/Example control system.
         if (sf::Keyboard::isKeyPressed(sf::Keyboard::Left)) {
-            control_center.RotateCounterClockwise();
+            control_center.RotateCounterClockwise(elapsed);
         }
         if (sf::Keyboard::isKeyPressed(sf::Keyboard::Right)) {
-            control_center.RotateClockwise();
+            control_center.RotateClockwise(elapsed);
         }
         if (sf::Keyboard::isKeyPressed(sf::Keyboard::Space) || sf::Keyboard::isKeyPressed(sf::Keyboard::Up)) {
             control_center.FireJetpack(elapsed);

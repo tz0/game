@@ -12,18 +12,30 @@ namespace tjg {
         fuel = fuel_resource;
     }
 
-    void ControlCenter::RotateClockwise() {
+    void ControlCenter::RotateClockwise(const sf::Time &elapsed) {
         // Get body.
         auto body = player_entity->GetComponent<DynamicBody>()->GetBody();
+
         // Set clockwise torque.
         cpBodySetTorque(body, 250000.f);
+
+        // Expend a small amount of fuel.
+        if (fuel) {
+            fuel->ExpendResource(elapsed.asSeconds() / 8.f);
+        }
     }
 
-    void ControlCenter::RotateCounterClockwise() {
+    void ControlCenter::RotateCounterClockwise(const sf::Time &elapsed) {
         // Get body.
         auto body = player_entity->GetComponent<DynamicBody>()->GetBody();
+
         // Set counterclockwise torque.
         cpBodySetTorque(body, -250000.f);
+
+        // Expend a small amount of fuel.
+        if (fuel) {
+            fuel->ExpendResource(elapsed.asSeconds() / 8.f);
+        }
     }
 
     void ControlCenter::FireJetpack(const sf::Time &elapsed) {
@@ -31,7 +43,7 @@ namespace tjg {
         auto body = player_entity->GetComponent<DynamicBody>()->GetBody();
 
         // Apply impulse.
-        cpBodyApplyImpulseAtLocalPoint(body, cpv(0, -40), cpv(0, 0));
+        cpBodyApplyImpulseAtLocalPoint(body, cpv(0, -35), cpv(0, 0));
 
         // Expend the proper amount of fuel.
         if (fuel) {
