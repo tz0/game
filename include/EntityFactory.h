@@ -54,7 +54,7 @@ namespace tjg {
         std::shared_ptr<Entity> MakeFan(const sf::Vector2f &origin_point, const sf::Vector2f &end_point, float width, float origin_strength, float end_strength);
         std::shared_ptr<Entity> MakeEntrance(const sf::Vector2f &position);
         std::shared_ptr<Entity> MakeExit(const sf::Vector2f &position);
-        std::shared_ptr<Entity> MakeResourceTracker(const sf::Vector2f &size, float max_value, std::string &texture_path);
+        std::shared_ptr<Entity> MakeResourceTracker(const sf::Vector2f &size, float max_value, std::string &texture_path, const sf::Color &color);
     };
 
 }

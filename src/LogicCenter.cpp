@@ -82,12 +82,12 @@ namespace tjg {
         // Build resource trackers.
         // TODO: Don't hardcode values.
         std::string tracker_texture_path = "white-texture.jpg";
-        fuel_tracker = entity_factory.MakeResourceTracker(sf::Vector2f(0, 0), 5, tracker_texture_path);
-        oxygen_tracker = entity_factory.MakeResourceTracker(sf::Vector2f(0, 0), 30, tracker_texture_path);
+        fuel_tracker = entity_factory.MakeResourceTracker(sf::Vector2f(10, 10), 5, tracker_texture_path, sf::Color(255, 100, 0));
+        oxygen_tracker = entity_factory.MakeResourceTracker(sf::Vector2f(10, 10), 30, tracker_texture_path, sf::Color(0, 100, 255));
     }
 
     void LogicCenter::Update(const sf::Time elapsed) {
-
+        // Update physics system.
         physics_system.Update(elapsed);
 
         // Countdown timer - start counting. To be more fair, do not start to count during initialization.
@@ -98,7 +98,6 @@ namespace tjg {
         if (oxygen_finite_resource->IsDepleted()){
             event_manager.Fire<TimeExpired>();
         }
-
     }
 
     bool LogicCenter::DidReachExit() {

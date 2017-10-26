@@ -13,6 +13,13 @@ namespace tjg {
     private:
         std::map<int, std::vector<std::shared_ptr<Entity>>> layers;
 
+        /**
+         * Render the specified entity to the given target.
+         * @param target
+         * @param entity
+         */
+        void renderEntity(sf::RenderTarget &target, std::shared_ptr<Entity> entity);
+
     public:
 
         /**
@@ -20,13 +27,6 @@ namespace tjg {
          * @param entity
          */
         void AddEntity(std::shared_ptr<Entity> entity);
-
-        /**
-         * Render the specified entity to the given target.
-         * @param target
-         * @param entity
-         */
-        void RenderEntity(sf::RenderTarget &target, std::shared_ptr<Entity> entity);
 
         /**
          * Draw all of the entities to the specified target

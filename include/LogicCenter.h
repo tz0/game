@@ -17,6 +17,7 @@ namespace tjg {
     class LogicCenter {
 
     private:
+        // Resource manager
         ResourceManager &resource_manager;
 
         // Systems
@@ -24,7 +25,10 @@ namespace tjg {
         ControlCenter control_center;
         CollisionCenter collision_center;
 
+        // Entity factory
         EntityFactory entity_factory;
+
+        // Event manager
         EventManager event_manager;
 
         // Entities
@@ -33,6 +37,8 @@ namespace tjg {
         std::shared_ptr<Entity> exit;
         std::shared_ptr<Entity> fuel_tracker;
         std::shared_ptr<Entity> oxygen_tracker;
+
+        // Flags
         bool did_exit = false;
 
         // Temporary for testing purposes.

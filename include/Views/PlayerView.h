@@ -27,7 +27,9 @@ namespace tjg {
         sf::RenderWindow window;
         sf::View camera;
 
-        SpriteRenderSystem sprite_render_system;
+        // Sprite render systems.
+        SpriteRenderSystem gameview_render_system;
+        SpriteRenderSystem statusbar_render_system;
 
         // FPS display
         sf::Clock fps_clock;
@@ -41,8 +43,12 @@ namespace tjg {
         bool running = true;
 
         // Status bar pieces.
-        sf::Text countdown;
-        bool show_countdown = true;
+        sf::RectangleShape status_bar_background;
+        sf::RectangleShape fuel_tank_background; // TODO: Remove
+        sf::RectangleShape oxygen_tank_background; // TODO: Remove
+
+        // Initialize status bar.
+        void initializeStatusBar();
 
         // Render status bar.
         void renderStatusBar();

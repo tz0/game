@@ -520,7 +520,7 @@ namespace tjg {
         return exit;
     }
 
-    std::shared_ptr<Entity> EntityFactory::MakeResourceTracker(const sf::Vector2f &size, float max_value, std::string &texture_path) {
+    std::shared_ptr<Entity> EntityFactory::MakeResourceTracker(const sf::Vector2f &size, float max_value, std::string &texture_path, const sf::Color &color) {
         // Create resource bar entity.
         auto resource_tracker = std::make_shared<Entity>();
 
@@ -537,7 +537,8 @@ namespace tjg {
         // Add Sprite component.
         sf::Sprite sprite;
         sprite.setTexture(*texture);
-        sprite.setTextureRect(sf::IntRect(0, 0, (int)(size.x), (int)(size.y / 2)));
+        sprite.setTextureRect(sf::IntRect(0, 0, (int)(size.x), (int)(size.y)));
+        sprite.setColor(color);
         resource_tracker->AddComponent<Sprite>(sprite);
 
         return resource_tracker;

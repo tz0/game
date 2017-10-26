@@ -22,29 +22,23 @@ namespace tjg {
         info.setStyle(sf::Text::Bold);
         info.setCharacterSize(24);
 
-        // set font for user countdown clock
-        countdown.setFont(*lcd_regular);
-        countdown.setStyle(sf::Text::Bold);
-        countdown.setCharacterSize(32);
-        countdown.setPosition((WINDOW_WIDTH / 4.f), STATUSBAR_HEIGHT / 4.f);
-
         // Add tech17 + child components to the sprite render system
-        sprite_render_system.AddEntity(logic_center.GetTech17());
+        gameview_render_system.AddEntity(logic_center.GetTech17());
         logic_center.GetTech17()->ForEachChild([&](std::shared_ptr<Entity> child){
-            sprite_render_system.AddEntity(child);
+            gameview_render_system.AddEntity(child);
         });
 
         // Add the wall entities to the sprite render system
         for (const auto &wall : logic_center.GetWalls()) {
-            sprite_render_system.AddEntity(wall);
+            gameview_render_system.AddEntity(wall);
         }
 
         //Add the entrance and exit to the sprite render system
-        sprite_render_system.AddEntity(logic_center.GetEntrance());
-        sprite_render_system.AddEntity(logic_center.GetExit());
+        gameview_render_system.AddEntity(logic_center.GetEntrance());
+        gameview_render_system.AddEntity(logic_center.GetExit());
 
         // Make background
-        sprite_render_system.AddEntity(logic_center.GetEntityFactory().MakeTiledBackground("white-tile.jpg"));
+        gameview_render_system.AddEntity(logic_center.GetEntityFactory().MakeTiledBackground("white-tile.jpg"));
 
         // temp Set font for win message
         win_message.setFont(*avenir_bold);
@@ -60,8 +54,11 @@ namespace tjg {
 
         // Add fans to sprite render system.
         for (const auto &fan : logic_center.GetFans()) {
-            sprite_render_system.AddEntity(fan);
+            gameview_render_system.AddEntity(fan);
         }
+
+        // Initialize status bar.
+        initializeStatusBar();
 
         // Set up camera
         // TODO: This needs to change depending on the level.
@@ -79,20 +76,21 @@ namespace tjg {
         window.clear(sf::Color(50, 50, 50, 255));
         window.setView(camera);
 
-        // Render sprites
-        sprite_render_system.render(window);
+        // Render game view
+        gameview_render_system.render(window);
 
         // Drawing that should take place separate from the "camera" should go below here.
         window.setView(window.getDefaultView());
+
+        // Render status bar
+        renderStatusBar();
+        statusbar_render_system.render(window);
 
         // Draw FPS counter.
         if (show_info) {
             info.setString(std::to_string(fps) + " FPS");
             window.draw(info);
         }
-
-        // Draw status bar on top of everything else.
-        renderStatusBar();
 
         // Show the newly drawn frame.
         window.display();
@@ -178,48 +176,54 @@ namespace tjg {
         window.display();
     }
 
-    // Render the status bar. Used in Render().
-    void PlayerView::renderStatusBar() {
-        // Draw a dark background.
+    void PlayerView::initializeStatusBar() {
+        // Store bar starting size.
+        sf::Vector2f bar_initial_size = sf::Vector2f((WINDOW_WIDTH / 5.f), (STATUSBAR_HEIGHT * (3.f / 4.f)));
+
+        // Create a dark background.
         // TODO: Replace with a textured StaticSprite
-        sf::RectangleShape status_bar_background = sf::RectangleShape(sf::Vector2f(WINDOW_WIDTH, STATUSBAR_HEIGHT));
+        status_bar_background = sf::RectangleShape(sf::Vector2f(WINDOW_WIDTH, STATUSBAR_HEIGHT));
         status_bar_background.setFillColor(sf::Color(50, 50, 50));
         status_bar_background.setPosition(0, 0);
-        window.draw(status_bar_background);
 
-        // Draw fuel tank background.
-        // TODO: Replace with a textured StaticSprite
-        sf::RectangleShape fuel_tank_background = sf::RectangleShape(sf::Vector2f((WINDOW_WIDTH / 5.f), (STATUSBAR_HEIGHT * (3.f / 4.f))));
+        // Create fuel tank background.
+        // TODO: Replace with a textured StaticSprite (will be part of the status bar background -- can delete this after.)
+        fuel_tank_background = sf::RectangleShape(bar_initial_size);
         fuel_tank_background.setFillColor(sf::Color(0, 0, 0));
         fuel_tank_background.setPosition((WINDOW_WIDTH / 40.f), STATUSBAR_HEIGHT * (1.f / 8.f));
-        window.draw(fuel_tank_background);
 
-        // TODO: Draw fuel meter. DOES NOT WORK.
-        auto fuel_meter_sprite = logic_center.GetFuelTracker()->GetComponent<Sprite>();
-        auto fuel_meter_location = logic_center.GetFuelTracker()->GetComponent<Location>();
-        fuel_meter_location->SetPosition(sf::Vector2f((WINDOW_WIDTH / 40.f), STATUSBAR_HEIGHT * (1.f / 8.f)));
-        sprite_render_system.RenderEntity(window, logic_center.GetFuelTracker());
-
-        // Draw oxygen tank background.
-        // TODO: Replace with a textured StaticSprite
-        sf::RectangleShape oxygen_tank_background = sf::RectangleShape(sf::Vector2f((WINDOW_WIDTH / 5.f), (STATUSBAR_HEIGHT * (3.f / 4.f))));
+        // Create oxygen tank background.
+        // TODO: Replace with a textured StaticSprite (will be part of the status bar background -- can delete this after.)
+        oxygen_tank_background = sf::RectangleShape(bar_initial_size);
         oxygen_tank_background.setFillColor(sf::Color(0, 0, 0));
         oxygen_tank_background.setPosition((WINDOW_WIDTH / 4.f), STATUSBAR_HEIGHT * (1.f / 8.f));
-        window.draw(oxygen_tank_background);
 
-        // TODO: Draw oxygen meter. DOES NOT WORK.
-        auto oxygen_meter_sprite = logic_center.GetOxygenTracker()->GetComponent<Sprite>();
-        auto oxygen_meter_location = logic_center.GetOxygenTracker()->GetComponent<Location>();
+        // Set up fuel meter.
+        auto fuel_tracker_entity = logic_center.GetFuelTracker();
+        auto fuel_meter_location = fuel_tracker_entity->GetComponent<Location>();
+        auto fuel_meter_sprite = fuel_tracker_entity->GetComponent<Sprite>();
+        fuel_meter_sprite->GetSprite().setOrigin(0, 0);
+        fuel_meter_sprite->SetSize(bar_initial_size);
+        fuel_meter_location->SetPosition(sf::Vector2f((WINDOW_WIDTH / 40.f), STATUSBAR_HEIGHT * (1.f / 8.f)));
+
+        // Set up oxygen meter.
+        auto oxygen_tracker_entity = logic_center.GetOxygenTracker();
+        auto oxygen_meter_location = oxygen_tracker_entity->GetComponent<Location>();
+        auto oxygen_meter_sprite = oxygen_tracker_entity->GetComponent<Sprite>();
+        oxygen_meter_sprite->GetSprite().setOrigin(0, 0);
+        oxygen_meter_sprite->SetSize(bar_initial_size);
         oxygen_meter_location->SetPosition(sf::Vector2f((WINDOW_WIDTH / 4.f), STATUSBAR_HEIGHT * (1.f / 8.f)));
-        sprite_render_system.RenderEntity(window, logic_center.GetOxygenTracker());
 
-        // Draw oxygen countdown timer
-        // TODO: This is a temporary solution.
-        if (show_countdown) {
-            auto oxygen_resource = logic_center.GetOxygenTracker()->GetComponent<FiniteResource>();
-            countdown.setString("Oxygen: " + std::to_string(oxygen_resource->GetCurrentLevelAsInt()));
-            window.draw(countdown);
-        }
+        // Add meters to status bar render system.
+        statusbar_render_system.AddEntity(logic_center.GetFuelTracker());
+        statusbar_render_system.AddEntity(logic_center.GetOxygenTracker());
     }
 
+    // Render the status bar. Used in Render().
+    void PlayerView::renderStatusBar() {
+        // Draw background elements.
+        window.draw(status_bar_background);
+        window.draw(fuel_tank_background);
+        window.draw(oxygen_tank_background);
+    }
 }
