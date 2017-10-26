@@ -8,8 +8,8 @@ namespace tjg {
         window(sf::VideoMode(WINDOW_WIDTH, WINDOW_HEIGHT, 32), "Game", sf::Style::Titlebar | sf::Style::Close),
         main_menu_view(resource_manager, window),
         level_menu_view(resource_manager, window),
-        player_view(resource_manager, logic_center, window),
-        pause_menu_view(resource_manager, window){
+        player_view(resource_manager, window, logic_center),
+        pause_menu_view(resource_manager, window) {
         window.setVerticalSyncEnabled(true);
     }
 

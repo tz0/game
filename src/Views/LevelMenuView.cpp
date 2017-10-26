@@ -2,8 +2,7 @@
 
 namespace tjg {
     LevelMenuView::LevelMenuView(ResourceManager &resource_manager, sf::RenderWindow &window) :
-            resource_manager(resource_manager),
-            window(window) {}
+            View(window,resource_manager) {}
 
 
     void LevelMenuView::Initialize() {

@@ -15,11 +15,8 @@
 namespace tjg {
 
     class PlayerView : public View {
-
     private:
-
-        ResourceManager &resource_manager;
-        sf::RenderWindow &window;
+        LogicCenter &logic_center;
         sf::View camera;
         SpriteRenderSystem sprite_render_system;
         bool running = true;
@@ -40,13 +37,12 @@ namespace tjg {
 
     public:
         // Constructor
-        explicit PlayerView(ResourceManager &resource_manager, LogicCenter &logic_center, sf::RenderWindow &window);
+        explicit PlayerView(ResourceManager &resource_manager, sf::RenderWindow &window, LogicCenter &logic_center);
 
         // Methods
         void Initialize() override;
         void Render();
         void Update();
-        bool Running() override;
     };
 
 }

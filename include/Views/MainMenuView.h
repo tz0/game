@@ -11,16 +11,15 @@
 #include "View.h"
 
 namespace tjg {
-        class MainMenuView {
-        private:
-            ResourceManager &resource_manager;
-            sf::RenderWindow &window;
-            sf::Text message;
-        public:
-            MainMenuView(ResourceManager &resource_manager, sf::RenderWindow &window);
-            void Initialize();
-            void Update();
-            void Render();
-        };
+    class MainMenuView : public View {
+    private:
+        sf::Text message;
+    public:
+        MainMenuView(ResourceManager &resource_manager, sf::RenderWindow &window);
+        void Initialize() override;
+        void Update();
+        void Render();
+    };
 }
+
 #endif //GAME_MAINMENUVIEW_H

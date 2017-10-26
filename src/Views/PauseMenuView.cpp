@@ -2,8 +2,7 @@
 
 namespace tjg{
     PauseMenuView::PauseMenuView(ResourceManager &resource_manager, sf::RenderWindow &window) :
-            resource_manager(resource_manager),
-            window(window) {}
+            View(window,resource_manager) {}
 
 
     void PauseMenuView::Initialize() {

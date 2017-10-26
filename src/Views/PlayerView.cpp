@@ -4,10 +4,9 @@
 
 namespace tjg {
 
-    PlayerView::PlayerView(ResourceManager &resource_manager, LogicCenter &logic_center, sf::RenderWindow &window) :
-            View(logic_center),
-            resource_manager(resource_manager),
-            window(window) {
+    PlayerView::PlayerView(ResourceManager &resource_manager, sf::RenderWindow &window, LogicCenter &logic_center) :
+            View(window,resource_manager),
+            logic_center(logic_center) {
             window.setVerticalSyncEnabled(true);
     }
 
@@ -58,9 +57,6 @@ namespace tjg {
         camera.setSize(2080, 1280);
     }
 
-    bool PlayerView::Running() {
-        return running;
-    }
 
     void PlayerView::Render() {
         window.clear(sf::Color(50, 50, 50, 255));

@@ -11,16 +11,15 @@
 #include "View.h"
 
 namespace tjg {
-    class PauseMenuView {
+    class PauseMenuView : public View {
     private:
-        ResourceManager &resource_manager;
-        sf::RenderWindow &window;
         sf::Text message;
     public:
         PauseMenuView(ResourceManager &resource_manager, sf::RenderWindow &window);
-        void Initialize();
+        void Initialize() override;
         void Update();
         void Render();
     };
 }
+
 #endif //GAME_PAUSEMENU_H

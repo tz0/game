@@ -1,4 +1,3 @@
-
 #ifndef GAME_LEVELMENUVIEW_H
 #define GAME_LEVELMENUVIEW_H
 
@@ -12,14 +11,12 @@
 #include "View.h"
 
 namespace tjg {
-    class LevelMenuView {
+    class LevelMenuView : public View {
     private:
-        ResourceManager &resource_manager;
-        sf::RenderWindow &window;
         sf::Text message;
     public:
         LevelMenuView(ResourceManager &resource_manager, sf::RenderWindow &window);
-        void Initialize();
+        void Initialize() override;
         void Update();
         void Render();
     };
