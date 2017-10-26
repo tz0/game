@@ -61,9 +61,11 @@ include_directories(lib/Chipmunk2D/include/chipmunk)
 link_libraries(chipmunk)
 
 ############
-# Add JSON #
+# Add gason #
 ############
-include_directories(lib/json)
+add_subdirectory(lib/gason)
+include_directories(lib/gason/src)
+link_libraries(gason)
 
 #############
 # Find SFML #
