@@ -36,8 +36,8 @@ namespace tjg {
         });
 
         // Create boundary walls using the entity factory.
-        auto top_wall = entity_factory.MakeWall(sf::Vector2f(-1520, -600), sf::Vector2f(520, -600), 40);
-        auto bottom_wall = entity_factory.MakeWall(sf::Vector2f(-1520, 600), sf::Vector2f(520, 600), 40);
+        auto top_wall = entity_factory.MakeWall(sf::Vector2f(-1500, -600), sf::Vector2f(500, -600), 40);
+        auto bottom_wall = entity_factory.MakeWall(sf::Vector2f(-1500, 600), sf::Vector2f(500, 600), 40);
         auto left_wall = entity_factory.MakeWall(sf::Vector2f(-1500, -600), sf::Vector2f(-1500, 600), 40);
         auto right_wall = entity_factory.MakeWall(sf::Vector2f(500, -600), sf::Vector2f(500, 600), 40);
         auto middle_wall = entity_factory.MakeWall(sf::Vector2f(-800, -600), sf::Vector2f(-800, 100), 40);
