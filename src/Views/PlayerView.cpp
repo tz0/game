@@ -63,9 +63,10 @@ namespace tjg {
         std::vector<std::string> dialog_snippets;
         dialog_snippets.emplace_back("Hello, TECH-17. Welcome to the demo level.");
         dialog_snippets.emplace_back("Your goal is to reach the exit to your left without flying into anything.");
-        dialog_snippets.emplace_back("Oh, and you have 22 seconds of oxygen left in the chamber. Forgot to mention that. Oops.");
         dialog_snippets.emplace_back("Press space to fire your jetpack and use the left and right arrow keys to rotate.");
-        dialog_snippets.emplace_back("Good luck!");
+        dialog_snippets.emplace_back("The orange bar in your HUD indicates how much fuel you have left.");
+        dialog_snippets.emplace_back("The blue bar indicates how much breathable air is left in your suit.");
+        dialog_snippets.emplace_back("I probably should have mentioned that earlier...");
         initializeDialogSystem(dialog_snippets, 4, lcd_regular);
 
         // Set up camera
@@ -170,7 +171,7 @@ namespace tjg {
         if (sf::Keyboard::isKeyPressed(sf::Keyboard::Right)) {
             control_center.RotateClockwise(elapsed);
         }
-        if ((sf::Keyboard::isKeyPressed(sf::Keyboard::Space) || sf::Keyboard::isKeyPressed(sf::Keyboard::Up)) && !fuel_resource->IsDepleted()) {
+        if (sf::Keyboard::isKeyPressed(sf::Keyboard::Space) && !fuel_resource->IsDepleted()) {
             control_center.FireJetpack(elapsed);
             // Set body to red to visually show the jetpack is firing. Allow this only if the user is not out of fuel.
             control_center.GetPlayerEntity()->GetComponent<Sprite>()->GetSprite().setColor(sf::Color(255, 0, 0));
