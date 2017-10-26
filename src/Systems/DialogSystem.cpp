@@ -2,9 +2,9 @@
 
 namespace tjg {
 
-    void DialogSystem::Initialize(sf::Text &dialog_box, std::vector<std::string> &dialog_snippets, float seconds_to_show_dialog) {
+    void DialogSystem::Initialize(sf::Text dialog_box, std::vector<std::string> &dialog_snippets, float seconds_to_show_dialog) {
         // Store dialog box reference.
-        this->dialog_box = dialog_box;
+        this->dialog_box = std::move(dialog_box);
 
         // Store dialog snippets and the number of seconds to show each snippet.
         this->dialog_snippets = dialog_snippets;
@@ -58,6 +58,10 @@ namespace tjg {
         seconds_to_show_urgent_message = seconds_to_show;
         // Update the text in the dialog box.
         dialog_box.setString(message);
+    }
+
+    sf::Text DialogSystem::GetDialogBox() {
+        return dialog_box;
     }
 
 }

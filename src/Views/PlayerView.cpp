@@ -93,7 +93,7 @@ namespace tjg {
         statusbar_render_system.render(window);
 
         // Draw the dialog box on top of the status bar.
-        window.draw(dialog_box);
+        window.draw(dialog_system.GetDialogBox());
 
         // Draw FPS counter.
         if (show_info) {
@@ -118,7 +118,6 @@ namespace tjg {
         CheckKeys(elapsed);
         HandleWindowEvents();
         dialog_system.Update(elapsed);
-        printf("Dialog box: %s\n", dialog_box.getString().toAnsiString().c_str());
     }
 
     void PlayerView::HandleWindowEvents() {
@@ -268,9 +267,10 @@ namespace tjg {
 
     void PlayerView::initializeDialogSystem(std::vector<std::string> &dialog_snippets, float seconds_to_show_dialog, std::shared_ptr<sf::Font> font) {
         // Create dialog box Text object.
+        sf::Text dialog_box;
         dialog_box.setFont(*font);
-        dialog_box.setFillColor(sf::Color(255, 255, 255));
-        dialog_box.setCharacterSize(16);
+        dialog_box.setColor(sf::Color(255, 255, 255));
+        dialog_box.setCharacterSize(20);
         float dialog_box_x = trackers_initial_size.x*2 + statusbar_x_padding*3;
         dialog_box.setPosition(dialog_box_x, statusbar_y_padding);
         // Build the dialog system.

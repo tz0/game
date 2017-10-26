@@ -30,11 +30,13 @@ namespace tjg {
         bool showing_urgent_message;
     public:
         // Initialize dialog system.
-        void Initialize(sf::Text &dialog_box, std::vector<std::string> &dialog_snippets, float seconds_to_show_dialog);
+        void Initialize(sf::Text dialog_box, std::vector<std::string> &dialog_snippets, float seconds_to_show_dialog);
         // Update the current dialog being shown.
         void Update(const sf::Time &elapsed);
         // Show an urgent message.
         void ShowUrgentMessage(std::string message, float seconds_to_show);
+        // Get the sf:Text object used to display dialog.
+        sf::Text GetDialogBox();
     };
 
 }

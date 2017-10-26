@@ -60,7 +60,6 @@ namespace tjg {
         void updateStatusBarTrackers();
 
         // Dialog box pieces.
-        sf::Text dialog_box;
         DialogSystem dialog_system;
 
         // Dialog box methods.
