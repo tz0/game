@@ -100,42 +100,24 @@ namespace tjg {
     // Update logic that is specific to the player view.
     void PlayerView::Update() {
         CheckKeys();
-        HandleWindowEvents();
     }
 
-    void PlayerView::HandleWindowEvents() {
-        sf::Event event;
-        // Look for window events.
-        while (window.pollEvent(event)) {
-            switch (event.type) {
-                case sf::Event::Closed:
-                    window.close();
-                    running = false;
-                    break;
-                case sf::Event::KeyPressed: {
-                    switch (event.key.code) {
-
-                        // Close window on ESC
-                        case sf::Keyboard::Escape: {
-                            window.close();
-                            running = false;
-                            break;
-                        }
-
-                        // Toggle FPS counter on F1.
-                        case sf::Keyboard::F1: {
-                            show_info = !show_info;
-                            break;
-                        }
-
-                        default:
-                            break;
+    void PlayerView::HandleWindowEvents(const sf::Event event) {
+        switch (event.type) {
+            case sf::Event::KeyPressed: {
+                switch (event.key.code) {
+                    // Toggle FPS counter on F1.
+                    case sf::Keyboard::F1: {
+                        show_info = !show_info;
+                        break;
                     }
-                    break;
+                    default:
+                        break;
                 }
-                default:
-                    break;
+                break;
             }
+            default:
+                break;
         }
     }
 

@@ -18,4 +18,8 @@ namespace tjg {
     void MainMenuView::Render() {
 
     }
+
+    void MainMenuView::HandleWindowEvents(sf::Event event) {
+
+    }
 }

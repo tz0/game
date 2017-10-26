@@ -18,4 +18,8 @@ namespace tjg {
     void LevelMenuView::Render() {
 
     }
+
+    void LevelMenuView::HandleWindowEvents(sf::Event event) {
+
+    }
 }

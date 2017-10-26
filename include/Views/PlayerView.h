@@ -22,7 +22,6 @@ namespace tjg {
         bool running = true;
 
         void CheckKeys();
-        void HandleWindowEvents();
 
         sf::Clock fps_clock;
         int fps = 0;
@@ -43,6 +42,7 @@ namespace tjg {
         void Initialize() override;
         void Render();
         void Update();
+        void HandleWindowEvents(sf::Event event) override;
     };
 
 }

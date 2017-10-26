@@ -19,6 +19,7 @@ namespace tjg {
         void Initialize() override;
         void Update();
         void Render();
+        void HandleWindowEvents(sf::Event event);
     };
 }
 

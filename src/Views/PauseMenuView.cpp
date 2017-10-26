@@ -31,4 +31,8 @@ namespace tjg{
         window.display();
     }
 
+    void PauseMenuView::HandleWindowEvents(sf::Event event) {
+
+    }
+
 }
