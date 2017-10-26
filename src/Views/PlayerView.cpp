@@ -8,7 +8,7 @@ namespace tjg {
             View(logic_center),
             resource_manager(resource_manager),
             window(sf::VideoMode(WINDOW_WIDTH, WINDOW_HEIGHT, 32), "Jetpack Game", sf::Style::Titlebar | sf::Style::Close) {
-            window.setVerticalSyncEnabled(true);
+        window.setVerticalSyncEnabled(true);
     }
 
     void PlayerView::Initialize() {
@@ -83,7 +83,8 @@ namespace tjg {
         window.setView(window.getDefaultView());
 
         // Render status bar
-        renderStatusBar();
+        renderStatusBarBackground();
+        updateStatusBarTrackers();
         statusbar_render_system.render(window);
 
         // Draw FPS counter.
@@ -129,7 +130,7 @@ namespace tjg {
                             break;
                         }
 
-                        // Toggle FPS counter on F1.
+                            // Toggle FPS counter on F1.
                         case sf::Keyboard::F1: {
                             show_info = !show_info;
                             break;
@@ -178,7 +179,7 @@ namespace tjg {
 
     void PlayerView::initializeStatusBar() {
         // Store bar starting size.
-        sf::Vector2f bar_initial_size = sf::Vector2f((WINDOW_WIDTH / 5.f), (STATUSBAR_HEIGHT * (3.f / 4.f)));
+        trackers_initial_size = sf::Vector2f((WINDOW_WIDTH / 5.f), (STATUSBAR_HEIGHT * (3.f / 4.f)));
 
         // Create a dark background.
         // TODO: Replace with a textured StaticSprite
@@ -188,13 +189,13 @@ namespace tjg {
 
         // Create fuel tank background.
         // TODO: Replace with a textured StaticSprite (will be part of the status bar background -- can delete this after.)
-        fuel_tank_background = sf::RectangleShape(bar_initial_size);
+        fuel_tank_background = sf::RectangleShape(trackers_initial_size);
         fuel_tank_background.setFillColor(sf::Color(0, 0, 0));
         fuel_tank_background.setPosition((WINDOW_WIDTH / 40.f), STATUSBAR_HEIGHT * (1.f / 8.f));
 
         // Create oxygen tank background.
         // TODO: Replace with a textured StaticSprite (will be part of the status bar background -- can delete this after.)
-        oxygen_tank_background = sf::RectangleShape(bar_initial_size);
+        oxygen_tank_background = sf::RectangleShape(trackers_initial_size);
         oxygen_tank_background.setFillColor(sf::Color(0, 0, 0));
         oxygen_tank_background.setPosition((WINDOW_WIDTH / 4.f), STATUSBAR_HEIGHT * (1.f / 8.f));
 
@@ -203,7 +204,7 @@ namespace tjg {
         auto fuel_meter_location = fuel_tracker_entity->GetComponent<Location>();
         auto fuel_meter_sprite = fuel_tracker_entity->GetComponent<Sprite>();
         fuel_meter_sprite->GetSprite().setOrigin(0, 0);
-        fuel_meter_sprite->SetSize(bar_initial_size);
+        fuel_meter_sprite->SetSize(trackers_initial_size);
         fuel_meter_location->SetPosition(sf::Vector2f((WINDOW_WIDTH / 40.f), STATUSBAR_HEIGHT * (1.f / 8.f)));
 
         // Set up oxygen meter.
@@ -211,7 +212,7 @@ namespace tjg {
         auto oxygen_meter_location = oxygen_tracker_entity->GetComponent<Location>();
         auto oxygen_meter_sprite = oxygen_tracker_entity->GetComponent<Sprite>();
         oxygen_meter_sprite->GetSprite().setOrigin(0, 0);
-        oxygen_meter_sprite->SetSize(bar_initial_size);
+        oxygen_meter_sprite->SetSize(trackers_initial_size);
         oxygen_meter_location->SetPosition(sf::Vector2f((WINDOW_WIDTH / 4.f), STATUSBAR_HEIGHT * (1.f / 8.f)));
 
         // Add meters to status bar render system.
@@ -220,10 +221,28 @@ namespace tjg {
     }
 
     // Render the status bar. Used in Render().
-    void PlayerView::renderStatusBar() {
+    void PlayerView::renderStatusBarBackground() {
         // Draw background elements.
         window.draw(status_bar_background);
         window.draw(fuel_tank_background);
         window.draw(oxygen_tank_background);
+    }
+
+    void PlayerView::updateStatusBarTrackers() {
+        // Update fuel tracker size.
+        auto fuel_tracker = logic_center.GetFuelTracker();
+        auto fuel_tracker_resource = fuel_tracker->GetComponent<FiniteResource>();
+        auto fuel_tracker_sprite = fuel_tracker->GetComponent<Sprite>();
+        float new_fuel_width = trackers_initial_size.x * (fuel_tracker_resource->GetCurrentLevel() / fuel_tracker_resource->GetMaxLevel());
+        auto new_fuel_size = sf::Vector2f(new_fuel_width, trackers_initial_size.y);
+        fuel_tracker_sprite->SetSize(new_fuel_size);
+
+        // Update oxygen tracker size.
+        auto oxygen_tracker = logic_center.GetOxygenTracker();
+        auto oxygen_tracker_resource = oxygen_tracker->GetComponent<FiniteResource>();
+        auto oxygen_tracker_sprite = oxygen_tracker->GetComponent<Sprite>();
+        float new_oxygen_width = trackers_initial_size.x * (oxygen_tracker_resource->GetCurrentLevel() / oxygen_tracker_resource->GetMaxLevel());
+        auto new_oxygen_size = sf::Vector2f(new_oxygen_width, trackers_initial_size.y);
+        oxygen_tracker_sprite->SetSize(new_oxygen_size);
     }
 }

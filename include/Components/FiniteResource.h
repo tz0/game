@@ -17,9 +17,8 @@ namespace tjg {
         // Accessor methods.
         float GetMaxLevel();
         float GetCurrentLevel();
-        int GetCurrentLevelAsInt();
         void SetCurrentLevel(float new_level);
-        float ExpendResource(float amount);
+        void ExpendResource(float amount);
         bool IsDepleted();
     };
 

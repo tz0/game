@@ -15,17 +15,18 @@ namespace tjg {
         return current_level;
     }
 
-    int FiniteResource::GetCurrentLevelAsInt() {
-        return int(this->current_level);
-    }
-
     void FiniteResource::SetCurrentLevel(float new_level) {
-        this->current_level = new_level;
+        current_level = new_level;
+        if (current_level < 0) {
+            current_level = 0;
+        }
     }
 
-    float FiniteResource::ExpendResource(float amount) {
-        this->current_level -= amount;
-        return this->current_level;
+    void FiniteResource::ExpendResource(float amount) {
+        current_level -= amount;
+        if (current_level < 0) {
+            current_level = 0;
+        }
     }
 
     bool FiniteResource::IsDepleted() {

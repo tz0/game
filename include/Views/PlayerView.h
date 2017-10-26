@@ -46,12 +46,12 @@ namespace tjg {
         sf::RectangleShape status_bar_background;
         sf::RectangleShape fuel_tank_background; // TODO: Remove
         sf::RectangleShape oxygen_tank_background; // TODO: Remove
+        sf::Vector2f trackers_initial_size;
 
-        // Initialize status bar.
+        // Status bar
         void initializeStatusBar();
-
-        // Render status bar.
-        void renderStatusBar();
+        void renderStatusBarBackground();
+        void updateStatusBarTrackers();
 
     public:
         // Constructor
