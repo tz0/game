@@ -4,10 +4,10 @@
 #include "Event.h"
 
 namespace tjg {
-    class TimeExpired : public Event {
+    class OxygenExpired : public Event {
            
     public:
-        explicit TimeExpired();
+        explicit OxygenExpired();
         // trigger intermediate menu
     };
 }

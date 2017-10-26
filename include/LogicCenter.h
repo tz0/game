@@ -9,13 +9,16 @@
 #include "EntityFactory.h"
 #include "EventManager.h"
 #include "Events/ReachedExit.h"
-#include "Events/TimeExpired.h"
+#include "Events/OxygenExpired.h"
+#include "Events/FuelExpired.h"
+#include "Components/FiniteResource.h"
 
 namespace tjg {
 
     class LogicCenter {
 
     private:
+        // Resource manager
         ResourceManager &resource_manager;
 
         // Systems
@@ -23,13 +26,20 @@ namespace tjg {
         ControlCenter control_center;
         CollisionCenter collision_center;
 
+        // Entity factory
         EntityFactory entity_factory;
+
+        // Event manager
         EventManager event_manager;
 
         // Entities
         std::shared_ptr<Entity> tech17;
         std::shared_ptr<Entity> entrance;
         std::shared_ptr<Entity> exit;
+        std::shared_ptr<Entity> fuel_tracker;
+        std::shared_ptr<Entity> oxygen_tracker;
+
+        // Flags
         bool did_exit = false;
 
         // Temporary for testing purposes.
@@ -37,10 +47,7 @@ namespace tjg {
         std::vector<std::shared_ptr<Entity>> fans;
 
         // Countdown timer set
-        sf::Clock countdown_clock;
-        sf::Time time_countdown;
-        unsigned int max_countdown = 30;
-        unsigned int remaining_seconds = max_countdown;
+        sf::Clock oxygen_clock;
 
     public:
         LogicCenter(ResourceManager &resource_manager);
@@ -53,7 +60,7 @@ namespace tjg {
         /**
          * Update will cause the physical center to be updated.
          */
-        void Update(sf::Time elapsed);
+        void Update(const sf::Time &elapsed);
 
         /**
          * @return if tech17 reach the exit
@@ -68,7 +75,8 @@ namespace tjg {
         std::vector<std::shared_ptr<Entity>>& GetFans();
         std::shared_ptr<Entity> GetEntrance();
         std::shared_ptr<Entity> GetExit();
-        unsigned int GetRemainingSeconds();
+        std::shared_ptr<Entity> GetFuelTracker();
+        std::shared_ptr<Entity> GetOxygenTracker();
 
     };
 
