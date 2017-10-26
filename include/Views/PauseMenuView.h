@@ -9,6 +9,7 @@
 #include "LogicCenter.h"
 #include "ResourceManager.h"
 #include "View.h"
+#include "States.h"
 
 namespace tjg {
     class PauseMenuView : public View {
@@ -17,9 +18,10 @@ namespace tjg {
     public:
         PauseMenuView(ResourceManager &resource_manager, sf::RenderWindow &window);
         void Initialize() override;
+        void Initialize(State state);
         void Update();
         void Render();
-        void HandleWindowEvents(sf::Event event);
+        void HandleWindowEvents(sf::Event event) override;
     };
 }
 
