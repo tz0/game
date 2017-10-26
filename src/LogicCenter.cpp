@@ -61,7 +61,7 @@ namespace tjg {
         // Bottom fan near exit.
         fans.push_back(entity_factory.MakeFan(sf::Vector2f(-1000, 600), sf::Vector2f(-1000, -600), 200, 250.0f, 0.f));
         // Top fan near exit.
-        fans.push_back(entity_factory.MakeFan(sf::Vector2f(-1300, -600), sf::Vector2f(-1300, 600), 200, 300.0f, 0.f));
+        fans.push_back(entity_factory.MakeFan(sf::Vector2f(-1300, -600), sf::Vector2f(-1300, 600), 200, 400.0f, 50.f));
 
         // Create a collision center handler that will fire a HitWall event when TECH17 hits a wall.
         collision_center.AddHandler(
