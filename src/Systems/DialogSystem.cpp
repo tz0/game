@@ -48,6 +48,10 @@ namespace tjg {
                 seconds_dialog_shown = 0;
             }
         }
+        else {
+            // Clear the dialog box if there's nothing to show.
+            dialog_box.setString("");
+        }
     }
 
     void DialogSystem::ShowUrgentMessage(std::string message, float seconds_to_show) {
