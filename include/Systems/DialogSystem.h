@@ -22,6 +22,7 @@ namespace tjg {
 
         // Current urgent message to show.
         std::string urgent_message;
+        std::string dialog_before_urgent_message;
 
         // Timing-related variables.
         float seconds_to_show_dialog;

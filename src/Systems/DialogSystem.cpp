@@ -35,8 +35,7 @@ namespace tjg {
         else if (showing_urgent_message) {
             // If showing an urgent message and don't need to show it anymore, switch back to dialog.
             showing_urgent_message = false;
-            auto wrapped_string = wrapText(dialog_snippets[dialog_index], wrap_width, *dialog_box.getFont(), dialog_box.getCharacterSize());
-            dialog_box.setString(wrapped_string);
+            dialog_box.setString(dialog_before_urgent_message);
         }
         else if (seconds_dialog_shown <= seconds_to_show_dialog) {
             // If the current dialog hasn't been shown long enough, just increment the time.
@@ -65,6 +64,15 @@ namespace tjg {
         seconds_urgent_message_shown = 0;
         // Store the amount of time to show this urgent message.
         seconds_to_show_urgent_message = seconds_to_show;
+        // Store the old text in the dialog box.
+        auto previous_string = dialog_box.getString();
+        if (dialog_index < dialog_snippets.size()) {
+            auto wrapped_string = wrapText(dialog_snippets[dialog_index], wrap_width, *dialog_box.getFont(), dialog_box.getCharacterSize());
+            dialog_before_urgent_message = wrapped_string;
+        }
+        else {
+            dialog_before_urgent_message = "";
+        }
         // Update the text in the dialog box.
         auto wrapped_message = wrapText(message, wrap_width, *dialog_box.getFont(), dialog_box.getCharacterSize());
         dialog_box.setString(wrapped_message);
