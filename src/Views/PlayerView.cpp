@@ -61,9 +61,12 @@ namespace tjg {
 
         // Initialize dialog system
         std::vector<std::string> dialog_snippets;
-        dialog_snippets.emplace_back("This is some test dialog.");
-        dialog_snippets.emplace_back("This is some more test dialog.");
-        initializeDialogSystem(dialog_snippets, 5, lcd_regular);
+        dialog_snippets.emplace_back("Hello, TECH-17. Welcome to the demo level.");
+        dialog_snippets.emplace_back("Your goal is to reach the exit to your left without flying into anything.");
+        dialog_snippets.emplace_back("Oh, and you have 22 seconds of oxygen remaining. Forgot to mention that.");
+        dialog_snippets.emplace_back("Press space to fire your jetpack and use the left and right arrow keys to rotate.");
+        dialog_snippets.emplace_back("Good luck!");
+        initializeDialogSystem(dialog_snippets, 3, lcd_regular);
 
         // Set up camera
         // TODO: This needs to change depending on the level.
