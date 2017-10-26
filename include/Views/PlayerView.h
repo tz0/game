@@ -19,7 +19,6 @@ namespace tjg {
         LogicCenter &logic_center;
         sf::View camera;
         SpriteRenderSystem sprite_render_system;
-        bool running = true;
 
         void CheckKeys();
 

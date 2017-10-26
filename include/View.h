@@ -5,14 +5,13 @@
 #include <SFML/Graphics.hpp>
 
 #include "ResourceManager.h"
-//#include "LogicCenter.h"
 
 namespace tjg {
     class View {
 
     protected:
         sf::RenderWindow &window;
-        ResourceManager resource_manager;
+        ResourceManager &resource_manager;
 
     public:
         View(sf::RenderWindow &window, ResourceManager &resourceManager) :
