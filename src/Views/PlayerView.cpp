@@ -22,26 +22,26 @@ namespace tjg {
         info.setCharacterSize(24);
 
         // Add tech17 + child components to the sprite render system
-        gameview_render_system.AddEntity(logic_center.GetTech17());
+        playerview_render_system.AddEntity(logic_center.GetTech17());
         logic_center.GetTech17()->ForEachChild([&](std::shared_ptr<Entity> child){
-            gameview_render_system.AddEntity(child);
+            playerview_render_system.AddEntity(child);
         });
 
         // Add the wall entities to the sprite render system
         for (const auto &wall : logic_center.GetWalls()) {
-            gameview_render_system.AddEntity(wall);
+            playerview_render_system.AddEntity(wall);
         }
 
         //Add the entrance and exit to the sprite render system
-        gameview_render_system.AddEntity(logic_center.GetEntrance());
-        gameview_render_system.AddEntity(logic_center.GetExit());
+        playerview_render_system.AddEntity(logic_center.GetEntrance());
+        playerview_render_system.AddEntity(logic_center.GetExit());
 
         // Make game view background
-        gameview_render_system.AddEntity(logic_center.GetEntityFactory().MakeTiledBackground("white-tile.jpg"));
+        playerview_render_system.AddEntity(logic_center.GetEntityFactory().MakeTiledBackground("white-tile.jpg"));
 
         // Add fans to sprite render system.
         for (const auto &fan : logic_center.GetFans()) {
-            gameview_render_system.AddEntity(fan);
+            playerview_render_system.AddEntity(fan);
         }
 
         // TODO: Delete this section once menu system is implemented.
@@ -86,7 +86,7 @@ namespace tjg {
         window.setView(camera);
 
         // Render game view
-        gameview_render_system.render(window);
+        playerview_render_system.render(window);
 
         // Drawing that should take place separate from the "camera" should go below here.
         window.setView(window.getDefaultView());

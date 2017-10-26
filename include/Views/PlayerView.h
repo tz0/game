@@ -29,7 +29,7 @@ namespace tjg {
         sf::View camera;
 
         // Sprite render systems.
-        SpriteRenderSystem gameview_render_system;
+        SpriteRenderSystem playerview_render_system;
         SpriteRenderSystem statusbar_render_system;
 
         // FPS display
