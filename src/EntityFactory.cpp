@@ -3,7 +3,7 @@
 
 namespace tjg {
 
-    std::shared_ptr<Entity> EntityFactory::MakeWall(const sf::Vector2f &origin_point, const sf::Vector2f &end_point, const float width) {
+    std::shared_ptr<Entity> EntityFactory::MakeWall(const sf::Vector2f &origin_point, const sf::Vector2f &end_point, const float radius) {
         // Create wall entity.
         auto wall = std::make_shared<Entity>();
 
@@ -12,7 +12,7 @@ namespace tjg {
         wall_location->SetRotation(calculateAngle(origin_point, end_point));
 
         // Add static segment component
-        auto static_segment = wall->AddComponent<StaticSegment>(physics_system.GetSpace(), origin_point.x, origin_point.y, end_point.x, end_point.y, width);
+        auto static_segment = wall->AddComponent<StaticSegment>(physics_system.GetSpace(), origin_point.x, origin_point.y, end_point.x, end_point.y, radius);
         cpShapeSetCollisionType(static_segment->GetShape(), static_cast<cpCollisionType>(CollisionGroup::WALL));
 
         // Load wall texture.
@@ -25,7 +25,7 @@ namespace tjg {
         // Add Sprite component so walls are visible
         sf::Sprite wall_sprite;
         wall_sprite.setTexture(*wall_texture);
-        wall_sprite.setTextureRect(sf::IntRect(0, 0, length, (int) width));
+        wall_sprite.setTextureRect(sf::IntRect(0, 0, (int)(length + radius), (int)radius*2));
         wall_sprite.setColor(sf::Color(150, 150, 150)); // Dark gray
         wall->AddComponent<Sprite>(wall_sprite);
 

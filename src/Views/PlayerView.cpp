@@ -150,22 +150,24 @@ namespace tjg {
     void PlayerView::CheckKeys(const sf::Time &elapsed) {
 
         auto control_center = logic_center.GetControlCenter();
-
-        // Temporary/Example control system.
+        auto fuel_resource = logic_center.GetFuelTracker()->GetComponent<FiniteResource>();
+        // Control the player character.
         if (sf::Keyboard::isKeyPressed(sf::Keyboard::Left)) {
             control_center.RotateCounterClockwise(elapsed);
         }
         if (sf::Keyboard::isKeyPressed(sf::Keyboard::Right)) {
             control_center.RotateClockwise(elapsed);
         }
-        if (sf::Keyboard::isKeyPressed(sf::Keyboard::Space) || sf::Keyboard::isKeyPressed(sf::Keyboard::Up)) {
+        if ((sf::Keyboard::isKeyPressed(sf::Keyboard::Space) || sf::Keyboard::isKeyPressed(sf::Keyboard::Up)) && !fuel_resource->IsDepleted()) {
             control_center.FireJetpack(elapsed);
-            // Set body to red for testing.
+            // Set body to red to visually show the jetpack is firing. Allow this only if the user is not out of fuel.
             control_center.GetPlayerEntity()->GetComponent<Sprite>()->GetSprite().setColor(sf::Color(255, 0, 0));
-        } else if (control_center.GetPlayerEntity()->GetComponent<Sprite>()->GetSprite().getColor() ==
+        }
+        else if (control_center.GetPlayerEntity()->GetComponent<Sprite>()->GetSprite().getColor() ==
                    sf::Color(255, 0, 0)) {
             // Set body back to its normal color.
-            control_center.GetPlayerEntity()->GetComponent<Sprite>()->GetSprite().setColor(sf::Color(255, 255, 255));
+            control_center.GetPlayerEntity()->GetComponent<Sprite>()->GetSprite().setColor(
+                    sf::Color(255, 255, 255));
         }
     }
 

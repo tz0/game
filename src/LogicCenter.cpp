@@ -36,16 +36,18 @@ namespace tjg {
         });
 
         // Create boundary walls using the entity factory.
-        auto top_wall = entity_factory.MakeWall(sf::Vector2f(-1540, -600), sf::Vector2f(540, -600), 80);
-        auto bottom_wall = entity_factory.MakeWall(sf::Vector2f(-1540, 600), sf::Vector2f(540, 600), 80);
-        auto left_wall = entity_factory.MakeWall(sf::Vector2f(-1500, -600), sf::Vector2f(-1500, 600), 80);
-        auto right_wall = entity_factory.MakeWall(sf::Vector2f(500, -600), sf::Vector2f(500, 600), 80);
+        auto top_wall = entity_factory.MakeWall(sf::Vector2f(-1520, -600), sf::Vector2f(520, -600), 40);
+        auto bottom_wall = entity_factory.MakeWall(sf::Vector2f(-1520, 600), sf::Vector2f(520, 600), 40);
+        auto left_wall = entity_factory.MakeWall(sf::Vector2f(-1500, -600), sf::Vector2f(-1500, 600), 40);
+        auto right_wall = entity_factory.MakeWall(sf::Vector2f(500, -600), sf::Vector2f(500, 600), 40);
+        auto middle_wall = entity_factory.MakeWall(sf::Vector2f(-800, -600), sf::Vector2f(-800, 200), 40);
 
         // Add the walls to the entities vector.
-        walls.push_back(top_wall);
-        walls.push_back(bottom_wall);
+        walls.push_back(middle_wall);
         walls.push_back(left_wall);
         walls.push_back(right_wall);
+        walls.push_back(top_wall);
+        walls.push_back(bottom_wall);
 
         // Create fans and add them to the fans vector.
         // Top fan above span

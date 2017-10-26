@@ -14,6 +14,9 @@ namespace tjg {
     private:
         std::shared_ptr<Entity> player_entity;
         std::shared_ptr<FiniteResource> fuel;
+
+        // Use the given amount of fuel
+        void useFuel(float amount);
     public:
         // Override System virtual methods
         void AddEntity(std::shared_ptr<Entity> entity) override;
