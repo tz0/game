@@ -45,18 +45,21 @@ namespace tjg {
     }
 
     void ViewManager::Update(sf::Time elapsed){
-        HandleWindowEvents();
         switch (state) {
             case State::MAIN_MENU:
+                HandleWindowEvents(main_menu_view);
                 main_menu_view.Update();
                 break;
             case State::LEVEL_MENU:
+                HandleWindowEvents(level_menu_view);
                 level_menu_view.Update();
                 break;
             case State::PAUSE_MENU:
+                HandleWindowEvents(pause_menu_view);
                 pause_menu_view.Update();
                 break;
             case State::PLAYING:
+                HandleWindowEvents(player_view);
                 logic_center.Update(elapsed);
                 player_view.Update();
                 break;
@@ -80,7 +83,7 @@ namespace tjg {
         }
     }
 
-    void ViewManager::HandleWindowEvents() {
+    void ViewManager::HandleWindowEvents(View &current_view) {
         sf::Event event;
         // Look for window events.
         while (window.pollEvent(event)) {
@@ -100,11 +103,13 @@ namespace tjg {
                         }
 
                         default:
+                            current_view.HandleWindowEvents(event);
                             break;
                     }
                     break;
                 }
                 default:
+                    current_view.HandleWindowEvents(event);
                     break;
             }
         }

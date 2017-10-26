@@ -10,6 +10,7 @@
 #include "Views/MainMenuView.h"
 #include "Views/PlayerView.h"
 #include "Views/PauseMenuView.h"
+#include "View.h"
 #include "LogicCenter.h"
 
 namespace tjg {
@@ -38,7 +39,7 @@ namespace tjg {
         void SwitchToLevelMenuView();
         void SwitchToPauseMenuView();
         void SwitchToPlayerView();
-        void HandleWindowEvents();
+        void HandleWindowEvents(View &current_view);
     };
 }
 #endif //GAME_STATEMANAGER_H
