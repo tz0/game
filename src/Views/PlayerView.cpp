@@ -220,7 +220,6 @@ namespace tjg {
         statusbar_render_system.AddEntity(logic_center.GetOxygenTracker());
     }
 
-    // Render the status bar. Used in Render().
     void PlayerView::renderStatusBarBackground() {
         // Draw background elements.
         window.draw(status_bar_background);
