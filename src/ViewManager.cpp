@@ -37,13 +37,13 @@ namespace tjg {
                 ResumePlayerView();
                 break;
             case ViewSwitch::PAUSED:
-                SwitchToPauseMenuView(state);
+                SwitchToPauseMenuView(State::PAUSED);
                 break;
             case ViewSwitch::WON:
-                SwitchToPauseMenuView(state);
+                SwitchToPauseMenuView(State::WON);
                 break;
             case ViewSwitch::FAILED:
-                SwitchToPauseMenuView(state);
+                SwitchToPauseMenuView(State::FAILED);
                 break;
             default:
                 break;

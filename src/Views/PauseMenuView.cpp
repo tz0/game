@@ -52,12 +52,10 @@ namespace tjg{
         switch (event.type) {
             case sf::Event::KeyPressed: {
                 switch (event.key.code) {
-                    case sf::Keyboard::R: {
+                    case sf::Keyboard::R:
                         return ViewSwitch::RESUME;
-                    }
-                    case sf::Keyboard::M: {
+                    case sf::Keyboard::M:
                         return ViewSwitch::MAIN_MENU;
-                    }
                     default:
                         break;
                 }

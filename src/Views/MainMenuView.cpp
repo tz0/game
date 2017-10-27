@@ -37,9 +37,8 @@ namespace tjg {
             case sf::Event::KeyPressed: {
                 switch (event.key.code) {
                     // Toggle FPS counter on F1.
-                    case sf::Keyboard::Return: {
+                    case sf::Keyboard::Return:
                         return ViewSwitch::LEVEL_MENU;
-                    }
                     default:
                         break;
                 }
