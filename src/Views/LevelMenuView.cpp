@@ -12,7 +12,7 @@ namespace tjg {
         // Create a win message.
         message.setStyle(sf::Text::Bold);
         message.setCharacterSize(24);
-        message.setString("LEVEL MENU\nPress ENTER/RETURN to start game");
+        message.setString("SELECT A LEVEL\n1/ Level 1\n2/ Level 2");
         // Center the win message on the screen.
         sf::FloatRect textRect = message.getLocalBounds();
         message.setOrigin(textRect.left + (textRect.width / 2), textRect.top + (textRect.height / 2));
@@ -37,7 +37,8 @@ namespace tjg {
             case sf::Event::KeyPressed: {
                 switch (event.key.code) {
                     // Toggle FPS counter on F1.
-                    case sf::Keyboard::Return:
+                    case sf::Keyboard::Num1:
+                    case sf::Keyboard::Num2:
                         return ViewSwitch::PLAYING;
                     default:
                         break;

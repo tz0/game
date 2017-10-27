@@ -18,13 +18,13 @@ namespace tjg{
         message.setCharacterSize(24);
         switch (state) {
             case State::WON:
-                message.setString("You Reached the Exit! Press M to menu.");
+                message.setString("You Reached the Exit!\nM/ Main Menu\nESC/ Exit Game");
                 break;
             case State::FAILED:
-                message.setString("You failed! Press M to menu.");
+                message.setString("You failed!\nM/ Main Menu\nESC/ Exit Game");
                 break;
             case State::PAUSED:
-                message.setString("Game is paused! Press R to resume.");
+                message.setString("Game is paused!\nR/ Resume\nESC/ Exit Game");
                 break;
             default:
                 break;

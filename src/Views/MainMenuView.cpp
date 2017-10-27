@@ -12,7 +12,7 @@ namespace tjg {
         // Create a win message.
         message.setStyle(sf::Text::Bold);
         message.setCharacterSize(24);
-        message.setString("MAIN MENU\nPress ENTER/RETURN to select levels");
+        message.setString("MAIN MENU\nENTER/ Select Levels\nESC/ Exit Game");
         // Center the win message on the screen.
         sf::FloatRect textRect = message.getLocalBounds();
         message.setOrigin(textRect.left + (textRect.width / 2), textRect.top + (textRect.height / 2));
