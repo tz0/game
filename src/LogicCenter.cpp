@@ -100,6 +100,7 @@ namespace tjg {
     }
 
     void LogicCenter::Reset() {
+        physics_system.Reset();
         did_exit = false;
     }
 

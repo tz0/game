@@ -27,6 +27,11 @@ namespace tjg {
          * @param target
          */
         void render(sf::RenderTarget &target);
+
+        /**
+         * Clear all layers
+         */
+        void Reset();
     };
 }
 

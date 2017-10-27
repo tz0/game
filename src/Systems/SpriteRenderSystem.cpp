@@ -27,4 +27,8 @@ namespace tjg {
             }
         }
     }
+
+    void SpriteRenderSystem::Reset(){
+        layers.clear();
+    }
 }

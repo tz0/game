@@ -61,4 +61,8 @@ namespace tjg {
         return space;
     }
 
+    void PhysicsSystem::Reset() {
+        entities.clear();
+    }
+
 }

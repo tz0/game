@@ -53,6 +53,11 @@ namespace tjg {
          */
         void Update(sf::Time elapsed);
 
+        /**
+         * Clear all entities
+         */
+        void Reset();
+
     };
 }
 

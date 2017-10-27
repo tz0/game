@@ -12,6 +12,7 @@ namespace tjg {
 
     void PlayerView::Initialize() {
 
+        sprite_render_system.Reset();
         // Load fonts and the texture sheet
         auto avenir_bold = resource_manager.LoadFont("Avenir-Bold.ttf");
         auto lcd_regular = resource_manager.LoadFont("LCD-Regular.ttf");
