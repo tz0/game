@@ -102,7 +102,7 @@ namespace tjg {
         CheckKeys();
     }
 
-    void PlayerView::HandleWindowEvents(const sf::Event event) {
+    ViewSwitch PlayerView::HandleWindowEvents(const sf::Event event) {
         switch (event.type) {
             case sf::Event::KeyPressed: {
                 switch (event.key.code) {
@@ -119,6 +119,7 @@ namespace tjg {
             default:
                 break;
         }
+        return ViewSwitch::CONTINUE;
     }
 
     void PlayerView::CheckKeys() {

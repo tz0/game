@@ -12,7 +12,7 @@
 #include "Views/PauseMenuView.h"
 #include "View.h"
 #include "LogicCenter.h"
-#include "States.h"
+#include "Constants.h"
 
 namespace tjg {
 
@@ -35,6 +35,7 @@ namespace tjg {
         bool Running();
         void Update(sf::Time elapsed);
         void Render();
+        void SwitchView(ViewSwitch view_switch);
         void SwitchToMainMenuView();
         void SwitchToLevelMenuView();
         void SwitchToPauseMenuView(State state);

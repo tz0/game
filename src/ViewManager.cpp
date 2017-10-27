@@ -22,6 +22,35 @@ namespace tjg {
     }
 
 
+    void ViewManager::SwitchView(ViewSwitch view_switch) {
+        switch (view_switch) {
+            case ViewSwitch::MAIN_MENU:
+                SwitchToMainMenuView();
+                break;
+            case ViewSwitch ::LEVEL_MENU:
+                SwitchToLevelMenuView();
+                break;
+            case ViewSwitch::PLAYING:
+                SwitchToPlayerView();
+                break;
+            case ViewSwitch::RESUME:
+                ResumePlayerView();
+                break;
+            case ViewSwitch::PAUSED:
+                SwitchToPauseMenuView(state);
+                break;
+            case ViewSwitch::WON:
+                SwitchToPauseMenuView(state);
+                break;
+            case ViewSwitch::FAILED:
+                SwitchToPauseMenuView(state);
+                break;
+            default:
+                break;
+        }
+    }
+
+
     void ViewManager::SwitchToMainMenuView() {
         main_menu_view.Initialize();
         state = State::MAIN_MENU;
@@ -95,6 +124,7 @@ namespace tjg {
 
     void ViewManager::HandleWindowEvents(View &current_view) {
         sf::Event event;
+        ViewSwitch view_switch;
         // Look for window events.
         while (window.pollEvent(event)) {
             switch (event.type) {
@@ -113,13 +143,15 @@ namespace tjg {
                         }
 
                         default:
-                            current_view.HandleWindowEvents(event);
+                            view_switch = current_view.HandleWindowEvents(event);
+                            SwitchView(view_switch);
                             break;
                     }
                     break;
                 }
                 default:
-                    current_view.HandleWindowEvents(event);
+                    view_switch = current_view.HandleWindowEvents(event);
+                    SwitchView(view_switch);
                     break;
             }
         }

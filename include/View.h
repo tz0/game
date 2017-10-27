@@ -4,6 +4,7 @@
 
 #include <SFML/Graphics.hpp>
 
+#include "Constants.h"
 #include "ResourceManager.h"
 
 namespace tjg {
@@ -18,7 +19,7 @@ namespace tjg {
                 window(window),
                 resource_manager(resourceManager){};
         virtual void Initialize() = 0;
-        virtual void HandleWindowEvents(sf::Event event) = 0;
+        virtual ViewSwitch HandleWindowEvents(sf::Event event) = 0;
     };
 }
 #endif //GAME_VIEW_H

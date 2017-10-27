@@ -8,7 +8,6 @@
 #include <SFML/Graphics.hpp>
 
 #include "LogicCenter.h"
-#include "ResourceManager.h"
 #include "Systems/SpriteRenderSystem.h"
 #include "View.h"
 
@@ -41,7 +40,7 @@ namespace tjg {
         void Initialize() override;
         void Render();
         void Update();
-        void HandleWindowEvents(sf::Event event) override;
+        ViewSwitch HandleWindowEvents(sf::Event event) override;
     };
 
 }

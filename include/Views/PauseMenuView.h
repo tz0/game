@@ -6,10 +6,7 @@
 
 #include <SFML/Graphics.hpp>
 
-#include "LogicCenter.h"
-#include "ResourceManager.h"
 #include "View.h"
-#include "States.h"
 
 namespace tjg {
     class PauseMenuView : public View {
@@ -21,7 +18,7 @@ namespace tjg {
         void Initialize(State state);
         void Update();
         void Render();
-        void HandleWindowEvents(sf::Event event) override;
+        ViewSwitch HandleWindowEvents(sf::Event event) override;
     };
 }
 

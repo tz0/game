@@ -18,10 +18,10 @@ namespace tjg{
         message.setCharacterSize(24);
         switch (state) {
             case State::WON:
-                message.setString("You Reached the Exit!");
+                message.setString("You Reached the Exit! Press M to menu.");
                 break;
             case State::FAILED:
-                message.setString("You failed!");
+                message.setString("You failed! Press M to menu.");
                 break;
             case State::PAUSED:
                 message.setString("Game is paused! Press R to resume.");
@@ -48,13 +48,15 @@ namespace tjg{
         window.display();
     }
 
-    void PauseMenuView::HandleWindowEvents(sf::Event event) {
+    ViewSwitch PauseMenuView::HandleWindowEvents(sf::Event event) {
         switch (event.type) {
             case sf::Event::KeyPressed: {
                 switch (event.key.code) {
                     case sf::Keyboard::R: {
-                        //TODO::Resume game
-                        break;
+                        return ViewSwitch::RESUME;
+                    }
+                    case sf::Keyboard::M: {
+                        return ViewSwitch::MAIN_MENU;
                     }
                     default:
                         break;
@@ -64,6 +66,7 @@ namespace tjg{
             default:
                 break;
         }
+        return ViewSwitch::CONTINUE;
     }
 
 }
