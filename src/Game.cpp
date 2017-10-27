@@ -27,10 +27,10 @@ namespace tjg {
             //Render current state
             view_manager.Render();
             //Switch to menu if reached exit
-            if(logic_center.DidReachExit()) {
-                view_manager.SwitchToPauseMenuView(State::WON);
-                logic_center.Reset();
-            }
+//            if(logic_center.DidReachExit()) {
+//                view_manager.SwitchToPauseMenuView(State::WON);
+//                logic_center.Reset();
+//            }
         }
 
     }

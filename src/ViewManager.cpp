@@ -101,6 +101,12 @@ namespace tjg {
                 player_view.Update();
                 break;
         }
+
+        //Switch to menu if reached exit
+        if(logic_center.DidReachExit()) {
+            SwitchToPauseMenuView(State::WON);
+            logic_center.Reset();
+        }
     }
 
     void ViewManager::Render(){
