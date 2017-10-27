@@ -18,13 +18,13 @@ namespace tjg{
         message.setCharacterSize(24);
         switch (state) {
             case State::WON:
-                message.setString("You Reached the Exit!\nM/ Main Menu\nESC/ Exit Game");
+                message.setString("You Reached the Exit!\nM/ Main Menu\nP/ Restart Level\nN/ Next Level\nESC/ Exit Game");
                 break;
             case State::FAILED:
-                message.setString("You failed!\nM/ Main Menu\nESC/ Exit Game");
+                message.setString("You failed!\nM/ Main Menu\nP/ Restart Level\nESC/ Exit Game");
                 break;
             case State::PAUSED:
-                message.setString("Game is paused!\nR/ Resume\nESC/ Exit Game");
+                message.setString("Game is paused!\nR/ Resume\nP/ Restart Level\nESC/ Exit Game");
                 break;
             default:
                 break;
@@ -56,6 +56,10 @@ namespace tjg{
                         return ViewSwitch::RESUME;
                     case sf::Keyboard::M:
                         return ViewSwitch::MAIN_MENU;
+                    case sf::Keyboard::P:
+                        return ViewSwitch::PLAYING;
+                    case sf::Keyboard::N:
+                        return ViewSwitch::PLAYING;
                     default:
                         break;
                 }
