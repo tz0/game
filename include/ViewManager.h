@@ -18,14 +18,14 @@ namespace tjg {
 
     class ViewManager {
     private:
-        State state;
         ResourceManager &resource_manager;
         LogicCenter &logic_center;
+        State state;
+        sf::RenderWindow window;
         MainMenuView main_menu_view;
         LevelMenuView level_menu_view;
         PlayerView player_view;
         PauseMenuView pause_menu_view;
-        sf::RenderWindow window;
 
         bool running = true;
 
