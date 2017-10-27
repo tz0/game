@@ -63,6 +63,12 @@ namespace tjg {
 
     void PhysicsSystem::Reset() {
         entities.clear();
+        cpSpaceFree(space);
+        space = cpSpaceNew();
+        // Set zero gravity
+        cpSpaceSetGravity(space, cpvzero);
+        // Set some friction
+        cpSpaceSetDamping(space, 0.7);
     }
 
 }

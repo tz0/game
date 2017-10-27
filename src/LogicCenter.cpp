@@ -101,7 +101,10 @@ namespace tjg {
 
     void LogicCenter::Reset() {
         physics_system.Reset();
+        collision_center.Reset(physics_system.GetSpace());
         did_exit = false;
+        remaining_seconds = max_countdown;
+        countdown_clock.restart();
     }
 
     std::shared_ptr<Entity> LogicCenter::GetTech17() {

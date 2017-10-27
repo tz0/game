@@ -25,6 +25,7 @@ namespace tjg {
     public:
         explicit CollisionCenter(cpSpace* space) : space(space) {};
         void AddHandler(CollisionGroup, CollisionGroup, std::function<void(cpArbiter *arb, cpSpace *space)> callback);
+        void Reset(cpSpace* space);
     };
 
 }

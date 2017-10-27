@@ -61,8 +61,7 @@ namespace tjg {
         bool DidReachExit();
 
         /**
-         *
-         * @return
+         *  Resets the logic center
          */
         void Reset();
 

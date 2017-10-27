@@ -30,7 +30,7 @@ namespace tjg {
 
         sf::Text countdown;
         bool show_countdown = true;
-        bool countdown_mode_binary = true; // set it to false for a regular decimal timer
+        bool countdown_mode_binary = false; // set it to false for a regular decimal timer
 
     public:
         // Constructor

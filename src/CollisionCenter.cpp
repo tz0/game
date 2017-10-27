@@ -28,4 +28,8 @@ namespace tjg {
             (*static_cast<std::function<void (cpArbiter*, cpSpace*)>*>(f))(arb, space);
         };
     }
+
+    void CollisionCenter::Reset(cpSpace *space) {
+        this -> space = space;
+    }
 }

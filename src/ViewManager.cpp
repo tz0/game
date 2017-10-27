@@ -31,6 +31,7 @@ namespace tjg {
                 SwitchToLevelMenuView();
                 break;
             case ViewSwitch::PLAYING:
+                logic_center.Reset();
                 SwitchToPlayerView();
                 break;
             case ViewSwitch::RESUME:
@@ -89,9 +90,9 @@ namespace tjg {
                 HandleWindowEvents(level_menu_view);
                 level_menu_view.Update();
                 break;
-            case State::PAUSED:
             case State::WON:
             case State::FAILED:
+            case State::PAUSED:
                 HandleWindowEvents(pause_menu_view);
                 pause_menu_view.Update();
                 break;
@@ -104,8 +105,8 @@ namespace tjg {
 
         //Switch to menu if reached exit
         if(logic_center.DidReachExit()) {
-            SwitchToPauseMenuView(State::WON);
             logic_center.Reset();
+            SwitchToPauseMenuView(State::WON);
         }
     }
 
