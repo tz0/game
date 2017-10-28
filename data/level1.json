@@ -1,0 +1,68 @@
+{
+  "level": 1,
+  "gas" : 100,
+  "oxygen" : 100,
+  "fans":
+  [
+    {
+      "Endpoints": 
+      {
+          "Origin": 
+          {
+            "x": 400,
+            "y": 300,
+            "strength": 1000
+          },
+          "Endpoint": 
+          {
+            "x": 400,
+            "y": 1000,
+            "strength": 500
+          }
+      },
+      "Width": 50
+    },
+    {
+      "Endpoints": 
+      {
+          "Origin": 
+          {
+            "x": 100,
+            "y": 300,
+            "strength": 1000
+          },
+          "Endpoint": 
+          {
+            "x": 400,
+            "y": 1000,
+            "strength": 500
+          }
+      },
+      "Width": 50
+    }
+  ],
+  "exit":
+  {
+    "x": 10,
+    "y": 10,
+    "height": 100,
+    "weight": 100
+  },
+  "entrance":
+  {
+    "x": 10,
+    "y": 10,
+    "height": 100,
+    "weight": 100
+  },
+  "dialogues":
+  [
+    "Hello, my friend.",
+    "How are you?",
+    "I'm Spaceship Artificial Intelligence.",
+    "You can call me 'SAI'",
+    "What's your name?",
+    "Tech-17?",
+    "Huh, 17..."
+  ]
+}
