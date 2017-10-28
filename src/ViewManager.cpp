@@ -103,10 +103,18 @@ namespace tjg {
                 break;
         }
 
-        //Switch to menu if reached exit
-        if(logic_center.DidReachExit()) {
-            logic_center.Reset();
-            SwitchToPauseMenuView(State::WON);
+        //Switch to menu if won/lost
+        switch (logic_center.GetGameState()) {
+            case State::WON:
+                logic_center.Reset();
+                SwitchToPauseMenuView(State::WON);
+                break;
+            case State::FAILED:
+                logic_center.Reset();
+                SwitchToPauseMenuView(State::FAILED);
+                break;
+            default:
+                break;
         }
     }
 

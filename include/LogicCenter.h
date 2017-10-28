@@ -10,6 +10,7 @@
 #include "EventManager.h"
 #include "Events/ReachedExit.h"
 #include "Events/TimeExpired.h"
+#include "Constants.h"
 
 namespace tjg {
 
@@ -30,7 +31,7 @@ namespace tjg {
         std::shared_ptr<Entity> tech17;
         std::shared_ptr<Entity> entrance;
         std::shared_ptr<Entity> exit;
-        bool did_exit = false;
+        State game_state = State::PLAYING;
 
         // Temporary for testing purposes.
         std::vector<std::shared_ptr<Entity>> walls;
@@ -56,16 +57,12 @@ namespace tjg {
         void Update(sf::Time elapsed);
 
         /**
-         * @return if tech17 reach the exit
-         */
-        bool DidReachExit();
-
-        /**
          *  Resets the logic center
          */
         void Reset();
 
         // Accessors
+        State GetGameState(); //result of game
         EntityFactory& GetEntityFactory();
         ControlCenter& GetControlCenter();
         std::shared_ptr<Entity> GetTech17();

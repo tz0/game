@@ -1,15 +1,13 @@
-
 #ifndef GAME_PLAYERVIEW_H
 #define GAME_PLAYERVIEW_H
 
-#define WINDOW_WIDTH 1280u
-#define WINDOW_HEIGHT 720u
-
 #include <SFML/Graphics.hpp>
+#include <bitset>
 
 #include "LogicCenter.h"
 #include "Systems/SpriteRenderSystem.h"
 #include "View.h"
+#include "Constants.h"
 
 namespace tjg {
 

@@ -18,17 +18,19 @@ namespace tjg {
 
         event_manager.RegisterListener<ReachedExit>([&](ReachedExit &event){
             (void)event;
-            did_exit = true;
+            game_state = State::WON;
         });
 
         event_manager.RegisterListener<HitWall>([&](HitWall &event){
             (void)event;
             std::cout << "TECH17 just died." << std::endl;
+            game_state = State::FAILED;
         });
 
         event_manager.RegisterListener<TimeExpired>([&](TimeExpired &event) {
             (void)event;
             std::cout << "Time's up! Consider to restart this level." << std::endl;
+            game_state = State::FAILED;
         });
 
         // Create boundary walls using the entity factory.
@@ -95,16 +97,18 @@ namespace tjg {
 
     }
 
-    bool LogicCenter::DidReachExit() {
-        return did_exit;
-    }
 
     void LogicCenter::Reset() {
         physics_system.Reset();
         collision_center.Reset(physics_system.GetSpace());
-        did_exit = false;
+        game_state = State::PLAYING;
         remaining_seconds = max_countdown;
         countdown_clock.restart();
+    }
+
+
+    State LogicCenter::GetGameState() {
+        return game_state;
     }
 
     std::shared_ptr<Entity> LogicCenter::GetTech17() {
