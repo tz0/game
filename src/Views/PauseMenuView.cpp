@@ -18,13 +18,13 @@ namespace tjg{
         message.setCharacterSize(24);
         switch (state) {
             case State::WON:
-                message.setString("You Reached the Exit!\nM/ Main Menu\nP/ Restart Level\nN/ Next Level\nESC/ Exit Game");
+                message.setString("You Reached the Exit!\n\nENTER/ Go to Next Level\nR/ Replay This Level\nESC/ Exit to Main Menu");
                 break;
             case State::FAILED:
-                message.setString("You failed!\nM/ Main Menu\nP/ Restart Level\nESC/ Exit Game");
+                message.setString("You failed!\n\nR/ Replay This Level\nESC/ Exit to Main Menu");
                 break;
             case State::PAUSED:
-                message.setString("Game is paused!\nR/ Resume\nP/ Restart Level\nESC/ Exit Game");
+                message.setString("Game is paused.\nAre you sure you want to leave this level?\n\nY/ Leave Game\nN/ Resume Game\nR/ Restart Level\nESC/ Exit to Main Menu");
                 break;
             default:
                 break;
@@ -52,14 +52,16 @@ namespace tjg{
         switch (event.type) {
             case sf::Event::KeyPressed: {
                 switch (event.key.code) {
-                    case sf::Keyboard::R:
-                        return ViewSwitch::RESUME;
-                    case sf::Keyboard::M:
+                    case sf::Keyboard::Return:
+                        return ViewSwitch::PLAYING;
+                    case sf::Keyboard::Escape:
                         return ViewSwitch::MAIN_MENU;
-                    case sf::Keyboard::P:
+                    case sf::Keyboard::R:
                         return ViewSwitch::PLAYING;
+                    case sf::Keyboard::Y:
+                        return ViewSwitch::LEVEL_MENU;
                     case sf::Keyboard::N:
-                        return ViewSwitch::PLAYING;
+                        return ViewSwitch::RESUME;
                     default:
                         break;
                 }

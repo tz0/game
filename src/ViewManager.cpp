@@ -46,6 +46,10 @@ namespace tjg {
             case ViewSwitch::FAILED:
                 SwitchToPauseMenuView(State::FAILED);
                 break;
+            case ViewSwitch::EXIT:
+                window.close();
+                running = false;
+                break;
             default:
                 break;
         }
@@ -151,11 +155,11 @@ namespace tjg {
                     switch (event.key.code) {
 
                         // Close window on ESC
-                        case sf::Keyboard::Escape: {
-                            window.close();
-                            running = false;
-                            break;
-                        }
+//                        case sf::Keyboard::Escape: {
+//                            window.close();
+//                            running = false;
+//                            break;
+//                        }
 
                         default:
                             view_switch = current_view.HandleWindowEvents(event);

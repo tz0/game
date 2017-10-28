@@ -109,7 +109,7 @@ namespace tjg {
                     case sf::Keyboard::F1:
                         show_info = !show_info;
                         break;
-                    case sf::Keyboard::P:
+                    case sf::Keyboard::Escape:
                         return ViewSwitch::PAUSED;
                     default:
                         break;

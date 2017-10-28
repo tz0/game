@@ -12,7 +12,7 @@ namespace tjg {
         // Create a win message.
         message.setStyle(sf::Text::Bold);
         message.setCharacterSize(24);
-        message.setString("MAIN MENU\nENTER/ Select Levels\nESC/ Exit Game");
+        message.setString("MAIN MENU\n\nENTER/ Select Levels\nESC/ Exit Game");
         // Center the win message on the screen.
         sf::FloatRect textRect = message.getLocalBounds();
         message.setOrigin(textRect.left + (textRect.width / 2), textRect.top + (textRect.height / 2));
@@ -39,6 +39,8 @@ namespace tjg {
                     // Toggle FPS counter on F1.
                     case sf::Keyboard::Return:
                         return ViewSwitch::LEVEL_MENU;
+                    case sf::Keyboard::Escape:
+                        return ViewSwitch::EXIT;
                     default:
                         break;
                 }
