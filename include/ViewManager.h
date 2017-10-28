@@ -1,9 +1,5 @@
-
 #ifndef GAME_STATEMANAGER_H
 #define GAME_STATEMANAGER_H
-
-#define WINDOW_WIDTH 1280u
-#define WINDOW_HEIGHT 720u
 
 #include <SFML/Graphics.hpp>
 #include "Views/LevelMenuView.h"

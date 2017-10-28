@@ -1,11 +1,7 @@
 #ifndef GAME_LEVELMENUVIEW_H
 #define GAME_LEVELMENUVIEW_H
 
-#define WINDOW_WIDTH 1280u
-#define WINDOW_HEIGHT 720u
-
 #include <SFML/Graphics.hpp>
-
 #include "View.h"
 
 namespace tjg {

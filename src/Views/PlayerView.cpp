@@ -1,5 +1,3 @@
-#include <bitset>
-
 #include "Views/PlayerView.h"
 
 namespace tjg {
