@@ -71,7 +71,6 @@ if(MSVC)
   set_property(TARGET gason PROPERTY COMPILE_OPTIONS ${FLAGS})
 endif()
 get_target_property(FLAGS gason COMPILE_OPTIONS)
-message(${FLAGS})
 include_directories(lib/gason/src)
 link_libraries(gason)
 
