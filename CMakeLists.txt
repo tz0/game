@@ -75,6 +75,13 @@ include_directories(lib/gason/src)
 link_libraries(gason)
 
 #############
+# json11 #
+#############
+add_subdirectory(lib/json11)
+include_directories(lib/json11)
+link_libraries(json11)
+
+#############
 # Find SFML #
 #############
 find_package(SFML COMPONENTS graphics window system audio network)

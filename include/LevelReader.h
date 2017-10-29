@@ -1,9 +1,20 @@
 #ifndef GAME_LEVELREADER_H
 #define GAME_LEVELREADER_H
 
-#include <iostream>
+#include <cassert>
 #include <string>
-#include "gason.h"
+#include <cstdio>
+#include <cstring>
+#include <iostream>
+#include <sstream>
+
+#include "json11.hpp"
+
+#include <list>
+#include <set>
+#include <unordered_map>
+#include <algorithm>
+#include <type_traits>
 
 namespace tjg {
 
@@ -15,6 +26,8 @@ namespace tjg {
     public:
         LevelReader(const std::string &level_root = "");
         ~LevelReader();
+
+        void JsonTest();
     };
 
 
