@@ -16,6 +16,9 @@
 #include <algorithm>
 #include <type_traits>
 
+#include <fstream>
+#include <typeinfo>
+
 namespace tjg {
 
     class LevelReader {

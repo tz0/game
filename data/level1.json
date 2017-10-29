@@ -1,7 +1,7 @@
 {
   "level": 1,
-  "gas" : 100,
-  "oxygen" : 100,
+  "gas" : 88.25,
+  "oxygen" : 30,
   "fans":
   [
     {
