@@ -8,14 +8,15 @@ namespace tjg {
             entity_factory(resource_manager, physics_system) {
     }
 
-    void LogicCenter::Initialize() {
+    void LogicCenter::Initialize(Level &level) {
         // Make TECH-17
         tech17 = entity_factory.MakeTech17();
         control_center.AddEntity(tech17);
 
         // Make entrance and exit.
         entrance = entity_factory.MakeEntrance(sf::Vector2f(0, 0));
-        exit = entity_factory.MakeExit(sf::Vector2f(-1400, -200));
+        //exit = entity_factory.MakeExit(sf::Vector2f(-1400, -200));
+        exit = entity_factory.MakeExit(sf::Vector2f(level.exit_x, level.exit_y));
 
         // Register listeners.
         event_manager.RegisterListener<ReachedExit>([&](ReachedExit &event){

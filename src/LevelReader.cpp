@@ -64,7 +64,7 @@ namespace tjg {
         //std::cout << "[]: " << parse_result[""].dump() << std::endl;
         
         std::cout << std::endl << "---- [entrance]" << std::endl;
-        std::cout << "[entrance]: " << parse_result["entrance"].dump() << std::endl;
+        //std::cout << "[entrance]: " << parse_result["entrance"].dump() << std::endl;
         //std::cout << "[entrance]: " << parse_result["entrance"].is_object() << std::endl;        
         //std::cout << "[entrance]: " << typeid(parse_result["entrance"]).name() << std::endl;
         std::cout << "[x]: " << parse_result["entrance"]["x"].dump() << std::endl;
@@ -72,7 +72,23 @@ namespace tjg {
         std::cout << "[height]: " << parse_result["entrance"]["height"].dump() << std::endl;
         std::cout << "[weight]: " << parse_result["entrance"]["weight"].dump() << std::endl;
         
-        
+        std::cout << std::endl << "---- [exit]" << std::endl;        
+        std::cout << "[x]: " << parse_result["exit"]["x"].dump() << std::endl;
+        std::cout << "[y]: " << parse_result["exit"]["y"].dump() << std::endl;
+        std::cout << "[height]: " << parse_result["exit"]["height"].dump() << std::endl;
+        std::cout << "[weight]: " << parse_result["exit"]["weight"].dump() << std::endl;
+
+        std::cout << std::endl << "---- [fans]" << std::endl;
+        std::cout << "[size]: " << parse_result["fans"].array_items().size() << "\n";
+        unsigned fan_counter = 0;
+        for (auto &fan : parse_result["fans"].array_items()) {
+            std::cout << "[" << ++fan_counter << "] [Origin]" << fan["Endpoints"]["Origin"].dump() << "\n";
+            std::cout << "[" << fan_counter << "] [Endpoint]" << fan["Endpoints"]["Endpoint"].dump() << "\n";
+            std::cout << "[" << fan_counter << "] [Width]: " << fan["Width"].dump() << "\n";
+            std::cout << "[" << fan_counter << "] [Width]: " << typeid(fan["Width"].dump()).name() << "\n";
+        }
+
+
         std::cout << std::endl << "---- [dialogues]" << std::endl;
         std::cout << "[size]: " << parse_result["dialogues"].array_items().size() << "\n";
         //std::cout << "[dialogues - 1]: " << parse_result["dialogues"].array_items()[0].dump() << "\n"; //using std <vector> as array
@@ -85,12 +101,6 @@ namespace tjg {
         //for (auto &k : parse_result["k3"].array_items()) {
         //    std::cout << "    - " << k.dump() << "\n";
         //}
-
-        //std::cout << parse_result.dump() << '\n';
-        //std::cout << typeid(parse_result.dump()).name() << '\n';
-        //std::cout << parse_result[1].dump() << '\n'; // null, nothing
-        //std::cout << typeid(parse_result[1].dump()).name() << '\n';
-        //
     
     
     

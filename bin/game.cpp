@@ -8,8 +8,8 @@
 // Entry point
 int main()
 {
-    //tjg::Game game;
-    //game.Run();
+    tjg::Game game;
+    game.Run();
     tjg::LevelReader lr("data");
     lr.JsonTest();
 
