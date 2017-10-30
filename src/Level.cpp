@@ -1,76 +1,65 @@
 #include "Level.h"
 
 namespace tjg {
-    //Level::Level() :
-    //    exit.x(-1000),
-    //    exit.y(-200) {
-    //}
-
     Level::Level() : 
         exit_{-1000, -200}, entrance_{0, 0},  total_fuel_(5), total_oxygen_(45) {
     }
 
     Level::~Level() = default;
 
-    void Level::JsonTest() {        
-        //level1.json test
-        std::cout << "level1 read successfully." << std::endl;
-        std::ifstream in("..//data//level1.json");  //universal seperator 
-                                                    //std::ifstream in("..\\data\\level1.json");        
-        std::string raw_levelfile((std::istreambuf_iterator<char>(in)), std::istreambuf_iterator<char>());
-        //std::cout << "[raw file] " << raw_levelfile << std::endl;
-
+    void Level::JsonTest(const std::string & level_address) {        
         std::string err;
+        std::ifstream in(level_address);
+        std::string raw_levelfile((std::istreambuf_iterator<char>(in)), std::istreambuf_iterator<char>());
         const auto parse_result = json11::Json::parse(raw_levelfile, err);
-        //std::cout << "[parse result]" << parse_result.dump() << '\n';
 
-        std::cout << std::endl << "---- [level info]" << std::endl;
-        std::cout << "[level]: " << parse_result["level"].dump() << std::endl;
-        std::cout << "[gas]: " << parse_result["gas"].dump() << std::endl;
-        std::cout << "[oxygen]: " << parse_result["oxygen"].dump() << std::endl;
-        //std::cout << "[]: " << parse_result[""].dump() << std::endl;
+        std::cout << std::endl << "##### [level info] start #####" << std::endl;
+        std::cout << "# [level]: " << parse_result["level"].dump() << std::endl;
+        std::cout << "# [total_fuel]: " << parse_result["total_fuel"].dump() << std::endl;
+        std::cout << "# [total_oxygen]: " << parse_result["total_oxygen"].dump() << std::endl;
 
-        std::cout << std::endl << "---- [entrance]" << std::endl;
-        //std::cout << "[entrance]: " << parse_result["entrance"].dump() << std::endl;
-        //std::cout << "[entrance]: " << parse_result["entrance"].is_object() << std::endl;        
-        //std::cout << "[entrance]: " << typeid(parse_result["entrance"]).name() << std::endl;
-        std::cout << "[x]: " << parse_result["entrance"]["x"].dump() << std::endl;
-        std::cout << "[y]: " << parse_result["entrance"]["y"].dump() << std::endl;
+        std::cout << '#' << std::endl << "##### [entrance]" << std::endl;
+        std::cout << "# [x]: " << parse_result["entrance"]["x"].dump() << std::endl;
+        std::cout << "# [y]: " << parse_result["entrance"]["y"].dump() << std::endl;
 
-        std::cout << std::endl << "---- [exit]" << std::endl;
-        std::cout << "[x]: " << parse_result["exit"]["x"].dump() << std::endl;
-        std::cout << "[y]: " << parse_result["exit"]["y"].dump() << std::endl;
+        std::cout << '#' << std::endl << "##### [exit]" << std::endl;
+        std::cout << "# [x]: " << parse_result["exit"]["x"].dump() << std::endl;
+        std::cout << "# [y]: " << parse_result["exit"]["y"].dump() << std::endl;
 
-        std::cout << std::endl << "---- [fans]" << std::endl;
-        std::cout << "[size]: " << parse_result["fans"].array_items().size() << "\n";
+        std::cout << '#' << std::endl << "##### [fans]" << std::endl;
+        std::cout << "# [size]: " << parse_result["fans"].array_items().size() << "\n";
         unsigned fan_counter = 0;
         for (auto &fan : parse_result["fans"].array_items()) {
-            std::cout << "[" << ++fan_counter << "] [Origin]" << fan["Endpoints"]["Origin"].dump() << "\n";
-            std::cout << "[" << fan_counter << "] [Endpoint]" << fan["Endpoints"]["Endpoint"].dump() << "\n";
-            std::cout << "[" << fan_counter << "] [Width]: " << fan["Width"].dump() << "\n";
-            std::cout << "[" << fan_counter << "] [Width]: " << typeid(fan["Width"].dump()).name() << "\n";
+            std::cout << "# [" << ++fan_counter << "] [Origin]" << fan["Endpoints"]["Origin"].dump() << "\n";
+            std::cout << "#     [Endpoint]" << fan["Endpoints"]["Endpoint"].dump() << "\n";
+            std::cout << "#     [Width]: " << fan["Width"].dump() << "\n";
         }
 
+        std::cout << '#' << std::endl << "##### [walls]" << std::endl;
+        std::cout << "# [size]: " << parse_result["walls"].array_items().size() << "\n";
+        unsigned wall_counter = 0;
+        for (auto &wall : parse_result["walls"].array_items()) {
+            std::cout << "# [" << ++wall_counter << "] [Origin]" << wall["Endpoints"]["Origin"].dump() << "\n";
+            std::cout << "#     [Endpoint]" << wall["Endpoints"]["Endpoint"].dump() << "\n";
+            std::cout << "#     [radius]: " << wall["Radius"].dump() << "\n";
+        }
 
-        std::cout << std::endl << "---- [dialogues]" << std::endl;
-        std::cout << "[size]: " << parse_result["dialogues"].array_items().size() << "\n";
-        //std::cout << "[dialogues - 1]: " << parse_result["dialogues"].array_items()[0].dump() << "\n"; //using std <vector> as array
+        std::cout << '#' << std::endl << "##### [dialogues]" << std::endl;
+        std::cout << "# [size]: " << parse_result["dialogues"].array_items().size() << "\n";
         unsigned dialogue_counter = 0;
         for (auto &k : parse_result["dialogues"].array_items()) {
-            std::cout << '[' << ++dialogue_counter << ']' << k.dump() << "\n";
+            std::cout << "# [" << ++dialogue_counter << ']' << k.dump() << "\n";
         }
-        //std::cout << "k2: " << parse_result["k2"].dump() << "\n";
-        //std::cout << "k3: " << parse_result["k3"].dump() << "\n";
-        //for (auto &k : parse_result["k3"].array_items()) {
-        //    std::cout << "    - " << k.dump() << "\n";
-        //}
 
+        std::cout << "##### [level info] end #####" << '\n' << '\n' << '\n';
     }
 
-    void Level::Read(const unsigned & current_level = 1) {
+    void Level::Read(const unsigned & current_level = 1, const bool & debug = 0) {
         std::string err, level_address = "..//data//level" + std::to_string(current_level) +".json";
-
         std::cout << "Reading level from = " << level_address << std::endl;
+        
+        // trigger debug method
+        if (debug) JsonTest(level_address);
 
         std::ifstream in(level_address);  
         std::string raw_levelfile((std::istreambuf_iterator<char>(in)), std::istreambuf_iterator<char>());
@@ -84,19 +73,9 @@ namespace tjg {
         total_fuel_ = static_cast<float>(parse_result["total_fuel"].number_value());
         total_oxygen_ = static_cast<float>(parse_result["total_oxygen"].number_value());
         
-        std::cout << std::endl << "[read]" << std::endl;
-        std::cout << "[x]: " << exit_.x << std::endl;
-        std::cout << "[y]: " << exit_.y << std::endl;        
-        std::cout << "[total fuel]: " << total_fuel_ << std::endl;
-        std::cout << "[total oxygen]: " << total_oxygen_ << std::endl;
-        
-        // read fan informations
-        std::cout << "[fans] vector test: " << std::endl;
+        // read fan informations        
         fans_.clear();
         fans_.shrink_to_fit();
-        std::cout << "[fans empty]: " << fans_.empty() << std::endl;
-        std::cout << "[fans max_size]: " << fans_.max_size() << std::endl;
-        std::cout << "[fans capacity]: " << fans_.capacity() << std::endl;
         for (auto &fan : parse_result["fans"].array_items()) {
             fans_.emplace_back(                
                 static_cast<float>(fan["Endpoints"]["Origin"]["x"].number_value()),
@@ -108,16 +87,7 @@ namespace tjg {
                 static_cast<float>(fan["Endpoints"]["Endpoint"]["strength"].number_value()));
         }
         fans_.shrink_to_fit();
-        std::cout << "[fans] shrinked vector: " << std::endl;
-        std::cout << "[fans max_size]: " << fans_.max_size() << std::endl;
-        std::cout << "[fans capacity]: " << fans_.capacity() << std::endl;
-
-        //fans_.clear();
-        //fans_.shrink_to_fit();
-        //std::cout << "[fans empty]: " << fans_.empty() << std::endl;
-        //std::cout << "[fans max_size]: " << fans_.max_size() << std::endl;
-        //std::cout << "[fans capacity]: " << fans_.capacity() << std::endl;
-        
+                
         // read wall informations
         walls_.clear();
         walls_.shrink_to_fit();        
@@ -131,20 +101,13 @@ namespace tjg {
         }
         walls_.shrink_to_fit();
         
-
-        // read dialogues informations
-        std::cout << "[dialogues empty]: " << dialogues_.empty() << std::endl;
+        // read dialogues informations        
         dialogues_.clear();
         dialogues_.shrink_to_fit();
         for (auto &dialogue : parse_result["dialogues"].array_items()) {
             dialogues_.emplace_back(dialogue.string_value());
         }
         dialogues_.shrink_to_fit();
-
-        std::cout << "[dialogues empty]: " << dialogues_.empty() << std::endl;
-        std::cout << "[dialogues max_size]: " << dialogues_.max_size() << std::endl;
-        std::cout << "[dialogues capacity]: " << dialogues_.capacity() << std::endl;
-
     }
 
     const Level::Exit & Level::GetExit()

@@ -13,10 +13,8 @@ namespace tjg {
     Game::~Game() = default;
 
     // Begin the game loop.
-    void Game::Run() {
-        // read level file.
-        // level.JsonTest();
-        level.Read(1);
+    void Game::Run() {        
+        level.Read(1, true); // Read level file. Set debug to false to disable json file debug. '1' means level 1.
         logic_center.Initialize(level);
         player_view.Initialize();
 

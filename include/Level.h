@@ -1,24 +1,10 @@
 #ifndef GAME_LEVEL_H
 #define GAME_LEVEL_H
 
-#include <cassert>
-#include <string>
-#include <cstdio>
-#include <cstring>
 #include <iostream>
-#include <sstream>
+#include <fstream>
 
 #include "json11.hpp"
-
-#include <list>
-#include <set>
-#include <unordered_map>
-#include <algorithm>
-#include <type_traits>
-
-#include <fstream>
-#include <typeinfo>
-#include <vector>
 
 namespace tjg {
 
@@ -63,14 +49,10 @@ namespace tjg {
         /**
         * Utilize json11.hpp (from Dropbox, Inc) to parse a level file at ..//data//level<level>.json.
         * Update class member to store the latest level information.
+        * Set debug to ture if want to enable json file debug
         */
-        void Read(const unsigned & level);
-        /**
-        * Print parsing result from a target level for level file debugging.
-        * 
-        */
-        void JsonTest();
-        
+        void Read(const unsigned & level, const bool & debug);
+
         // Accessors
         const Exit & GetExit(); 
         const Entrance & GetEntrance(); 
@@ -87,6 +69,12 @@ namespace tjg {
         std::vector<Fan> fans_;
         std::vector<Wall> walls_;
         std::vector<std::string> dialogues_;
+        
+        /**
+        * Print parsing result from a target level for level file debugging.
+        *
+        */
+        void JsonTest(const std::string & level_address);
     };
 }
 #endif //GAME_LEVEL_H

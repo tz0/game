@@ -51,8 +51,7 @@ namespace tjg {
         //walls.push_back(top_wall);
         //walls.push_back(bottom_wall);
 
-        for (auto wall : level.GetWalls()) {
-            std::cout << wall.endpoint_x << std::endl;
+        for (auto wall : level.GetWalls()) {            
             walls.push_back(entity_factory.MakeWall(sf::Vector2f(wall.origin_x, wall.origin_y), sf::Vector2f(wall.endpoint_x, wall.endpoint_y), wall.radius));
         }
 
