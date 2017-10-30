@@ -4,3 +4,6 @@
 [submodule "lib/gason"]
 	path = lib/gason
 	url = https://github.com/vivkin/gason
+[submodule "lib/json11"]
+	path = lib/json11
+	url = https://github.com/dropbox/json11

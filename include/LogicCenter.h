@@ -13,6 +13,8 @@
 #include "Events/FuelExpired.h"
 #include "Components/FiniteResource.h"
 
+#include "Level.h"
+
 namespace tjg {
 
     class LogicCenter {
@@ -55,7 +57,7 @@ namespace tjg {
         /**
          * Initialize creates and configures necessary entities before the game begins
          */
-        void Initialize();
+        void Initialize(Level &level);
 
         /**
          * Update will cause the physical center to be updated.
