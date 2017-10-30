@@ -13,10 +13,8 @@ namespace tjg {
         tech17 = entity_factory.MakeTech17(level.GetEntrance().x, level.GetEntrance().y);
         control_center.AddEntity(tech17);
 
-        // Make entrance and exit.
-        //entrance = entity_factory.MakeEntrance(sf::Vector2f(0, 0));
-        entrance = entity_factory.MakeEntrance(sf::Vector2f(level.GetEntrance().x, level.GetEntrance().y));
-        //exit = entity_factory.MakeExit(sf::Vector2f(-1400, -200));
+        // Make entrance and exit.        
+        entrance = entity_factory.MakeEntrance(sf::Vector2f(level.GetEntrance().x, level.GetEntrance().y));     
         exit = entity_factory.MakeExit(sf::Vector2f(level.GetExit().x, level.GetExit().y));
 
         // Register listeners.
@@ -37,38 +35,11 @@ namespace tjg {
             std::cout << "Out of fuel!" << std::endl;
         });
 
-        //// Create boundary walls using the entity factory.
-        //auto top_wall = entity_factory.MakeWall(sf::Vector2f(-1500, -600), sf::Vector2f(500, -600), 40);
-        //auto bottom_wall = entity_factory.MakeWall(sf::Vector2f(-1500, 600), sf::Vector2f(500, 600), 40);
-        //auto left_wall = entity_factory.MakeWall(sf::Vector2f(-1500, -600), sf::Vector2f(-1500, 600), 40);
-        //auto right_wall = entity_factory.MakeWall(sf::Vector2f(500, -600), sf::Vector2f(500, 600), 40);
-        //auto middle_wall = entity_factory.MakeWall(sf::Vector2f(-800, -600), sf::Vector2f(-800, 100), 40);
-
-        //// Add the walls to the entities vector.
-        //walls.push_back(middle_wall);
-        //walls.push_back(left_wall);
-        //walls.push_back(right_wall);
-        //walls.push_back(top_wall);
-        //walls.push_back(bottom_wall);
-
+        //Iterate wall information record from level's walls vector, create walls and add them to the walls vector.
         for (auto wall : level.GetWalls()) {            
             walls.push_back(entity_factory.MakeWall(sf::Vector2f(wall.origin_x, wall.origin_y), sf::Vector2f(wall.endpoint_x, wall.endpoint_y), wall.radius));
         }
-
-        //// Create fans and add them to the fans vector.
-        //// Top fan above span
-        //fans.push_back(entity_factory.MakeFan(sf::Vector2f(0, -600), sf::Vector2f(0, 600), 200, 250.0f, 0.f));
-        //// Bottom fan below spawn
-        //fans.push_back(entity_factory.MakeFan(sf::Vector2f(0, 600), sf::Vector2f(0, -600), 200, 250.0f, 0.f));
-        //// Top fan to right of spawn.
-        //fans.push_back(entity_factory.MakeFan(sf::Vector2f(300, -600), sf::Vector2f(300, 600), 200, 250.0f, 0.f));
-        //// Right fan below spawn.
-        //fans.push_back(entity_factory.MakeFan(sf::Vector2f(500, 400), sf::Vector2f(-1500, 400), 200, 250.0f, 50.f));
-        //// Bottom fan near exit.
-        //fans.push_back(entity_factory.MakeFan(sf::Vector2f(-1000, 600), sf::Vector2f(-1000, -600), 200, 250.0f, 0.f));
-        //// Top fan near exit.
-        //fans.push_back(entity_factory.MakeFan(sf::Vector2f(-1300, -600), sf::Vector2f(-1300, 600), 200, 400.0f, 50.f));
-        
+                        
         //Iterate fan information record from level's fans vector, create fans and add them to the fans vector.
         for (auto fan : level.GetFans()) {            
             fans.push_back(entity_factory.MakeFan(sf::Vector2f(fan.origin_x, fan.origin_y), sf::Vector2f(fan.endpoint_x, fan.endpoint_y), fan.width, fan.origin_strength, fan.endpoint_strength));
@@ -98,8 +69,8 @@ namespace tjg {
 
         // Build resource trackers.
         std::string tracker_texture_path = "white-texture.jpg";
-        fuel_tracker = entity_factory.MakeResourceTracker(level.GetTotalFuel(), tracker_texture_path, sf::Color(255, 100, 0)); // fuel_tracker = entity_factory.MakeResourceTracker(5, tracker_texture_path, sf::Color(255, 100, 0));
-        oxygen_tracker = entity_factory.MakeResourceTracker(level.GetTotalOxygen(), tracker_texture_path, sf::Color(0, 100, 255)); // oxygen_tracker = entity_factory.MakeResourceTracker(45, tracker_texture_path, sf::Color(0, 100, 255));
+        fuel_tracker = entity_factory.MakeResourceTracker(level.GetTotalFuel(), tracker_texture_path, sf::Color(255, 100, 0));
+        oxygen_tracker = entity_factory.MakeResourceTracker(level.GetTotalOxygen(), tracker_texture_path, sf::Color(0, 100, 255));
 
         // Link the fuel resource to the control center.
         auto fuel_resource = fuel_tracker->GetComponent<FiniteResource>();

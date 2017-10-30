@@ -19,7 +19,7 @@ namespace tjg {
         };
 
         struct Fan {
-            float width, origin_x, origin_y, origin_strength, endpoint_x, endpoint_y, endpoint_strength;
+            float origin_x, origin_y, endpoint_x, endpoint_y, width, origin_strength, endpoint_strength;
 
             inline Fan(float origin_x, float origin_y, float endpoint_x, float endpoint_y, float width, float origin_strength, float endpoint_strength) :
                 origin_x(origin_x), 
