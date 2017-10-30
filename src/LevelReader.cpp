@@ -48,7 +48,7 @@ namespace tjg {
 
         //level1.json test
         std::cout << "level1 read successfully." << std::endl;
-        std::ifstream in("..//data//level1.json");
+        std::ifstream in("..//data//level1.json");  //universal seperator 
         //std::ifstream in("..\\data\\level1.json");        
         std::string raw_levelfile((std::istreambuf_iterator<char>(in)), std::istreambuf_iterator<char>());
         //std::cout << "[raw file] " << raw_levelfile << std::endl;
