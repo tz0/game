@@ -90,7 +90,7 @@ namespace tjg {
         std::cout << "[total fuel]: " << total_fuel_ << std::endl;
         std::cout << "[total oxygen]: " << total_oxygen_ << std::endl;
         
-
+        // read fan informations
         std::cout << "[fans] vector test: " << std::endl;
         fans_.clear();
         fans_.shrink_to_fit();
@@ -118,7 +118,32 @@ namespace tjg {
         //std::cout << "[fans max_size]: " << fans_.max_size() << std::endl;
         //std::cout << "[fans capacity]: " << fans_.capacity() << std::endl;
         
+        // read wall informations
+        walls_.clear();
+        walls_.shrink_to_fit();        
+        for (auto &wall : parse_result["walls"].array_items()) {
+            walls_.emplace_back(
+                static_cast<float>(wall["Endpoints"]["Origin"]["x"].number_value()),
+                static_cast<float>(wall["Endpoints"]["Origin"]["y"].number_value()),
+                static_cast<float>(wall["Endpoints"]["Endpoint"]["x"].number_value()),
+                static_cast<float>(wall["Endpoints"]["Endpoint"]["y"].number_value()),
+                static_cast<float>(wall["Radius"].number_value()));
+        }
+        walls_.shrink_to_fit();
         
+
+        // read dialogues informations
+        std::cout << "[dialogues empty]: " << dialogues_.empty() << std::endl;
+        dialogues_.clear();
+        dialogues_.shrink_to_fit();
+        for (auto &dialogue : parse_result["dialogues"].array_items()) {
+            dialogues_.emplace_back(dialogue.string_value());
+        }
+        dialogues_.shrink_to_fit();
+
+        std::cout << "[dialogues empty]: " << dialogues_.empty() << std::endl;
+        std::cout << "[dialogues max_size]: " << dialogues_.max_size() << std::endl;
+        std::cout << "[dialogues capacity]: " << dialogues_.capacity() << std::endl;
 
     }
 
@@ -145,6 +170,11 @@ namespace tjg {
     const std::vector<Level::Fan>& Level::GetFans()
     {
         return fans_;
+    }
+
+    const std::vector<Level::Wall>& Level::GetWalls()
+    {
+        return walls_;
     }
 
 

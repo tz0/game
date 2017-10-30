@@ -45,6 +45,17 @@ namespace tjg {
                 endpoint_strength(endpoint_strength) {}
         };
 
+        struct Wall {
+            float origin_x, origin_y, endpoint_x, endpoint_y, radius;
+
+            inline Wall(float origin_x, float origin_y, float endpoint_x, float endpoint_y, float radius) :
+                origin_x(origin_x),
+                origin_y(origin_y),
+                endpoint_x(endpoint_x),
+                endpoint_y(endpoint_y),
+                radius(radius){}
+        };
+
         // Constructor innitiate the level class with default entities information without any fans
         Level();
         ~Level();
@@ -66,6 +77,7 @@ namespace tjg {
         const float & GetTotalFuel();
         const float & GetTotalOxygen(); 
         const std::vector<Level::Fan> & GetFans();
+        const std::vector<Level::Wall> & GetWalls();
 
     private:        
         Exit exit_; 
@@ -73,6 +85,8 @@ namespace tjg {
         float total_fuel_;
         float total_oxygen_;
         std::vector<Fan> fans_;
+        std::vector<Wall> walls_;
+        std::vector<std::string> dialogues_;
     };
 }
 #endif //GAME_LEVEL_H

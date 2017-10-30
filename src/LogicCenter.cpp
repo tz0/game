@@ -37,19 +37,24 @@ namespace tjg {
             std::cout << "Out of fuel!" << std::endl;
         });
 
-        // Create boundary walls using the entity factory.
-        auto top_wall = entity_factory.MakeWall(sf::Vector2f(-1500, -600), sf::Vector2f(500, -600), 40);
-        auto bottom_wall = entity_factory.MakeWall(sf::Vector2f(-1500, 600), sf::Vector2f(500, 600), 40);
-        auto left_wall = entity_factory.MakeWall(sf::Vector2f(-1500, -600), sf::Vector2f(-1500, 600), 40);
-        auto right_wall = entity_factory.MakeWall(sf::Vector2f(500, -600), sf::Vector2f(500, 600), 40);
-        auto middle_wall = entity_factory.MakeWall(sf::Vector2f(-800, -600), sf::Vector2f(-800, 100), 40);
+        //// Create boundary walls using the entity factory.
+        //auto top_wall = entity_factory.MakeWall(sf::Vector2f(-1500, -600), sf::Vector2f(500, -600), 40);
+        //auto bottom_wall = entity_factory.MakeWall(sf::Vector2f(-1500, 600), sf::Vector2f(500, 600), 40);
+        //auto left_wall = entity_factory.MakeWall(sf::Vector2f(-1500, -600), sf::Vector2f(-1500, 600), 40);
+        //auto right_wall = entity_factory.MakeWall(sf::Vector2f(500, -600), sf::Vector2f(500, 600), 40);
+        //auto middle_wall = entity_factory.MakeWall(sf::Vector2f(-800, -600), sf::Vector2f(-800, 100), 40);
 
-        // Add the walls to the entities vector.
-        walls.push_back(middle_wall);
-        walls.push_back(left_wall);
-        walls.push_back(right_wall);
-        walls.push_back(top_wall);
-        walls.push_back(bottom_wall);
+        //// Add the walls to the entities vector.
+        //walls.push_back(middle_wall);
+        //walls.push_back(left_wall);
+        //walls.push_back(right_wall);
+        //walls.push_back(top_wall);
+        //walls.push_back(bottom_wall);
+
+        for (auto wall : level.GetWalls()) {
+            std::cout << wall.endpoint_x << std::endl;
+            walls.push_back(entity_factory.MakeWall(sf::Vector2f(wall.origin_x, wall.origin_y), sf::Vector2f(wall.endpoint_x, wall.endpoint_y), wall.radius));
+        }
 
         //// Create fans and add them to the fans vector.
         //// Top fan above span
@@ -66,8 +71,7 @@ namespace tjg {
         //fans.push_back(entity_factory.MakeFan(sf::Vector2f(-1300, -600), sf::Vector2f(-1300, 600), 200, 400.0f, 50.f));
         
         //Iterate fan information record from level's fans vector, create fans and add them to the fans vector.
-        for (auto fan : level.GetFans()) {
-            std::cout << fan.endpoint_x << std::endl;
+        for (auto fan : level.GetFans()) {            
             fans.push_back(entity_factory.MakeFan(sf::Vector2f(fan.origin_x, fan.origin_y), sf::Vector2f(fan.endpoint_x, fan.endpoint_y), fan.width, fan.origin_strength, fan.endpoint_strength));
         }
 
