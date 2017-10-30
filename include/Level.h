@@ -60,6 +60,7 @@ namespace tjg {
         const float & GetTotalOxygen(); 
         const std::vector<Level::Fan> & GetFans();
         const std::vector<Level::Wall> & GetWalls();
+        const std::vector<std::string> & GetDialogues();
 
     private:        
         Exit exit_; 

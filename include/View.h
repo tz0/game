@@ -4,6 +4,8 @@
 
 #include "LogicCenter.h"
 
+#include "Level.h"
+
 namespace tjg {
     class View {
 
@@ -13,7 +15,7 @@ namespace tjg {
     public:
         View(LogicCenter &logic_center) : logic_center(logic_center) {};
 
-        virtual void Initialize() = 0;
+        virtual void Initialize(Level &level) = 0;
 
         /**
          * @return whether the view is still running

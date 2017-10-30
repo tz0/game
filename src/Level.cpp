@@ -140,5 +140,10 @@ namespace tjg {
         return walls_;
     }
 
+    const std::vector<std::string>& Level::GetDialogues()
+    {
+        return dialogues_;
+    }
+
 
 }
