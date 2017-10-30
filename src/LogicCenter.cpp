@@ -51,19 +51,25 @@ namespace tjg {
         walls.push_back(top_wall);
         walls.push_back(bottom_wall);
 
-        // Create fans and add them to the fans vector.
-        // Top fan above span
-        fans.push_back(entity_factory.MakeFan(sf::Vector2f(0, -600), sf::Vector2f(0, 600), 200, 250.0f, 0.f));
-        // Bottom fan below spawn
-        fans.push_back(entity_factory.MakeFan(sf::Vector2f(0, 600), sf::Vector2f(0, -600), 200, 250.0f, 0.f));
-        // Top fan to right of spawn.
-        fans.push_back(entity_factory.MakeFan(sf::Vector2f(300, -600), sf::Vector2f(300, 600), 200, 250.0f, 0.f));
-        // Right fan below spawn.
-        fans.push_back(entity_factory.MakeFan(sf::Vector2f(500, 400), sf::Vector2f(-1500, 400), 200, 250.0f, 50.f));
-        // Bottom fan near exit.
-        fans.push_back(entity_factory.MakeFan(sf::Vector2f(-1000, 600), sf::Vector2f(-1000, -600), 200, 250.0f, 0.f));
-        // Top fan near exit.
-        fans.push_back(entity_factory.MakeFan(sf::Vector2f(-1300, -600), sf::Vector2f(-1300, 600), 200, 400.0f, 50.f));
+        //// Create fans and add them to the fans vector.
+        //// Top fan above span
+        //fans.push_back(entity_factory.MakeFan(sf::Vector2f(0, -600), sf::Vector2f(0, 600), 200, 250.0f, 0.f));
+        //// Bottom fan below spawn
+        //fans.push_back(entity_factory.MakeFan(sf::Vector2f(0, 600), sf::Vector2f(0, -600), 200, 250.0f, 0.f));
+        //// Top fan to right of spawn.
+        //fans.push_back(entity_factory.MakeFan(sf::Vector2f(300, -600), sf::Vector2f(300, 600), 200, 250.0f, 0.f));
+        //// Right fan below spawn.
+        //fans.push_back(entity_factory.MakeFan(sf::Vector2f(500, 400), sf::Vector2f(-1500, 400), 200, 250.0f, 50.f));
+        //// Bottom fan near exit.
+        //fans.push_back(entity_factory.MakeFan(sf::Vector2f(-1000, 600), sf::Vector2f(-1000, -600), 200, 250.0f, 0.f));
+        //// Top fan near exit.
+        //fans.push_back(entity_factory.MakeFan(sf::Vector2f(-1300, -600), sf::Vector2f(-1300, 600), 200, 400.0f, 50.f));
+        
+        //Iterate fan information record from level's fans vector, create fans and add them to the fans vector.
+        for (auto fan : level.GetFans()) {
+            std::cout << fan.endpoint_x << std::endl;
+            fans.push_back(entity_factory.MakeFan(sf::Vector2f(fan.origin_x, fan.origin_y), sf::Vector2f(fan.endpoint_x, fan.endpoint_y), fan.width, fan.origin_strength, fan.endpoint_strength));
+        }
 
         // Create a collision center handler that will fire a HitWall event when TECH17 hits a wall.
         collision_center.AddHandler(

@@ -4,6 +4,91 @@
   "oxygen" : 30,
   "total_fuel" : 5,
   "total_oxygen" : 45,
+
+  "walls":
+  [
+    {
+      "Endpoints": 
+      {
+          "Origin": 
+          {
+            "x": -1500,
+            "y": -600            
+          },
+          "Endpoint": 
+          {
+            "x": 500,
+            "y": -600            
+          }
+      },
+      "Radius": 40
+    },
+    {
+      "Endpoints": 
+      {
+          "Origin": 
+          {
+            "x": -1500,
+            "y": 600            
+          },
+          "Endpoint": 
+          {
+            "x": 500,
+            "y": 600            
+          }
+      },
+      "Radius": 40
+    },
+    {
+      "Endpoints": 
+      {
+          "Origin": 
+          {
+            "x": -1500,
+            "y": -600            
+          },
+          "Endpoint": 
+          {
+            "x": -1500,
+            "y": 600            
+          }
+      },
+      "Radius": 40
+    },
+    {
+      "Endpoints": 
+      {
+          "Origin": 
+          {
+            "x": 500,
+            "y": -600            
+          },
+          "Endpoint": 
+          {
+            "x": 500,
+            "y": 600            
+          }
+      },
+      "Radius": 40
+    },
+    {
+      "Endpoints": 
+      {
+          "Origin": 
+          {
+            "x": -800,
+            "y": -600            
+          },
+          "Endpoint": 
+          {
+            "x": -800,
+            "y": 100            
+          }
+      },
+      "Radius": 40
+    }
+  ],
+  
   "fans":
   [
     {
@@ -11,42 +96,60 @@
       {
           "Origin": 
           {
-            "x": 400,
-            "y": 300,
+            "x": 500,
+            "y": -400,
             "strength": 1000
           },
           "Endpoint": 
           {
-            "x": 400,
-            "y": 1000,
-            "strength": 500
+            "x": -1500,
+            "y": 400,
+            "strength": 250
           }
       },
-      "Width": 50
+      "Width": 200
     },
     {
       "Endpoints": 
       {
           "Origin": 
           {
-            "x": 100,
-            "y": 300,
-            "strength": 1000
+            "x": -600,
+            "y": -600,
+            "strength": 800
           },
           "Endpoint": 
           {
-            "x": 400,
-            "y": 1000,
-            "strength": 500
+            "x": -600,
+            "y": 600,
+            "strength": 50
           }
       },
-      "Width": 50
+      "Width": 200
+    },
+    {
+      "Endpoints": 
+      {
+          "Origin": 
+          {
+            "x": -1000,
+            "y": 600,
+            "strength": 1600
+          },
+          "Endpoint": 
+          {
+            "x": -1000,
+            "y": -600,
+            "strength": 250
+          }
+      },
+      "Width": 200
     }
   ],
   "exit":
   {
-    "x": -1200,
-    "y": 200    
+    "x": -1350,
+    "y": -100    
   },
   "entrance":
   {

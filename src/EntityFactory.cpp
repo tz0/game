@@ -86,6 +86,8 @@ namespace tjg {
  *          BICEPS/THIGHS
  *          FOREARMS/SHINS
  *
+ * The current poisition of Tech_17 is consistent with entrance location.  All body parts are automatically 
+ * adaptive to the new entrance position when reading level files.
  * @return Tech17 Entity
  */
     std::shared_ptr<Entity> EntityFactory::MakeTech17(const float & tech17_x, const float & tech17_y) {

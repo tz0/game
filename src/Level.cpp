@@ -7,7 +7,7 @@ namespace tjg {
     //}
 
     Level::Level() : 
-        exit_{-1000, -200}, total_fuel_(5), total_oxygen_(45) {
+        exit_{-1000, -200}, entrance_{0, 0},  total_fuel_(5), total_oxygen_(45) {
     }
 
     Level::~Level() = default;
@@ -89,6 +89,36 @@ namespace tjg {
         std::cout << "[y]: " << exit_.y << std::endl;        
         std::cout << "[total fuel]: " << total_fuel_ << std::endl;
         std::cout << "[total oxygen]: " << total_oxygen_ << std::endl;
+        
+
+        std::cout << "[fans] vector test: " << std::endl;
+        fans_.clear();
+        fans_.shrink_to_fit();
+        std::cout << "[fans empty]: " << fans_.empty() << std::endl;
+        std::cout << "[fans max_size]: " << fans_.max_size() << std::endl;
+        std::cout << "[fans capacity]: " << fans_.capacity() << std::endl;
+        for (auto &fan : parse_result["fans"].array_items()) {
+            fans_.emplace_back(                
+                static_cast<float>(fan["Endpoints"]["Origin"]["x"].number_value()),
+                static_cast<float>(fan["Endpoints"]["Origin"]["y"].number_value()),                
+                static_cast<float>(fan["Endpoints"]["Endpoint"]["x"].number_value()),
+                static_cast<float>(fan["Endpoints"]["Endpoint"]["y"].number_value()),
+                static_cast<float>(fan["Width"].number_value()),
+                static_cast<float>(fan["Endpoints"]["Origin"]["strength"].number_value()),
+                static_cast<float>(fan["Endpoints"]["Endpoint"]["strength"].number_value()));
+        }
+        fans_.shrink_to_fit();
+        std::cout << "[fans] shrinked vector: " << std::endl;
+        std::cout << "[fans max_size]: " << fans_.max_size() << std::endl;
+        std::cout << "[fans capacity]: " << fans_.capacity() << std::endl;
+
+        //fans_.clear();
+        //fans_.shrink_to_fit();
+        //std::cout << "[fans empty]: " << fans_.empty() << std::endl;
+        //std::cout << "[fans max_size]: " << fans_.max_size() << std::endl;
+        //std::cout << "[fans capacity]: " << fans_.capacity() << std::endl;
+        
+        
 
     }
 
@@ -110,6 +140,11 @@ namespace tjg {
     const float & Level::GetTotalOxygen()
     {
         return total_oxygen_;
+    }
+
+    const std::vector<Level::Fan>& Level::GetFans()
+    {
+        return fans_;
     }
 
 
