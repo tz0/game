@@ -88,7 +88,7 @@ namespace tjg {
  *
  * @return Tech17 Entity
  */
-    std::shared_ptr<Entity> EntityFactory::MakeTech17() {
+    std::shared_ptr<Entity> EntityFactory::MakeTech17(const float & tech17_x, const float &tech17_y) {
         auto spacesuit_texture = resource_manager.LoadTexture("spritesheet.png");
         auto tech17 = std::make_shared<Entity>();
 
@@ -121,7 +121,7 @@ namespace tjg {
         tech17->AddComponent<Sprite>(chest_sprite, TECH17_BASE_SPRITE_LAYER);
         auto torso_body = tech17->AddComponent<DynamicBody>(
                 physics_system.GetSpace(),
-                sf::Vector2f(0, 0),
+                sf::Vector2f(tech17_x, tech17_y), // sf::Vector2f(0, 0),
                 1,
                 sf::Vector2f(CHEST_WIDTH, CHEST_HEIGHT));
         cpShapeSetCollisionType(torso_body->GetShape(), static_cast<cpCollisionType>(CollisionGroup::TECH17));
@@ -141,7 +141,7 @@ namespace tjg {
         abs_entity->AddComponent<Sprite>(abs_sprite, TECH17_BASE_SPRITE_LAYER - 1);
         auto abs_body = abs_entity->AddComponent<DynamicBody>(
                 physics_system.GetSpace(),
-                sf::Vector2f(0, ABS_HEIGHT),
+                sf::Vector2f(tech17_x, tech17_y + ABS_HEIGHT), // sf::Vector2f(0, ABS_HEIGHT),
                 1,
                 sf::Vector2f(CHEST_WIDTH, ABS_HEIGHT));
         abs_entity->AddComponent<Appendage>(
@@ -171,7 +171,7 @@ namespace tjg {
         head_entity->AddComponent<Sprite>(head_sprite, TECH17_BASE_SPRITE_LAYER + 1);
         auto head_body = head_entity->AddComponent<DynamicBody>(
                 physics_system.GetSpace(),
-                sf::Vector2f(0, -1 * (CHEST_HEIGHT / 2.0f + HEAD_RADIUS)),
+                sf::Vector2f(tech17_x, tech17_y - 1 * (CHEST_HEIGHT / 2.0f + HEAD_RADIUS)), // sf::Vector2f(0, -1 * (CHEST_HEIGHT / 2.0f + HEAD_RADIUS)),
                 1,
                 HEAD_RADIUS);
         head_entity->AddComponent<Appendage>(
@@ -203,7 +203,7 @@ namespace tjg {
         left_bicep_entity->AddComponent<Sprite>(bicep_sprite, TECH17_BASE_SPRITE_LAYER - 1);
         auto left_bicep_body = left_bicep_entity->AddComponent<DynamicBody>(
                 physics_system.GetSpace(),
-                sf::Vector2f(-1 * (CHEST_WIDTH / 2.0f + LIMB_LENGTH / 2.0f), -1 * (CHEST_HEIGHT / 2.0f)),
+                sf::Vector2f(tech17_x - 1 * (CHEST_WIDTH / 2.0f + LIMB_LENGTH / 2.0f), tech17_y - 1 * (CHEST_HEIGHT / 2.0f)), // sf::Vector2f(-1 * (CHEST_WIDTH / 2.0f + LIMB_LENGTH / 2.0f), -1 * (CHEST_HEIGHT / 2.0f)),
                 1,
                 sf::Vector2f(LIMB_LENGTH, LIMB_THICKNESS));
         left_bicep_entity->AddComponent<Appendage>(
@@ -230,7 +230,7 @@ namespace tjg {
         right_bicep_entity->AddComponent<Sprite>(bicep_sprite, TECH17_BASE_SPRITE_LAYER - 1);
         auto right_bicep_body = right_bicep_entity->AddComponent<DynamicBody>(
                 physics_system.GetSpace(),
-                sf::Vector2f((CHEST_WIDTH / 2.0f + LIMB_LENGTH / 2.0f), -1 * (CHEST_HEIGHT / 2.0f)),
+                sf::Vector2f(tech17_x + (CHEST_WIDTH / 2.0f + LIMB_LENGTH / 2.0f), tech17_y - 1 * (CHEST_HEIGHT / 2.0f)), // sf::Vector2f((CHEST_WIDTH / 2.0f + LIMB_LENGTH / 2.0f), -1 * (CHEST_HEIGHT / 2.0f)),
                 1,
                 sf::Vector2f(LIMB_LENGTH, LIMB_THICKNESS));
         right_bicep_entity->AddComponent<Appendage>(
@@ -262,7 +262,7 @@ namespace tjg {
         left_forearm_entity->AddComponent<Sprite>(forearm_sprite, TECH17_BASE_SPRITE_LAYER - 2);
         auto left_forearm_body = left_forearm_entity->AddComponent<DynamicBody>(
                 physics_system.GetSpace(),
-                sf::Vector2f(-1 * (CHEST_WIDTH / 2.0f + LIMB_LENGTH + LIMB_LENGTH / 2.0f), -1 * (CHEST_HEIGHT / 2.0f)),
+                sf::Vector2f(tech17_x - 1 * (CHEST_WIDTH / 2.0f + LIMB_LENGTH + LIMB_LENGTH / 2.0f), tech17_y - 1 * (CHEST_HEIGHT / 2.0f)), // sf::Vector2f(-1 * (CHEST_WIDTH / 2.0f + LIMB_LENGTH + LIMB_LENGTH / 2.0f), -1 * (CHEST_HEIGHT / 2.0f)),
                 1,
                 sf::Vector2f(LIMB_LENGTH, LIMB_THICKNESS));
         left_forearm_entity->AddComponent<Appendage>(
@@ -288,7 +288,7 @@ namespace tjg {
         right_forearm_entity->AddComponent<Sprite>(forearm_sprite, TECH17_BASE_SPRITE_LAYER - 2);
         auto right_forearm_body = right_forearm_entity->AddComponent<DynamicBody>(
                 physics_system.GetSpace(),
-                sf::Vector2f((CHEST_WIDTH / 2.0f + LIMB_LENGTH + LIMB_LENGTH / 2.0f), -1 * (CHEST_HEIGHT / 2.0f)),
+                sf::Vector2f(tech17_x + (CHEST_WIDTH / 2.0f + LIMB_LENGTH + LIMB_LENGTH / 2.0f), tech17_y - 1 * (CHEST_HEIGHT / 2.0f)), // sf::Vector2f((CHEST_WIDTH / 2.0f + LIMB_LENGTH + LIMB_LENGTH / 2.0f), -1 * (CHEST_HEIGHT / 2.0f)),
                 1,
                 sf::Vector2f(LIMB_LENGTH, LIMB_THICKNESS));
         right_forearm_entity->AddComponent<Appendage>(
@@ -319,7 +319,7 @@ namespace tjg {
         left_thigh_entity->AddComponent<Sprite>(thigh_sprite, TECH17_BASE_SPRITE_LAYER - 2);
         auto left_thigh_body = left_thigh_entity->AddComponent<DynamicBody>(
                 physics_system.GetSpace(),
-                sf::Vector2f(-1 * ABS_WIDTH / 2.0f, CHEST_HEIGHT + ABS_HEIGHT + LIMB_LENGTH / 2.0f),
+                sf::Vector2f(tech17_x - 1 * ABS_WIDTH / 2.0f, tech17_y + CHEST_HEIGHT + ABS_HEIGHT + LIMB_LENGTH / 2.0f), // sf::Vector2f(-1 * ABS_WIDTH / 2.0f, CHEST_HEIGHT + ABS_HEIGHT + LIMB_LENGTH / 2.0f),
                 1,
                 sf::Vector2f(LIMB_THICKNESS, LIMB_LENGTH));
         left_thigh_entity->AddComponent<Appendage>(
@@ -345,7 +345,7 @@ namespace tjg {
         right_thigh_entity->AddComponent<Sprite>(thigh_sprite, TECH17_BASE_SPRITE_LAYER - 2);
         auto right_thigh_body = right_thigh_entity->AddComponent<DynamicBody>(
                 physics_system.GetSpace(),
-                sf::Vector2f(ABS_WIDTH / 2.0f, CHEST_HEIGHT + ABS_HEIGHT + LIMB_LENGTH / 2.0f),
+                sf::Vector2f(tech17_x + ABS_WIDTH / 2.0f, tech17_y + CHEST_HEIGHT + ABS_HEIGHT + LIMB_LENGTH / 2.0f),// sf::Vector2f(ABS_WIDTH / 2.0f, CHEST_HEIGHT + ABS_HEIGHT + LIMB_LENGTH / 2.0f),
                 1,
                 sf::Vector2f(LIMB_THICKNESS, LIMB_LENGTH));
         right_thigh_entity->AddComponent<Appendage>(
@@ -377,7 +377,7 @@ namespace tjg {
         left_shin_entity->AddComponent<Sprite>(shin_sprite, TECH17_BASE_SPRITE_LAYER - 3);
         auto left_shin_body = left_shin_entity->AddComponent<DynamicBody>(
                 physics_system.GetSpace(),
-                sf::Vector2f(-1 * ABS_WIDTH / 2.0f, CHEST_HEIGHT + ABS_HEIGHT + LIMB_LENGTH + LIMB_LENGTH / 2.0f),
+                sf::Vector2f(tech17_x - 1 * ABS_WIDTH / 2.0f, tech17_y +  CHEST_HEIGHT + ABS_HEIGHT + LIMB_LENGTH + LIMB_LENGTH / 2.0f),// sf::Vector2f(-1 * ABS_WIDTH / 2.0f, CHEST_HEIGHT + ABS_HEIGHT + LIMB_LENGTH + LIMB_LENGTH / 2.0f),
                 1,
                 sf::Vector2f(LIMB_THICKNESS, LIMB_LENGTH));
         left_shin_entity->AddComponent<Appendage>(
@@ -403,7 +403,7 @@ namespace tjg {
         right_shin_entity->AddComponent<Sprite>(shin_sprite, TECH17_BASE_SPRITE_LAYER - 3);
         auto right_shin_body = right_shin_entity->AddComponent<DynamicBody>(
                 physics_system.GetSpace(),
-                sf::Vector2f(ABS_WIDTH / 2.0f, CHEST_HEIGHT + ABS_HEIGHT + LIMB_LENGTH + LIMB_LENGTH / 2.0f),
+                sf::Vector2f(tech17_x + ABS_WIDTH / 2.0f, tech17_y + CHEST_HEIGHT + ABS_HEIGHT + LIMB_LENGTH + LIMB_LENGTH / 2.0f), // sf::Vector2f(ABS_WIDTH / 2.0f, CHEST_HEIGHT + ABS_HEIGHT + LIMB_LENGTH + LIMB_LENGTH / 2.0f),
                 1,
                 sf::Vector2f(LIMB_THICKNESS, LIMB_LENGTH));
         right_shin_entity->AddComponent<Appendage>(

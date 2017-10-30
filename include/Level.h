@@ -22,15 +22,29 @@
 namespace tjg {
 
     class Level {
-    public:
+    public:        
+        struct Exit {
+            float x;
+            float y;
+        };
+
+        struct Entrance {
+            float x;
+            float y;
+        };
+
         Level();
         ~Level();
+
         void Read(const unsigned &);
         void JsonTest();
 
-    //private:
-        float exit_x;
-        float exit_y;
+        const Exit & GetExit(); 
+        const Entrance & GetEntrance(); //
+
+    private:        
+        Exit exit_; 
+        Entrance entrance_;
     };
 }
 #endif //GAME_LEVEL_H

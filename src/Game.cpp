@@ -14,7 +14,7 @@ namespace tjg {
 
     // Begin the game loop.
     void Game::Run() {
-        level.JsonTest();
+        // level.JsonTest();
         level.Read(1);
         logic_center.Initialize(level);
         player_view.Initialize();

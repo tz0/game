@@ -1,48 +1,18 @@
 #include "Level.h"
 
 namespace tjg {
-    Level::Level() :
-        exit_x(-1000),
-        exit_y(-200) {
+    //Level::Level() :
+    //    exit.x(-1000),
+    //    exit.y(-200) {
+    //}
+
+    Level::Level() : 
+        exit_{-1000, -200} {
     }
 
     Level::~Level() = default;
 
-    void Level::JsonTest() {
-        ////const std::string simple_test 
-        //    R"({"k1":"v1", "k2":42, "k3":["a",123,true,false,null]})";
-        //std::string err;
-        //const auto json = json11::Json::parse(simple_test, err);
-        //std::cout << "k1: " << json["k1"].string_value() << "\n";
-        //std::cout << "k3: " << json["k3"].dump() << "\n";
-        //for (auto &k : json["k3"].array_items()) {
-        //    std::cout << "    - " << k.dump() << "\n";
-        //}
-
-        ////test.json test
-        //std::cout << "file read test." << std::endl;
-        //std::ifstream in("..//data//test.json");
-        ////std::ifstream in("..\\data\\test.json");        
-        //std::string raw_levelfile((std::istreambuf_iterator<char>(in)), std::istreambuf_iterator<char>());
-        //std::cout << "[raw file] " << raw_levelfile << std::endl;
-
-        //std::string err;
-        //const auto parse_result = json11::Json::parse(raw_levelfile, err);
-        //std::cout << "k1: " << parse_result["k1"].string_value() << "\n";        
-        //std::cout << "k2: " << parse_result["k2"].dump() << "\n";
-        //std::cout << "k3: " << parse_result["k3"].dump() << "\n";
-        //for (auto &k : parse_result["k3"].array_items()) {
-        //    std::cout << "    - " << k.dump() << "\n";
-        //}
-
-        //std::cout << parse_result.dump() << '\n';
-        //std::cout << typeid(parse_result.dump()).name() << '\n';
-        //std::cout << parse_result[1].dump() << '\n'; // null, nothing
-        //std::cout << typeid(parse_result[1].dump()).name() << '\n'; //using std <vector> as array
-        //std::cout << typeid(parse_result).name() << std::endl; //  class json11::Json
-
-
-
+    void Level::JsonTest() {        
         //level1.json test
         std::cout << "level1 read successfully." << std::endl;
         std::ifstream in("..//data//level1.json");  //universal seperator 
@@ -66,14 +36,10 @@ namespace tjg {
         //std::cout << "[entrance]: " << typeid(parse_result["entrance"]).name() << std::endl;
         std::cout << "[x]: " << parse_result["entrance"]["x"].dump() << std::endl;
         std::cout << "[y]: " << parse_result["entrance"]["y"].dump() << std::endl;
-        std::cout << "[height]: " << parse_result["entrance"]["height"].dump() << std::endl;
-        std::cout << "[weight]: " << parse_result["entrance"]["weight"].dump() << std::endl;
 
         std::cout << std::endl << "---- [exit]" << std::endl;
         std::cout << "[x]: " << parse_result["exit"]["x"].dump() << std::endl;
         std::cout << "[y]: " << parse_result["exit"]["y"].dump() << std::endl;
-        std::cout << "[height]: " << parse_result["exit"]["height"].dump() << std::endl;
-        std::cout << "[weight]: " << parse_result["exit"]["weight"].dump() << std::endl;
 
         std::cout << std::endl << "---- [fans]" << std::endl;
         std::cout << "[size]: " << parse_result["fans"].array_items().size() << "\n";
@@ -102,11 +68,34 @@ namespace tjg {
     }
 
     void Level::Read(const unsigned & current_level = 1) {
-        std::string level_address = "..//data//level" + std::to_string(current_level) +".json";
+        std::string err, level_address = "..//data//level" + std::to_string(current_level) +".json";
 
         std::cout << "Reading level from = " << level_address << std::endl;
+
+        std::ifstream in(level_address);  
+        std::string raw_levelfile((std::istreambuf_iterator<char>(in)), std::istreambuf_iterator<char>());
+        const auto parse_result = json11::Json::parse(raw_levelfile, err);
+
+        //TODO: add is_number check here
+        exit_.x = static_cast<float>(parse_result["exit"]["x"].number_value());        
+        exit_.y = static_cast<float>(parse_result["exit"]["y"].number_value());
+        entrance_.x = static_cast<float>(parse_result["entrance"]["x"].number_value());
+        entrance_.y = static_cast<float>(parse_result["entrance"]["y"].number_value());
+        
+        std::cout << std::endl << "[read]" << std::endl;
+        std::cout << "[x]: " << exit_.x << std::endl;
+        std::cout << "[y]: " << exit_.y << std::endl;
     }
 
+    const Level::Exit & Level::GetExit()
+    {
+        return exit_;
+    }
+
+    const Level::Entrance & Level::GetEntrance()
+    {
+        return entrance_;
+    }
 
 
 }

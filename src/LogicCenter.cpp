@@ -10,13 +10,14 @@ namespace tjg {
 
     void LogicCenter::Initialize(Level &level) {
         // Make TECH-17
-        tech17 = entity_factory.MakeTech17();
+        tech17 = entity_factory.MakeTech17(level.GetEntrance().x, level.GetEntrance().y);
         control_center.AddEntity(tech17);
 
         // Make entrance and exit.
-        entrance = entity_factory.MakeEntrance(sf::Vector2f(0, 0));
+        //entrance = entity_factory.MakeEntrance(sf::Vector2f(0, 0));
+        entrance = entity_factory.MakeEntrance(sf::Vector2f(level.GetEntrance().x, level.GetEntrance().y));
         //exit = entity_factory.MakeExit(sf::Vector2f(-1400, -200));
-        exit = entity_factory.MakeExit(sf::Vector2f(level.exit_x, level.exit_y));
+        exit = entity_factory.MakeExit(sf::Vector2f(level.GetExit().x, level.GetExit().y));
 
         // Register listeners.
         event_manager.RegisterListener<ReachedExit>([&](ReachedExit &event){
