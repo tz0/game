@@ -1,7 +1,9 @@
 {
   "level": 1,
-  "gas" : 88.25,
+  "fuel" : 4.4,
   "oxygen" : 30,
+  "total_fuel" : 5,
+  "total_oxygen" : 45,
   "fans":
   [
     {

@@ -42,9 +42,14 @@ namespace tjg {
         const Exit & GetExit(); 
         const Entrance & GetEntrance(); //
 
+        const float & GetTotalFuel();
+        const float & GetTotalOxygen(); //
+
     private:        
         Exit exit_; 
         Entrance entrance_;
+        float total_fuel_;
+        float total_oxygen_;
     };
 }
 #endif //GAME_LEVEL_H

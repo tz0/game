@@ -88,7 +88,7 @@ namespace tjg {
  *
  * @return Tech17 Entity
  */
-    std::shared_ptr<Entity> EntityFactory::MakeTech17(const float & tech17_x, const float &tech17_y) {
+    std::shared_ptr<Entity> EntityFactory::MakeTech17(const float & tech17_x, const float & tech17_y) {
         auto spacesuit_texture = resource_manager.LoadTexture("spritesheet.png");
         auto tech17 = std::make_shared<Entity>();
 

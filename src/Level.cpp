@@ -7,7 +7,7 @@ namespace tjg {
     //}
 
     Level::Level() : 
-        exit_{-1000, -200} {
+        exit_{-1000, -200}, total_fuel_(5), total_oxygen_(45) {
     }
 
     Level::~Level() = default;
@@ -81,10 +81,15 @@ namespace tjg {
         exit_.y = static_cast<float>(parse_result["exit"]["y"].number_value());
         entrance_.x = static_cast<float>(parse_result["entrance"]["x"].number_value());
         entrance_.y = static_cast<float>(parse_result["entrance"]["y"].number_value());
+        total_fuel_ = static_cast<float>(parse_result["total_fuel"].number_value());
+        total_oxygen_ = static_cast<float>(parse_result["total_oxygen"].number_value());
         
         std::cout << std::endl << "[read]" << std::endl;
         std::cout << "[x]: " << exit_.x << std::endl;
-        std::cout << "[y]: " << exit_.y << std::endl;
+        std::cout << "[y]: " << exit_.y << std::endl;        
+        std::cout << "[total fuel]: " << total_fuel_ << std::endl;
+        std::cout << "[total oxygen]: " << total_oxygen_ << std::endl;
+
     }
 
     const Level::Exit & Level::GetExit()
@@ -95,6 +100,16 @@ namespace tjg {
     const Level::Entrance & Level::GetEntrance()
     {
         return entrance_;
+    }
+
+    const float & Level::GetTotalFuel()
+    {
+        return total_fuel_;
+    }
+
+    const float & Level::GetTotalOxygen()
+    {
+        return total_oxygen_;
     }
 
 
