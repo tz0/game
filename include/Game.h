@@ -6,8 +6,10 @@
 #include <SFML/Graphics.hpp>
 
 #include <chipmunk.h>
-#include <Views/PlayerView.h>
-#include <Level.h>
+
+#include "ViewManager.h"
+#include "Constants.h"
+#include "Level.h"
 
 namespace tjg {
 
@@ -19,9 +21,8 @@ namespace tjg {
     private:
         ResourceManager resource_manager;
         LogicCenter logic_center;
-        PlayerView player_view;
+        ViewManager view_manager;
         Level level;
-
         sf::Clock update_clock;
     };
 }

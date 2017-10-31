@@ -3,16 +3,16 @@
 #define GAME_LOGIC_H
 
 #include <SFML/System/Time.hpp>
-#include <Systems/PhysicsSystem.h>
 
+#include "Systems/PhysicsSystem.h"
 #include "Systems/ControlCenter.h"
 #include "EntityFactory.h"
 #include "EventManager.h"
 #include "Events/ReachedExit.h"
+#include "Constants.h"
 #include "Events/OxygenExpired.h"
 #include "Events/FuelExpired.h"
 #include "Components/FiniteResource.h"
-
 #include "Level.h"
 
 namespace tjg {
@@ -38,11 +38,10 @@ namespace tjg {
         std::shared_ptr<Entity> tech17;
         std::shared_ptr<Entity> entrance;
         std::shared_ptr<Entity> exit;
+
+        State game_state = State::PLAYING;
         std::shared_ptr<Entity> fuel_tracker;
         std::shared_ptr<Entity> oxygen_tracker;
-
-        // Flags
-        bool did_exit = false;
 
         // Temporary for testing purposes.
         std::vector<std::shared_ptr<Entity>> walls;
@@ -51,13 +50,15 @@ namespace tjg {
         // Countdown timer set
         sf::Clock oxygen_clock;
 
+        Level level;
+
     public:
         LogicCenter(ResourceManager &resource_manager);
 
         /**
          * Initialize creates and configures necessary entities before the game begins
          */
-        void Initialize(Level &level);
+        void Initialize(unsigned int level_number);
 
         /**
          * Update will cause the physical center to be updated.
@@ -65,11 +66,12 @@ namespace tjg {
         void Update(const sf::Time &elapsed);
 
         /**
-         * @return if tech17 reach the exit
+         *  Resets the logic center
          */
-        bool DidReachExit();
+        void Reset();
 
         // Accessors
+        State GetGameState(); //result of game
         EntityFactory& GetEntityFactory();
         ControlCenter& GetControlCenter();
         std::shared_ptr<Entity> GetTech17();
@@ -79,6 +81,7 @@ namespace tjg {
         std::shared_ptr<Entity> GetExit();
         std::shared_ptr<Entity> GetFuelTracker();
         std::shared_ptr<Entity> GetOxygenTracker();
+        Level &GetLevel();
 
     };
 

@@ -1,17 +1,18 @@
-#include <bitset>
-
 #include "Views/PlayerView.h"
 
 namespace tjg {
 
-    PlayerView::PlayerView(ResourceManager &resource_manager, LogicCenter &logic_center) :
-            View(logic_center),
-            resource_manager(resource_manager),
-            window(sf::VideoMode(WINDOW_WIDTH, WINDOW_HEIGHT, 32), "Jetpack Game - Alpha", sf::Style::Titlebar | sf::Style::Close) {
-        window.setVerticalSyncEnabled(true);
+    PlayerView::PlayerView(ResourceManager &resource_manager, sf::RenderWindow &window, LogicCenter &logic_center) :
+            View(window,resource_manager),
+            logic_center(logic_center) {
+            window.setVerticalSyncEnabled(true);
     }
 
-    void PlayerView::Initialize(Level &level) {
+
+    void PlayerView::Initialize() {
+        playerview_render_system.Reset();
+        statusbar_render_system.Reset();
+
         // Load fonts and the texture sheet
         auto avenir_bold = resource_manager.LoadFont("Avenir-Bold.ttf");
         auto lcd_regular = resource_manager.LoadFont("LCD-Regular.ttf");
@@ -44,23 +45,11 @@ namespace tjg {
             playerview_render_system.AddEntity(fan);
         }
 
-        // TODO: Delete this section once menu system is implemented.
-        // temp Set font for win message
-        win_message.setFont(*avenir_bold);
-        // Create a win message.
-        win_message.setStyle(sf::Text::Bold);
-        win_message.setCharacterSize(24);
-        win_message.setString("You Reached the Exit!");
-        // Center the win message on the screen.
-        sf::FloatRect textRect = win_message.getLocalBounds();
-        win_message.setOrigin(textRect.left + (textRect.width / 2), textRect.top + (textRect.height / 2));
-        win_message.setPosition(WINDOW_WIDTH / 2, WINDOW_HEIGHT/ 2);
-
         // Initialize status bar.
         initializeStatusBar();
 
         // Initialize dialog system
-        std::vector<std::string> dialog_snippets = level.GetDialogues();
+        std::vector<std::string> dialog_snippets = logic_center.GetLevel().GetDialogues();
         initializeDialogSystem(dialog_snippets, 4, lcd_regular); // maybe i could put seconds_to_show_dialog in level files.
 
         // Set up camera
@@ -71,9 +60,6 @@ namespace tjg {
         camera.setSize(2080, 1280 + (STATUSBAR_HEIGHT * 2));
     }
 
-    bool PlayerView::Running() {
-        return running;
-    }
 
     void PlayerView::Render() {
         window.clear(sf::Color(50, 50, 50, 255));
@@ -114,44 +100,30 @@ namespace tjg {
     // Update logic that is specific to the player view.
     void PlayerView::Update(const sf::Time &elapsed) {
         CheckKeys(elapsed);
-        HandleWindowEvents();
         dialog_system.Update(elapsed);
     }
 
-    void PlayerView::HandleWindowEvents() {
-        sf::Event event;
-        // Look for window events.
-        while (window.pollEvent(event)) {
-            switch (event.type) {
-                case sf::Event::Closed:
-                    window.close();
-                    running = false;
-                    break;
-                case sf::Event::KeyPressed: {
-                    switch (event.key.code) {
-
-                        // Close window on ESC
-                        case sf::Keyboard::Escape: {
-                            window.close();
-                            running = false;
-                            break;
-                        }
-
-                            // Toggle FPS counter on F1.
-                        case sf::Keyboard::F1: {
-                            show_info = !show_info;
-                            break;
-                        }
-
-                        default:
-                            break;
-                    }
-                    break;
+    ViewSwitch PlayerView::HandleWindowEvents(const sf::Event event) {
+        switch (event.type) {
+            case sf::Event::LostFocus:
+                return ViewSwitch::PAUSED;
+            case sf::Event::KeyPressed: {
+                switch (event.key.code) {
+                    // Toggle FPS counter on F1.
+                    case sf::Keyboard::F1:
+                        show_info = !show_info;
+                        break;
+                    case sf::Keyboard::Escape:
+                        return ViewSwitch::PAUSED;
+                    default:
+                        break;
                 }
-                default:
-                    break;
+                break;
             }
+            default:
+                break;
         }
+        return ViewSwitch::CONTINUE;
     }
 
     void PlayerView::CheckKeys(const sf::Time &elapsed) {
@@ -176,14 +148,6 @@ namespace tjg {
             control_center.GetPlayerEntity()->GetComponent<Sprite>()->GetSprite().setColor(
                     sf::Color(255, 255, 255));
         }
-    }
-
-    // TODO: This is a temporary solution.
-    void PlayerView::RenderWinMessage() {
-        window.setView(window.getDefaultView());
-        window.clear(sf::Color(50, 50, 50, 255));
-        window.draw(win_message);
-        window.display();
     }
 
     void PlayerView::initializeStatusBar() {

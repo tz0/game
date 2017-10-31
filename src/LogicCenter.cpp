@@ -8,7 +8,8 @@ namespace tjg {
             entity_factory(resource_manager, physics_system) {
     }
 
-    void LogicCenter::Initialize(Level &level) {
+    void LogicCenter::Initialize(const unsigned int level_number) {
+        level.Read(level_number, true);
         // Make TECH-17
         tech17 = entity_factory.MakeTech17(level.GetEntrance().x, level.GetEntrance().y);
         control_center.AddEntity(tech17);
@@ -20,19 +21,22 @@ namespace tjg {
         // Register listeners.
         event_manager.RegisterListener<ReachedExit>([&](ReachedExit &event){
             (void)event;
-            did_exit = true;
+            game_state = State::WON;
         });
         event_manager.RegisterListener<HitWall>([&](HitWall &event){
             (void)event;
             std::cout << "Hit a wall!" << std::endl;
+            game_state = State::FAILED;
         });
         event_manager.RegisterListener<OxygenExpired>([&](OxygenExpired &event) {
             (void)event;
             std::cout << "Out of oxygen!" << std::endl;
+            game_state = State::FAILED;
         });
         event_manager.RegisterListener<FuelExpired>([&](FuelExpired &event) {
             (void)event;
             std::cout << "Out of fuel!" << std::endl;
+            game_state = State::FAILED;
         });
 
         //Iterate wall information record from level's walls vector, create walls and add them to the walls vector.
@@ -99,8 +103,17 @@ namespace tjg {
         }
     }
 
-    bool LogicCenter::DidReachExit() {
-        return did_exit;
+
+    void LogicCenter::Reset() {
+        physics_system.Reset();
+        collision_center.Reset(physics_system.GetSpace());
+        game_state = State::PLAYING;
+        oxygen_clock.restart();
+    }
+
+
+    State LogicCenter::GetGameState() {
+        return game_state;
     }
 
     std::shared_ptr<Entity> LogicCenter::GetTech17() {
@@ -137,5 +150,9 @@ namespace tjg {
 
     ControlCenter& LogicCenter::GetControlCenter() {
         return control_center;
+    }
+
+    Level& LogicCenter::GetLevel() {
+        return level;
     }
 }
