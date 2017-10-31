@@ -12,6 +12,8 @@
 #include "View.h"
 #include "Constants.h"
 
+#include "Level.h"
+
 namespace tjg {
 
     class PlayerView : public View {
@@ -61,7 +63,7 @@ namespace tjg {
         explicit PlayerView(ResourceManager &resource_manager, sf::RenderWindow &window, LogicCenter &logic_center);
 
         // Methods
-        void Initialize() override;
+        void Initialize(Level &level) override;
         void Render();
 
         ViewSwitch HandleWindowEvents(sf::Event event) override;

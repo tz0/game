@@ -3,8 +3,8 @@
 #define GAME_LOGIC_H
 
 #include <SFML/System/Time.hpp>
-#include <Systems/PhysicsSystem.h>
 
+#include "Systems/PhysicsSystem.h"
 #include "Systems/ControlCenter.h"
 #include "EntityFactory.h"
 #include "EventManager.h"
@@ -13,7 +13,7 @@
 #include "Events/OxygenExpired.h"
 #include "Events/FuelExpired.h"
 #include "Components/FiniteResource.h"
-
+#include "Level.h"
 
 namespace tjg {
 
@@ -56,7 +56,7 @@ namespace tjg {
         /**
          * Initialize creates and configures necessary entities before the game begins
          */
-        void Initialize();
+        void Initialize(Level &level);
 
         /**
          * Update will cause the physical center to be updated.

@@ -8,7 +8,8 @@
 int main()
 {
     tjg::Game game;
-    game.Run();
+    game.Run();    
+
     return EXIT_SUCCESS;
 }
 
