@@ -1,17 +1,18 @@
+#include <Components/FiniteResource.h>
 #include "EntityFactory.h"
 
 namespace tjg {
 
-    std::shared_ptr<Entity> EntityFactory::MakeWall(const sf::Vector2f &a, const sf::Vector2f &b, const float width) {
+    std::shared_ptr<Entity> EntityFactory::MakeWall(const sf::Vector2f &origin_point, const sf::Vector2f &end_point, const float radius) {
         // Create wall entity.
         auto wall = std::make_shared<Entity>();
 
         // Add location component
-        auto wall_location = wall->AddComponent<Location>((a.x + b.x) / 2.0f, (a.y + b.y) / 2.0f);
-        wall_location->SetRotation(calculateAngle(a, b));
+        auto wall_location = wall->AddComponent<Location>((origin_point.x + end_point.x) / 2.0f, (origin_point.y + end_point.y) / 2.0f);
+        wall_location->SetRotation(calculateAngle(origin_point, end_point));
 
         // Add static segment component
-        auto static_segment = wall->AddComponent<StaticSegment>(physics_system.GetSpace(), a.x, a.y, b.x, b.y, width);
+        auto static_segment = wall->AddComponent<StaticSegment>(physics_system.GetSpace(), origin_point.x, origin_point.y, end_point.x, end_point.y, radius);
         cpShapeSetCollisionType(static_segment->GetShape(), static_cast<cpCollisionType>(CollisionGroup::WALL));
 
         // Load wall texture.
@@ -19,12 +20,12 @@ namespace tjg {
         wall_texture->setRepeated(true);
 
         // Get wall length.
-        auto length = (int) calculateDistance(a, b);
+        auto length = (int) calculateDistance(origin_point, end_point);
 
         // Add Sprite component so walls are visible
         sf::Sprite wall_sprite;
         wall_sprite.setTexture(*wall_texture);
-        wall_sprite.setTextureRect(sf::IntRect(0, 0, length, (int) width));
+        wall_sprite.setTextureRect(sf::IntRect(0, 0, (int)(length + radius*2), (int)radius*2));
         wall_sprite.setColor(sf::Color(150, 150, 150)); // Dark gray
         wall->AddComponent<Sprite>(wall_sprite);
 
@@ -38,9 +39,9 @@ namespace tjg {
         return rect;
     }
 
-    std::shared_ptr<Entity> EntityFactory::MakeTiledBackground(const std::string &path) {
+    std::shared_ptr<Entity> EntityFactory::MakeTiledBackground(const std::string &texture_path) {
         // Load texture
-        auto background_texture = resource_manager.LoadTexture(path);
+        auto background_texture = resource_manager.LoadTexture(texture_path);
         background_texture->setRepeated(true);
 
         // Create entity
@@ -477,15 +478,15 @@ namespace tjg {
         return fan;
     }
 
-    std::shared_ptr<Entity> EntityFactory::MakeEntrance(const sf::Vector2f &a) {
+    std::shared_ptr<Entity> EntityFactory::MakeEntrance(const sf::Vector2f &position) {
         // Create entrance entity.
         auto entrance = std::make_shared<Entity>();
 
         // Add location component
-        auto entrance_location = entrance->AddComponent<Location>(a.x, a.y);
+        auto entrance_location = entrance->AddComponent<Location>(position.x, position.y);
 
-        // Load entrance texture.
-        auto entrance_texture = resource_manager.LoadTexture("door-1.png"); // TODO put in sprite
+        // Load texture.
+        auto entrance_texture = resource_manager.LoadTexture("door-1.png"); // TODO put in spritesheet
 
         // Add Sprite component so walls are visible
         sf::Sprite entrance_sprite;
@@ -496,15 +497,15 @@ namespace tjg {
         return entrance;
     }
 
-    std::shared_ptr<Entity> EntityFactory::MakeExit(const sf::Vector2f &a) {
-        // Create entrance entity.
+    std::shared_ptr<Entity> EntityFactory::MakeExit(const sf::Vector2f &position) {
+        // Create exit entity.
         auto exit = std::make_shared<Entity>();
 
         // Add location component
-        auto exit_location = exit->AddComponent<Location>(a.x, a.y);
+        auto exit_location = exit->AddComponent<Location>(position.x, position.y);
 
-        // Load entrance texture.
-        auto exit_texture = resource_manager.LoadTexture("door-1.png"); // TODO put in sprite
+        // Load texture.
+        auto exit_texture = resource_manager.LoadTexture("door-1.png"); // TODO put in spritesheet
 
         // Add Sprite component
         sf::Sprite exit_sprite;
@@ -512,10 +513,36 @@ namespace tjg {
         exit_sprite.setTextureRect(sf::IntRect(0, 0, 128, 240));
         exit->AddComponent<Sprite>(exit_sprite);
 
-        auto segment = exit->AddComponent<StaticSegment>(physics_system.GetSpace(), a + sf::Vector2f(0, -10), a + sf::Vector2f(0, 10), 20);
+        // StaticSegment component.
+        auto segment = exit->AddComponent<StaticSegment>(physics_system.GetSpace(), position + sf::Vector2f(0, -10), position + sf::Vector2f(0, 10), 20);
         cpShapeSetCollisionType(segment->GetShape(), static_cast<cpCollisionType>(CollisionGroup::EXIT));
 
         return exit;
+    }
+
+    std::shared_ptr<Entity> EntityFactory::MakeResourceTracker(float max_value, std::string &texture_path, const sf::Color &color) {
+        // Create resource bar entity.
+        auto resource_tracker = std::make_shared<Entity>();
+
+        // Add Location component.
+        auto location = resource_tracker->AddComponent<Location>(0, 0);
+
+        // Add FiniteResource component.
+        auto finite_resource = resource_tracker->AddComponent<FiniteResource>(max_value);
+
+        // Load texture.
+        auto texture = resource_manager.LoadTexture(texture_path);
+        auto texture_size = texture->getSize();
+        texture->setRepeated(true);
+
+        // Add Sprite component.
+        sf::Sprite sprite;
+        sprite.setTexture(*texture);
+        sprite.setTextureRect(sf::IntRect(0, 0, texture_size.x, texture_size.y));
+        sprite.setColor(color);
+        resource_tracker->AddComponent<Sprite>(sprite);
+
+        return resource_tracker;
     }
 
     float EntityFactory::calculateAngle(sf::Vector2f p1, sf::Vector2f p2) {

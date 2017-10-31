@@ -12,6 +12,12 @@ namespace tjg {
     class SpriteRenderSystem : public System {
     private:
         std::map<int, std::vector<std::shared_ptr<Entity>>> layers;
+
+        /**
+         * Render the specified entity to the given target.
+         * @param target
+         * @param entity
+         */
         void renderEntity(sf::RenderTarget &target, std::shared_ptr<Entity> entity);
 
     public:

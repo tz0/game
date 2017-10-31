@@ -21,7 +21,6 @@ namespace tjg {
         ResourceManager resource_manager;
         LogicCenter logic_center;
         ViewManager view_manager;
-
         sf::Clock update_clock;
     };
 }

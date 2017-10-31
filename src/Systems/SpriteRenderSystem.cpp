@@ -15,7 +15,7 @@ namespace tjg {
     void SpriteRenderSystem::AddEntity(std::shared_ptr<Entity> entity) {
         auto sprite_component = entity->GetComponent<Sprite>();
         if (!sprite_component) {
-            throw std::runtime_error("missing sprite component");
+            throw std::runtime_error("Missing sprite component");
         }
         layers[sprite_component->GetLayer()].push_back(entity);
     }

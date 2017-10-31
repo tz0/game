@@ -47,13 +47,14 @@ namespace tjg {
                 physics_system(physics_system) {}
 
         // Entity factory methods.
-        std::shared_ptr<Entity> MakeWall(const sf::Vector2f &a, const sf::Vector2f &b, float width);
+        std::shared_ptr<Entity> MakeWall(const sf::Vector2f &origin_point, const sf::Vector2f &end_point, float radius);
         std::shared_ptr<Entity> MakeStaticSprite(sf::Sprite sprite, const sf::Vector2f &position);
-        std::shared_ptr<Entity> MakeTiledBackground(const std::string &path);
+        std::shared_ptr<Entity> MakeTiledBackground(const std::string &texture_path);
         std::shared_ptr<Entity> MakeTech17();
         std::shared_ptr<Entity> MakeFan(const sf::Vector2f &origin_point, const sf::Vector2f &end_point, float width, float origin_strength, float end_strength);
-        std::shared_ptr<Entity> MakeEntrance(const sf::Vector2f &a);
-        std::shared_ptr<Entity> MakeExit(const sf::Vector2f &a);
+        std::shared_ptr<Entity> MakeEntrance(const sf::Vector2f &position);
+        std::shared_ptr<Entity> MakeExit(const sf::Vector2f &position);
+        std::shared_ptr<Entity> MakeResourceTracker(float max_value, std::string &texture_path, const sf::Color &color);
     };
 
 }
