@@ -50,13 +50,15 @@ namespace tjg {
         // Countdown timer set
         sf::Clock oxygen_clock;
 
+        Level level;
+
     public:
         LogicCenter(ResourceManager &resource_manager);
 
         /**
          * Initialize creates and configures necessary entities before the game begins
          */
-        void Initialize(Level &level);
+        void Initialize(unsigned int level_number);
 
         /**
          * Update will cause the physical center to be updated.
@@ -79,6 +81,7 @@ namespace tjg {
         std::shared_ptr<Entity> GetExit();
         std::shared_ptr<Entity> GetFuelTracker();
         std::shared_ptr<Entity> GetOxygenTracker();
+        Level &GetLevel();
 
     };
 

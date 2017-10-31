@@ -22,9 +22,8 @@ namespace tjg {
                 resource_manager(resourceManager){};
 
         virtual ViewSwitch HandleWindowEvents(sf::Event event) = 0;
-      
-        //TODO(Tao): move this level parameter to LogicCenter::Initialize
-        virtual void Initialize(Level &level) = 0;
+
+        virtual void Initialize() = 0;
     };
 }
 #endif //GAME_VIEW_H

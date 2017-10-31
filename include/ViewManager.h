@@ -35,7 +35,7 @@ namespace tjg {
         void SwitchToMainMenuView();
         void SwitchToLevelMenuView();
         void SwitchToPauseMenuView(State state);
-        void SwitchToPlayerView();
+        void SwitchToPlayerView(unsigned int level_number);
         void ResumePlayerView();
         void HandleWindowEvents(View &current_view);
     };

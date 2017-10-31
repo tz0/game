@@ -32,7 +32,8 @@ namespace tjg {
                 break;
             case ViewSwitch::PLAYING:
                 logic_center.Reset();
-                SwitchToPlayerView();
+                //TODO(Yangyang): get the level_number from the menu selection
+                SwitchToPlayerView(1);
                 break;
             case ViewSwitch::RESUME:
                 ResumePlayerView();
@@ -74,8 +75,8 @@ namespace tjg {
     }
 
 
-    void ViewManager::SwitchToPlayerView() {
-        logic_center.Initialize();
+    void ViewManager::SwitchToPlayerView(const unsigned int level_number) {
+        logic_center.Initialize(level_number);
         player_view.Initialize();
         state = State::PLAYING;
     }

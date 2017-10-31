@@ -63,7 +63,7 @@ namespace tjg {
         explicit PlayerView(ResourceManager &resource_manager, sf::RenderWindow &window, LogicCenter &logic_center);
 
         // Methods
-        void Initialize(Level &level) override;
+        void Initialize() override;
         void Render();
 
         ViewSwitch HandleWindowEvents(sf::Event event) override;

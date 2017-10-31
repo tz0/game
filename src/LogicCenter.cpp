@@ -8,7 +8,8 @@ namespace tjg {
             entity_factory(resource_manager, physics_system) {
     }
 
-    void LogicCenter::Initialize(Level &level) {
+    void LogicCenter::Initialize(const unsigned int level_number) {
+        level.Read(level_number, true);
         // Make TECH-17
         tech17 = entity_factory.MakeTech17(level.GetEntrance().x, level.GetEntrance().y);
         control_center.AddEntity(tech17);
@@ -149,5 +150,9 @@ namespace tjg {
 
     ControlCenter& LogicCenter::GetControlCenter() {
         return control_center;
+    }
+
+    Level& LogicCenter::GetLevel() {
+        return level;
     }
 }
