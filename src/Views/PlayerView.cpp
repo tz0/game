@@ -11,7 +11,7 @@ namespace tjg {
         window.setVerticalSyncEnabled(true);
     }
 
-    void PlayerView::Initialize() {
+    void PlayerView::Initialize(Level &level) {
         // Load fonts and the texture sheet
         auto avenir_bold = resource_manager.LoadFont("Avenir-Bold.ttf");
         auto lcd_regular = resource_manager.LoadFont("LCD-Regular.ttf");
@@ -60,14 +60,8 @@ namespace tjg {
         initializeStatusBar();
 
         // Initialize dialog system
-        std::vector<std::string> dialog_snippets;
-        dialog_snippets.emplace_back("Hello, TECH-17. Welcome to the demo level.");
-        dialog_snippets.emplace_back("Your goal is to reach the exit to your left without flying into anything.");
-        dialog_snippets.emplace_back("Press space to fire your jetpack and use the left and right arrow keys to rotate.");
-        dialog_snippets.emplace_back("The orange bar in your HUD indicates how much fuel you have left.");
-        dialog_snippets.emplace_back("The blue bar indicates how much breathable air is left in your suit.");
-        dialog_snippets.emplace_back("I probably should have mentioned that earlier...");
-        initializeDialogSystem(dialog_snippets, 4, lcd_regular);
+        std::vector<std::string> dialog_snippets = level.GetDialogues();
+        initializeDialogSystem(dialog_snippets, 4, lcd_regular); // maybe i could put seconds_to_show_dialog in level files.
 
         // Set up camera
         // TODO: This needs to change depending on the level.

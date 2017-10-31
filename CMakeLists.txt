@@ -61,18 +61,11 @@ include_directories(lib/Chipmunk2D/include/chipmunk)
 link_libraries(chipmunk)
 
 #############
-# Add gason #
+# json11 #
 #############
-add_subdirectory(lib/gason)
-set_target_properties(test-suite gasonpp benchmark PROPERTIES EXCLUDE_FROM_ALL 1 EXCLUDE_FROM_DEFAULT_BUILD 1)
-if(MSVC)
-  get_target_property(FLAGS gason COMPILE_OPTIONS)
-  list(REMOVE_ITEM FLAGS -Wall -Wextra)
-  set_property(TARGET gason PROPERTY COMPILE_OPTIONS ${FLAGS})
-endif()
-get_target_property(FLAGS gason COMPILE_OPTIONS)
-include_directories(lib/gason/src)
-link_libraries(gason)
+add_subdirectory(lib/json11)
+include_directories(lib/json11)
+link_libraries(json11)
 
 #############
 # Find SFML #

@@ -14,6 +14,8 @@
 #include "Systems/DialogSystem.h"
 #include "View.h"
 
+#include "Level.h"
+
 namespace tjg {
 
     class PlayerView : public View {
@@ -70,7 +72,7 @@ namespace tjg {
         explicit PlayerView(ResourceManager &resource_manager, LogicCenter &logic_center);
 
         // Methods
-        void Initialize() override;
+        void Initialize(Level &level) override;
         void Render();
         void Update(const sf::Time &elapsed);
         bool Running() override;

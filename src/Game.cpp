@@ -14,8 +14,10 @@ namespace tjg {
 
     // Begin the game loop.
     void Game::Run() {
-        logic_center.Initialize();
-        player_view.Initialize();
+        unsigned level_number = 1; // Change 1 to x if you want to test levelx.json
+        level.Read(level_number, true); // Read level file. Set debug to false to disable json file debug. 
+        logic_center.Initialize(level);
+        player_view.Initialize(level);
 
         while (player_view.Running()) {
 
