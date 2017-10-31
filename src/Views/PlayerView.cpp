@@ -9,7 +9,8 @@ namespace tjg {
     }
 
     void PlayerView::Initialize() {
-        sprite_render_system.Reset();
+        playerview_render_system.Reset();
+        statusbar_render_system.Reset();
 
         // Load fonts and the texture sheet
         auto avenir_bold = resource_manager.LoadFont("Avenir-Bold.ttf");

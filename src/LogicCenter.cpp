@@ -125,8 +125,7 @@ namespace tjg {
         physics_system.Reset();
         collision_center.Reset(physics_system.GetSpace());
         game_state = State::PLAYING;
-        remaining_seconds = max_countdown;
-        countdown_clock.restart();
+        oxygen_clock.restart();
     }
 
 

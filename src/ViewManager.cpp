@@ -103,7 +103,7 @@ namespace tjg {
             case State::PLAYING:
                 HandleWindowEvents(player_view);
                 logic_center.Update(elapsed);
-                player_view.Update();
+                player_view.Update(elapsed);
                 break;
         }
 
