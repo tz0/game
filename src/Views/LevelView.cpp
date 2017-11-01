@@ -1,15 +1,15 @@
-#include "Views/PlayerView.h"
+#include "Views/LevelView.h"
 
 namespace tjg {
 
-    PlayerView::PlayerView(ResourceManager &resource_manager, sf::RenderWindow &window, LogicCenter &logic_center) :
+    LevelView::LevelView(ResourceManager &resource_manager, sf::RenderWindow &window, LogicCenter &logic_center) :
             View(window,resource_manager),
             logic_center(logic_center) {
             window.setVerticalSyncEnabled(true);
     }
 
 
-    void PlayerView::Initialize() {
+    void LevelView::Initialize() {
         playerview_render_system.Reset();
         statusbar_render_system.Reset();
 
@@ -62,7 +62,7 @@ namespace tjg {
     }
 
 
-    void PlayerView::Render() {
+    void LevelView::Render() {
         window.clear(sf::Color(50, 50, 50, 255));
         window.setView(camera);
 
@@ -99,12 +99,12 @@ namespace tjg {
     }
 
     // Update logic that is specific to the player view.
-    void PlayerView::Update(const sf::Time &elapsed) {
+    void LevelView::Update(const sf::Time &elapsed) {
         CheckKeys(elapsed);
         dialog_system.Update(elapsed);
     }
 
-    ViewSwitch PlayerView::HandleWindowEvents(const sf::Event event) {
+    ViewSwitch LevelView::HandleWindowEvents(const sf::Event event) {
         switch (event.type) {
             case sf::Event::LostFocus:
                 return ViewSwitch {State::PAUSED, 0};
@@ -127,7 +127,7 @@ namespace tjg {
         return ViewSwitch {State::CONTINUE, 0};
     }
 
-    void PlayerView::CheckKeys(const sf::Time &elapsed) {
+    void LevelView::CheckKeys(const sf::Time &elapsed) {
 
         auto control_center = logic_center.GetControlCenter();
         auto fuel_resource = logic_center.GetFuelTracker()->GetComponent<FiniteResource>();
@@ -151,7 +151,7 @@ namespace tjg {
         }
     }
 
-    void PlayerView::initializeStatusBar() {
+    void LevelView::initializeStatusBar() {
         // Store reusable values.
         statusbar_element_height = STATUSBAR_HEIGHT * (3.f / 4.f);
         statusbar_x_padding =  WINDOW_WIDTH / 40.f;
@@ -202,7 +202,7 @@ namespace tjg {
         statusbar_render_system.AddEntity(logic_center.GetOxygenTracker());
     }
 
-    void PlayerView::renderStatusBarBackground() {
+    void LevelView::renderStatusBarBackground() {
         // Draw background elements.
         window.draw(statusbar_background);
         window.draw(fuel_tank_background);
@@ -210,7 +210,7 @@ namespace tjg {
         window.draw(dialog_background);
     }
 
-    void PlayerView::updateStatusBarTrackers() {
+    void LevelView::updateStatusBarTrackers() {
         // Update fuel tracker size.
         auto fuel_tracker = logic_center.GetFuelTracker();
         auto fuel_tracker_resource = fuel_tracker->GetComponent<FiniteResource>();
@@ -228,7 +228,7 @@ namespace tjg {
         oxygen_tracker_sprite->SetSize(new_oxygen_size);
     }
 
-    void PlayerView::initializeDialogSystem(std::vector<std::string> &dialog_snippets, float seconds_to_show_dialog, std::shared_ptr<sf::Font> font) {
+    void LevelView::initializeDialogSystem(std::vector<std::string> &dialog_snippets, float seconds_to_show_dialog, std::shared_ptr<sf::Font> font) {
         // Create dialog box Text object.
         sf::Text dialog_box;
         dialog_box.setFont(*font);

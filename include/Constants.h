@@ -3,6 +3,7 @@
 
 #define WINDOW_WIDTH 1280u
 #define WINDOW_HEIGHT 720u
+#define STATUSBAR_HEIGHT 72
 
 namespace tjg {
     enum class State {CONTINUE, MAIN_MENU, LEVEL_MENU, PLAYING, RESUME, PAUSED, WON, FAILED, EXIT};

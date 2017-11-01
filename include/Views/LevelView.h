@@ -1,8 +1,6 @@
 #ifndef GAME_PLAYERVIEW_H
 #define GAME_PLAYERVIEW_H
 
-#define STATUSBAR_HEIGHT 72
-
 #include <SFML/Graphics.hpp>
 #include <bitset>
 
@@ -14,7 +12,7 @@
 
 namespace tjg {
 
-    class PlayerView : public View {
+    class LevelView : public View {
     private:
 
         LogicCenter &logic_center;
@@ -58,7 +56,7 @@ namespace tjg {
 
     public:
         // Constructor
-        explicit PlayerView(ResourceManager &resource_manager, sf::RenderWindow &window, LogicCenter &logic_center);
+        explicit LevelView(ResourceManager &resource_manager, sf::RenderWindow &window, LogicCenter &logic_center);
 
         // Methods
         void Initialize();
