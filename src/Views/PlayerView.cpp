@@ -52,14 +52,13 @@ namespace tjg {
         std::vector<std::string> dialog_snippets = logic_center.GetLevel().GetDialogues();
         initializeDialogSystem(dialog_snippets, 4, lcd_regular); // maybe i could put seconds_to_show_dialog in level files.
 
-        // Set up camera
-        // TODO: This needs to change depending on the level.
-        // We are accounting for status bar height here since the walls were built before the status bar.
-        // Typically, the level design should account for the status bar.
-        camera.setCenter(-500, 0 - STATUSBAR_HEIGHT);
-        //camera.setCenter(-500, 0 - STATUSBAR_HEIGHT);
-        camera.setSize(3080, 1880 + (STATUSBAR_HEIGHT * 2));
-        //camera.setSize(2080, 1280 + (STATUSBAR_HEIGHT * 2));
+        // Set up camera, accounting for level and status bar since the walls were built before the status bar.
+        camera.setCenter(
+            logic_center.GetLevel().GetCameraCenter().x, 
+            logic_center.GetLevel().GetCameraCenter().y - STATUSBAR_HEIGHT);        
+        camera.setSize(
+            logic_center.GetLevel().GetCameraSize().x, 
+            logic_center.GetLevel().GetCameraSize().y + (STATUSBAR_HEIGHT * 2));        
     }
 
 

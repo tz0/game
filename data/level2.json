@@ -1,0 +1,56 @@
+{    
+  "level": 2,
+  "fuel" : 5,
+  "oxygen" : 45,
+
+  "camera center":
+  {
+    "x": -500,
+    "y": 0
+  },
+
+  "camera size":
+  {
+    "x": 2080,
+    "y": 1280
+  },
+
+  "exit":
+  {
+    "x": -1350,
+    "y": -200    
+  },
+  
+  "entrance":
+  {
+    "x": -500,
+    "y": 0
+  },
+
+  "walls":
+  [
+    {"Origin": {"x": -1500, "y": -600}, "Endpoint": {"x": 500, "y": -600}, "Radius": 40 },
+    {"Origin": {"x": -1500,"y": 600},"Endpoint": {"x": 500,"y": 600},"Radius": 40},
+    {"Origin": {"x": -1500,"y": -600},"Endpoint": {"x": -1500,"y": 600},"Radius": 40},
+    {"Origin": {"x": 500,"y": -600},"Endpoint": {"x": 500,"y": 600},"Radius": 40},
+    {"Origin": {"x": -900,"y": -600},"Endpoint": {"x": -950,"y": 90},"Radius": 140}
+  ],
+
+  "fans":
+  [
+    {"Origin": {"x": 500,"y": -400,"strength": 1000},"Endpoint": {"x": -1500,"y": 400,"strength": 250},"Width": 200},
+    {"Origin": {"x": -600,"y": -600,"strength": 800},"Endpoint": {"x": -600,"y": 600,"strength": 50},"Width": 200},
+    {"Origin": {"x": -1000,"y": 600,"strength": 1600},"Endpoint": {"x": -1000,"y": -600,"strength": 250},"Width": 200}
+  ],
+
+  "dialogues":
+  [
+    "Hello, my friend.",
+    "How are you?",
+    "I'm Spaceship Artificial Intelligence.",
+    "You can call me 'SAI'",
+    "What's your name?",
+    "Tech-17?",
+    "Huh, 17..."
+  ]
+}

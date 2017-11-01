@@ -2,7 +2,12 @@
 
 namespace tjg {
     Level::Level() : 
-        exit_{-1000, -200}, entrance_{0, 0},  fuel_(5), oxygen_(45) {
+        camera_center_{ -500, 0 }, // initialization for struct member in C 
+        camera_size_{ 2080, 1280 }, 
+        exit_{ -1000, -200 }, 
+        entrance_{ 0, 0 }, 
+        fuel_(5), 
+        oxygen_(45) {
     }
 
     Level::~Level() = default;
@@ -17,6 +22,14 @@ namespace tjg {
         std::cout << "# [level]: " << parse_result["level"].dump() << std::endl;
         std::cout << "# [fuel]: " << parse_result["fuel"].dump() << std::endl;
         std::cout << "# [oxygen]: " << parse_result["oxygen"].dump() << std::endl;
+
+        std::cout << '#' << std::endl << "##### [camera center]" << std::endl;
+        std::cout << "# [x]: " << parse_result["camera center"]["x"].dump() << std::endl;
+        std::cout << "# [y]: " << parse_result["camera center"]["y"].dump() << std::endl;
+
+        std::cout << '#' << std::endl << "##### [camera size]" << std::endl;
+        std::cout << "# [x]: " << parse_result["camera size"]["x"].dump() << std::endl;
+        std::cout << "# [y]: " << parse_result["camera size"]["y"].dump() << std::endl;
 
         std::cout << '#' << std::endl << "##### [entrance]" << std::endl;
         std::cout << "# [x]: " << parse_result["entrance"]["x"].dump() << std::endl;
@@ -65,13 +78,28 @@ namespace tjg {
         std::string raw_levelfile((std::istreambuf_iterator<char>(in)), std::istreambuf_iterator<char>());
         const auto parse_result = json11::Json::parse(raw_levelfile, err);
 
-        //TODO: add is_number check here, since other members believe level check is very unnecessary. This TODO can wait or abort.
-        exit_.x = static_cast<float>(parse_result["exit"]["x"].number_value());        
-        exit_.y = static_cast<float>(parse_result["exit"]["y"].number_value());
-        entrance_.x = static_cast<float>(parse_result["entrance"]["x"].number_value());
-        entrance_.y = static_cast<float>(parse_result["entrance"]["y"].number_value());
-        fuel_ = static_cast<float>(parse_result["fuel"].number_value());
-        oxygen_ = static_cast<float>(parse_result["oxygen"].number_value());
+        // security check before loading basic info. 
+        // If invalid, use the default value from construction to prevent game black page.
+        if (parse_result["camera center"]["x"].is_number())
+            camera_center_.x = static_cast<float>(parse_result["camera center"]["x"].number_value());
+        if (parse_result["camera center"]["y"].is_number())
+            camera_center_.y = static_cast<float>(parse_result["camera center"]["y"].number_value());
+        if (parse_result["camera size"]["x"].is_number())
+            camera_size_.x = static_cast<float>(parse_result["camera size"]["x"].number_value());
+        if (parse_result["camera size"]["y"].is_number())
+            camera_size_.y = static_cast<float>(parse_result["camera size"]["y"].number_value());
+        if (parse_result["exit"]["x"].is_number())
+            exit_.x = static_cast<float>(parse_result["exit"]["x"].number_value());        
+        if (parse_result["exit"]["y"].is_number())
+            exit_.y = static_cast<float>(parse_result["exit"]["y"].number_value());
+        if (parse_result["entrance"]["x"].is_number())
+            entrance_.x = static_cast<float>(parse_result["entrance"]["x"].number_value());
+        if (parse_result["entrance"]["y"].is_number())
+            entrance_.y = static_cast<float>(parse_result["entrance"]["y"].number_value());
+        if (parse_result["fuel"].is_number())
+            fuel_ = static_cast<float>(parse_result["fuel"].number_value());
+        if (parse_result["oxygen"].is_number())
+            oxygen_ = static_cast<float>(parse_result["oxygen"].number_value());
         
         // read fan informations        
         fans_.clear();
@@ -108,6 +136,16 @@ namespace tjg {
             dialogues_.emplace_back(dialogue.string_value());
         }
         dialogues_.shrink_to_fit();
+    }
+
+    const Level::CameraCenter & Level::GetCameraCenter()
+    {
+        return camera_center_;
+    }
+
+    const Level::CameraSize & Level::GetCameraSize()
+    {
+        return camera_size_;
     }
 
     const Level::Exit & Level::GetExit()

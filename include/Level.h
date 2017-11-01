@@ -10,6 +10,14 @@ namespace tjg {
 
     class Level {
     public:        
+        struct CameraCenter {
+            float x, y;           
+        };
+
+        struct CameraSize {
+            float x, y;            
+        };
+
         struct Exit {
             float x, y;
         };
@@ -54,6 +62,8 @@ namespace tjg {
         void Read(const unsigned & level, const bool & debug);
 
         // Accessors
+        const CameraCenter & GetCameraCenter();
+        const CameraSize & GetCameraSize();
         const Exit & GetExit(); 
         const Entrance & GetEntrance(); 
         const float & GetFuel();
@@ -63,10 +73,12 @@ namespace tjg {
         const std::vector<std::string> & GetDialogues();
 
     private:        
+        CameraCenter camera_center_;
+        CameraSize camera_size_;
         Exit exit_; 
         Entrance entrance_;
         float fuel_;
-        float oxygen_;
+        float oxygen_;        
         std::vector<Fan> fans_;
         std::vector<Wall> walls_;
         std::vector<std::string> dialogues_;

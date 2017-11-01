@@ -3,6 +3,18 @@
   "fuel" : 5,
   "oxygen" : 45,
 
+  "camera center":
+  {
+    "x": -500,
+    "y": 0
+  },
+
+  "camera size":
+  {
+    "x": 2080,
+    "y": 1280
+  },
+
   "exit":
   {
     "x": -1400,
