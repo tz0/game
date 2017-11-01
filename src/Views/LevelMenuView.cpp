@@ -19,6 +19,7 @@ namespace tjg {
         message.setPosition(WINDOW_WIDTH / 2, WINDOW_HEIGHT/ 2);
     }
 
+
     //TODO: Implement or remove
     void LevelMenuView::Update() {
 

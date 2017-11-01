@@ -4,6 +4,7 @@ namespace tjg{
     PauseMenuView::PauseMenuView(ResourceManager &resource_manager, sf::RenderWindow &window) :
             View(window,resource_manager) {}
 
+
     void PauseMenuView::Initialize(ViewSwitch view_switch) {
         current_level = view_switch.level_number;
         auto avenir_bold = resource_manager.LoadFont("Avenir-Bold.ttf");
@@ -31,6 +32,7 @@ namespace tjg{
         message.setOrigin(textRect.left + (textRect.width / 2), textRect.top + (textRect.height / 2));
         message.setPosition(WINDOW_WIDTH / 2, WINDOW_HEIGHT/ 2);
     }
+
 
     //TODO: Implement or remove
     void PauseMenuView::Update() {

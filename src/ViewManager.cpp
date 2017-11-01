@@ -12,6 +12,7 @@ namespace tjg {
         window.setVerticalSyncEnabled(true);
     }
 
+  
     //TODO: Implement or remove
     void ViewManager::Initialize() {
 
