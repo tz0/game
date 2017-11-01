@@ -12,8 +12,6 @@
 #include "View.h"
 #include "Constants.h"
 
-#include "Level.h"
-
 namespace tjg {
 
     class PlayerView : public View {
