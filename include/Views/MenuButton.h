@@ -18,8 +18,8 @@ namespace tjg {
         bool isEnabled();
         MenuButton *GetPrevious();
         MenuButton *GetNext();
-        void *SetPrevious(MenuButton *menu_button);
-        void *SetNext(MenuButton *menu_button);
+        void SetPrevious(MenuButton *menu_button);
+        void SetNext(MenuButton *menu_button);
     };
 }
 #endif //GAME_MENUBUTTON_H

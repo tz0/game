@@ -23,11 +23,11 @@ namespace tjg{
         return next;
     }
 
-    void* MenuButton::SetPrevious(MenuButton *menu_button) {
+    void MenuButton::SetPrevious(MenuButton *menu_button) {
         previous = menu_button;
     }
 
-    void* MenuButton::SetNext(MenuButton *menu_button) {
+    void MenuButton::SetNext(MenuButton *menu_button) {
         next = menu_button;
     }
 }
