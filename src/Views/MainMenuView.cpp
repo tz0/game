@@ -19,7 +19,8 @@ namespace tjg {
         message.setPosition(WINDOW_WIDTH / 2, WINDOW_HEIGHT/ 2);
     }
 
-    //Handle keyboard control of the menu
+
+    //TODO: Implement or remove
     void MainMenuView::Update() {
 
     }
@@ -36,11 +37,17 @@ namespace tjg {
         switch (event.type) {
             case sf::Event::KeyPressed: {
                 switch (event.key.code) {
-                    // Toggle FPS counter on F1.
+//                    case sf::Keyboard::Up:
+//                        button_list.SelectPrevious();
+//                        break;
+//                    case sf::Keyboard::Down:
+//                        button_list.SelectNext();
+//                        break;
                     case sf::Keyboard::Return:
-                        return ViewSwitch::LEVEL_MENU;
+//                        button_list.GetCurrentSelected();
+                        return ViewSwitch {.state=State::LEVEL_MENU, .level_number=0};
                     case sf::Keyboard::Escape:
-                        return ViewSwitch::EXIT;
+                        return ViewSwitch {.state=State::EXIT, .level_number=0};
                     default:
                         break;
                 }
@@ -49,6 +56,6 @@ namespace tjg {
             default:
                 break;
         }
-        return ViewSwitch::CONTINUE;
+        return ViewSwitch {.state=State::CONTINUE, .level_number=0};;
     }
 }

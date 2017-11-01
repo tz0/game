@@ -106,7 +106,7 @@ namespace tjg {
     ViewSwitch PlayerView::HandleWindowEvents(const sf::Event event) {
         switch (event.type) {
             case sf::Event::LostFocus:
-                return ViewSwitch::PAUSED;
+                return ViewSwitch {.state=State::PAUSED, .level_number=0};
             case sf::Event::KeyPressed: {
                 switch (event.key.code) {
                     // Toggle FPS counter on F1.
@@ -114,7 +114,7 @@ namespace tjg {
                         show_info = !show_info;
                         break;
                     case sf::Keyboard::Escape:
-                        return ViewSwitch::PAUSED;
+                        return ViewSwitch {.state=State::PAUSED, .level_number=0};
                     default:
                         break;
                 }
@@ -123,7 +123,7 @@ namespace tjg {
             default:
                 break;
         }
-        return ViewSwitch::CONTINUE;
+        return ViewSwitch {.state=State::CONTINUE, .level_number=0};
     }
 
     void PlayerView::CheckKeys(const sf::Time &elapsed) {

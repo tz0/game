@@ -2,7 +2,6 @@
 
 namespace tjg {
     LogicCenter::LogicCenter(ResourceManager &resource_manager) :
-            resource_manager(resource_manager),
             physics_system(),
             collision_center(physics_system.GetSpace()),
             entity_factory(resource_manager, physics_system) {
@@ -105,6 +104,8 @@ namespace tjg {
 
 
     void LogicCenter::Reset() {
+        walls.clear();
+        fans.clear();
         physics_system.Reset();
         collision_center.Reset(physics_system.GetSpace());
         game_state = State::PLAYING;

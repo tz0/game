@@ -19,7 +19,8 @@ namespace tjg {
         message.setPosition(WINDOW_WIDTH / 2, WINDOW_HEIGHT/ 2);
     }
 
-    //Handle keyboard control of the menu
+
+    //TODO: Implement or remove
     void LevelMenuView::Update() {
 
     }
@@ -36,12 +37,12 @@ namespace tjg {
         switch (event.type) {
             case sf::Event::KeyPressed: {
                 switch (event.key.code) {
-                    // Toggle FPS counter on F1.
                     case sf::Keyboard::Num1:
+                        return ViewSwitch {.state=State::PLAYING, .level_number=1};
                     case sf::Keyboard::Num2:
-                        return ViewSwitch::PLAYING;
+                        return ViewSwitch {.state=State::PLAYING, .level_number=2};
                     case sf::Keyboard::Escape:
-                        return ViewSwitch::MAIN_MENU;
+                        return ViewSwitch {.state=State::MAIN_MENU, .level_number=0};
                     default:
                         break;
                 }
@@ -50,6 +51,6 @@ namespace tjg {
             default:
                 break;
         }
-        return ViewSwitch::CONTINUE;
+        return ViewSwitch {.state=State::CONTINUE, .level_number=0};
     }
 }

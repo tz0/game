@@ -20,9 +20,6 @@ namespace tjg {
     class LogicCenter {
 
     private:
-        // Resource manager
-        ResourceManager &resource_manager;
-
         // Systems
         PhysicsSystem physics_system;
         ControlCenter control_center;

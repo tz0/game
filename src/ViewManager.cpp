@@ -2,7 +2,6 @@
 
 namespace tjg {
     ViewManager::ViewManager(ResourceManager &resource_manager, LogicCenter &logic_center):
-        resource_manager(resource_manager),
         logic_center(logic_center),
         state(State::MAIN_MENU),
         window(sf::VideoMode(WINDOW_WIDTH, WINDOW_HEIGHT, 32), "Game", sf::Style::Titlebar | sf::Style::Close),
@@ -13,6 +12,8 @@ namespace tjg {
         window.setVerticalSyncEnabled(true);
     }
 
+  
+    //TODO: Implement or remove
     void ViewManager::Initialize() {
 
     }
@@ -23,31 +24,35 @@ namespace tjg {
 
 
     void ViewManager::SwitchView(ViewSwitch view_switch) {
-        switch (view_switch) {
-            case ViewSwitch::MAIN_MENU:
+        switch (view_switch.state) {
+            case State::MAIN_MENU:
                 SwitchToMainMenuView();
                 break;
-            case ViewSwitch ::LEVEL_MENU:
+            case State::LEVEL_MENU:
                 SwitchToLevelMenuView();
                 break;
-            case ViewSwitch::PLAYING:
+            case State::PLAYING:
                 logic_center.Reset();
-                //TODO(Yangyang): get the level_number from the menu selection
-                SwitchToPlayerView(1);
+                if (view_switch.level_number > 0) {
+                    current_level = view_switch.level_number;
+                    SwitchToPlayerView(view_switch.level_number);
+                } else {
+                    SwitchToPlayerView(current_level);
+                }
                 break;
-            case ViewSwitch::RESUME:
+            case State::RESUME:
                 ResumePlayerView();
                 break;
-            case ViewSwitch::PAUSED:
-                SwitchToPauseMenuView(State::PAUSED);
+            case State::PAUSED:
+                SwitchToPauseMenuView(ViewSwitch{.state=State::PAUSED, .level_number=0});
                 break;
-            case ViewSwitch::WON:
-                SwitchToPauseMenuView(State::WON);
+            case State::WON:
+                SwitchToPauseMenuView(ViewSwitch{.state=State::WON, .level_number=0});
                 break;
-            case ViewSwitch::FAILED:
-                SwitchToPauseMenuView(State::FAILED);
+            case State::FAILED:
+                SwitchToPauseMenuView(ViewSwitch{.state=State::FAILED, .level_number=0});
                 break;
-            case ViewSwitch::EXIT:
+            case State::EXIT:
                 window.close();
                 running = false;
                 break;
@@ -69,9 +74,9 @@ namespace tjg {
     }
 
 
-    void ViewManager::SwitchToPauseMenuView(State state) {
-        pause_menu_view.Initialize(state);
-        this->state = state;
+    void ViewManager::SwitchToPauseMenuView(ViewSwitch view_switch) {
+        pause_menu_view.Initialize(ViewSwitch{.state=view_switch.state, .level_number=current_level});
+        this->state = view_switch.state;
     }
 
 
@@ -106,17 +111,19 @@ namespace tjg {
                 logic_center.Update(elapsed);
                 player_view.Update(elapsed);
                 break;
+            default:
+                break;
         }
 
         //Switch to menu if won/lost
         switch (logic_center.GetGameState()) {
             case State::WON:
                 logic_center.Reset();
-                SwitchToPauseMenuView(State::WON);
+                SwitchToPauseMenuView(ViewSwitch{.state=State::WON, .level_number=0});
                 break;
             case State::FAILED:
                 logic_center.Reset();
-                SwitchToPauseMenuView(State::FAILED);
+                SwitchToPauseMenuView(ViewSwitch{.state=State::FAILED, .level_number=0});
                 break;
             default:
                 break;
@@ -139,6 +146,8 @@ namespace tjg {
             case State::PLAYING:
                 player_view.Render();
                 break;
+            default:
+                break;
         }
     }
 
@@ -152,23 +161,6 @@ namespace tjg {
                     window.close();
                     running = false;
                     break;
-                case sf::Event::KeyPressed: {
-                    switch (event.key.code) {
-
-                        // Close window on ESC
-//                        case sf::Keyboard::Escape: {
-//                            window.close();
-//                            running = false;
-//                            break;
-//                        }
-
-                        default:
-                            view_switch = current_view.HandleWindowEvents(event);
-                            SwitchView(view_switch);
-                            break;
-                    }
-                    break;
-                }
                 default:
                     view_switch = current_view.HandleWindowEvents(event);
                     SwitchView(view_switch);

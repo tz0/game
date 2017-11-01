@@ -8,10 +8,10 @@ namespace tjg {
     class PauseMenuView : public View {
     private:
         sf::Text message;
+        unsigned int current_level;
     public:
         PauseMenuView(ResourceManager &resource_manager, sf::RenderWindow &window);
-        void Initialize() override;
-        void Initialize(State state);
+        void Initialize(ViewSwitch view_switch);
         void Update();
         void Render();
         ViewSwitch HandleWindowEvents(sf::Event event) override;
