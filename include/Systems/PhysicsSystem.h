@@ -41,7 +41,7 @@ namespace tjg {
          * Add an entity to be simulated. Requires DynamicBody and Location components to be present
          * @param entity
          */
-        void AddEntity(std::shared_ptr<Entity> entity);
+        void AddEntity(std::shared_ptr<Entity> entity) override;
 
         /**
          * @return a pointer to the system's Chipmunk2D space object

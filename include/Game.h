@@ -9,7 +9,6 @@
 
 #include "ViewManager.h"
 #include "Constants.h"
-#include "Level.h"
 
 namespace tjg {
 
@@ -21,8 +20,7 @@ namespace tjg {
     private:
         ResourceManager resource_manager;
         LogicCenter logic_center;
-        ViewManager view_manager;
-        Level level;
+        ViewManager view_manager;        
         sf::Clock update_clock;
     };
 }

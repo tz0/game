@@ -44,13 +44,13 @@ namespace tjg {
                 ResumePlayerView();
                 break;
             case State::PAUSED:
-                SwitchToPauseMenuView(ViewSwitch{ State::PAUSED, 0 });
+                SwitchToPauseMenuView(ViewSwitch{State::PAUSED, 0});
                 break;
             case State::WON:
-                SwitchToPauseMenuView(ViewSwitch{ State::WON, 0 });                
+                SwitchToPauseMenuView(ViewSwitch{State::WON, 0});                
                 break;
             case State::FAILED:
-                SwitchToPauseMenuView(ViewSwitch{ State::FAILED, 0 });
+                SwitchToPauseMenuView(ViewSwitch{State::FAILED, 0});
                 break;
             case State::EXIT:
                 window.close();
@@ -75,7 +75,7 @@ namespace tjg {
 
 
     void ViewManager::SwitchToPauseMenuView(ViewSwitch view_switch) {        
-        pause_menu_view.Initialize(ViewSwitch{ view_switch.state, current_level });
+        pause_menu_view.Initialize(ViewSwitch {view_switch.state, current_level});
         this->state = view_switch.state;
     }
 

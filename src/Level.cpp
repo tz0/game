@@ -2,7 +2,12 @@
 
 namespace tjg {
     Level::Level() : 
-        exit_{-1000, -200}, entrance_{0, 0},  total_fuel_(5), total_oxygen_(45) {
+        camera_center_{ -500, 0 }, // initialization for struct member in C 
+        camera_size_{ 2080, 1280 }, 
+        exit_{ -1000, -200 }, 
+        entrance_{ 0, 0 }, 
+        fuel_(5), 
+        oxygen_(45) {
     }
 
     Level::~Level() = default;
@@ -15,8 +20,16 @@ namespace tjg {
 
         std::cout << std::endl << "##### [level info] start #####" << std::endl;
         std::cout << "# [level]: " << parse_result["level"].dump() << std::endl;
-        std::cout << "# [total_fuel]: " << parse_result["total_fuel"].dump() << std::endl;
-        std::cout << "# [total_oxygen]: " << parse_result["total_oxygen"].dump() << std::endl;
+        std::cout << "# [fuel]: " << parse_result["fuel"].dump() << std::endl;
+        std::cout << "# [oxygen]: " << parse_result["oxygen"].dump() << std::endl;
+
+        std::cout << '#' << std::endl << "##### [camera center]" << std::endl;
+        std::cout << "# [x]: " << parse_result["camera center"]["x"].dump() << std::endl;
+        std::cout << "# [y]: " << parse_result["camera center"]["y"].dump() << std::endl;
+
+        std::cout << '#' << std::endl << "##### [camera size]" << std::endl;
+        std::cout << "# [x]: " << parse_result["camera size"]["x"].dump() << std::endl;
+        std::cout << "# [y]: " << parse_result["camera size"]["y"].dump() << std::endl;
 
         std::cout << '#' << std::endl << "##### [entrance]" << std::endl;
         std::cout << "# [x]: " << parse_result["entrance"]["x"].dump() << std::endl;
@@ -30,8 +43,8 @@ namespace tjg {
         std::cout << "# [size]: " << parse_result["fans"].array_items().size() << "\n";
         unsigned fan_counter = 0;
         for (auto &fan : parse_result["fans"].array_items()) {
-            std::cout << "# [" << ++fan_counter << "] [Origin]" << fan["Endpoints"]["Origin"].dump() << "\n";
-            std::cout << "#     [Endpoint]" << fan["Endpoints"]["Endpoint"].dump() << "\n";
+            std::cout << "# [" << ++fan_counter << "] [Origin]" << fan["Origin"].dump() << "\n";
+            std::cout << "#     [Endpoint]" << fan["Endpoint"].dump() << "\n";
             std::cout << "#     [Width]: " << fan["Width"].dump() << "\n";
         }
 
@@ -39,8 +52,8 @@ namespace tjg {
         std::cout << "# [size]: " << parse_result["walls"].array_items().size() << "\n";
         unsigned wall_counter = 0;
         for (auto &wall : parse_result["walls"].array_items()) {
-            std::cout << "# [" << ++wall_counter << "] [Origin]" << wall["Endpoints"]["Origin"].dump() << "\n";
-            std::cout << "#     [Endpoint]" << wall["Endpoints"]["Endpoint"].dump() << "\n";
+            std::cout << "# [" << ++wall_counter << "] [Origin]" << wall["Origin"].dump() << "\n";
+            std::cout << "#     [Endpoint]" << wall["Endpoint"].dump() << "\n";
             std::cout << "#     [radius]: " << wall["Radius"].dump() << "\n";
         }
 
@@ -65,26 +78,41 @@ namespace tjg {
         std::string raw_levelfile((std::istreambuf_iterator<char>(in)), std::istreambuf_iterator<char>());
         const auto parse_result = json11::Json::parse(raw_levelfile, err);
 
-        //TODO: add is_number check here
-        exit_.x = static_cast<float>(parse_result["exit"]["x"].number_value());        
-        exit_.y = static_cast<float>(parse_result["exit"]["y"].number_value());
-        entrance_.x = static_cast<float>(parse_result["entrance"]["x"].number_value());
-        entrance_.y = static_cast<float>(parse_result["entrance"]["y"].number_value());
-        total_fuel_ = static_cast<float>(parse_result["total_fuel"].number_value());
-        total_oxygen_ = static_cast<float>(parse_result["total_oxygen"].number_value());
+        // security check before loading basic info. 
+        // If invalid, use the default value from construction to prevent game black page.
+        if (parse_result["camera center"]["x"].is_number())
+            camera_center_.x = static_cast<float>(parse_result["camera center"]["x"].number_value());
+        if (parse_result["camera center"]["y"].is_number())
+            camera_center_.y = static_cast<float>(parse_result["camera center"]["y"].number_value());
+        if (parse_result["camera size"]["x"].is_number())
+            camera_size_.x = static_cast<float>(parse_result["camera size"]["x"].number_value());
+        if (parse_result["camera size"]["y"].is_number())
+            camera_size_.y = static_cast<float>(parse_result["camera size"]["y"].number_value());
+        if (parse_result["exit"]["x"].is_number())
+            exit_.x = static_cast<float>(parse_result["exit"]["x"].number_value());        
+        if (parse_result["exit"]["y"].is_number())
+            exit_.y = static_cast<float>(parse_result["exit"]["y"].number_value());
+        if (parse_result["entrance"]["x"].is_number())
+            entrance_.x = static_cast<float>(parse_result["entrance"]["x"].number_value());
+        if (parse_result["entrance"]["y"].is_number())
+            entrance_.y = static_cast<float>(parse_result["entrance"]["y"].number_value());
+        if (parse_result["fuel"].is_number())
+            fuel_ = static_cast<float>(parse_result["fuel"].number_value());
+        if (parse_result["oxygen"].is_number())
+            oxygen_ = static_cast<float>(parse_result["oxygen"].number_value());
         
         // read fan informations        
         fans_.clear();
         fans_.shrink_to_fit();
         for (auto &fan : parse_result["fans"].array_items()) {
             fans_.emplace_back(                
-                static_cast<float>(fan["Endpoints"]["Origin"]["x"].number_value()),
-                static_cast<float>(fan["Endpoints"]["Origin"]["y"].number_value()),                
-                static_cast<float>(fan["Endpoints"]["Endpoint"]["x"].number_value()),
-                static_cast<float>(fan["Endpoints"]["Endpoint"]["y"].number_value()),
+                static_cast<float>(fan["Origin"]["x"].number_value()),
+                static_cast<float>(fan["Origin"]["y"].number_value()),                
+                static_cast<float>(fan["Endpoint"]["x"].number_value()),
+                static_cast<float>(fan["Endpoint"]["y"].number_value()),
                 static_cast<float>(fan["Width"].number_value()),
-                static_cast<float>(fan["Endpoints"]["Origin"]["strength"].number_value()),
-                static_cast<float>(fan["Endpoints"]["Endpoint"]["strength"].number_value()));
+                static_cast<float>(fan["Origin"]["strength"].number_value()),
+                static_cast<float>(fan["Endpoint"]["strength"].number_value()));
         }
         fans_.shrink_to_fit();
                 
@@ -93,10 +121,10 @@ namespace tjg {
         walls_.shrink_to_fit();        
         for (auto &wall : parse_result["walls"].array_items()) {
             walls_.emplace_back(
-                static_cast<float>(wall["Endpoints"]["Origin"]["x"].number_value()),
-                static_cast<float>(wall["Endpoints"]["Origin"]["y"].number_value()),
-                static_cast<float>(wall["Endpoints"]["Endpoint"]["x"].number_value()),
-                static_cast<float>(wall["Endpoints"]["Endpoint"]["y"].number_value()),
+                static_cast<float>(wall["Origin"]["x"].number_value()),
+                static_cast<float>(wall["Origin"]["y"].number_value()),
+                static_cast<float>(wall["Endpoint"]["x"].number_value()),
+                static_cast<float>(wall["Endpoint"]["y"].number_value()),
                 static_cast<float>(wall["Radius"].number_value()));
         }
         walls_.shrink_to_fit();
@@ -110,6 +138,16 @@ namespace tjg {
         dialogues_.shrink_to_fit();
     }
 
+    const Level::CameraCenter & Level::GetCameraCenter()
+    {
+        return camera_center_;
+    }
+
+    const Level::CameraSize & Level::GetCameraSize()
+    {
+        return camera_size_;
+    }
+
     const Level::Exit & Level::GetExit()
     {
         return exit_;
@@ -120,14 +158,14 @@ namespace tjg {
         return entrance_;
     }
 
-    const float & Level::GetTotalFuel()
+    const float & Level::GetFuel()
     {
-        return total_fuel_;
+        return fuel_;
     }
 
-    const float & Level::GetTotalOxygen()
+    const float & Level::GetOxygen()
     {
-        return total_oxygen_;
+        return oxygen_;
     }
 
     const std::vector<Level::Fan>& Level::GetFans()

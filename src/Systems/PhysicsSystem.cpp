@@ -30,28 +30,40 @@ namespace tjg {
     }
 
     void PhysicsSystem::Update(const sf::Time elapsed) {
-        for (auto &entity : entities) {
-            // Get the required components (Location + Dynamic Body)
-            auto body_component = entity->GetComponent<DynamicBody>();
-            if (body_component) {
-                auto body = body_component->GetBody();
-                auto location = entity->GetComponent<Location>();
+        // Traverse entities, and delete the ones that have been flagged for removal.
+        entities.erase(
+                std::remove_if(
+                        entities.begin(),
+                        entities.end(),
+                        [&](std::shared_ptr<Entity> entity) {
 
-                auto body_position = cpBodyGetPosition(body);
-                auto body_angle = cpBodyGetAngle(body);
+                            if (entity->IsFlaggedForRemoval())
+                                return true;
 
-                // Set the location (position + rotation) to exactly match the position and rotation of the physical body.
-                location->SetPosition(sf::Vector2f(body_position.x, body_position.y));
-                location->SetRotation(body_angle * 180.0f / M_PI);
-            }
+                            // Get the required components (Location + Dynamic Body)
+                            auto body_component = entity->GetComponent<DynamicBody>();
+                            if (body_component) {
+                                auto body = body_component->GetBody();
+                                auto location = entity->GetComponent<Location>();
 
-            // Check if the entity has a sensor shape
-            auto sensor = entity->GetComponent<SensorShape>();
-            if (sensor) {
-                sensor->Query(space);
-            }
+                                auto body_position = cpBodyGetPosition(body);
+                                auto body_angle = cpBodyGetAngle(body);
 
-        }
+                                // Set the location (position + rotation) to exactly match the position and rotation of the physical body.
+                                location->SetPosition(sf::Vector2f(body_position.x, body_position.y));
+                                location->SetRotation(body_angle * 180.0f / M_PI);
+                            }
+
+                            // Check if the entity has a sensor shape
+                            auto sensor = entity->GetComponent<SensorShape>();
+                            if (sensor) {
+                                sensor->Query(space);
+                            }
+
+                            return false;
+                        }),
+                entities.end()
+        );
 
         // Update the physical simulation
         cpSpaceStep(space, elapsed.asSeconds());
