@@ -4,22 +4,23 @@ namespace tjg{
     PauseMenuView::PauseMenuView(ResourceManager &resource_manager, sf::RenderWindow &window) :
             View(window,resource_manager) {}
 
-    void PauseMenuView::Initialize(State state) {
+    void PauseMenuView::Initialize(ViewSwitch view_switch) {
+        current_level = view_switch.level_number;
         auto avenir_bold = resource_manager.LoadFont("Avenir-Bold.ttf");
         // temp Set font for win message
         message.setFont(*avenir_bold);
         // Create a win message.
         message.setStyle(sf::Text::Bold);
         message.setCharacterSize(24);
-        switch (state) {
+        switch (view_switch.state) {
             case State::WON:
-                message.setString("You Reached the Exit!\n\nENTER/ Go to Next Level\nR/ Replay This Level\nESC/ Exit to Main Menu");
+                message.setString("Level " + std::to_string(current_level) + "\nYou Reached the Exit!\n\nENTER/ Go to Next Level\nR/ Replay This Level\nESC/ Exit to Main Menu");
                 break;
             case State::FAILED:
-                message.setString("You failed!\n\nR/ Replay This Level\nESC/ Exit to Main Menu");
+                message.setString("Level " + std::to_string(current_level) + "\nYou failed!\n\nR/ Replay This Level\nESC/ Exit to Main Menu");
                 break;
             case State::PAUSED:
-                message.setString("Game is paused.\nAre you sure you want to leave this level?\n\nY/ Leave Game\nN/ Resume Game\nR/ Restart Level\nESC/ Exit to Main Menu");
+                message.setString("Level " + std::to_string(current_level) + "\nGame is paused.\nAre you sure you want to leave this level?\n\nY/ Leave Game\nN/ Resume Game\nR/ Restart Level\nESC/ Exit to Main Menu");
                 break;
             default:
                 break;
@@ -48,7 +49,7 @@ namespace tjg{
             case sf::Event::KeyPressed: {
                 switch (event.key.code) {
                     case sf::Keyboard::Return:
-                        return ViewSwitch {.state=State::PLAYING, .level_number=0};
+                        return ViewSwitch {.state=State::PLAYING, .level_number=current_level + 1};
                     case sf::Keyboard::Escape:
                         return ViewSwitch {.state=State::MAIN_MENU, .level_number=0};
                     case sf::Keyboard::R:

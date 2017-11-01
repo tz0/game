@@ -34,23 +34,23 @@ namespace tjg {
             case State::PLAYING:
                 logic_center.Reset();
                 if (view_switch.level_number > 0) {
-                    level_number = view_switch.level_number;
+                    current_level = view_switch.level_number;
                     SwitchToPlayerView(view_switch.level_number);
                 } else {
-                    SwitchToPlayerView(level_number);
+                    SwitchToPlayerView(current_level);
                 }
                 break;
             case State::RESUME:
                 ResumePlayerView();
                 break;
             case State::PAUSED:
-                SwitchToPauseMenuView(State::PAUSED);
+                SwitchToPauseMenuView(ViewSwitch{.state=State::PAUSED, .level_number=0});
                 break;
             case State::WON:
-                SwitchToPauseMenuView(State::WON);
+                SwitchToPauseMenuView(ViewSwitch{.state=State::WON, .level_number=0});
                 break;
             case State::FAILED:
-                SwitchToPauseMenuView(State::FAILED);
+                SwitchToPauseMenuView(ViewSwitch{.state=State::FAILED, .level_number=0});
                 break;
             case State::EXIT:
                 window.close();
@@ -74,9 +74,9 @@ namespace tjg {
     }
 
 
-    void ViewManager::SwitchToPauseMenuView(State state) {
-        pause_menu_view.Initialize(state);
-        this->state = state;
+    void ViewManager::SwitchToPauseMenuView(ViewSwitch view_switch) {
+        pause_menu_view.Initialize(ViewSwitch{.state=view_switch.state, .level_number=current_level});
+        this->state = view_switch.state;
     }
 
 
@@ -117,11 +117,11 @@ namespace tjg {
         switch (logic_center.GetGameState()) {
             case State::WON:
                 logic_center.Reset();
-                SwitchToPauseMenuView(State::WON);
+                SwitchToPauseMenuView(ViewSwitch{.state=State::WON, .level_number=0});
                 break;
             case State::FAILED:
                 logic_center.Reset();
-                SwitchToPauseMenuView(State::FAILED);
+                SwitchToPauseMenuView(ViewSwitch{.state=State::FAILED, .level_number=0});
                 break;
             default:
                 break;
