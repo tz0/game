@@ -45,9 +45,9 @@ namespace tjg {
 //                        break;
                     case sf::Keyboard::Return:
 //                        button_list.GetCurrentSelected();
-                        return ViewSwitch {.state=State::LEVEL_MENU, .level_number=0};
+                        return ViewSwitch {State::LEVEL_MENU, 0};
                     case sf::Keyboard::Escape:
-                        return ViewSwitch {.state=State::EXIT, .level_number=0};
+                        return ViewSwitch {State::EXIT, 0};
                     default:
                         break;
                 }
@@ -56,6 +56,6 @@ namespace tjg {
             default:
                 break;
         }
-        return ViewSwitch {.state=State::CONTINUE, .level_number=0};;
+        return ViewSwitch {State::CONTINUE, 0};
     }
 }

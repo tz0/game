@@ -3,7 +3,7 @@
 namespace tjg{
     MenuButton::MenuButton(std::string &text, State state, unsigned int level_number, bool enabled) {
         this -> text = text;
-        this -> view_switch = ViewSwitch {.state = state, .level_number = level_number};
+        this -> view_switch = ViewSwitch {state, level_number};
         this -> enabled = enabled;
     }
 
