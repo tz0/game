@@ -65,7 +65,7 @@ namespace tjg {
         std::string raw_levelfile((std::istreambuf_iterator<char>(in)), std::istreambuf_iterator<char>());
         const auto parse_result = json11::Json::parse(raw_levelfile, err);
 
-        //TODO: add is_number check here
+        //TODO: add is_number check here, since other members believe level check is very unnecessary. This TODO can wait or abort.
         exit_.x = static_cast<float>(parse_result["exit"]["x"].number_value());        
         exit_.y = static_cast<float>(parse_result["exit"]["y"].number_value());
         entrance_.x = static_cast<float>(parse_result["entrance"]["x"].number_value());

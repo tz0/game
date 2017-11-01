@@ -7,8 +7,6 @@
 #include "Constants.h"
 #include "ResourceManager.h"
 
-#include "Level.h"
-
 namespace tjg {
     class View {
 
