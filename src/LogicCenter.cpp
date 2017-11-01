@@ -153,6 +153,10 @@ namespace tjg {
         return control_center;
     }
 
+    PhysicsSystem& LogicCenter::GetPhysicsSystem() {
+        return physics_system;
+    }
+
     Level& LogicCenter::GetLevel() {
         return level;
     }

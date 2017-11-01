@@ -20,15 +20,28 @@ namespace tjg {
         layers[sprite_component->GetLayer()].push_back(entity);
     }
 
+
     void SpriteRenderSystem::render(sf::RenderTarget &target) {
-        for (auto layer : layers) {
-            for (auto &entity : layer.second) {
-                renderEntity(target, entity);
-            }
+        for (auto &layer : layers) {
+
+            // Delete entities that have been flagged for removal.
+            layer.second.erase(
+                    std::remove_if(
+                            layer.second.begin(),
+                            layer.second.end(),
+                            [&](std::shared_ptr<Entity> entity) {
+                                if (entity->IsFlaggedForRemoval())
+                                    return true;
+                                renderEntity(target, entity);
+                                return false;
+                            }),
+                    layer.second.end()
+            );
         }
+
     }
 
-    void SpriteRenderSystem::Reset(){
+    void SpriteRenderSystem::Reset() {
         layers.clear();
     }
 }

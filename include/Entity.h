@@ -16,15 +16,23 @@ namespace tjg {
     private:
         std::unordered_map<std::type_index, std::shared_ptr<Component>> components;
         std::vector<std::shared_ptr<Entity>> children;
+        bool remove = false;
 
     public:
 
         // Child methods.
         void AddChild(std::shared_ptr<Entity> child);
+
         bool HasChildren();
+
         void ForEachChild(std::function<void(std::shared_ptr<Entity>)> f);
 
         // Component methods. Since these are templates, they stay in the header file.
+
+        // Tag an entity for removal from systems.
+        void FlagForRemoval();
+
+        bool IsFlaggedForRemoval();
 
         /**
          * AddComponent
@@ -42,6 +50,21 @@ namespace tjg {
             components.insert({std::type_index(typeid(T)), component});
             return component;
         }
+
+        /**
++         * SetComponent sets a type of component to a new component, replacing the existing one if present.
++         * @tparam T The type of Component being added
++         * @tparam Args
++         * @param args The constructor arguments for the Component being added
++         * @return A shared ptr to the component that was just added
++         */
+        template<typename T, typename... Args>
+        std::shared_ptr<T> SetComponent(Args &&... args) {
+            auto component = std::make_shared<T>(std::forward<Args>(args)...);
+            components[std::type_index(typeid(T))] = component;
+            return component;
+        }
+
         /**
          * GetComponent
          * @tparam T The component which is being requested
@@ -51,6 +74,7 @@ namespace tjg {
         std::shared_ptr<T> GetComponent() {
             return std::static_pointer_cast<T>(components[std::type_index(typeid(T))]);
         }
+
         /**
          * HasComponent
          * @tparam T The Component which is being checked for
