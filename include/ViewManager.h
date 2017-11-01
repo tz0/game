@@ -14,7 +14,6 @@ namespace tjg {
 
     class ViewManager {
     private:
-        ResourceManager &resource_manager;
         LogicCenter &logic_center;
         State state;
         sf::RenderWindow window;

@@ -2,7 +2,6 @@
 
 namespace tjg {
     LogicCenter::LogicCenter(ResourceManager &resource_manager) :
-            resource_manager(resource_manager),
             physics_system(),
             collision_center(physics_system.GetSpace()),
             entity_factory(resource_manager, physics_system) {

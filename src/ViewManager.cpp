@@ -2,7 +2,6 @@
 
 namespace tjg {
     ViewManager::ViewManager(ResourceManager &resource_manager, LogicCenter &logic_center):
-        resource_manager(resource_manager),
         logic_center(logic_center),
         state(State::MAIN_MENU),
         window(sf::VideoMode(WINDOW_WIDTH, WINDOW_HEIGHT, 32), "Game", sf::Style::Titlebar | sf::Style::Close),
@@ -111,6 +110,8 @@ namespace tjg {
                 logic_center.Update(elapsed);
                 player_view.Update(elapsed);
                 break;
+            default:
+                break;
         }
 
         //Switch to menu if won/lost
@@ -143,6 +144,8 @@ namespace tjg {
                 break;
             case State::PLAYING:
                 player_view.Render();
+                break;
+            default:
                 break;
         }
     }
