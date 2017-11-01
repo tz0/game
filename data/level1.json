@@ -1,172 +1,46 @@
-{
+{    
   "level": 1,
-  "fuel" : 4.4,
-  "oxygen" : 30,
-  "total_fuel" : 5,
-  "total_oxygen" : 45,
+  "fuel" : 5,
+  "oxygen" : 45,
 
   "exit":
   {
-    "x": -1350,
+    "x": -1400,
     "y": -200    
   },
   
   "entrance":
   {
-    "x": -500,
+    "x": 0,
     "y": 0
   },
 
   "walls":
   [
-    {
-      "Endpoints": 
-      {
-          "Origin": 
-          {
-            "x": -1500,
-            "y": -600            
-          },
-          "Endpoint": 
-          {
-            "x": 500,
-            "y": -600            
-          }
-      },
-      "Radius": 40
-    },
-    {
-      "Endpoints": 
-      {
-          "Origin": 
-          {
-            "x": -1500,
-            "y": 600            
-          },
-          "Endpoint": 
-          {
-            "x": 500,
-            "y": 600            
-          }
-      },
-      "Radius": 40
-    },
-    {
-      "Endpoints": 
-      {
-          "Origin": 
-          {
-            "x": -1500,
-            "y": -600            
-          },
-          "Endpoint": 
-          {
-            "x": -1500,
-            "y": 600            
-          }
-      },
-      "Radius": 40
-    },
-    {
-      "Endpoints": 
-      {
-          "Origin": 
-          {
-            "x": 500,
-            "y": -600            
-          },
-          "Endpoint": 
-          {
-            "x": 500,
-            "y": 600            
-          }
-      },
-      "Radius": 40
-    },
-    {
-      "Endpoints": 
-      {
-          "Origin": 
-          {
-            "x": -900,
-            "y": -600            
-          },
-          "Endpoint": 
-          {
-            "x": -950,
-            "y": 90            
-          }
-      },
-      "Radius": 140
-    }
+    {"Origin": {"x": -1500, "y": -600}, "Endpoint": {"x": 500, "y": -600}, "Radius": 40 },
+    {"Origin": {"x": -1500,"y": 600},"Endpoint": {"x": 500,"y": 600},"Radius": 40},
+    {"Origin": {"x": -1500,"y": -600},"Endpoint": {"x": -1500,"y": 600},"Radius": 40},
+    {"Origin": {"x": 500,"y": -600},"Endpoint": {"x": 500,"y": 600},"Radius": 40},
+    {"Origin": {"x": -800,"y": -600},"Endpoint": {"x": -800,"y": 90},"Radius": 40}
   ],
-  
+
   "fans":
   [
-    {
-      "Endpoints": 
-      {
-          "Origin": 
-          {
-            "x": 500,
-            "y": -400,
-            "strength": 1000
-          },
-          "Endpoint": 
-          {
-            "x": -1500,
-            "y": 400,
-            "strength": 250
-          }
-      },
-      "Width": 200
-    },
-    {
-      "Endpoints": 
-      {
-          "Origin": 
-          {
-            "x": -600,
-            "y": -600,
-            "strength": 800
-          },
-          "Endpoint": 
-          {
-            "x": -600,
-            "y": 600,
-            "strength": 50
-          }
-      },
-      "Width": 200
-    },
-    {
-      "Endpoints": 
-      {
-          "Origin": 
-          {
-            "x": -1000,
-            "y": 600,
-            "strength": 1600
-          },
-          "Endpoint": 
-          {
-            "x": -1000,
-            "y": -600,
-            "strength": 250
-          }
-      },
-      "Width": 200
-    }
+    {"Origin": {"x": 0,"y": -600,"strength": 250},"Endpoint": {"x": 0,"y": 600,"strength": 0},"Width": 200},
+    {"Origin": {"x": 0,"y": 600,"strength": 250},"Endpoint": {"x": 0,"y": -600,"strength": 0},"Width": 200},
+    {"Origin": {"x": 300,"y": -600,"strength": 250},"Endpoint": {"x": 300,"y": 600,"strength": 0},"Width": 200},
+    {"Origin": {"x": 500,"y": 400,"strength": 250},"Endpoint": {"x": -1500,"y": 400,"strength": 50},"Width": 200},
+    {"Origin": {"x": -1000,"y": 600,"strength": 400},"Endpoint": {"x": -1000,"y": -600,"strength": 0},"Width": 200},
+    {"Origin": {"x": -1300,"y": -600,"strength": 400},"Endpoint": {"x": -1300,"y": 600,"strength": 50},"Width": 200}
   ],
 
   "dialogues":
   [
-    "Hello, my friend.",
-    "How are you?",
-    "I'm Spaceship Artificial Intelligence.",
-    "You can call me 'SAI'",
-    "What's your name?",
-    "Tech-17?",
-    "Huh, 17..."
+    "Hello, TECH-17. Welcome to the demo level.",
+    "Your goal is to reach the exit to your left without flying into anything.",
+    "Press space to fire your jetpack and use the left and right arrow keys to rotate.",
+    "The orange bar in your HUD indicates how much fuel you have left.",
+    "The blue bar indicates how much breathable air is left in your suit.",
+    "I probably should have mentioned that earlier..."    
   ]
 }

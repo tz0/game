@@ -56,8 +56,8 @@ namespace tjg {
         // Accessors
         const Exit & GetExit(); 
         const Entrance & GetEntrance(); 
-        const float & GetTotalFuel();
-        const float & GetTotalOxygen(); 
+        const float & GetFuel();
+        const float & GetOxygen(); 
         const std::vector<Level::Fan> & GetFans();
         const std::vector<Level::Wall> & GetWalls();
         const std::vector<std::string> & GetDialogues();
@@ -65,8 +65,8 @@ namespace tjg {
     private:        
         Exit exit_; 
         Entrance entrance_;
-        float total_fuel_;
-        float total_oxygen_;
+        float fuel_;
+        float oxygen_;
         std::vector<Fan> fans_;
         std::vector<Wall> walls_;
         std::vector<std::string> dialogues_;

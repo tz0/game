@@ -57,7 +57,9 @@ namespace tjg {
         // We are accounting for status bar height here since the walls were built before the status bar.
         // Typically, the level design should account for the status bar.
         camera.setCenter(-500, 0 - STATUSBAR_HEIGHT);
-        camera.setSize(2080, 1280 + (STATUSBAR_HEIGHT * 2));
+        //camera.setCenter(-500, 0 - STATUSBAR_HEIGHT);
+        camera.setSize(3080, 1880 + (STATUSBAR_HEIGHT * 2));
+        //camera.setSize(2080, 1280 + (STATUSBAR_HEIGHT * 2));
     }
 
 
