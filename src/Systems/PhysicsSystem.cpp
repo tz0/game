@@ -30,28 +30,6 @@ namespace tjg {
     }
 
     void PhysicsSystem::Update(const sf::Time elapsed) {
-        /*for (auto &entity : entities) {
-            // Get the required components (Location + Dynamic Body)
-            auto body_component = entity->GetComponent<DynamicBody>();
-            if (body_component) {
-                auto body = body_component->GetBody();
-                auto location = entity->GetComponent<Location>();
-
-                auto body_position = cpBodyGetPosition(body);
-                auto body_angle = cpBodyGetAngle(body);
-
-                // Set the location (position + rotation) to exactly match the position and rotation of the physical body.
-                location->SetPosition(sf::Vector2f(body_position.x, body_position.y));
-                location->SetRotation(body_angle * 180.0f / M_PI);
-            }
-
-            // Check if the entity has a sensor shape
-            auto sensor = entity->GetComponent<SensorShape>();
-            if (sensor) {
-                sensor->Query(space);
-            }
-
-        }*/
         // Traverse entities, and delete the ones that have been flagged for removal.
         entities.erase(
                 std::remove_if(
