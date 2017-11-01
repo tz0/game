@@ -71,6 +71,7 @@ namespace tjg {
         State GetGameState(); //result of game
         EntityFactory& GetEntityFactory();
         ControlCenter& GetControlCenter();
+        PhysicsSystem& GetPhysicsSystem();
         std::shared_ptr<Entity> GetTech17();
         std::vector<std::shared_ptr<Entity>>& GetWalls();
         std::vector<std::shared_ptr<Entity>>& GetFans();

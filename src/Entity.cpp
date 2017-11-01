@@ -29,4 +29,11 @@ namespace tjg {
         }
     }
 
+    void Entity::FlagForRemoval() {
+        remove = true;
+    }
+
+    bool Entity::IsFlaggedForRemoval() {
+        return remove;
+    }
 }
