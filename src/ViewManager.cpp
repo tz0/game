@@ -24,31 +24,35 @@ namespace tjg {
 
 
     void ViewManager::SwitchView(ViewSwitch view_switch) {
-        switch (view_switch) {
-            case ViewSwitch::MAIN_MENU:
+        switch (view_switch.state) {
+            case State::MAIN_MENU:
                 SwitchToMainMenuView();
                 break;
-            case ViewSwitch ::LEVEL_MENU:
+            case State::LEVEL_MENU:
                 SwitchToLevelMenuView();
                 break;
-            case ViewSwitch::PLAYING:
+            case State::PLAYING:
                 logic_center.Reset();
-                //TODO(Yangyang): get the level_number from the menu selection
-                SwitchToPlayerView(2);
+                if (view_switch.level_number > 0) {
+                    level_number = view_switch.level_number;
+                    SwitchToPlayerView(view_switch.level_number);
+                } else {
+                    SwitchToPlayerView(level_number);
+                }
                 break;
-            case ViewSwitch::RESUME:
+            case State::RESUME:
                 ResumePlayerView();
                 break;
-            case ViewSwitch::PAUSED:
+            case State::PAUSED:
                 SwitchToPauseMenuView(State::PAUSED);
                 break;
-            case ViewSwitch::WON:
+            case State::WON:
                 SwitchToPauseMenuView(State::WON);
                 break;
-            case ViewSwitch::FAILED:
+            case State::FAILED:
                 SwitchToPauseMenuView(State::FAILED);
                 break;
-            case ViewSwitch::EXIT:
+            case State::EXIT:
                 window.close();
                 running = false;
                 break;
@@ -153,23 +157,6 @@ namespace tjg {
                     window.close();
                     running = false;
                     break;
-                case sf::Event::KeyPressed: {
-                    switch (event.key.code) {
-
-                        // Close window on ESC
-//                        case sf::Keyboard::Escape: {
-//                            window.close();
-//                            running = false;
-//                            break;
-//                        }
-
-                        default:
-                            view_switch = current_view.HandleWindowEvents(event);
-                            SwitchView(view_switch);
-                            break;
-                    }
-                    break;
-                }
                 default:
                     view_switch = current_view.HandleWindowEvents(event);
                     SwitchView(view_switch);

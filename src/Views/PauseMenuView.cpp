@@ -48,15 +48,15 @@ namespace tjg{
             case sf::Event::KeyPressed: {
                 switch (event.key.code) {
                     case sf::Keyboard::Return:
-                        return ViewSwitch::PLAYING;
+                        return ViewSwitch {.state=State::PLAYING, .level_number=0};
                     case sf::Keyboard::Escape:
-                        return ViewSwitch::MAIN_MENU;
+                        return ViewSwitch {.state=State::MAIN_MENU, .level_number=0};
                     case sf::Keyboard::R:
-                        return ViewSwitch::PLAYING;
+                        return ViewSwitch {.state=State::PLAYING, .level_number=0};
                     case sf::Keyboard::Y:
-                        return ViewSwitch::LEVEL_MENU;
+                        return ViewSwitch {.state=State::LEVEL_MENU, .level_number=0};
                     case sf::Keyboard::N:
-                        return ViewSwitch::RESUME;
+                        return ViewSwitch {.state=State::RESUME, .level_number=0};
                     default:
                         break;
                 }
@@ -65,7 +65,7 @@ namespace tjg{
             default:
                 break;
         }
-        return ViewSwitch::CONTINUE;
+        return ViewSwitch {.state=State::CONTINUE, .level_number=0};
     }
 
 }

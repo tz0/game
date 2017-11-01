@@ -10,7 +10,7 @@ namespace tjg {
         sf::Text message;
     public:
         LevelMenuView(ResourceManager &resource_manager, sf::RenderWindow &window);
-        void Initialize() override;
+        void Initialize();
         void Update();
         void Render();
         ViewSwitch HandleWindowEvents(sf::Event event) override;

@@ -22,6 +22,7 @@ namespace tjg {
         LevelMenuView level_menu_view;
         PlayerView player_view;
         PauseMenuView pause_menu_view;
+        unsigned int level_number;
 
         bool running = true;
 

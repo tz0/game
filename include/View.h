@@ -22,8 +22,6 @@ namespace tjg {
                 resource_manager(resourceManager){};
 
         virtual ViewSwitch HandleWindowEvents(sf::Event event) = 0;
-
-        virtual void Initialize() = 0;
     };
 }
 #endif //GAME_VIEW_H

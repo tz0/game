@@ -5,8 +5,11 @@
 #define WINDOW_HEIGHT 720u
 
 namespace tjg {
-    enum class State {MAIN_MENU, LEVEL_MENU, PLAYING, PAUSED, WON, FAILED};
-    enum class ViewSwitch {CONTINUE, MAIN_MENU, LEVEL_MENU, PLAYING, RESUME, PAUSED, WON, FAILED, EXIT};
+    enum class State {CONTINUE, MAIN_MENU, LEVEL_MENU, PLAYING, RESUME, PAUSED, WON, FAILED, EXIT};
+    struct ViewSwitch {
+        State state;
+        unsigned int level_number;
+    };
 }
 
 #endif //GAME_CONSTANTS_H
