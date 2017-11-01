@@ -10,7 +10,6 @@ namespace tjg {
         sf::Text message;
     public:
         PauseMenuView(ResourceManager &resource_manager, sf::RenderWindow &window);
-        void Initialize() override;
         void Initialize(State state);
         void Update();
         void Render();

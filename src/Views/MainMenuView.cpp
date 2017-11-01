@@ -19,7 +19,7 @@ namespace tjg {
         message.setPosition(WINDOW_WIDTH / 2, WINDOW_HEIGHT/ 2);
     }
 
-    //Handle keyboard control of the menu
+    //TODO: Implement or remove
     void MainMenuView::Update() {
 
     }

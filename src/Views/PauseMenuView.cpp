@@ -4,11 +4,6 @@ namespace tjg{
     PauseMenuView::PauseMenuView(ResourceManager &resource_manager, sf::RenderWindow &window) :
             View(window,resource_manager) {}
 
-
-    void PauseMenuView::Initialize(){
-
-    }
-
     void PauseMenuView::Initialize(State state) {
         auto avenir_bold = resource_manager.LoadFont("Avenir-Bold.ttf");
         // temp Set font for win message
@@ -36,7 +31,7 @@ namespace tjg{
         message.setPosition(WINDOW_WIDTH / 2, WINDOW_HEIGHT/ 2);
     }
 
-    //Handle keyboard control of the menu
+    //TODO: Implement or remove
     void PauseMenuView::Update() {
     }
 

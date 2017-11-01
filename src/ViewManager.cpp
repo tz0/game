@@ -13,6 +13,7 @@ namespace tjg {
         window.setVerticalSyncEnabled(true);
     }
 
+    //TODO: Implement or remove
     void ViewManager::Initialize() {
 
     }
@@ -33,7 +34,7 @@ namespace tjg {
             case ViewSwitch::PLAYING:
                 logic_center.Reset();
                 //TODO(Yangyang): get the level_number from the menu selection
-                SwitchToPlayerView(1);
+                SwitchToPlayerView(2);
                 break;
             case ViewSwitch::RESUME:
                 ResumePlayerView();
