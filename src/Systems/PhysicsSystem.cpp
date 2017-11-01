@@ -82,7 +82,6 @@ namespace tjg {
                                 sensor->Query(space);
                             }
 
-
                             return false;
                         }),
                 entities.end()
