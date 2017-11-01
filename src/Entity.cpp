@@ -36,5 +36,4 @@ namespace tjg {
     bool Entity::IsFlaggedForRemoval() {
         return remove;
     }
-
 }
