@@ -49,8 +49,8 @@ namespace tjg {
         initializeStatusBar();
 
         // Initialize dialog system
-        std::vector<std::string> dialog_snippets = logic_center.GetLevel().GetDialogues();
-        initializeDialogSystem(dialog_snippets, 4, lcd_regular); // maybe i could put seconds_to_show_dialog in level files.
+        std::vector<Dialogue> dialogues = logic_center.GetLevel().GetDialogues();
+        initializeDialogueSystem(dialogues, lcd_regular);
 
         // Set up camera, accounting for level and status bar since the walls were built before the status bar.
         camera.setCenter(
@@ -78,7 +78,7 @@ namespace tjg {
         statusbar_render_system.render(window);
 
         // Draw the dialog box on top of the status bar.
-        window.draw(dialog_system.GetDialogBox());
+        window.draw(dialogue_system.GetDialogueBox());
 
         // Draw FPS counter.
         if (show_info) {
@@ -101,7 +101,7 @@ namespace tjg {
     // Update logic that is specific to the player view.
     void LevelView::Update(const sf::Time &elapsed) {
         CheckKeys(elapsed);
-        dialog_system.Update(elapsed);
+        dialogue_system.Update(elapsed);
     }
 
     ViewSwitch LevelView::HandleWindowEvents(const sf::Event event) {
@@ -228,7 +228,7 @@ namespace tjg {
         oxygen_tracker_sprite->SetSize(new_oxygen_size);
     }
 
-    void LevelView::initializeDialogSystem(std::vector<std::string> &dialog_snippets, float seconds_to_show_dialog, std::shared_ptr<sf::Font> font) {
+    void LevelView::initializeDialogueSystem(std::vector<Dialogue> &dialogues, std::shared_ptr<sf::Font> font) {
         // Create dialog box Text object.
         sf::Text dialog_box;
         dialog_box.setFont(*font);
@@ -237,6 +237,6 @@ namespace tjg {
         float dialog_box_x = trackers_initial_size.x*2 + statusbar_x_padding*3;
         dialog_box.setPosition(dialog_box_x, statusbar_y_padding);
         // Build the dialog system.
-        dialog_system.Initialize(dialog_box, dialog_snippets, seconds_to_show_dialog, (unsigned int)(dialog_background.getLocalBounds().width));
+        dialogue_system.Initialize(dialog_box, dialogues, (unsigned int)(dialog_background.getLocalBounds().width));
     }
 }

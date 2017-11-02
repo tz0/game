@@ -4,6 +4,8 @@
 #include <iostream>
 #include <fstream>
 
+#include "Systems/DialogueSystem.h"
+
 #include "json11.hpp"
 
 namespace tjg {
@@ -70,7 +72,7 @@ namespace tjg {
         const float & GetOxygen(); 
         const std::vector<Level::Fan> & GetFans();
         const std::vector<Level::Wall> & GetWalls();
-        const std::vector<std::string> & GetDialogues();
+        const std::vector<Dialogue> & GetDialogues();
 
     private:        
         CameraCenter camera_center_;
@@ -81,7 +83,7 @@ namespace tjg {
         float oxygen_;        
         std::vector<Fan> fans_;
         std::vector<Wall> walls_;
-        std::vector<std::string> dialogues_;
+        std::vector<Dialogue> dialogues_;
         
         /**
         * Print parsing result from a target level for level file debugging.

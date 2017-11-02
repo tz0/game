@@ -45,12 +45,10 @@
 
   "dialogues":
   [
-    "Hello, my friend.",
-    "How are you?",
-    "I'm Spaceship Artificial Intelligence.",
-    "You can call me 'SAI'",
-    "What's your name?",
-    "Tech-17?",
-    "Huh, 17..."
+    {"Dialogue": {"message": "Hello, my friend.", "seconds": 3}},
+    {"Dialogue": {"message": "How are you?", "seconds": 3}},
+    {"Dialogue": {"message": "I'm Spaceship Artificial Intelligence. You can call me 'SAI'", "seconds": 5}},
+    {"Dialogue": {"message": "What's your name?", "seconds": 4}},
+    {"Dialogue": {"message": "TECH-17? Huh, 17...", "seconds": 3}}
   ]
 }
