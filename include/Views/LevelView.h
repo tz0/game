@@ -1,12 +1,12 @@
-#ifndef GAME_PLAYERVIEW_H
-#define GAME_PLAYERVIEW_H
+#ifndef GAME_LEVELVIEW_H
+#define GAME_LEVELVIEW_H
 
 #include <SFML/Graphics.hpp>
 #include <bitset>
 
 #include "LogicCenter.h"
 #include "Systems/SpriteRenderSystem.h"
-#include "Systems/DialogSystem.h"
+#include "Systems/DialogueSystem.h"
 #include "View.h"
 #include "Constants.h"
 
@@ -49,10 +49,10 @@ namespace tjg {
         void updateStatusBarTrackers();
 
         // Dialog box pieces.
-        DialogSystem dialog_system;
+        DialogueSystem dialogue_system;
 
         // Dialog box methods.
-        void initializeDialogSystem(std::vector<std::string> &dialog_snippets, float seconds_to_show_dialog, std::shared_ptr<sf::Font> font);
+        void initializeDialogueSystem(std::vector<Dialogue> &dialogues, std::shared_ptr<sf::Font> font);
 
     public:
         // Constructor
@@ -68,4 +68,4 @@ namespace tjg {
 
 }
 
-#endif //GAME_PLAYERVIEW_H
+#endif //GAME_LEVELVIEW_H

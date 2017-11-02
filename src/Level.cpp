@@ -133,7 +133,7 @@ namespace tjg {
         dialogues_.clear();
         dialogues_.shrink_to_fit();
         for (auto &dialogue : parse_result["dialogues"].array_items()) {
-            dialogues_.emplace_back(dialogue.string_value());
+            dialogues_.emplace_back(Dialogue(dialogue.string_value(), 1));
         }
         dialogues_.shrink_to_fit();
     }
@@ -178,7 +178,7 @@ namespace tjg {
         return walls_;
     }
 
-    const std::vector<std::string>& Level::GetDialogues()
+    const std::vector<Dialogue>& Level::GetDialogues()
     {
         return dialogues_;
     }
