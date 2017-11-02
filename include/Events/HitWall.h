@@ -8,7 +8,7 @@ namespace tjg {
     private:
         //  - time elapsed
     public:
-        explicit HitWall();
+        explicit HitWall() = default;
     };
 }
 

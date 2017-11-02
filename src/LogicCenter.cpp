@@ -1,10 +1,12 @@
 #include "LogicCenter.h"
 
 namespace tjg {
-    LogicCenter::LogicCenter(ResourceManager &resource_manager) :
+    LogicCenter::LogicCenter(ResourceManager &resource_manager, EventManager &event_manager) :
             physics_system(),
             collision_center(physics_system.GetSpace()),
-            entity_factory(resource_manager, physics_system) {
+            entity_factory(resource_manager, physics_system),
+            event_manager(event_manager)
+    {
     }
 
     void LogicCenter::Initialize(const unsigned int level_number) {
@@ -85,10 +87,8 @@ namespace tjg {
         physics_system.Update(elapsed);
 
         // Countdown timer - start counting. To be more fair, do not start to count during initialization.
-        auto elapsed_seconds = oxygen_clock.getElapsedTime().asSeconds();
         auto oxygen_finite_resource = oxygen_tracker->GetComponent<FiniteResource>();
-        auto max_oxygen = oxygen_finite_resource->GetMaxLevel();
-        oxygen_finite_resource->SetCurrentLevel(max_oxygen - elapsed_seconds);
+        oxygen_finite_resource->ExpendResource(elapsed.asSeconds());
 
         // If out of oxygen, fire an event.
         if (oxygen_finite_resource->IsDepleted()){
@@ -109,7 +109,6 @@ namespace tjg {
         physics_system.Reset();
         collision_center.Reset(physics_system.GetSpace());
         game_state = State::PLAYING;
-        oxygen_clock.restart();
     }
 
 

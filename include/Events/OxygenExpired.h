@@ -7,7 +7,7 @@ namespace tjg {
     class OxygenExpired : public Event {
            
     public:
-        explicit OxygenExpired();
+        explicit OxygenExpired() = default;
         // trigger intermediate menu
     };
 }
