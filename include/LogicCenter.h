@@ -33,20 +33,27 @@ namespace tjg {
         // Event manager
         EventManager &event_manager;
 
-        // Entities
+        // Contains level information.
+        Level level;
+
+        // Game entities
         std::shared_ptr<Entity> tech17;
         std::shared_ptr<Entity> entrance;
         std::shared_ptr<Entity> exit;
-
-        State game_state = State::PLAYING;
-        std::shared_ptr<Entity> fuel_tracker;
-        std::shared_ptr<Entity> oxygen_tracker;
-
-        // Temporary for testing purposes.
         std::vector<std::shared_ptr<Entity>> walls;
         std::vector<std::shared_ptr<Entity>> fans;
 
-        Level level;
+        // Resource tracker entities
+        std::shared_ptr<Entity> fuel_tracker;
+        std::shared_ptr<Entity> oxygen_tracker;
+
+        // Fuel clock. Keeps track of time since fuel expired.
+        bool out_of_fuel_clock_started;
+        float seconds_to_wait_after_fuel_expired;
+        sf::Clock out_of_fuel_clock;
+
+        // Game state
+        State game_state = State::PLAYING;
 
     public:
         LogicCenter(ResourceManager &resource_manager, EventManager &event_manager);

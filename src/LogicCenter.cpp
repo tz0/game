@@ -36,8 +36,18 @@ namespace tjg {
         });
         event_manager.RegisterListener<FuelExpired>([&](FuelExpired &event) {
             (void)event;
-            std::cout << "Out of fuel!" << std::endl;
-            game_state = State::FAILED;
+            // If the fuel clock has started, check for a loss.
+            if (out_of_fuel_clock_started) {
+                if  (out_of_fuel_clock.getElapsedTime().asSeconds() >= seconds_to_wait_after_fuel_expired) {
+                    game_state = State::FAILED;
+                }
+            }
+            // If the fuel clock hasn't started, start it.
+            else {
+                std::cout << "Out of fuel! Starting countdown." << std::endl;
+                out_of_fuel_clock.restart();
+                out_of_fuel_clock_started = true;
+            }
         });
 
         //Iterate wall information record from level's walls vector, create walls and add them to the walls vector.
@@ -80,6 +90,10 @@ namespace tjg {
         // Link the fuel resource to the control center.
         auto fuel_resource = fuel_tracker->GetComponent<FiniteResource>();
         control_center.SetFuelResource(fuel_resource);
+
+        // Set up out_of_fuel_clock.
+        out_of_fuel_clock_started = false;
+        seconds_to_wait_after_fuel_expired = 3.f;
     }
 
     void LogicCenter::Update(const sf::Time &elapsed) {
