@@ -16,7 +16,7 @@ namespace tjg {
         if (!this->dialogues.empty()) {
             auto wrapped_string = wrapText(this->dialogues[dialogue_index].message, wrap_width, *this->dialogue_box.getFont(), this->dialogue_box.getCharacterSize());
             this->dialogue_box.setString(wrapped_string);
-            this->seconds_dialog_shown = 0;
+            this->seconds_dialogue_shown = 0;
         }
 
         // Set urgent message flag to false.
@@ -37,9 +37,9 @@ namespace tjg {
             auto wrapped_string = wrapText(dialogue_before_urgent_message.message, wrap_width, *dialogue_box.getFont(), dialogue_box.getCharacterSize());
             dialogue_box.setString(wrapped_string);
         }
-        else if (dialogue_index < dialogues.size() && seconds_dialog_shown <= dialogues[dialogue_index].time_to_show) {
+        else if (dialogue_index < dialogues.size() && seconds_dialogue_shown <= dialogues[dialogue_index].time_to_show) {
             // If the current dialog hasn't been shown long enough, just increment the time.
-            seconds_dialog_shown += elapsed.asSeconds();
+            seconds_dialogue_shown += elapsed.asSeconds();
         }
         else if (dialogue_index < dialogues.size()){
             // Move to the next dialog snippet if there is one.
@@ -49,7 +49,7 @@ namespace tjg {
                 auto wrapped_string = wrapText(dialogues[dialogue_index].message, wrap_width, *dialogue_box.getFont(), dialogue_box.getCharacterSize());
                 dialogue_box.setString(wrapped_string);
                 // Reset the time this dialog has been shown.
-                seconds_dialog_shown = 0;
+                seconds_dialogue_shown = 0;
             }
         }
         else {

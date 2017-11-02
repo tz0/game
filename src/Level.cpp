@@ -132,12 +132,15 @@ namespace tjg {
         // read dialogues informations        
         dialogues_.clear();
         dialogues_.shrink_to_fit();
+        std::string message;
+        float seconds_to_show = 0;
         for (auto &dialogue : parse_result["dialogues"].array_items()) {
-            dialogues_.emplace_back(Dialogue(dialogue.string_value(), 1));
+            message = dialogue["Dialogue"]["message"].string_value();
+            seconds_to_show = static_cast<float>(dialogue["Dialogue"]["seconds"].number_value());
+            dialogues_.emplace_back(message, seconds_to_show);
         }
         dialogues_.shrink_to_fit();
     }
-
     const Level::CameraCenter & Level::GetCameraCenter()
     {
         return camera_center_;

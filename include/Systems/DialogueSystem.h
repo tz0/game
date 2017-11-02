@@ -35,7 +35,7 @@ namespace tjg {
         Dialogue dialogue_before_urgent_message;
 
         // Timing-related variables.
-        float seconds_dialog_shown;
+        float seconds_dialogue_shown;
         float seconds_urgent_message_shown;
 
         // Flag to indicate an urgent message is being shown.
