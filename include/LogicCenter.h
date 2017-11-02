@@ -8,12 +8,14 @@
 #include "Systems/ControlCenter.h"
 #include "EntityFactory.h"
 #include "EventManager.h"
-#include "Events/ReachedExit.h"
-#include "Constants.h"
-#include "Events/OxygenExpired.h"
 #include "Events/FuelExpired.h"
+#include "Events/OxygenExpired.h"
+#include "Events/ReachedExit.h"
+#include "Events/ViewChanged.h"
+#include "Constants.h"
 #include "Components/FiniteResource.h"
 #include "Level.h"
+
 
 namespace tjg {
 
@@ -29,7 +31,7 @@ namespace tjg {
         EntityFactory entity_factory;
 
         // Event manager
-        EventManager event_manager;
+        EventManager &event_manager;
 
         // Entities
         std::shared_ptr<Entity> tech17;
@@ -44,13 +46,10 @@ namespace tjg {
         std::vector<std::shared_ptr<Entity>> walls;
         std::vector<std::shared_ptr<Entity>> fans;
 
-        // Countdown timer set
-        sf::Clock oxygen_clock;
-
         Level level;
 
     public:
-        LogicCenter(ResourceManager &resource_manager);
+        LogicCenter(ResourceManager &resource_manager, EventManager &event_manager);
 
         /**
          * Initialize creates and configures necessary entities before the game begins

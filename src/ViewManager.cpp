@@ -1,8 +1,9 @@
 #include "ViewManager.h"
 
 namespace tjg {
-    ViewManager::ViewManager(ResourceManager &resource_manager, LogicCenter &logic_center):
+    ViewManager::ViewManager(ResourceManager &resource_manager, LogicCenter &logic_center, EventManager &event_manager):
         logic_center(logic_center),
+        event_manager(event_manager),
         state(State::MAIN_MENU),
         window(sf::VideoMode(WINDOW_WIDTH, WINDOW_HEIGHT, 32), "Game", sf::Style::Titlebar | sf::Style::Close),
         main_menu_view(resource_manager, window),
@@ -24,6 +25,7 @@ namespace tjg {
 
 
     void ViewManager::SwitchView(ViewSwitch view_switch) {
+        event_manager.Fire<ViewChanged>(view_switch);
         switch (view_switch.state) {
             case State::MAIN_MENU:
                 SwitchToMainMenuView();
@@ -153,7 +155,6 @@ namespace tjg {
 
     void ViewManager::HandleWindowEvents(View &current_view) {
         sf::Event event;
-        ViewSwitch view_switch;
         // Look for window events.
         while (window.pollEvent(event)) {
             switch (event.type) {
@@ -162,8 +163,10 @@ namespace tjg {
                     running = false;
                     break;
                 default:
-                    view_switch = current_view.HandleWindowEvents(event);
-                    SwitchView(view_switch);
+                    auto view_switch = current_view.HandleWindowEvents(event);
+                    if (view_switch.state != State::CONTINUE) {
+                        SwitchView(view_switch);
+                    }
                     break;
             }
         }
