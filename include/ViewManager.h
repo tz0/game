@@ -4,7 +4,7 @@
 #include <SFML/Graphics.hpp>
 #include "Views/LevelMenuView.h"
 #include "Views/MainMenuView.h"
-#include "Views/PlayerView.h"
+#include "Views/LevelView.h"
 #include "Views/PauseMenuView.h"
 #include "View.h"
 #include "LogicCenter.h"
@@ -19,7 +19,7 @@ namespace tjg {
         sf::RenderWindow window;
         MainMenuView main_menu_view;
         LevelMenuView level_menu_view;
-        PlayerView player_view;
+        LevelView player_view;
         PauseMenuView pause_menu_view;
         unsigned int current_level;
 
