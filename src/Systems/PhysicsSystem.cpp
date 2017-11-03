@@ -6,12 +6,7 @@ namespace tjg {
     PhysicsSystem::PhysicsSystem() :
             space(cpSpaceNew())
     {
-        // Set zero gravity
-        cpSpaceSetGravity(space, cpvzero);
-
-        // Set some friction
-        cpSpaceSetDamping(space, 0.7);
-
+        InitializeSpace();
     }
 
     PhysicsSystem::~PhysicsSystem() {
@@ -77,6 +72,11 @@ namespace tjg {
         entities.clear();
         cpSpaceFree(space);
         space = cpSpaceNew();
+
+        InitializeSpace();
+    }
+
+    void PhysicsSystem::InitializeSpace() {
         // Set zero gravity
         cpSpaceSetGravity(space, cpvzero);
         // Set some friction

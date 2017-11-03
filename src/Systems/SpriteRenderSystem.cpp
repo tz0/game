@@ -32,7 +32,8 @@ namespace tjg {
                             [&](std::shared_ptr<Entity> entity) {
                                 if (entity->IsFlaggedForRemoval())
                                     return true;
-                                renderEntity(target, entity);
+                                if (!entity->GetComponent<Hidden>())
+                                    renderEntity(target, entity);
                                 return false;
                             }),
                     layer.second.end()

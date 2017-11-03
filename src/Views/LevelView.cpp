@@ -3,8 +3,14 @@
 namespace tjg {
 
     LevelView::LevelView(ResourceManager &resource_manager, sf::RenderWindow &window, LogicCenter &logic_center) :
-            View(window,resource_manager),
-            logic_center(logic_center) {
+            View(window, resource_manager),
+            logic_center(logic_center),
+            dust_particle_system(playerview_render_system, logic_center.GetPhysicsSystem(), 1000,
+                                 sf::Sprite(*resource_manager.LoadTexture("dust.png"), sf::IntRect(0, 0, 128, 128)),
+                                 -50, sf::seconds(5),
+                                 [](float x){return sf::Color::Green;},
+                                 [](float x){return sf::Vector2f(x, x);})
+    {
             window.setVerticalSyncEnabled(true);
     }
 
@@ -41,8 +47,10 @@ namespace tjg {
         playerview_render_system.AddEntity(logic_center.GetEntityFactory().MakeTiledBackground("white-tile.jpg"));
 
         // Add fans to sprite render system.
+        dust_particle_system.Initialize();
         for (const auto &fan : logic_center.GetFans()) {
             playerview_render_system.AddEntity(fan);
+            dust_particle_system.AddEntity(fan);
         }
 
         // Initialize status bar.
@@ -101,6 +109,7 @@ namespace tjg {
     // Update logic that is specific to the player view.
     void LevelView::Update(const sf::Time &elapsed) {
         CheckKeys(elapsed);
+        dust_particle_system.Update();
         dialogue_system.Update(elapsed);
     }
 

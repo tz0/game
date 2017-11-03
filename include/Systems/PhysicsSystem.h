@@ -15,6 +15,7 @@
 #include "CollisionCenter.h"
 
 #include "Components/DynamicBody.h"
+#include "Components/Hidden.h"
 #include "Components/LinearForce.h"
 #include "Components/SensorShape.h"
 
@@ -30,6 +31,8 @@ namespace tjg {
         cpSpace* space;
 
         std::vector<std::shared_ptr<Entity>> entities;
+
+        void InitializeSpace();
 
     public:
         // Constructor

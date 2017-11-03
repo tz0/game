@@ -7,6 +7,7 @@
 #include <typeindex>
 #include <unordered_map>
 #include <vector>
+#include <iostream>
 
 #include "Component.h"
 
@@ -63,6 +64,17 @@ namespace tjg {
             auto component = std::make_shared<T>(std::forward<Args>(args)...);
             components[std::type_index(typeid(T))] = component;
             return component;
+        }
+
+        /**
+         * Remove component removes the specified component.
+         * WARNING: if this entity was added to a system that requires the removed component to function, mis-use
+         * of this method can lead to run-time errors.
+         * @tparam T the type of component to be removed
+         */
+        template<typename T>
+        void RemoveComponent() {
+            components.erase(std::type_index(typeid(T)));
         }
 
         /**
