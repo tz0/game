@@ -51,10 +51,10 @@ namespace tjg {
         cpBodySetAngularVelocity(body->GetBody(), angular_velocity_dist(rd));
     }
 
-    std::shared_ptr<Entity> ParticleSystem::MakeParticle() {
+    void ParticleSystem::MakeParticle(const sf::Vector2f position) {
         auto entity = std::make_shared<Entity>();
 
-        entity->AddComponent<Sprite>(sprite, sprite_depth);
+        entity->AddComponent<Sprite>(sprite, sprite_depth, sprite_blend_mode);
         entity->GetComponent<Sprite>()->GetSprite().setColor(sf::Color::Transparent);
 
 
@@ -68,7 +68,9 @@ namespace tjg {
 
         physics_system.AddEntity(entity);
         render_system.AddEntity(entity);
-        return entity;
+        particles.emplace_back(entity);
+
+        SpawnParticle(entity, position);
     }
 
     void ParticleSystem::Update() {
@@ -109,9 +111,7 @@ namespace tjg {
         // Create new particles if there are less than needed.
         if (particles.size() < particle_count * emitters.size()) {
             auto emitter_location = emitters[emitter_dist(rd)]->GetComponent<Location>();
-            auto particle = MakeParticle();
-            particles.push_back(particle);
-            SpawnParticle(particle, emitter_location->GetPosition());
+            MakeParticle(emitter_location->GetPosition());
         }
     }
 }

@@ -35,13 +35,16 @@ namespace tjg {
         std::random_device rd;
         std::default_random_engine gen;
 
+        // Used to generate random variation within the particle system
         std::uniform_real_distribution<float> lifetime_dist;
         std::uniform_real_distribution<float> x_position_variation_dist;
         std::uniform_real_distribution<float> y_position_variation_dist;
         std::uniform_real_distribution<float> angular_velocity_dist;
 
+        // Initializes specified particle at position
         void SpawnParticle(std::shared_ptr<Entity> particle, sf::Vector2f position);
-        std::shared_ptr<Entity> MakeParticle();
+        // Creates a new particle and adds it to the particles vector
+        void MakeParticle(sf::Vector2f position);
 
     public:
 
