@@ -7,15 +7,12 @@
     #define M_PI 3.14159265358979323846
 #endif
 
-#include <iostream>
-
 #include <chipmunk.h>
 #include <SFML/System/Time.hpp>
 
 #include "CollisionCenter.h"
 
 #include "Components/DynamicBody.h"
-#include "Components/Hidden.h"
 #include "Components/LinearForce.h"
 #include "Components/SensorShape.h"
 

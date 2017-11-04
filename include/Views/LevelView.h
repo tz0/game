@@ -2,15 +2,14 @@
 #define GAME_LEVELVIEW_H
 
 #include <SFML/Graphics.hpp>
-#include <bitset>
 
+#include "Constants.h"
 #include "LogicCenter.h"
 #include "Systems/DialogueSystem.h"
 #include "Systems/SpriteRenderSystem.h"
 #include "Systems/ParticleSystem.h"
 #include "Systems/PhysicsParticleSystem.h"
 #include "View.h"
-#include "Constants.h"
 
 namespace tjg {
 

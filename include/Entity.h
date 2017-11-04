@@ -7,7 +7,6 @@
 #include <typeindex>
 #include <unordered_map>
 #include <vector>
-#include <iostream>
 
 #include "Component.h"
 
