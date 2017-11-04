@@ -6,10 +6,12 @@ namespace tjg {
         auto location_component = entity->GetComponent<Location>();
         auto position = location_component ? location_component->GetPosition() : sf::Vector2f(0, 0);
         auto rotation = location_component ? location_component->GetRotation() : 0.0f;
-        auto sprite = entity->GetComponent<Sprite>()->GetSprite();
+        auto sprite_entity = entity->GetComponent<Sprite>();
+        auto sprite = sprite_entity->GetSprite();
+        auto blend_mode = sprite_entity->GetBlendMode();
         sprite.setPosition(position);
         sprite.setRotation(rotation);
-        target.draw(sprite);
+        target.draw(sprite, blend_mode);
     }
 
     void SpriteRenderSystem::AddEntity(std::shared_ptr<Entity> entity) {

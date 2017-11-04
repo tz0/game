@@ -54,6 +54,8 @@ namespace tjg {
 
             entity->AddComponent<Sprite>(sprite, sprite_depth);
             entity->GetComponent<Sprite>()->GetSprite().setColor(sf::Color::Transparent);
+
+
             entity->AddComponent<Timer>(sf::seconds(lifetime_dist(gen)));
             entity->AddComponent<Location>();
 

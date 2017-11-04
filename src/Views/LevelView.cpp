@@ -5,14 +5,17 @@ namespace tjg {
     LevelView::LevelView(ResourceManager &resource_manager, sf::RenderWindow &window, LogicCenter &logic_center) :
             View(window, resource_manager),
             logic_center(logic_center),
-            dust_particle_system(playerview_render_system, logic_center.GetPhysicsSystem(), 50,
+            dust_particle_system(playerview_render_system, logic_center.GetPhysicsSystem(), 100,
                                  sf::Sprite(*resource_manager.LoadTexture("dust.png"), sf::IntRect(0, 0, 128, 128)),
-                                 25, sf::seconds(5), sf::Vector2f(60, 60), 2.0f,
+                                 -10, sf::seconds(10), sf::Vector2f(60, 60), 2.0f,
                                  [](float x){
                                      auto alpha = static_cast<sf::Uint8>(std::max(0.0f, static_cast<float>(255 * sin(1.f / 25.f * (x * 100)))));
                                      return sf::Color(255, 255, 255, alpha);
                                  },
-                                 [](float x){return sf::Vector2f(x, x);})
+                                 [](float x){
+                                     auto size = static_cast<float>(sin(x * 4.f) / 3.f);
+                                     return sf::Vector2f(size, size);
+                                 })
     {
             window.setVerticalSyncEnabled(true);
     }
