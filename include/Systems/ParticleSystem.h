@@ -2,6 +2,8 @@
 #ifndef GAME_PARTICLESYSTEM_H
 #define GAME_PARTICLESYSTEM_H
 
+#include <random>
+
 #include "Components/Timer.h"
 #include "System.h"
 #include "Systems/SpriteRenderSystem.h"
