@@ -49,19 +49,24 @@ namespace tjg {
     public:
 
         /**
-         *
-         * @param render_system
-         * @param physics_system
-         * @param particle_count
-         * @param sprite
-         * @param sprite_depth
-         * @param sprite_blend_mode
+         * Create a particle system.
+         * @param render_system the render system that the particles will be added to
+         * @param physics_system the physics system that the particles will be added to
+         * @param particle_count the max amount of particles per emitter
+         * (Ex. A system with 2 emitters and a particle_count of 200 will run 400 particles)
+         * @param sprite the sprite to use for the particles
+         * @param sprite_depth the sprite render layer to use for the particles
+         * @param sprite_blend_mode blend mode for particle sprites
          * @param lifetime number of seconds specifying average lifetime of a particle the actual lifetime of a
          * particle will be 50% - 150% of this value.
-         * @param position_variation
-         * @param angular_velocity_variation
-         * @param color_transformation
-         * @param scale_transformation
+         * @param position_variation particle will be spawned at a random emitter's location with +-x/+-y added to it's
+         * position.
+         * @param angular_velocity_variation particle will be given a random angular velocity between
+         * +-angular_velocity_variation.
+         * @param color_transformation function which maps the percent_lifetime (given as a value between 0.0 and 1.0)
+         * and returns the current particle color at this point in life.
+         * @param scale_transformation function which maps the percent_lifetime (given as a value between 0.0 and 1.0)
+         * and returns the current particle scale at that point in life.
          */
         ParticleSystem(SpriteRenderSystem &render_system, PhysicsSystem &physics_system,
                        unsigned int particle_count,
@@ -80,9 +85,12 @@ namespace tjg {
                            return sf::Vector2f(1.f, 1.f);
                        });
 
+        // Reset the particles/emitters vectors
         void Initialize();
-        // Specify an entity to be used as an emitter
+        // Specify an entity to be used as an emitter. Note that a particle system with no emitters will not produce
+        // particles.
         void AddEntity(std::shared_ptr<Entity> entity) override;
+        // Updates particle properties, respawning as needed
         void Update();
     };
 

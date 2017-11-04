@@ -80,7 +80,7 @@ namespace tjg {
                 std::remove_if(
                         emitters.begin(),
                         emitters.end(),
-                        [&](std::shared_ptr<Entity> emitter) {
+                        [](std::shared_ptr<Entity> emitter) {
                             return emitter->IsFlaggedForRemoval();
                         }),
                 emitters.end()
@@ -88,28 +88,39 @@ namespace tjg {
 
         // Update the particles, recycling if necessary
         std::uniform_int_distribution<int> emitter_dist(0, static_cast<int>(emitters.size() - 1));
-        for (auto &particle : particles) {
 
+        const auto needed_particles = static_cast<unsigned int>(particle_count * emitters.size());
 
-            auto percent_lifetime = particle->GetComponent<Timer>()->GetPercentElapsed();
+        particles.erase(
+                std::remove_if(
+                        particles.begin(),
+                        particles.end(),
+                        [&](std::shared_ptr<Entity> particle) {
 
-            // Respawn particles that have exceeded their lifetime.
-            if ((percent_lifetime > 1.f) && emitters.size() > 0) {
-                auto emitter_location = emitters[emitter_dist(rd)]->GetComponent<Location>();
-                SpawnParticle(particle, emitter_location->GetPosition());
-            }
+                            auto percent_lifetime = particle->GetComponent<Timer>()->GetPercentElapsed();
 
-            // Update particles sprite based on the system's color/scale transformation functions.
-            auto sprite = particle->GetComponent<Sprite>();
-            auto color = color_transformation(percent_lifetime);
-            auto scale = scale_transformation(percent_lifetime);
-            sprite->GetSprite().setColor(color);
-            sprite->GetSprite().setScale(scale);
+                            // Respawn particles that have exceeded their lifetime.
+                            if ((percent_lifetime > 1.f) && !emitters.empty()) {
+                                // Don't respawn the particle if there are already too many
+                                if (particles.size() > needed_particles || particle->IsFlaggedForRemoval()) return true;
 
-        }
+                                auto emitter_location = emitters[emitter_dist(rd)]->GetComponent<Location>();
+                                SpawnParticle(particle, emitter_location->GetPosition());
+                            }
+
+                            // Update particles sprite based on the system's color/scale transformation functions.
+                            auto sprite = particle->GetComponent<Sprite>();
+                            auto color = color_transformation(percent_lifetime);
+                            auto scale = scale_transformation(percent_lifetime);
+                            sprite->GetSprite().setColor(color);
+                            sprite->GetSprite().setScale(scale);
+                            return false;
+                        }),
+                particles.end()
+        );
 
         // Create new particles if there are less than needed.
-        if (particles.size() < particle_count * emitters.size()) {
+        if (particles.size() < needed_particles) {
             auto emitter_location = emitters[emitter_dist(rd)]->GetComponent<Location>();
             MakeParticle(emitter_location->GetPosition());
         }
