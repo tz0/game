@@ -56,7 +56,7 @@ namespace tjg {
         }
                         
         //Iterate fan information record from level's fans vector, create fans and add them to the fans vector.
-        for (auto fan : level.GetFans()) {            
+        for (auto fan : level.GetFans()) {
             fans.push_back(entity_factory.MakeFan(sf::Vector2f(fan.origin_x, fan.origin_y), sf::Vector2f(fan.endpoint_x, fan.endpoint_y), fan.width, fan.origin_strength, fan.endpoint_strength));
         }
 

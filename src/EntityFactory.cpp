@@ -494,7 +494,7 @@ namespace tjg {
         sf::Sprite entrance_sprite;
         entrance_sprite.setTexture(*entrance_texture);
         entrance_sprite.setTextureRect(sf::IntRect(0, 0, 128, 240));
-        entrance->AddComponent<Sprite>(entrance_sprite);
+        entrance->AddComponent<Sprite>(entrance_sprite, -25);
 
         return entrance;
     }
@@ -513,7 +513,7 @@ namespace tjg {
         sf::Sprite exit_sprite;
         exit_sprite.setTexture(*exit_texture);
         exit_sprite.setTextureRect(sf::IntRect(0, 0, 128, 240));
-        exit->AddComponent<Sprite>(exit_sprite);
+        exit->AddComponent<Sprite>(exit_sprite, -25);
 
         // StaticSegment component.
         auto segment = exit->AddComponent<StaticSegment>(physics_system.GetSpace(), position + sf::Vector2f(0, -10), position + sf::Vector2f(0, 10), 20);

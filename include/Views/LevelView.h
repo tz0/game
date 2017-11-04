@@ -2,13 +2,14 @@
 #define GAME_LEVELVIEW_H
 
 #include <SFML/Graphics.hpp>
-#include <bitset>
 
-#include "LogicCenter.h"
-#include "Systems/SpriteRenderSystem.h"
-#include "Systems/DialogueSystem.h"
-#include "View.h"
 #include "Constants.h"
+#include "LogicCenter.h"
+#include "Systems/DialogueSystem.h"
+#include "Systems/SpriteRenderSystem.h"
+#include "Systems/ParticleSystem.h"
+#include "Systems/PhysicsParticleSystem.h"
+#include "View.h"
 
 namespace tjg {
 
@@ -19,11 +20,13 @@ namespace tjg {
         sf::View camera;
 
         void CheckKeys(const sf::Time &elapsed);
-        void HandleWindowEvents();
 
         // Sprite render systems.
         SpriteRenderSystem playerview_render_system;
         SpriteRenderSystem statusbar_render_system;
+
+        PhysicsParticleSystem dust_particle_system;
+        ParticleSystem jetpack_flame_system;
 
         // FPS display
         sf::Clock fps_clock;

@@ -66,6 +66,17 @@ namespace tjg {
         }
 
         /**
+         * Remove component removes the specified component.
+         * WARNING: if this entity was added to a system that requires the removed component to function, mis-use
+         * of this method can lead to run-time errors.
+         * @tparam T the type of component to be removed
+         */
+        template<typename T>
+        void RemoveComponent() {
+            components.erase(std::type_index(typeid(T)));
+        }
+
+        /**
          * GetComponent
          * @tparam T The component which is being requested
          * @return shared pointer to the requested Component, or nullptr if not present

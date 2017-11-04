@@ -3,8 +3,32 @@
 namespace tjg {
 
     LevelView::LevelView(ResourceManager &resource_manager, sf::RenderWindow &window, LogicCenter &logic_center) :
-            View(window,resource_manager),
-            logic_center(logic_center) {
+            View(window, resource_manager),
+            logic_center(logic_center),
+            dust_particle_system(playerview_render_system, logic_center.GetPhysicsSystem(), 200,
+                                 sf::Sprite(*resource_manager.LoadTexture("dust.png"), sf::IntRect(0, 0, 256, 256)),
+                                 -10, sf::BlendAdd, sf::milliseconds(1), sf::seconds(10), sf::Vector2f(60, 60), 2.0f,
+                                 [](float x){
+                                     auto alpha = static_cast<sf::Uint8>(std::max(0.0f, static_cast<float>(128 * cos(x * 2.5)+128)));
+                                     return sf::Color(128, 128, 255, alpha/sf::Uint8(2));
+                                 },
+                                 [](float x){
+                                     auto size = static_cast<float>(sin(x * 4.0) / 3.f);
+                                     return sf::Vector2f(size, size);
+                                 }),
+            jetpack_flame_system(playerview_render_system, 500,
+                                 sf::Sprite(*resource_manager.LoadTexture("dust.png"), sf::IntRect(0, 0, 256, 256)),
+                                 40, sf::BlendAdd, sf::milliseconds(1), sf::seconds(2), sf::Vector2f(0, 0), 0,
+                                 [](float x){
+                                     auto decreasing = static_cast<sf::Uint8>(std::max(0.0f, static_cast<float>(255 * sin(1.0 / 25.0 * (x * 100)))));
+                                     auto increasing = sf::Uint8(255) - decreasing;
+                                     return sf::Color(increasing, increasing, decreasing, decreasing);
+                                 },
+                                 [](float x){
+                                     auto size = std::max(0.0f, 0.5f * static_cast<float>(cos(x * 2.0)));
+                                     return sf::Vector2f(size, size);
+                                 })
+    {
             window.setVerticalSyncEnabled(true);
     }
 
@@ -27,6 +51,8 @@ namespace tjg {
         logic_center.GetTech17()->ForEachChild([&](std::shared_ptr<Entity> child){
             playerview_render_system.AddEntity(child);
         });
+        jetpack_flame_system.Initialize();
+        jetpack_flame_system.AddEntity(logic_center.GetTech17());
 
         // Add the wall entities to the sprite render system
         for (const auto &wall : logic_center.GetWalls()) {
@@ -38,11 +64,15 @@ namespace tjg {
         playerview_render_system.AddEntity(logic_center.GetExit());
 
         // Make game view background
-        playerview_render_system.AddEntity(logic_center.GetEntityFactory().MakeTiledBackground("white-tile.jpg"));
+        auto tiled_background = logic_center.GetEntityFactory().MakeTiledBackground("white-tile.jpg");
+        tiled_background->GetComponent<Sprite>()->GetSprite().setColor(sf::Color(200, 200, 200));
+        playerview_render_system.AddEntity(tiled_background);
 
         // Add fans to sprite render system.
+        dust_particle_system.Initialize();
         for (const auto &fan : logic_center.GetFans()) {
             playerview_render_system.AddEntity(fan);
+            dust_particle_system.AddEntity(fan);
         }
 
         // Initialize status bar.
@@ -101,6 +131,8 @@ namespace tjg {
     // Update logic that is specific to the player view.
     void LevelView::Update(const sf::Time &elapsed) {
         CheckKeys(elapsed);
+        dust_particle_system.Update();
+        jetpack_flame_system.Update();
         dialogue_system.Update(elapsed);
     }
 
@@ -140,14 +172,11 @@ namespace tjg {
         }
         if (sf::Keyboard::isKeyPressed(sf::Keyboard::Space) && !fuel_resource->IsDepleted()) {
             control_center.FireJetpack(elapsed);
-            // Set body to red to visually show the jetpack is firing. Allow this only if the user is not out of fuel.
-            control_center.GetPlayerEntity()->GetComponent<Sprite>()->GetSprite().setColor(sf::Color(255, 0, 0));
-        }
-        else if (control_center.GetPlayerEntity()->GetComponent<Sprite>()->GetSprite().getColor() ==
-                   sf::Color(255, 0, 0)) {
-            // Set body back to its normal color.
-            control_center.GetPlayerEntity()->GetComponent<Sprite>()->GetSprite().setColor(
-                    sf::Color(255, 255, 255));
+            // Enable jetpack particle system to show it is active.
+            jetpack_flame_system.Enable();
+        } else {
+            // Disable jetpack particle system when key is no longer pressed.
+            jetpack_flame_system.Disable();
         }
     }
 
