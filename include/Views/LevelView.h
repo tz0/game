@@ -8,6 +8,7 @@
 #include "Systems/DialogueSystem.h"
 #include "Systems/SpriteRenderSystem.h"
 #include "Systems/ParticleSystem.h"
+#include "Systems/PhysicsParticleSystem.h"
 #include "View.h"
 #include "Constants.h"
 
@@ -25,7 +26,8 @@ namespace tjg {
         SpriteRenderSystem playerview_render_system;
         SpriteRenderSystem statusbar_render_system;
 
-        ParticleSystem dust_particle_system;
+        PhysicsParticleSystem dust_particle_system;
+        ParticleSystem jetpack_flame_system;
 
         // FPS display
         sf::Clock fps_clock;
