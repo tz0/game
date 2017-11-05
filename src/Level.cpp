@@ -55,6 +55,7 @@ namespace tjg {
             std::cout << "# [" << ++wall_counter << "] [Origin]" << wall["Origin"].dump() << "\n";
             std::cout << "#     [Endpoint]" << wall["Endpoint"].dump() << "\n";
             std::cout << "#     [radius]: " << wall["Radius"].dump() << "\n";
+            std::cout << "#     [Lethal]: " << wall["Lethal"].dump() << "\n";
         }
 
         std::cout << '#' << std::endl << "##### [dialogues]" << std::endl;
