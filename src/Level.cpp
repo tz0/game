@@ -125,7 +125,9 @@ namespace tjg {
                 static_cast<float>(wall["Origin"]["y"].number_value()),
                 static_cast<float>(wall["Endpoint"]["x"].number_value()),
                 static_cast<float>(wall["Endpoint"]["y"].number_value()),
-                static_cast<float>(wall["Radius"].number_value()));
+                static_cast<float>(wall["Radius"].number_value()),
+                static_cast<bool>(wall["Lethal"].bool_value())
+            );
         }
         walls_.shrink_to_fit();
         

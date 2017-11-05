@@ -29,11 +29,11 @@
 
   "walls":
   [
-    {"Origin": {"x": -1500, "y": -600}, "Endpoint": {"x": 500, "y": -600}, "Radius": 40 },
+    {"Origin": {"x": -1500, "y": -600}, "Endpoint": {"x": 500, "y": -600}, "Radius": 40},
     {"Origin": {"x": -1500,"y": 600},"Endpoint": {"x": 500,"y": 600},"Radius": 40},
     {"Origin": {"x": -1500,"y": -600},"Endpoint": {"x": -1500,"y": 600},"Radius": 40},
     {"Origin": {"x": 500,"y": -600},"Endpoint": {"x": 500,"y": 600},"Radius": 40},
-    {"Origin": {"x": -800,"y": -600},"Endpoint": {"x": -800,"y": 90},"Radius": 40}
+    {"Origin": {"x": -800,"y": -600},"Endpoint": {"x": -800,"y": 90},"Radius": 40, "Lethal": true}
   ],
 
   "fans":

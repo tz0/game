@@ -24,7 +24,7 @@ namespace tjg {
             (void)event;
             game_state = State::WON;
         });
-        event_manager.RegisterListener<HitWall>([&](HitWall &event){
+        event_manager.RegisterListener<HitLethalWall>([&](HitLethalWall &event){
             (void)event;
             std::cout << "Hit a wall!" << std::endl;
             game_state = State::FAILED;
@@ -52,7 +52,7 @@ namespace tjg {
 
         //Iterate wall information record from level's walls vector, create walls and add them to the walls vector.
         for (auto wall : level.GetWalls()) {            
-            walls.push_back(entity_factory.MakeWall(sf::Vector2f(wall.origin_x, wall.origin_y), sf::Vector2f(wall.endpoint_x, wall.endpoint_y), wall.radius));
+            walls.push_back(entity_factory.MakeWall(sf::Vector2f(wall.origin_x, wall.origin_y), sf::Vector2f(wall.endpoint_x, wall.endpoint_y), wall.radius, wall.lethal));
         }
                         
         //Iterate fan information record from level's fans vector, create fans and add them to the fans vector.
@@ -60,14 +60,14 @@ namespace tjg {
             fans.push_back(entity_factory.MakeFan(sf::Vector2f(fan.origin_x, fan.origin_y), sf::Vector2f(fan.endpoint_x, fan.endpoint_y), fan.width, fan.origin_strength, fan.endpoint_strength));
         }
 
-        // Create a collision center handler that will fire a HitWall event when TECH17 hits a wall.
+        // Create a collision center handler that will fire a HitLethalWall event when TECH17 hits a wall.
         collision_center.AddHandler(
             CollisionGroup::TECH17,
-            CollisionGroup::WALL,
+            CollisionGroup::LETHALWALL,
             [&](cpArbiter *arb, cpSpace *space) {
                 (void)arb;
                 (void)space;
-                event_manager.Fire<HitWall>();
+                event_manager.Fire<HitLethalWall>();
             }
         );
 
