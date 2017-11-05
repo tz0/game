@@ -22,7 +22,7 @@ namespace tjg {
         void CheckKeys(const sf::Time &elapsed);
 
         // Sprite render systems.
-        SpriteRenderSystem playerview_render_system;
+        SpriteRenderSystem main_render_system;
         SpriteRenderSystem statusbar_render_system;
 
         PhysicsParticleSystem dust_particle_system;
@@ -47,15 +47,15 @@ namespace tjg {
         sf::Vector2f dialog_initial_size;
 
         // Status bar methods.
-        void initializeStatusBar();
-        void renderStatusBarBackground();
-        void updateStatusBarTrackers();
+        void InitializeStatusBar();
+        void RenderStatusBarBackground();
+        void UpdateStatusBarTrackers();
 
         // Dialog box pieces.
         DialogueSystem dialogue_system;
 
         // Dialog box methods.
-        void initializeDialogueSystem(std::vector<Dialogue> &dialogues, std::shared_ptr<sf::Font> font);
+        void InitializeDialogueSystem(std::vector<Dialogue> &dialogues, std::shared_ptr<sf::Font> font);
 
     public:
         // Constructor

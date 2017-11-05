@@ -5,7 +5,7 @@ namespace tjg {
     LevelView::LevelView(ResourceManager &resource_manager, sf::RenderWindow &window, LogicCenter &logic_center) :
             View(window, resource_manager),
             logic_center(logic_center),
-            dust_particle_system(playerview_render_system, logic_center.GetPhysicsSystem(), 200,
+            dust_particle_system(main_render_system, logic_center.GetPhysicsSystem(), 200,
                                  sf::Sprite(*resource_manager.LoadTexture("dust.png"), sf::IntRect(0, 0, 256, 256)),
                                  -10, sf::BlendAdd, sf::milliseconds(1), sf::seconds(10), sf::Vector2f(60, 60), 2.0f,
                                  [](float x){
@@ -16,7 +16,7 @@ namespace tjg {
                                      auto size = static_cast<float>(sin(x * 4.0) / 3.f);
                                      return sf::Vector2f(size, size);
                                  }),
-            jetpack_flame_system(playerview_render_system, 500,
+            jetpack_flame_system(main_render_system, 500,
                                  sf::Sprite(*resource_manager.LoadTexture("dust.png"), sf::IntRect(0, 0, 256, 256)),
                                  40, sf::BlendAdd, sf::milliseconds(1), sf::seconds(2), sf::Vector2f(0, 0), 0,
                                  [](float x){
@@ -34,7 +34,7 @@ namespace tjg {
 
 
     void LevelView::Initialize() {
-        playerview_render_system.Reset();
+        main_render_system.Reset();
         statusbar_render_system.Reset();
 
         // Load fonts and the texture sheet
@@ -47,40 +47,40 @@ namespace tjg {
         info.setCharacterSize(24);
 
         // Add tech17 + child components to the sprite render system
-        playerview_render_system.AddEntity(logic_center.GetTech17());
+        main_render_system.AddEntity(logic_center.GetTech17());
         logic_center.GetTech17()->ForEachChild([&](std::shared_ptr<Entity> child){
-            playerview_render_system.AddEntity(child);
+            main_render_system.AddEntity(child);
         });
         jetpack_flame_system.Initialize();
         jetpack_flame_system.AddEntity(logic_center.GetTech17());
 
         // Add the wall entities to the sprite render system
         for (const auto &wall : logic_center.GetWalls()) {
-            playerview_render_system.AddEntity(wall);
+            main_render_system.AddEntity(wall);
         }
 
         //Add the entrance and exit to the sprite render system
-        playerview_render_system.AddEntity(logic_center.GetEntrance());
-        playerview_render_system.AddEntity(logic_center.GetExit());
+        main_render_system.AddEntity(logic_center.GetEntrance());
+        main_render_system.AddEntity(logic_center.GetExit());
 
         // Make game view background
         auto tiled_background = logic_center.GetEntityFactory().MakeTiledBackground("white-tile.jpg");
         tiled_background->GetComponent<Sprite>()->GetSprite().setColor(sf::Color(200, 200, 200));
-        playerview_render_system.AddEntity(tiled_background);
+        main_render_system.AddEntity(tiled_background);
 
         // Add fans to sprite render system.
         dust_particle_system.Initialize();
         for (const auto &fan : logic_center.GetFans()) {
-            playerview_render_system.AddEntity(fan);
+            main_render_system.AddEntity(fan);
             dust_particle_system.AddEntity(fan);
         }
 
         // Initialize status bar.
-        initializeStatusBar();
+        InitializeStatusBar();
 
         // Initialize dialog system
         std::vector<Dialogue> dialogues = logic_center.GetLevel().GetDialogues();
-        initializeDialogueSystem(dialogues, lcd_regular);
+        InitializeDialogueSystem(dialogues, lcd_regular);
 
         // Set up camera, accounting for level and status bar since the walls were built before the status bar.
         camera.setCenter(
@@ -97,14 +97,14 @@ namespace tjg {
         window.setView(camera);
 
         // Render game view
-        playerview_render_system.render(window);
+        main_render_system.render(window);
 
         // Drawing that should take place separate from the "camera" should go below here.
         window.setView(window.getDefaultView());
 
         // Draw the status bar
-        renderStatusBarBackground();
-        updateStatusBarTrackers();
+        RenderStatusBarBackground();
+        UpdateStatusBarTrackers();
         statusbar_render_system.render(window);
 
         // Draw the dialog box on top of the status bar.
@@ -180,7 +180,7 @@ namespace tjg {
         }
     }
 
-    void LevelView::initializeStatusBar() {
+    void LevelView::InitializeStatusBar() {
         // Store reusable values.
         statusbar_element_height = STATUSBAR_HEIGHT * (3.f / 4.f);
         statusbar_x_padding =  WINDOW_WIDTH / 40.f;
@@ -231,7 +231,7 @@ namespace tjg {
         statusbar_render_system.AddEntity(logic_center.GetOxygenTracker());
     }
 
-    void LevelView::renderStatusBarBackground() {
+    void LevelView::RenderStatusBarBackground() {
         // Draw background elements.
         window.draw(statusbar_background);
         window.draw(fuel_tank_background);
@@ -239,7 +239,7 @@ namespace tjg {
         window.draw(dialog_background);
     }
 
-    void LevelView::updateStatusBarTrackers() {
+    void LevelView::UpdateStatusBarTrackers() {
         // Update fuel tracker size.
         auto fuel_tracker = logic_center.GetFuelTracker();
         auto fuel_tracker_resource = fuel_tracker->GetComponent<FiniteResource>();
@@ -257,7 +257,7 @@ namespace tjg {
         oxygen_tracker_sprite->SetSize(new_oxygen_size);
     }
 
-    void LevelView::initializeDialogueSystem(std::vector<Dialogue> &dialogues, std::shared_ptr<sf::Font> font) {
+    void LevelView::InitializeDialogueSystem(std::vector<Dialogue> &dialogues, std::shared_ptr<sf::Font> font) {
         // Create dialog box Text object.
         sf::Text dialog_box;
         dialog_box.setFont(*font);
