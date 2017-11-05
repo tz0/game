@@ -17,7 +17,7 @@
 #include "Components/SensorShape.h"
 
 #include "EventManager.h"
-#include "Events/HitWall.h"
+#include "Events/HitLethalWall.h"
 
 #include "System.h"
 

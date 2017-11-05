@@ -43,13 +43,15 @@ namespace tjg {
 
         struct Wall {
             float origin_x, origin_y, endpoint_x, endpoint_y, radius;
+            bool lethal;
 
-            inline Wall(float origin_x, float origin_y, float endpoint_x, float endpoint_y, float radius) :
+            inline Wall(float origin_x, float origin_y, float endpoint_x, float endpoint_y, float radius, bool lethal) :
                 origin_x(origin_x),
                 origin_y(origin_y),
                 endpoint_x(endpoint_x),
                 endpoint_y(endpoint_y),
-                radius(radius){}
+                radius(radius),
+                lethal(lethal){}
         };
 
         // Constructor innitiate the level class with default entities information without any fans
