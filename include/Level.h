@@ -54,14 +54,29 @@ namespace tjg {
                 lethal(lethal){}
         };
 
-        // Constructor innitiate the level class with default entities information without any fans
+        struct StaticDecoration {
+            std::string texture;
+            sf::IntRect texture_rect;
+            sf::Vector2f position;
+            sf::Vector2f scale;
+            float rotation;
+
+            inline StaticDecoration(std::string texture, sf::IntRect texture_rect, sf::Vector2f position, sf::Vector2f scale, float rotation) :
+                texture(std::move(texture)),
+                texture_rect(texture_rect),
+                position(position),
+                scale(scale),
+                rotation(rotation){}
+        };
+
+        // Constructor initiate the level class with default entities information without any fans
         Level();
         ~Level();
 
         /**
         * Utilize json11.hpp (from Dropbox, Inc) to parse a level file at ..//data//level<level>.json.
         * Update class member to store the latest level information.
-        * Set debug to ture if want to enable json file debug
+        * Set debug to true if want to enable json file debug
         */
         void Read(const unsigned & level, const bool & debug);
 
@@ -75,6 +90,7 @@ namespace tjg {
         const std::vector<Level::Fan> & GetFans();
         const std::vector<Level::Wall> & GetWalls();
         const std::vector<Dialogue> & GetDialogues();
+        const std::vector<Level::StaticDecoration> & GetStaticDecorations();
 
     private:        
         CameraCenter camera_center_;
@@ -86,6 +102,7 @@ namespace tjg {
         std::vector<Fan> fans_;
         std::vector<Wall> walls_;
         std::vector<Dialogue> dialogues_;
+        std::vector<StaticDecoration> static_decorations_;
         
         /**
         * Print parsing result from a target level for level file debugging.
