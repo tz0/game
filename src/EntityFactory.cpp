@@ -32,10 +32,11 @@ namespace tjg {
         return wall;
     }
 
-    std::shared_ptr<Entity> EntityFactory::MakeStaticSprite(sf::Sprite sprite, const sf::Vector2f &position) {
+    std::shared_ptr<Entity> EntityFactory::MakeStaticDecoration(sf::Sprite sprite, const sf::Vector2f &position, const float rotation) {
         auto rect = std::make_shared<Entity>();
-        rect->AddComponent<Location>(position.x, position.y);
-        rect->AddComponent<Sprite>(sprite);
+        auto loc = rect->AddComponent<Location>(position.x, position.y);
+        loc->SetRotation(rotation);
+        rect->AddComponent<Sprite>(sprite, -30);
         return rect;
     }
 

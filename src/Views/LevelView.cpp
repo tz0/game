@@ -75,6 +75,15 @@ namespace tjg {
             dust_particle_system.AddEntity(fan);
         }
 
+        // Iterate static decorations record from level's decorations vector, create static decorations, and add them
+        // to the render system.
+        for (auto &decoration : logic_center.GetLevel().GetStaticDecorations()) {
+            std::cout << decoration.texture << std::endl;
+            sf::Sprite sprite(*resource_manager.LoadTexture(decoration.texture), decoration.texture_rect);
+            sprite.setScale(decoration.scale);
+            main_render_system.AddEntity(logic_center.GetEntityFactory().MakeStaticDecoration(sprite, decoration.position, decoration.rotation));
+        }
+
         // Initialize status bar.
         InitializeStatusBar();
 
