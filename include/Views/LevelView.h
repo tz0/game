@@ -1,6 +1,9 @@
 #ifndef GAME_LEVELVIEW_H
 #define GAME_LEVELVIEW_H
 
+#include <sstream>
+#include <iomanip>
+
 #include <SFML/Graphics.hpp>
 
 #include "Constants.h"
@@ -39,7 +42,9 @@ namespace tjg {
         sf::RectangleShape statusbar_background;
         sf::RectangleShape fuel_tank_background;
         sf::RectangleShape oxygen_tank_background;
-        sf::RectangleShape dialog_background;
+        sf::RectangleShape dialogue_background;
+        sf::Text fuel_numeric_text;
+        sf::Text oxygen_numeric_text;
         float statusbar_element_height;
         float statusbar_x_padding;
         float statusbar_y_padding;
@@ -47,14 +52,14 @@ namespace tjg {
         sf::Vector2f dialog_initial_size;
 
         // Status bar methods.
-        void InitializeStatusBar();
-        void RenderStatusBarBackground();
+        void InitializeStatusBar(std::shared_ptr<sf::Font> hud_font);
+        void RenderStatusBar();
         void UpdateStatusBarTrackers();
 
-        // Dialog box pieces.
+        // Dialogue box pieces.
         DialogueSystem dialogue_system;
 
-        // Dialog box methods.
+        // Dialogue box methods.
         void InitializeDialogueSystem(std::vector<Dialogue> &dialogues, std::shared_ptr<sf::Font> font);
 
     public:
