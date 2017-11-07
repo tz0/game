@@ -94,15 +94,16 @@ namespace tjg {
         // Set up camera, accounting for level and status bar since the walls were built before the status bar.
         camera.setCenter(
             logic_center.GetLevel().GetCameraCenter().x, 
-            logic_center.GetLevel().GetCameraCenter().y - STATUSBAR_HEIGHT);        
+            logic_center.GetLevel().GetCameraCenter().y);
         camera.setSize(
             logic_center.GetLevel().GetCameraSize().x, 
-            logic_center.GetLevel().GetCameraSize().y + (STATUSBAR_HEIGHT * 2));        
+            logic_center.GetLevel().GetCameraSize().y);
     }
 
 
     void LevelView::Render() {
         window.clear(sf::Color(50, 50, 50, 255));
+        camera.setViewport(sf::FloatRect(0, 0.1, 1, 0.9));
         window.setView(camera);
 
         // Render game view
