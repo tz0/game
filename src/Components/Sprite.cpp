@@ -2,19 +2,25 @@
 
 namespace tjg {
 
-    Sprite::Sprite(sf::Sprite sprite, const int layer) {
+    Sprite::Sprite(sf::Sprite sprite, const int layer, const sf::BlendMode blend_mode) :
+            layer(layer),
+            blend_mode(blend_mode)
+    {
         // Centers the sprite origin.
         auto bounds = sprite.getLocalBounds();
         sprite.setOrigin(bounds.width / 2.0f, bounds.height / 2.0f);
-
         frames = std::vector<sf::Sprite> {sprite};
-        this->layer = layer;
     }
 
-    Sprite::Sprite(std::vector<sf::Sprite> frames, const int frame_delay, const int layer) {
+    Sprite::Sprite(std::vector<sf::Sprite> frames,
+                   const int frame_delay,
+                   const int layer,
+                   const sf::BlendMode blend_mode) :
+            frame_delay(frame_delay),
+            layer(layer),
+            blend_mode(blend_mode)
+    {
         this->frames = std::move(frames);
-        this->layer = layer;
-        this->frame_delay = frame_delay;
         // Center each frame on the origin
         for (auto &frame : this->frames) {
             auto bounds = frame.getLocalBounds();
@@ -66,5 +72,9 @@ namespace tjg {
             auto sprite_size = sf::Vector2f(sprite.getTextureRect().width, sprite.getTextureRect().height);
             sprite.setScale(size.x / sprite_size.x, size.y / sprite_size.y);
         }
+    }
+
+    sf::BlendMode Sprite::GetBlendMode() {
+        return blend_mode;
     }
 }

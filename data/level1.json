@@ -29,11 +29,36 @@
 
   "walls":
   [
-    {"Origin": {"x": -1500, "y": -600}, "Endpoint": {"x": 500, "y": -600}, "Radius": 40 },
+    {"Origin": {"x": -1500, "y": -600}, "Endpoint": {"x": 500, "y": -600}, "Radius": 40},
     {"Origin": {"x": -1500,"y": 600},"Endpoint": {"x": 500,"y": 600},"Radius": 40},
     {"Origin": {"x": -1500,"y": -600},"Endpoint": {"x": -1500,"y": 600},"Radius": 40},
     {"Origin": {"x": 500,"y": -600},"Endpoint": {"x": 500,"y": 600},"Radius": 40},
-    {"Origin": {"x": -800,"y": -600},"Endpoint": {"x": -800,"y": 90},"Radius": 40}
+    {"Origin": {"x": -800,"y": -600},"Endpoint": {"x": -800,"y": 90},"Radius": 40, "Lethal": true}
+  ],
+
+  "decorations":
+  [
+    {
+        "texture": "blood-splatter.png", 
+        "rect": {"x":0, "y":0, "width": 128, "height": 128},
+        "position": {"x": -900, "y": -500},
+        "scale": {"x": 2, "y": 1},
+        "rotation": 45
+    },
+    {
+        "texture": "radiation.png", 
+        "rect": {"x":0, "y":0, "width": 128, "height": 128},
+        "position": {"x": -600, "y": -400},
+        "scale": {"x": 1, "y": 1},
+        "rotation": 0
+    },
+    {
+        "texture": "blood-splatter.png", 
+        "rect": {"x":0, "y":0, "width": 128, "height": 128},
+        "position": {"x": -1400, "y": 500},
+        "scale": {"x": 1.5, "y": 1.5},
+        "rotation": 180
+    }
   ],
 
   "fans":

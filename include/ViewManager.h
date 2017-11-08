@@ -15,6 +15,7 @@ namespace tjg {
     class ViewManager {
     private:
         LogicCenter &logic_center;
+        EventManager &event_manager;
         State state;
         sf::RenderWindow window;
         MainMenuView main_menu_view;
@@ -25,18 +26,19 @@ namespace tjg {
 
         bool running = true;
 
-    public:
-        explicit ViewManager(ResourceManager &resource_manager, LogicCenter &logic_center);
-        void Initialize();
-        bool Running();
-        void Update(sf::Time elapsed);
-        void Render();
-        void SwitchView(ViewSwitch view_switch);
         void SwitchToMainMenuView();
         void SwitchToLevelMenuView();
         void SwitchToPauseMenuView(ViewSwitch view_switch);
         void SwitchToPlayerView(unsigned int level_number);
         void ResumePlayerView();
+
+    public:
+        explicit ViewManager(ResourceManager &resource_manager, LogicCenter &logic_center, EventManager &event_manager);
+        void Initialize();
+        bool Running();
+        void Update(sf::Time elapsed);
+        void Render();
+        void SwitchView(ViewSwitch view_switch);
         void HandleWindowEvents(View &current_view);
     };
 }

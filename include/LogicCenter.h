@@ -8,12 +8,14 @@
 #include "Systems/ControlCenter.h"
 #include "EntityFactory.h"
 #include "EventManager.h"
-#include "Events/ReachedExit.h"
-#include "Constants.h"
-#include "Events/OxygenExpired.h"
 #include "Events/FuelExpired.h"
+#include "Events/OxygenExpired.h"
+#include "Events/ReachedExit.h"
+#include "Events/ViewChanged.h"
+#include "Constants.h"
 #include "Components/FiniteResource.h"
 #include "Level.h"
+
 
 namespace tjg {
 
@@ -29,28 +31,32 @@ namespace tjg {
         EntityFactory entity_factory;
 
         // Event manager
-        EventManager event_manager;
+        EventManager &event_manager;
 
-        // Entities
+        // Contains level information.
+        Level level;
+
+        // Game entities
         std::shared_ptr<Entity> tech17;
         std::shared_ptr<Entity> entrance;
         std::shared_ptr<Entity> exit;
-
-        State game_state = State::PLAYING;
-        std::shared_ptr<Entity> fuel_tracker;
-        std::shared_ptr<Entity> oxygen_tracker;
-
-        // Temporary for testing purposes.
         std::vector<std::shared_ptr<Entity>> walls;
         std::vector<std::shared_ptr<Entity>> fans;
 
-        // Countdown timer set
-        sf::Clock oxygen_clock;
+        // Resource tracker entities
+        std::shared_ptr<Entity> fuel_tracker;
+        std::shared_ptr<Entity> oxygen_tracker;
 
-        Level level;
+        // Fuel clock. Keeps track of time since fuel expired.
+        bool out_of_fuel_clock_started;
+        float seconds_to_wait_after_fuel_expired;
+        sf::Clock out_of_fuel_clock;
+
+        // Game state
+        State game_state = State::PLAYING;
 
     public:
-        LogicCenter(ResourceManager &resource_manager);
+        LogicCenter(ResourceManager &resource_manager, EventManager &event_manager);
 
         /**
          * Initialize creates and configures necessary entities before the game begins

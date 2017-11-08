@@ -25,10 +25,12 @@ namespace tjg {
 
         // Used by SpriteRenderSystem to order sprites (lower values are drawn before higher values)
         int layer;
+
+        sf::BlendMode blend_mode;
     public:
         // Constructor
-        explicit Sprite(sf::Sprite, int layer = 0);
-        Sprite(std::vector<sf::Sprite> frames, int frame_delay, int layer = 0);
+        explicit Sprite(sf::Sprite, int layer = 0, sf::BlendMode blend_mode = sf::BlendAlpha);
+        Sprite(std::vector<sf::Sprite> frames, int frame_delay, int layer = 0, sf::BlendMode blend_mode = sf::BlendAlpha);
 
         // Sprite methods
         /**
@@ -68,6 +70,11 @@ namespace tjg {
          * @return the sprite's sorting layer
          */
         int GetLayer();
+
+        /**
+         * @return the sprite's blend mode
+         */
+        sf::BlendMode GetBlendMode();
     };
 }
 #endif //GAME_SPRITE_H

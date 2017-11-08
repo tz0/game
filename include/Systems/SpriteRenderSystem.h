@@ -6,6 +6,7 @@
 
 #include "Entity.h"
 #include "System.h"
+#include "Components/Hidden.h"
 
 namespace tjg {
 

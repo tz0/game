@@ -11,7 +11,7 @@ namespace tjg {
         //  - time elapsed
         //  - fuel remaining
     public:
-        explicit ReachedExit();
+        explicit ReachedExit() = default;
     };
 }
 

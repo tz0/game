@@ -8,7 +8,7 @@ namespace tjg {
     class FuelExpired : public Event {
 
     public:
-        explicit FuelExpired();
+        explicit FuelExpired() = default;
     };
 }
 

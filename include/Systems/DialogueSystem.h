@@ -1,6 +1,7 @@
 #ifndef GAME_DIALOGUESYSTEM_H
 #define GAME_DIALOGUESYSTEM_H
 
+#include <limits.h>
 #include <vector>
 #include <string>
 #include <SFML/System/Time.hpp>

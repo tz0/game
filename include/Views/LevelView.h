@@ -1,14 +1,18 @@
 #ifndef GAME_LEVELVIEW_H
 #define GAME_LEVELVIEW_H
 
-#include <SFML/Graphics.hpp>
-#include <bitset>
+#include <sstream>
+#include <iomanip>
 
-#include "LogicCenter.h"
-#include "Systems/SpriteRenderSystem.h"
-#include "Systems/DialogueSystem.h"
-#include "View.h"
+#include <SFML/Graphics.hpp>
+
 #include "Constants.h"
+#include "LogicCenter.h"
+#include "Systems/DialogueSystem.h"
+#include "Systems/SpriteRenderSystem.h"
+#include "Systems/ParticleSystem.h"
+#include "Systems/PhysicsParticleSystem.h"
+#include "View.h"
 
 namespace tjg {
 
@@ -19,11 +23,13 @@ namespace tjg {
         sf::View camera;
 
         void CheckKeys(const sf::Time &elapsed);
-        void HandleWindowEvents();
 
         // Sprite render systems.
-        SpriteRenderSystem playerview_render_system;
+        SpriteRenderSystem main_render_system;
         SpriteRenderSystem statusbar_render_system;
+
+        PhysicsParticleSystem dust_particle_system;
+        ParticleSystem jetpack_flame_system;
 
         // FPS display
         sf::Clock fps_clock;
@@ -36,7 +42,9 @@ namespace tjg {
         sf::RectangleShape statusbar_background;
         sf::RectangleShape fuel_tank_background;
         sf::RectangleShape oxygen_tank_background;
-        sf::RectangleShape dialog_background;
+        sf::RectangleShape dialogue_background;
+        sf::Text fuel_numeric_text;
+        sf::Text oxygen_numeric_text;
         float statusbar_element_height;
         float statusbar_x_padding;
         float statusbar_y_padding;
@@ -44,15 +52,15 @@ namespace tjg {
         sf::Vector2f dialog_initial_size;
 
         // Status bar methods.
-        void initializeStatusBar();
-        void renderStatusBarBackground();
-        void updateStatusBarTrackers();
+        void InitializeStatusBar(std::shared_ptr<sf::Font> hud_font);
+        void RenderStatusBar();
+        void UpdateStatusBarTrackers();
 
-        // Dialog box pieces.
+        // Dialogue box pieces.
         DialogueSystem dialogue_system;
 
-        // Dialog box methods.
-        void initializeDialogueSystem(std::vector<Dialogue> &dialogues, std::shared_ptr<sf::Font> font);
+        // Dialogue box methods.
+        void InitializeDialogueSystem(std::vector<Dialogue> &dialogues, std::shared_ptr<sf::Font> font);
 
     public:
         // Constructor

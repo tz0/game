@@ -3,7 +3,7 @@
 
 namespace tjg {
 
-    std::shared_ptr<Entity> EntityFactory::MakeWall(const sf::Vector2f &origin_point, const sf::Vector2f &end_point, const float radius) {
+    std::shared_ptr<Entity> EntityFactory::MakeWall(const sf::Vector2f &origin_point, const sf::Vector2f &end_point, const float radius, const bool lethal) {
         // Create wall entity.
         auto wall = std::make_shared<Entity>();
 
@@ -13,7 +13,7 @@ namespace tjg {
 
         // Add static segment component
         auto static_segment = wall->AddComponent<StaticSegment>(physics_system.GetSpace(), origin_point.x, origin_point.y, end_point.x, end_point.y, radius);
-        cpShapeSetCollisionType(static_segment->GetShape(), static_cast<cpCollisionType>(CollisionGroup::WALL));
+        cpShapeSetCollisionType(static_segment->GetShape(), static_cast<cpCollisionType>(lethal ? CollisionGroup::LETHALWALL : CollisionGroup::WALL));
 
         // Load wall texture.
         auto wall_texture = resource_manager.LoadTexture("white-tile.jpg");
@@ -26,16 +26,17 @@ namespace tjg {
         sf::Sprite wall_sprite;
         wall_sprite.setTexture(*wall_texture);
         wall_sprite.setTextureRect(sf::IntRect(0, 0, (int)(length + radius*2), (int)radius*2));
-        wall_sprite.setColor(sf::Color(150, 150, 150)); // Dark gray
+        wall_sprite.setColor(lethal ? sf::Color(255, 150, 150) : sf::Color(150, 150, 150)); // Dark gray
         wall->AddComponent<Sprite>(wall_sprite);
 
         return wall;
     }
 
-    std::shared_ptr<Entity> EntityFactory::MakeStaticSprite(sf::Sprite sprite, const sf::Vector2f &position) {
+    std::shared_ptr<Entity> EntityFactory::MakeStaticDecoration(sf::Sprite sprite, const sf::Vector2f &position, const float rotation) {
         auto rect = std::make_shared<Entity>();
-        rect->AddComponent<Location>(position.x, position.y);
-        rect->AddComponent<Sprite>(sprite);
+        auto loc = rect->AddComponent<Location>(position.x, position.y);
+        loc->SetRotation(rotation);
+        rect->AddComponent<Sprite>(sprite, -30);
         return rect;
     }
 
@@ -494,7 +495,7 @@ namespace tjg {
         sf::Sprite entrance_sprite;
         entrance_sprite.setTexture(*entrance_texture);
         entrance_sprite.setTextureRect(sf::IntRect(0, 0, 128, 240));
-        entrance->AddComponent<Sprite>(entrance_sprite);
+        entrance->AddComponent<Sprite>(entrance_sprite, -25);
 
         return entrance;
     }
@@ -513,7 +514,7 @@ namespace tjg {
         sf::Sprite exit_sprite;
         exit_sprite.setTexture(*exit_texture);
         exit_sprite.setTextureRect(sf::IntRect(0, 0, 128, 240));
-        exit->AddComponent<Sprite>(exit_sprite);
+        exit->AddComponent<Sprite>(exit_sprite, -25);
 
         // StaticSegment component.
         auto segment = exit->AddComponent<StaticSegment>(physics_system.GetSpace(), position + sf::Vector2f(0, -10), position + sf::Vector2f(0, 10), 20);

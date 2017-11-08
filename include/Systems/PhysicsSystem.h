@@ -7,8 +7,6 @@
     #define M_PI 3.14159265358979323846
 #endif
 
-#include <iostream>
-
 #include <chipmunk.h>
 #include <SFML/System/Time.hpp>
 
@@ -19,7 +17,7 @@
 #include "Components/SensorShape.h"
 
 #include "EventManager.h"
-#include "Events/HitWall.h"
+#include "Events/HitLethalWall.h"
 
 #include "System.h"
 
@@ -30,6 +28,8 @@ namespace tjg {
         cpSpace* space;
 
         std::vector<std::shared_ptr<Entity>> entities;
+
+        void InitializeSpace();
 
     public:
         // Constructor

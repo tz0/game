@@ -55,6 +55,7 @@ namespace tjg {
             std::cout << "# [" << ++wall_counter << "] [Origin]" << wall["Origin"].dump() << "\n";
             std::cout << "#     [Endpoint]" << wall["Endpoint"].dump() << "\n";
             std::cout << "#     [radius]: " << wall["Radius"].dump() << "\n";
+            std::cout << "#     [Lethal]: " << wall["Lethal"].dump() << "\n";
         }
 
         std::cout << '#' << std::endl << "##### [dialogues]" << std::endl;
@@ -62,6 +63,18 @@ namespace tjg {
         unsigned dialogue_counter = 0;
         for (auto &k : parse_result["dialogues"].array_items()) {
             std::cout << "# [" << ++dialogue_counter << ']' << k.dump() << "\n";
+        }
+
+        std::cout << '#' << std::endl << "##### [static decorations]" << std::endl;
+        std::cout << "# [size]: " << parse_result["decorations"].array_items().size() << "\n";
+        unsigned decoration_counter = 0;
+        for (auto &decoration : parse_result["decorations"].array_items()) {
+            std::cout << "# [" << ++decoration_counter << ']' << decoration["texture"].dump() << "\n";
+            std::cout << "#     [texture]" << decoration["texture"].dump() << "\n";
+            std::cout << "#     [rect]" << decoration["rect"].dump() << "\n";
+            std::cout << "#     [position]" << decoration["position"].dump() << "\n";
+            std::cout << "#     [scale]" << decoration["scale"].dump() << "\n";
+            std::cout << "#     [rotation]" << decoration["rotation"].dump() << "\n";
         }
 
         std::cout << "##### [level info] end #####" << '\n' << '\n' << '\n';
@@ -125,7 +138,9 @@ namespace tjg {
                 static_cast<float>(wall["Origin"]["y"].number_value()),
                 static_cast<float>(wall["Endpoint"]["x"].number_value()),
                 static_cast<float>(wall["Endpoint"]["y"].number_value()),
-                static_cast<float>(wall["Radius"].number_value()));
+                static_cast<float>(wall["Radius"].number_value()),
+                static_cast<bool>(wall["Lethal"].bool_value())
+            );
         }
         walls_.shrink_to_fit();
         
@@ -140,6 +155,24 @@ namespace tjg {
             dialogues_.emplace_back(message, seconds_to_show);
         }
         dialogues_.shrink_to_fit();
+
+        // read static decorations informations
+        static_decorations_.clear();
+        static_decorations_.shrink_to_fit();
+        for (auto &static_decoration : parse_result["decorations"].array_items()) {
+            auto texture = static_decoration["texture"].string_value();
+            auto rect = sf::IntRect(static_cast<int>(static_decoration["rect"]["x"].number_value()),
+                                    static_cast<int>(static_decoration["rect"]["y"].number_value()),
+                                    static_cast<int>(static_decoration["rect"]["width"].number_value()),
+                                    static_cast<int>(static_decoration["rect"]["height"].number_value()));
+            auto position = sf::Vector2f(static_cast<float>(static_decoration["position"]["x"].number_value()),
+                                         static_cast<float>(static_decoration["position"]["y"].number_value()));
+            auto scale = sf::Vector2f(static_cast<float>(static_decoration["scale"]["x"].number_value()),
+                                      static_cast<float>(static_decoration["scale"]["y"].number_value()));
+            auto rotation = static_cast<float>(static_decoration["rotation"].number_value());
+            static_decorations_.emplace_back(texture, rect, position, scale, rotation);
+        }
+        static_decorations_.shrink_to_fit();
     }
     const Level::CameraCenter & Level::GetCameraCenter()
     {
@@ -186,5 +219,7 @@ namespace tjg {
         return dialogues_;
     }
 
-
+    const std::vector<Level::StaticDecoration>& Level::GetStaticDecorations() {
+        return static_decorations_;
+    }
 }

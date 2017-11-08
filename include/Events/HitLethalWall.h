@@ -4,11 +4,11 @@
 #include "Event.h"
 
 namespace tjg {
-    class HitWall : public Event {
+    class HitLethalWall : public Event {
     private:
         //  - time elapsed
     public:
-        explicit HitWall();
+        explicit HitLethalWall() = default;
     };
 }
 

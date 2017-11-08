@@ -1,10 +1,12 @@
 #include "LogicCenter.h"
 
 namespace tjg {
-    LogicCenter::LogicCenter(ResourceManager &resource_manager) :
+    LogicCenter::LogicCenter(ResourceManager &resource_manager, EventManager &event_manager) :
             physics_system(),
             collision_center(physics_system.GetSpace()),
-            entity_factory(resource_manager, physics_system) {
+            entity_factory(resource_manager, physics_system),
+            event_manager(event_manager)
+    {
     }
 
     void LogicCenter::Initialize(const unsigned int level_number) {
@@ -22,7 +24,7 @@ namespace tjg {
             (void)event;
             game_state = State::WON;
         });
-        event_manager.RegisterListener<HitWall>([&](HitWall &event){
+        event_manager.RegisterListener<HitLethalWall>([&](HitLethalWall &event){
             (void)event;
             std::cout << "Hit a wall!" << std::endl;
             game_state = State::FAILED;
@@ -34,28 +36,38 @@ namespace tjg {
         });
         event_manager.RegisterListener<FuelExpired>([&](FuelExpired &event) {
             (void)event;
-            std::cout << "Out of fuel!" << std::endl;
-            game_state = State::FAILED;
+            // If the fuel clock has started, check for a loss.
+            if (out_of_fuel_clock_started) {
+                if  (out_of_fuel_clock.getElapsedTime().asSeconds() >= seconds_to_wait_after_fuel_expired) {
+                    game_state = State::FAILED;
+                }
+            }
+            // If the fuel clock hasn't started, start it.
+            else {
+                std::cout << "Out of fuel! Starting countdown." << std::endl;
+                out_of_fuel_clock.restart();
+                out_of_fuel_clock_started = true;
+            }
         });
 
         //Iterate wall information record from level's walls vector, create walls and add them to the walls vector.
         for (auto wall : level.GetWalls()) {            
-            walls.push_back(entity_factory.MakeWall(sf::Vector2f(wall.origin_x, wall.origin_y), sf::Vector2f(wall.endpoint_x, wall.endpoint_y), wall.radius));
+            walls.push_back(entity_factory.MakeWall(sf::Vector2f(wall.origin_x, wall.origin_y), sf::Vector2f(wall.endpoint_x, wall.endpoint_y), wall.radius, wall.lethal));
         }
                         
         //Iterate fan information record from level's fans vector, create fans and add them to the fans vector.
-        for (auto fan : level.GetFans()) {            
+        for (auto fan : level.GetFans()) {
             fans.push_back(entity_factory.MakeFan(sf::Vector2f(fan.origin_x, fan.origin_y), sf::Vector2f(fan.endpoint_x, fan.endpoint_y), fan.width, fan.origin_strength, fan.endpoint_strength));
         }
 
-        // Create a collision center handler that will fire a HitWall event when TECH17 hits a wall.
+        // Create a collision center handler that will fire a HitLethalWall event when TECH17 hits a wall.
         collision_center.AddHandler(
             CollisionGroup::TECH17,
-            CollisionGroup::WALL,
+            CollisionGroup::LETHALWALL,
             [&](cpArbiter *arb, cpSpace *space) {
                 (void)arb;
                 (void)space;
-                event_manager.Fire<HitWall>();
+                event_manager.Fire<HitLethalWall>();
             }
         );
 
@@ -78,6 +90,10 @@ namespace tjg {
         // Link the fuel resource to the control center.
         auto fuel_resource = fuel_tracker->GetComponent<FiniteResource>();
         control_center.SetFuelResource(fuel_resource);
+
+        // Set up out_of_fuel_clock.
+        out_of_fuel_clock_started = false;
+        seconds_to_wait_after_fuel_expired = 3.f;
     }
 
     void LogicCenter::Update(const sf::Time &elapsed) {
@@ -85,10 +101,8 @@ namespace tjg {
         physics_system.Update(elapsed);
 
         // Countdown timer - start counting. To be more fair, do not start to count during initialization.
-        auto elapsed_seconds = oxygen_clock.getElapsedTime().asSeconds();
         auto oxygen_finite_resource = oxygen_tracker->GetComponent<FiniteResource>();
-        auto max_oxygen = oxygen_finite_resource->GetMaxLevel();
-        oxygen_finite_resource->SetCurrentLevel(max_oxygen - elapsed_seconds);
+        oxygen_finite_resource->ExpendResource(elapsed.asSeconds());
 
         // If out of oxygen, fire an event.
         if (oxygen_finite_resource->IsDepleted()){
@@ -109,7 +123,6 @@ namespace tjg {
         physics_system.Reset();
         collision_center.Reset(physics_system.GetSpace());
         game_state = State::PLAYING;
-        oxygen_clock.restart();
     }
 
 

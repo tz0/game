@@ -19,8 +19,9 @@ namespace tjg {
         void Run();
     private:
         ResourceManager resource_manager;
+        EventManager event_manager;
         LogicCenter logic_center;
-        ViewManager view_manager;        
+        ViewManager view_manager;
         sf::Clock update_clock;
     };
 }

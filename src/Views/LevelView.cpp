@@ -3,14 +3,38 @@
 namespace tjg {
 
     LevelView::LevelView(ResourceManager &resource_manager, sf::RenderWindow &window, LogicCenter &logic_center) :
-            View(window,resource_manager),
-            logic_center(logic_center) {
+            View(window, resource_manager),
+            logic_center(logic_center),
+            dust_particle_system(main_render_system, logic_center.GetPhysicsSystem(), 200,
+                                 sf::Sprite(*resource_manager.LoadTexture("dust.png"), sf::IntRect(0, 0, 256, 256)),
+                                 -10, sf::BlendAdd, sf::milliseconds(1), sf::seconds(10), sf::Vector2f(60, 60), 2.0f,
+                                 [](float x){
+                                     auto alpha = static_cast<sf::Uint8>(std::max(0.0f, static_cast<float>(128 * cos(x * 2.5)+128)));
+                                     return sf::Color(128, 128, 255, alpha/sf::Uint8(2));
+                                 },
+                                 [](float x){
+                                     auto size = static_cast<float>(sin(x * 4.0) / 3.f);
+                                     return sf::Vector2f(size, size);
+                                 }),
+            jetpack_flame_system(main_render_system, 500,
+                                 sf::Sprite(*resource_manager.LoadTexture("dust.png"), sf::IntRect(0, 0, 256, 256)),
+                                 40, sf::BlendAdd, sf::milliseconds(1), sf::seconds(2), sf::Vector2f(0, 0), 0,
+                                 [](float x){
+                                     auto decreasing = static_cast<sf::Uint8>(std::max(0.0f, static_cast<float>(255 * sin(1.0 / 25.0 * (x * 100)))));
+                                     auto increasing = sf::Uint8(255) - decreasing;
+                                     return sf::Color(increasing, increasing, decreasing, decreasing);
+                                 },
+                                 [](float x){
+                                     auto size = std::max(0.0f, 0.5f * static_cast<float>(cos(x * 2.0)));
+                                     return sf::Vector2f(size, size);
+                                 })
+    {
             window.setVerticalSyncEnabled(true);
     }
 
 
     void LevelView::Initialize() {
-        playerview_render_system.Reset();
+        main_render_system.Reset();
         statusbar_render_system.Reset();
 
         // Load fonts and the texture sheet
@@ -23,59 +47,73 @@ namespace tjg {
         info.setCharacterSize(24);
 
         // Add tech17 + child components to the sprite render system
-        playerview_render_system.AddEntity(logic_center.GetTech17());
+        main_render_system.AddEntity(logic_center.GetTech17());
         logic_center.GetTech17()->ForEachChild([&](std::shared_ptr<Entity> child){
-            playerview_render_system.AddEntity(child);
+            main_render_system.AddEntity(child);
         });
+        jetpack_flame_system.Initialize();
+        jetpack_flame_system.AddEntity(logic_center.GetTech17());
 
         // Add the wall entities to the sprite render system
         for (const auto &wall : logic_center.GetWalls()) {
-            playerview_render_system.AddEntity(wall);
+            main_render_system.AddEntity(wall);
         }
 
         //Add the entrance and exit to the sprite render system
-        playerview_render_system.AddEntity(logic_center.GetEntrance());
-        playerview_render_system.AddEntity(logic_center.GetExit());
+        main_render_system.AddEntity(logic_center.GetEntrance());
+        main_render_system.AddEntity(logic_center.GetExit());
 
         // Make game view background
-        playerview_render_system.AddEntity(logic_center.GetEntityFactory().MakeTiledBackground("white-tile.jpg"));
+        auto tiled_background = logic_center.GetEntityFactory().MakeTiledBackground("white-tile.jpg");
+        tiled_background->GetComponent<Sprite>()->GetSprite().setColor(sf::Color(200, 200, 200));
+        main_render_system.AddEntity(tiled_background);
 
         // Add fans to sprite render system.
+        dust_particle_system.Initialize();
         for (const auto &fan : logic_center.GetFans()) {
-            playerview_render_system.AddEntity(fan);
+            main_render_system.AddEntity(fan);
+            dust_particle_system.AddEntity(fan);
+        }
+
+        // Iterate static decorations record from level's decorations vector, create static decorations, and add them
+        // to the render system.
+        for (auto &decoration : logic_center.GetLevel().GetStaticDecorations()) {
+            std::cout << decoration.texture << std::endl;
+            sf::Sprite sprite(*resource_manager.LoadTexture(decoration.texture), decoration.texture_rect);
+            sprite.setScale(decoration.scale);
+            main_render_system.AddEntity(logic_center.GetEntityFactory().MakeStaticDecoration(sprite, decoration.position, decoration.rotation));
         }
 
         // Initialize status bar.
-        initializeStatusBar();
+        InitializeStatusBar(lcd_regular);
 
         // Initialize dialog system
         std::vector<Dialogue> dialogues = logic_center.GetLevel().GetDialogues();
-        initializeDialogueSystem(dialogues, lcd_regular);
+        InitializeDialogueSystem(dialogues, lcd_regular);
 
         // Set up camera, accounting for level and status bar since the walls were built before the status bar.
         camera.setCenter(
             logic_center.GetLevel().GetCameraCenter().x, 
-            logic_center.GetLevel().GetCameraCenter().y - STATUSBAR_HEIGHT);        
+            logic_center.GetLevel().GetCameraCenter().y);
         camera.setSize(
             logic_center.GetLevel().GetCameraSize().x, 
-            logic_center.GetLevel().GetCameraSize().y + (STATUSBAR_HEIGHT * 2));        
+            logic_center.GetLevel().GetCameraSize().y);
     }
 
 
     void LevelView::Render() {
         window.clear(sf::Color(50, 50, 50, 255));
+        camera.setViewport(sf::FloatRect(0, 0.1, 1, 0.9));
         window.setView(camera);
 
         // Render game view
-        playerview_render_system.render(window);
+        main_render_system.render(window);
 
         // Drawing that should take place separate from the "camera" should go below here.
         window.setView(window.getDefaultView());
 
         // Draw the status bar
-        renderStatusBarBackground();
-        updateStatusBarTrackers();
-        statusbar_render_system.render(window);
+        RenderStatusBar();
 
         // Draw the dialog box on top of the status bar.
         window.draw(dialogue_system.GetDialogueBox());
@@ -101,6 +139,8 @@ namespace tjg {
     // Update logic that is specific to the player view.
     void LevelView::Update(const sf::Time &elapsed) {
         CheckKeys(elapsed);
+        dust_particle_system.Update();
+        jetpack_flame_system.Update();
         dialogue_system.Update(elapsed);
     }
 
@@ -140,18 +180,15 @@ namespace tjg {
         }
         if (sf::Keyboard::isKeyPressed(sf::Keyboard::Space) && !fuel_resource->IsDepleted()) {
             control_center.FireJetpack(elapsed);
-            // Set body to red to visually show the jetpack is firing. Allow this only if the user is not out of fuel.
-            control_center.GetPlayerEntity()->GetComponent<Sprite>()->GetSprite().setColor(sf::Color(255, 0, 0));
-        }
-        else if (control_center.GetPlayerEntity()->GetComponent<Sprite>()->GetSprite().getColor() ==
-                   sf::Color(255, 0, 0)) {
-            // Set body back to its normal color.
-            control_center.GetPlayerEntity()->GetComponent<Sprite>()->GetSprite().setColor(
-                    sf::Color(255, 255, 255));
+            // Enable jetpack particle system to show it is active.
+            jetpack_flame_system.Enable();
+        } else {
+            // Disable jetpack particle system when key is no longer pressed.
+            jetpack_flame_system.Disable();
         }
     }
 
-    void LevelView::initializeStatusBar() {
+    void LevelView::InitializeStatusBar(std::shared_ptr<sf::Font> hud_font) {
         // Store reusable values.
         statusbar_element_height = STATUSBAR_HEIGHT * (3.f / 4.f);
         statusbar_x_padding =  WINDOW_WIDTH / 40.f;
@@ -175,11 +212,11 @@ namespace tjg {
         auto oxygen_tank_x_position = fuel_tank_background.getPosition().x + fuel_tank_background.getLocalBounds().width + statusbar_x_padding;
         oxygen_tank_background.setPosition(oxygen_tank_x_position, statusbar_y_padding);
 
-        // Create dialog box background
-        dialog_background = sf::RectangleShape(dialog_initial_size);
-        dialog_background.setFillColor(sf::Color(0, 0, 0));
+        // Create dialogue box background
+        dialogue_background = sf::RectangleShape(dialog_initial_size);
+        dialogue_background.setFillColor(sf::Color(0, 0, 0));
         auto dialog_x_position = oxygen_tank_x_position + oxygen_tank_background.getLocalBounds().width + statusbar_x_padding;
-        dialog_background.setPosition(dialog_x_position, statusbar_y_padding);
+        dialogue_background.setPosition(dialog_x_position, statusbar_y_padding);
 
         // Set up fuel meter.
         auto fuel_tracker_entity = logic_center.GetFuelTracker();
@@ -189,6 +226,17 @@ namespace tjg {
         fuel_meter_sprite->SetSize(trackers_initial_size);
         fuel_meter_location->SetPosition(fuel_tank_background.getPosition());
 
+        // Fuel meter numeric display.
+        auto fuel_meter_color = fuel_meter_sprite->GetSprite().getColor();
+        auto fuel_outline_color = sf::Color(static_cast<sf::Uint8>(fuel_meter_color.r / 2), static_cast<sf::Uint8>(fuel_meter_color.g / 2), static_cast<sf::Uint8>(fuel_meter_color.b / 2));
+        fuel_numeric_text = sf::Text();
+        fuel_numeric_text.setFont(*hud_font);
+        fuel_numeric_text.setFillColor(sf::Color(255, 255, 255));
+        fuel_numeric_text.setOutlineColor(fuel_outline_color);
+        fuel_numeric_text.setOutlineThickness(2);
+        fuel_numeric_text.setCharacterSize(20);
+        fuel_numeric_text.setPosition(fuel_tank_background.getPosition());
+
         // Set up oxygen meter.
         auto oxygen_tracker_entity = logic_center.GetOxygenTracker();
         auto oxygen_meter_location = oxygen_tracker_entity->GetComponent<Location>();
@@ -197,20 +245,41 @@ namespace tjg {
         oxygen_meter_sprite->SetSize(trackers_initial_size);
         oxygen_meter_location->SetPosition(oxygen_tank_background.getPosition());
 
+        // Oxygen meter numeric display.
+        auto oxygen_meter_color = oxygen_meter_sprite->GetSprite().getColor();
+        auto oxygen_outline_color = sf::Color(static_cast<sf::Uint8>(oxygen_meter_color.r / 2), static_cast<sf::Uint8>(oxygen_meter_color.g / 2), static_cast<sf::Uint8>(oxygen_meter_color.b / 2));
+        oxygen_numeric_text = sf::Text();
+        oxygen_numeric_text.setFont(*hud_font);
+        oxygen_numeric_text.setFillColor(sf::Color(255, 255, 255));
+        oxygen_numeric_text.setOutlineColor(oxygen_outline_color);
+        oxygen_numeric_text.setOutlineThickness(2);
+        oxygen_numeric_text.setCharacterSize(20);
+        oxygen_numeric_text.setPosition(oxygen_tank_background.getPosition());
+
         // Add meters to status bar render system.
         statusbar_render_system.AddEntity(logic_center.GetFuelTracker());
         statusbar_render_system.AddEntity(logic_center.GetOxygenTracker());
     }
 
-    void LevelView::renderStatusBarBackground() {
+    void LevelView::RenderStatusBar() {
         // Draw background elements.
         window.draw(statusbar_background);
         window.draw(fuel_tank_background);
         window.draw(oxygen_tank_background);
-        window.draw(dialog_background);
+        window.draw(dialogue_background);
+
+        // Update resource trackers.
+        UpdateStatusBarTrackers();
+
+        // Render the sprites in the status bar (just the resource tracker images for now).
+        statusbar_render_system.render(window);
+
+        // Render status bar text (resource tracker levels).
+        window.draw(fuel_numeric_text);
+        window.draw(oxygen_numeric_text);
     }
 
-    void LevelView::updateStatusBarTrackers() {
+    void LevelView::UpdateStatusBarTrackers() {
         // Update fuel tracker size.
         auto fuel_tracker = logic_center.GetFuelTracker();
         auto fuel_tracker_resource = fuel_tracker->GetComponent<FiniteResource>();
@@ -226,17 +295,27 @@ namespace tjg {
         float new_oxygen_width = trackers_initial_size.x * (oxygen_tracker_resource->GetCurrentLevel() / oxygen_tracker_resource->GetMaxLevel());
         auto new_oxygen_size = sf::Vector2f(new_oxygen_width, trackers_initial_size.y);
         oxygen_tracker_sprite->SetSize(new_oxygen_size);
+
+        // Update fuel tracker text.
+        std::stringstream fuel_stream;
+        fuel_stream << std::fixed << std::setprecision(1) << fuel_tracker_resource->GetCurrentLevel();
+        fuel_numeric_text.setString("FUEL: " + fuel_stream.str());
+
+        // Update oxygen tracker text.
+        std::stringstream oxygen_stream;
+        oxygen_stream << std::fixed << std::setprecision(1) << oxygen_tracker_resource->GetCurrentLevel();
+        oxygen_numeric_text.setString("OXYGEN: " + oxygen_stream.str());
     }
 
-    void LevelView::initializeDialogueSystem(std::vector<Dialogue> &dialogues, std::shared_ptr<sf::Font> font) {
+    void LevelView::InitializeDialogueSystem(std::vector<Dialogue> &dialogues, std::shared_ptr<sf::Font> font) {
         // Create dialog box Text object.
-        sf::Text dialog_box;
-        dialog_box.setFont(*font);
-        dialog_box.setFillColor(sf::Color(255, 255, 255));
-        dialog_box.setCharacterSize(20);
-        float dialog_box_x = trackers_initial_size.x*2 + statusbar_x_padding*3;
-        dialog_box.setPosition(dialog_box_x, statusbar_y_padding);
+        sf::Text dialogue_box;
+        dialogue_box.setFont(*font);
+        dialogue_box.setFillColor(sf::Color(255, 255, 255));
+        dialogue_box.setCharacterSize(20);
+        float dialogue_box_x = trackers_initial_size.x*2 + statusbar_x_padding*3;
+        dialogue_box.setPosition(dialogue_box_x, statusbar_y_padding);
         // Build the dialog system.
-        dialogue_system.Initialize(dialog_box, dialogues, (unsigned int)(dialog_background.getLocalBounds().width));
+        dialogue_system.Initialize(dialogue_box, dialogues, (unsigned int)(dialogue_background.getLocalBounds().width));
     }
 }
