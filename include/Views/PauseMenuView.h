@@ -8,7 +8,10 @@ namespace tjg {
     class PauseMenuView : public View {
     private:
         sf::Text message;
+        sf::Text arrow;//temp
         unsigned int current_level;
+        unsigned int selection = 0;
+        std::vector<ViewSwitch> options = {};
     public:
         PauseMenuView(ResourceManager &resource_manager, sf::RenderWindow &window);
         void Initialize(ViewSwitch view_switch);

@@ -6,6 +6,7 @@ namespace tjg {
 
 
     void MainMenuView::Initialize() {
+        selection = 0;
         auto avenir_bold = resource_manager.LoadFont("Avenir-Bold.ttf");
         // temp Set font for win message
         message.setFont(*avenir_bold);
@@ -22,7 +23,7 @@ namespace tjg {
 
     //TODO: Implement or remove
     void MainMenuView::Update() {
-
+        message.setString("Selected: " + std::to_string(selection) + "\nMAIN MENU\n\nENTER/ Select Levels\nESC/ Exit Game");
     }
 
 
@@ -37,17 +38,14 @@ namespace tjg {
         switch (event.type) {
             case sf::Event::KeyPressed: {
                 switch (event.key.code) {
-//                    case sf::Keyboard::Up:
-//                        button_list.SelectPrevious();
-//                        break;
-//                    case sf::Keyboard::Down:
-//                        button_list.SelectNext();
-//                        break;
+                    case sf::Keyboard::Up:
+                        if (selection > 0) selection -= 1;
+                        break;
+                    case sf::Keyboard::Down:
+                        if (selection < options.size() - 1) selection += 1;
+                        break;
                     case sf::Keyboard::Return:
-//                        button_list.GetCurrentSelected();
-                        return ViewSwitch {State::LEVEL_MENU, 0};
-                    case sf::Keyboard::Escape:
-                        return ViewSwitch {State::EXIT, 0};
+                        return options[selection];
                     default:
                         break;
                 }

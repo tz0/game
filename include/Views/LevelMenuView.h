@@ -8,6 +8,8 @@ namespace tjg {
     class LevelMenuView : public View {
     private:
         sf::Text message;
+        unsigned int selection = 1;
+        unsigned int unlocked = 2;
     public:
         LevelMenuView(ResourceManager &resource_manager, sf::RenderWindow &window);
         void Initialize();
