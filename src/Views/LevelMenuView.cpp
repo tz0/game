@@ -13,17 +13,24 @@ namespace tjg {
         // Create a win message.
         message.setStyle(sf::Text::Bold);
         message.setCharacterSize(24);
-        message.setString("SELECT A LEVEL\n\n1/ Level 1\n2/ Level 2\nESC/ Back to menu");
+        message.setString("SELECT A LEVEL\n\nLevel 1\nLevel 2\nBack to menu");
         // Center the win message on the screen.
         sf::FloatRect textRect = message.getLocalBounds();
         message.setOrigin(textRect.left + (textRect.width / 2), textRect.top + (textRect.height / 2));
         message.setPosition(WINDOW_WIDTH / 2, WINDOW_HEIGHT/ 2);
+
+        selection_box_position = sf::Vector2f(530, 346);
+        selection_box.setSize(sf::Vector2f(200,29));
+        selection_box.setPosition(selection_box_position);
+        selection_box.setFillColor(sf::Color::Transparent);
+        selection_box.setOutlineColor(sf::Color(255, 255, 255, 255));
+        selection_box.setOutlineThickness(2.0f);
     }
 
 
     //TODO: Implement or remove
     void LevelMenuView::Update() {
-        message.setString("Selected: " + std::to_string(selection) + "\nSELECT A LEVEL\n\n1/ Level 1\n2/ Level 2\nESC/ Back to menu");
+        selection_box.setPosition(selection_box_position);
     }
 
 
@@ -31,6 +38,7 @@ namespace tjg {
         window.setView(window.getDefaultView());
         window.clear(sf::Color(50, 50, 50, 255));
         window.draw(message);
+        window.draw(selection_box);
         window.display();
     }
 
@@ -39,21 +47,23 @@ namespace tjg {
             case sf::Event::KeyPressed: {
                 switch (event.key.code) {
                     case sf::Keyboard::Up:
-                        if (selection > 1) selection -= 1;
+                        if (selection > 1) {
+                            selection -= 1;
+                            selection_box_position.y -= 29;
+                        }
                         break;
                     case sf::Keyboard::Down:
-                        if (selection < unlocked) selection += 1;
+                        if (selection <= unlocked) {
+                            selection += 1;
+                            selection_box_position.y += 29;
+                        }
                         break;
                     case sf::Keyboard::Return:
-                        if (selection == 3) {
+                        if (selection > unlocked) {
                             return ViewSwitch {State::MAIN_MENU, 0};
                         } else {
                             return ViewSwitch {State::PLAYING, selection};
                         }
-//                    case sf::Keyboard::Num1:
-//                        return ViewSwitch {State::PLAYING, 1};
-//                    case sf::Keyboard::Num2:
-//                        return ViewSwitch {State::PLAYING, 2};
                     case sf::Keyboard::Escape:
                         return ViewSwitch {State::MAIN_MENU, 0};
                     default:
