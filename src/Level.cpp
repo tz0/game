@@ -61,8 +61,10 @@ namespace tjg {
         std::cout << '#' << std::endl << "##### [dialogues]" << std::endl;
         std::cout << "# [size]: " << parse_result["dialogues"].array_items().size() << "\n";
         unsigned dialogue_counter = 0;
-        for (auto &k : parse_result["dialogues"].array_items()) {
-            std::cout << "# [" << ++dialogue_counter << ']' << k.dump() << "\n";
+        for (auto &dialogue : parse_result["dialogues"].array_items()) {
+            std::cout << "# [" << ++dialogue_counter << ']' << "\n";
+            std::cout << "#     [message]: " << dialogue["Dialogue"]["message"].dump() << "\n";
+            std::cout << "#     [seconds]: " << dialogue["Dialogue"]["seconds"].dump() << "\n";
         }
 
         std::cout << '#' << std::endl << "##### [static decorations]" << std::endl;
@@ -70,11 +72,20 @@ namespace tjg {
         unsigned decoration_counter = 0;
         for (auto &decoration : parse_result["decorations"].array_items()) {
             std::cout << "# [" << ++decoration_counter << ']' << decoration["texture"].dump() << "\n";
-            std::cout << "#     [texture]" << decoration["texture"].dump() << "\n";
-            std::cout << "#     [rect]" << decoration["rect"].dump() << "\n";
-            std::cout << "#     [position]" << decoration["position"].dump() << "\n";
-            std::cout << "#     [scale]" << decoration["scale"].dump() << "\n";
-            std::cout << "#     [rotation]" << decoration["rotation"].dump() << "\n";
+            std::cout << "#     [texture]: " << decoration["texture"].dump() << "\n";
+            std::cout << "#     [rect]: " << decoration["rect"].dump() << "\n";
+            std::cout << "#     [position]: " << decoration["position"].dump() << "\n";
+            std::cout << "#     [scale]: " << decoration["scale"].dump() << "\n";
+            std::cout << "#     [rotation]: " << decoration["rotation"].dump() << "\n";
+        }
+
+        std::cout << '#' << std::endl << "##### [shock boxes]" << std::endl;
+        std::cout << "# [size]: " << parse_result["shockboxes"].array_items().size() << "\n";
+        unsigned shockbox_counter = 0;
+        for (auto &shockbox : parse_result["shockboxes"].array_items()) {
+            std::cout << "# [" << ++shockbox_counter << ']' << "\n";
+            std::cout << "#     [x]: " << shockbox["x"].dump() << "\n";
+            std::cout << "#     [y]: " << shockbox["y"].dump() << "\n";
         }
 
         std::cout << "##### [level info] end #####" << '\n' << '\n' << '\n';

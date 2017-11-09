@@ -79,5 +79,10 @@
     {"Dialogue": {"message": "The orange bar in your HUD indicates how much fuel you have left.", "seconds": 4}},
     {"Dialogue": {"message": "The blue bar indicates how much breathable air is left in your suit.", "seconds": 4}},
     {"Dialogue": {"message": "I probably should have mentioned that earlier...",  "seconds": 4}}
+  ],
+
+  "shockboxes":
+  [
+    {"x": -1000, "y": 0}
   ]
 }
