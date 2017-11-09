@@ -555,14 +555,16 @@ namespace tjg {
         sf::Sprite shock_box_sprite;
         shock_box_sprite.setTexture(*shock_box_texture);
         shock_box_sprite.setTextureRect(sf::IntRect(0, 0, 194, 194));
-        //shock_box_sprite.setColor(sf::Color(0, 0, 255));
+        shock_box_sprite.setColor(sf::Color(150, 200, 255));
         shock_box_sprite.setScale(0.8, 0.8);
         shock_box->AddComponent<Sprite>(shock_box_sprite, -25);
 
         // StaticSegment component.
+        sf::FloatRect shock_box_bounds = shock_box_sprite.getLocalBounds();
         auto segment = shock_box->AddComponent<StaticSegment>(physics_system.GetSpace(),
-                                                              position + sf::Vector2f(0, -10),
-                                                              position + sf::Vector2f(0, 10), 20);
+                                                              position,
+                                                              position,
+                                                              shock_box_bounds.width/3);
         cpShapeSetCollisionType(segment->GetShape(), static_cast<cpCollisionType>(CollisionGroup::LETHAL));
 
         return shock_box;
