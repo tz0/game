@@ -6,7 +6,7 @@ namespace tjg {
         event_manager(event_manager),
         state(State::MAIN_MENU),
         window(sf::VideoMode(WINDOW_WIDTH, WINDOW_HEIGHT, 32), "Game", sf::Style::Titlebar | sf::Style::Close),
-        main_menu_view(resource_manager, window),
+        main_menu_view(resource_manager, window, logic_center),
         level_menu_view(resource_manager, window),
         player_view(resource_manager, window, logic_center),
         pause_menu_view(resource_manager, window) {

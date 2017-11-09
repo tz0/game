@@ -1,26 +1,22 @@
 #include "Views/MainMenuView.h"
 
 namespace tjg {
-    MainMenuView::MainMenuView(ResourceManager &resource_manager, sf::RenderWindow &window) :
-            View(window,resource_manager) {}
+    MainMenuView::MainMenuView(ResourceManager &resource_manager, sf::RenderWindow &window, LogicCenter &logic_center) :
+            View(window,resource_manager),
+            logic_center(logic_center)
+    {
+        window.setVerticalSyncEnabled(true);
+    }
 
 
     void MainMenuView::Initialize() {
         selection = 0;
-        auto avenir_bold = resource_manager.LoadFont("Avenir-Bold.ttf");
-        // temp Set font for win message
-        message.setFont(*avenir_bold);
-        // Create a win message.
-        message.setStyle(sf::Text::Bold);
-        message.setCharacterSize(24);
-        message.setString("MAIN MENU\n\nSelect Levels\nExit Game");
-        // Center the win message on the screen.
-        sf::FloatRect textRect = message.getLocalBounds();
-        message.setOrigin(textRect.left + (textRect.width / 2), textRect.top + (textRect.height / 2));
-        message.setPosition(WINDOW_WIDTH / 2, WINDOW_HEIGHT/ 2);
+        auto background_texture = resource_manager.LoadTexture("interstellar.png");
+        background_sprite.setTexture(*background_texture);
+        background_sprite.setTextureRect(sf::IntRect(0, 0, 1280, 720));
 
-        selection_box_position = sf::Vector2f(540, 360);
-        selection_box.setSize(sf::Vector2f(200,29));
+        selection_box_position = sf::Vector2f(803, 503);
+        selection_box.setSize(sf::Vector2f(363,43));
         selection_box.setPosition(selection_box_position);
         selection_box.setFillColor(sf::Color::Transparent);
         selection_box.setOutlineColor(sf::Color(255, 255, 255, 255));
@@ -35,9 +31,9 @@ namespace tjg {
 
 
     void MainMenuView::Render() {
-        window.setView(window.getDefaultView());
         window.clear(sf::Color(50, 50, 50, 255));
-        window.draw(message);
+        window.setView(window.getDefaultView());
+        window.draw(background_sprite);
         window.draw(selection_box);
         window.display();
     }
@@ -49,13 +45,13 @@ namespace tjg {
                     case sf::Keyboard::Up:
                         if (selection > 0) {
                             selection -= 1;
-                            selection_box_position.y -= 29;
+                            selection_box_position.y -= 60;
                         }
                         break;
                     case sf::Keyboard::Down:
                         if (selection < options.size() - 1) {
                             selection += 1;
-                            selection_box_position.y += 29;
+                            selection_box_position.y += 60;
                         }
                         break;
                     case sf::Keyboard::Return:
