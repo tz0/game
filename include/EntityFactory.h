@@ -55,6 +55,7 @@ namespace tjg {
         std::shared_ptr<Entity> MakeEntrance(const sf::Vector2f &position);
         std::shared_ptr<Entity> MakeExit(const sf::Vector2f &position);
         std::shared_ptr<Entity> MakeResourceTracker(float max_value, std::string &texture_path, const sf::Color &color);
+        std::shared_ptr<Entity> MakeShockBox(const sf::Vector2f &position);
     };
 
 }

@@ -70,7 +70,7 @@ namespace tjg {
          * 1 particle will be emitted every 1 second)
          * @param lifetime number of seconds specifying average lifetime of a particle the actual lifetime of a
          * particle will be 50% - 150% of this value.
-         * @param position_variation particle will be spawned at a random emitter's location with +-x/+-y added to it's
+         * @param position_variation particle will be spawned at a random emitter's location with +-x/+-y added to its
          * position.
          * @param angular_velocity_variation particle will be given a random angular velocity between
          * +-angular_velocity_variation.

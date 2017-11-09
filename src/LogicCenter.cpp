@@ -63,7 +63,7 @@ namespace tjg {
         // Create a collision center handler that will fire a HitLethalWall event when TECH17 hits a wall.
         collision_center.AddHandler(
             CollisionGroup::TECH17,
-            CollisionGroup::LETHALWALL,
+            CollisionGroup::LETHAL,
             [&](cpArbiter *arb, cpSpace *space) {
                 (void)arb;
                 (void)space;
