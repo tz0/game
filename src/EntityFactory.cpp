@@ -556,6 +556,7 @@ namespace tjg {
         shock_box_sprite.setTexture(*shock_box_texture);
         shock_box_sprite.setTextureRect(sf::IntRect(0, 0, 193, 310));
         shock_box_sprite.setColor(sf::Color(0, 0, 128));
+        shock_box_sprite.setScale(0.5, 0.5);
         shock_box->AddComponent<Sprite>(shock_box_sprite, -25);
 
         // StaticSegment component.

@@ -59,6 +59,11 @@ namespace tjg {
             main_render_system.AddEntity(wall);
         }
 
+        // Add the shock boxes to the sprite render system
+        for (const auto &shock_box : logic_center.GetShockBoxes()) {
+            main_render_system.AddEntity(shock_box);
+        }
+
         //Add the entrance and exit to the sprite render system
         main_render_system.AddEntity(logic_center.GetEntrance());
         main_render_system.AddEntity(logic_center.GetExit());

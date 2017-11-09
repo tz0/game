@@ -60,6 +60,11 @@ namespace tjg {
             fans.push_back(entity_factory.MakeFan(sf::Vector2f(fan.origin_x, fan.origin_y), sf::Vector2f(fan.endpoint_x, fan.endpoint_y), fan.width, fan.origin_strength, fan.endpoint_strength));
         }
 
+        // Make shock boxes.
+        for (auto shock_box : level.GetShockBoxes()) {
+            shock_boxes.push_back(entity_factory.MakeShockBox(sf::Vector2f(shock_box.x, shock_box.y)));
+        }
+
         // Create a collision center handler that will fire a HitLethalWall event when TECH17 hits a wall.
         collision_center.AddHandler(
             CollisionGroup::TECH17,
@@ -172,5 +177,9 @@ namespace tjg {
 
     Level& LogicCenter::GetLevel() {
         return level;
+    }
+
+    std::vector<std::shared_ptr<Entity>> &LogicCenter::GetShockBoxes() {
+        return shock_boxes;
     }
 }
