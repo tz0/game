@@ -549,14 +549,14 @@ namespace tjg {
         auto shock_box_location = shock_box->AddComponent<Location>(position.x, position.y);
 
         // Load texture.
-        auto shock_box_texture = resource_manager.LoadTexture("shock-box-tmp.png");
+        auto shock_box_texture = resource_manager.LoadTexture("white-tile.jpg");
 
         // Add Sprite component
         sf::Sprite shock_box_sprite;
         shock_box_sprite.setTexture(*shock_box_texture);
-        shock_box_sprite.setTextureRect(sf::IntRect(0, 0, 193, 310));
-        shock_box_sprite.setColor(sf::Color(0, 0, 128));
-        shock_box_sprite.setScale(0.5, 0.5);
+        shock_box_sprite.setTextureRect(sf::IntRect(0, 0, 194, 194));
+        //shock_box_sprite.setColor(sf::Color(0, 0, 255));
+        shock_box_sprite.setScale(0.8, 0.8);
         shock_box->AddComponent<Sprite>(shock_box_sprite, -25);
 
         // StaticSegment component.
