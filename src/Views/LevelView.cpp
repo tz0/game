@@ -18,10 +18,10 @@ namespace tjg {
                                  }),
             shockbox_particle_system(main_render_system, logic_center.GetPhysicsSystem(), 10,
                                  sf::Sprite(*resource_manager.LoadTexture("dust.png"), sf::IntRect(0, 0, 256, 256)),
-                                 -10, sf::BlendAdd, sf::milliseconds(100), sf::seconds(0.75f), sf::Vector2f(60, 60), 2.0f,
+                                 -10, sf::BlendAdd, sf::milliseconds(75), sf::seconds(0.25f), sf::Vector2f(60, 60), 2.0f,
                                  [](float x){
                                      auto alpha = static_cast<sf::Uint8>(std::max(0.0f, static_cast<float>(128 * cos(x * 2.5)+128)));
-                                     return sf::Color(0, 128, 255, alpha/sf::Uint8(2));
+                                     return sf::Color(0, 128, 255, alpha);
                                  },
                                  [](float x){
                                      auto size = static_cast<float>(sin(x * 4.0) / 3.f);
