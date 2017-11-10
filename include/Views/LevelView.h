@@ -29,6 +29,7 @@ namespace tjg {
         SpriteRenderSystem statusbar_render_system;
 
         PhysicsParticleSystem dust_particle_system;
+        PhysicsParticleSystem shockbox_particle_system;
         ParticleSystem jetpack_flame_system;
 
         // FPS display

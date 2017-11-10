@@ -10,7 +10,18 @@ namespace tjg {
                                  -10, sf::BlendAdd, sf::milliseconds(1), sf::seconds(10), sf::Vector2f(60, 60), 2.0f,
                                  [](float x){
                                      auto alpha = static_cast<sf::Uint8>(std::max(0.0f, static_cast<float>(128 * cos(x * 2.5)+128)));
-                                     return sf::Color(128, 128, 255, alpha/sf::Uint8(2));
+                                     return sf::Color(80, 80, 80, alpha/sf::Uint8(2));
+                                 },
+                                 [](float x){
+                                     auto size = static_cast<float>(sin(x * 4.0) / 3.f);
+                                     return sf::Vector2f(size, size);
+                                 }),
+            shockbox_particle_system(main_render_system, logic_center.GetPhysicsSystem(), 10,
+                                 sf::Sprite(*resource_manager.LoadTexture("dust.png"), sf::IntRect(0, 0, 256, 256)),
+                                 -10, sf::BlendAdd, sf::milliseconds(100), sf::seconds(0.75f), sf::Vector2f(60, 60), 2.0f,
+                                 [](float x){
+                                     auto alpha = static_cast<sf::Uint8>(std::max(0.0f, static_cast<float>(128 * cos(x * 2.5)+128)));
+                                     return sf::Color(0, 128, 255, alpha/sf::Uint8(2));
                                  },
                                  [](float x){
                                      auto size = static_cast<float>(sin(x * 4.0) / 3.f);
@@ -59,11 +70,6 @@ namespace tjg {
             main_render_system.AddEntity(wall);
         }
 
-        // Add the shock boxes to the sprite render system
-        for (const auto &shock_box : logic_center.GetShockBoxes()) {
-            main_render_system.AddEntity(shock_box);
-        }
-
         //Add the entrance and exit to the sprite render system
         main_render_system.AddEntity(logic_center.GetEntrance());
         main_render_system.AddEntity(logic_center.GetExit());
@@ -73,11 +79,18 @@ namespace tjg {
         tiled_background->GetComponent<Sprite>()->GetSprite().setColor(sf::Color(200, 200, 200));
         main_render_system.AddEntity(tiled_background);
 
-        // Add fans to sprite render system.
+        // Add fans to sprite render system and set up their particles.
         dust_particle_system.Initialize();
         for (const auto &fan : logic_center.GetFans()) {
             main_render_system.AddEntity(fan);
             dust_particle_system.AddEntity(fan);
+        }
+
+        // Add the shock boxes to the sprite render system and set up their particles.
+        shockbox_particle_system.Initialize();
+        for (const auto &shock_box : logic_center.GetShockBoxes()) {
+            main_render_system.AddEntity(shock_box);
+            shockbox_particle_system.AddEntity(shock_box);
         }
 
         // Iterate static decorations record from level's decorations vector, create static decorations, and add them
@@ -145,6 +158,7 @@ namespace tjg {
     void LevelView::Update(const sf::Time &elapsed) {
         CheckKeys(elapsed);
         dust_particle_system.Update();
+        shockbox_particle_system.Update();
         jetpack_flame_system.Update();
         dialogue_system.Update(elapsed);
     }
