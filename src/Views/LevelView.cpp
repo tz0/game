@@ -7,13 +7,13 @@ namespace tjg {
             logic_center(logic_center),
             dust_particle_system(main_render_system, logic_center.GetPhysicsSystem(), 200,
                                  sf::Sprite(*resource_manager.LoadTexture("dust.png"), sf::IntRect(0, 0, 256, 256)),
-                                 -10, sf::BlendAdd, sf::milliseconds(1), sf::seconds(10), sf::Vector2f(60, 60), 2.0f,
+                                 -10, sf::BlendAdd, sf::milliseconds(1), sf::seconds(8), sf::Vector2f(60, 60), 2.0f,
                                  [](float x){
                                      auto alpha = static_cast<sf::Uint8>(std::max(0.0f, static_cast<float>(128 * cos(x * 2.5)+128)));
-                                     return sf::Color(80, 80, 80, alpha/sf::Uint8(2));
+                                     return sf::Color(102, 255, 255, alpha/sf::Uint8(3));
                                  },
                                  [](float x){
-                                     auto size = static_cast<float>(sin(x * 4.0) / 3.f);
+                                     auto size = static_cast<float>(sin(x * 4.0) / 5.f);
                                      return sf::Vector2f(size, size);
                                  }),
             shockbox_particle_system(main_render_system, logic_center.GetPhysicsSystem(), 10,
@@ -24,7 +24,7 @@ namespace tjg {
                                      return sf::Color(0, 128, 255, alpha);
                                  },
                                  [](float x){
-                                     auto size = static_cast<float>(sin(x * 4.0) / 3.f);
+                                     auto size = static_cast<float>(sin(x * 4.0) / 2.f);
                                      return sf::Vector2f(size, size);
                                  }),
             jetpack_flame_system(main_render_system, 500,

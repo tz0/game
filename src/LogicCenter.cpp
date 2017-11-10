@@ -125,6 +125,7 @@ namespace tjg {
     void LogicCenter::Reset() {
         walls.clear();
         fans.clear();
+        shock_boxes.clear();
         physics_system.Reset();
         collision_center.Reset(physics_system.GetSpace());
         game_state = State::PLAYING;
