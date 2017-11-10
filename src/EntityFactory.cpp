@@ -425,6 +425,40 @@ namespace tjg {
         return tech17;
     }
 
+    std::shared_ptr<Entity> EntityFactory::MakeBlackhole(const sf::Vector2f &origin, float radius,
+                                                         float origin_strength, float end_strength) {
+        // Load texture sheet.
+        auto texture_sheet = resource_manager.LoadTexture("spritesheet.png");
+
+        // Build fan entity.
+        auto blackhole = std::make_shared<Entity>();
+
+        // Add location component pointing to the origin.
+        auto fan_location = blackhole->AddComponent<Location>(origin);
+
+        // Add sprite component (load from texture sheet).
+        auto fan_sprite = blackhole->AddComponent<Sprite>(
+                sf::Sprite(*texture_sheet, sf::IntRect(234, 146, 344 - 234, 360 - 146))
+        );
+
+
+        //TODO(erik): set size of sprite
+        //
+
+        // Create linear force component for physics system
+        auto linear_force = blackhole->AddComponent<RadialForce>(physics_system.GetSpace(), origin, radius, origin_strength, end_strength);
+
+        // Create sensor shape component (the physics system uses this to check if a DynamicBody is inside the sensor shape).
+        blackhole->AddComponent<SensorShape>(linear_force->GetShape(), [=](cpShape *shape){
+            // Apply a force to each shape overlapping with this linear force shape.
+
+
+        });
+        physics_system.AddEntity(blackhole);
+
+        return blackhole;
+    }
+
     std::shared_ptr<Entity> EntityFactory::MakeFan(const sf::Vector2f &origin_point, const sf::Vector2f &end_point, const float width, const float origin_strength, const float end_strength) {
         // Load texture sheet.
         auto texture_sheet = resource_manager.LoadTexture("spritesheet.png");
