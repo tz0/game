@@ -5,6 +5,7 @@
 #include <random>
 
 #include "Components/Timer.h"
+#include "Components/Velocity.h"
 #include "System.h"
 #include "Systems/SpriteRenderSystem.h"
 
@@ -44,6 +45,8 @@ namespace tjg {
         std::uniform_real_distribution<float> lifetime_dist;
         std::uniform_real_distribution<float> x_position_variation_dist;
         std::uniform_real_distribution<float> y_position_variation_dist;
+        std::uniform_real_distribution<float> x_velocity_variation_dist;
+        std::uniform_real_distribution<float> y_velocity_variation_dist;
         std::uniform_real_distribution<float> angular_velocity_dist;
 
         // Initializes specified particle at position
@@ -72,6 +75,7 @@ namespace tjg {
          * particle will be 50% - 150% of this value.
          * @param position_variation particle will be spawned at a random emitter's location with +-x/+-y added to its
          * position.
+         * @param velocity_variation particle will be spawned at with velocity +-x/+-y
          * @param angular_velocity_variation particle will be given a random angular velocity between
          * +-angular_velocity_variation.
          * @param color_transformation function which maps the percent_lifetime (given as a value between 0.0 and 1.0)
@@ -87,6 +91,7 @@ namespace tjg {
                        sf::Time particle_rate,
                        sf::Time lifetime,
                        sf::Vector2f position_variation,
+                       sf::Vector2f velocity_variation,
                        float angular_velocity_variation,
                        std::function<sf::Color(float)> color_transformation = [](float x) {
                            (void) x;
@@ -105,7 +110,7 @@ namespace tjg {
         void AddEntity(std::shared_ptr<Entity> entity) override;
 
         // Updates particle properties, respawning as needed
-        void Update();
+        void Update(const sf::Time&);
 
         // Turn the particle system on/off
         void Enable();
