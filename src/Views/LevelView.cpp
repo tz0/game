@@ -18,7 +18,7 @@ namespace tjg {
                                  }),
             shockbox_particle_system(main_render_system, logic_center.GetPhysicsSystem(), 10,
                                  sf::Sprite(*resource_manager.LoadTexture("particle.png"), sf::IntRect(0, 0, 256, 256)),
-                                 -10, sf::BlendAdd, sf::milliseconds(200), sf::seconds(0.25f), sf::Vector2f(50, 50), sf::Vector2f(10, 10),  2.0f,
+                                 -10, sf::BlendAdd, sf::milliseconds(200), sf::seconds(0.25f), sf::Vector2f(50, 50), sf::Vector2f(50, 50),  2.0f,
                                  [](float x){
                                      auto alpha = static_cast<sf::Uint8>(std::max(0.0f, static_cast<float>(128 * cos(x * 2.5)+128)));
                                      return sf::Color(0, 128, 255, alpha * 4);
