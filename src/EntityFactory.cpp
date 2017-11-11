@@ -549,22 +549,21 @@ namespace tjg {
         auto shock_box_location = shock_box->AddComponent<Location>(position.x, position.y);
 
         // Load texture.
-        auto shock_box_texture = resource_manager.LoadTexture("white-tile.jpg");
+        auto shock_box_texture = resource_manager.LoadTexture("shock-box.png");
 
         // Add Sprite component
         sf::Sprite shock_box_sprite;
         shock_box_sprite.setTexture(*shock_box_texture);
-        shock_box_sprite.setTextureRect(sf::IntRect(0, 0, 194, 194));
-        shock_box_sprite.setColor(sf::Color(150, 200, 255));
-        shock_box_sprite.setScale(0.8, 0.8);
+        shock_box_sprite.setTextureRect(sf::IntRect(0, 0, shock_box_texture->getSize().x, shock_box_texture->getSize().y));
+        shock_box_sprite.setScale(0.3, 0.3);
         shock_box->AddComponent<Sprite>(shock_box_sprite, -25);
 
         // StaticSegment component.
         sf::FloatRect shock_box_bounds = shock_box_sprite.getLocalBounds();
         auto segment = shock_box->AddComponent<StaticSegment>(physics_system.GetSpace(),
-                                                              position,
-                                                              position,
-                                                              shock_box_bounds.width/3);
+                                                              sf::Vector2f(position.x, position.y + 20),
+                                                              sf::Vector2f(position.x, position.y - 20),
+                                                              shock_box_bounds.width/10);
         cpShapeSetCollisionType(segment->GetShape(), static_cast<cpCollisionType>(CollisionGroup::LETHAL));
 
         return shock_box;
