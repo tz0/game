@@ -11,6 +11,7 @@ namespace tjg {
                                                  sf::Time particle_rate,
                                                  sf::Time lifetime,
                                                  sf::Vector2f position_variation,
+                                                 sf::Vector2f velocity_variation,
                                                  const float angular_velocity_variation,
                                                  std::function<sf::Color(float)> color_transformation,
                                                  std::function<sf::Vector2f(float)> scale_transformation) :
@@ -22,6 +23,7 @@ namespace tjg {
                            particle_rate,
                            lifetime,
                            position_variation,
+                           velocity_variation,
                            angular_velocity_variation,
                            std::move(color_transformation),
                            std::move(scale_transformation)),
@@ -38,6 +40,7 @@ namespace tjg {
                               position.y + y_position_variation_dist(gen)));
         cpBodySetVelocity(body->GetBody(), cpvzero);
         cpBodySetAngularVelocity(body->GetBody(), angular_velocity_dist(gen));
+        cpBodySetVelocity(body->GetBody(), cpv(x_velocity_variation_dist(gen), y_velocity_variation_dist(gen)));
     }
 
     void PhysicsParticleSystem::MakeParticle(const sf::Vector2f position) {

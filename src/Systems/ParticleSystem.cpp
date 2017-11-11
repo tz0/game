@@ -11,6 +11,7 @@ namespace tjg {
                                    sf::Time particle_rate,
                                    sf::Time lifetime,
                                    sf::Vector2f position_variation,
+                                   sf::Vector2f velocity_variation,
                                    const float angular_velocity_variation,
                                    std::function<sf::Color(float)> color_transformation,
                                    std::function<sf::Vector2f(float)> scale_transformation) :
@@ -26,6 +27,8 @@ namespace tjg {
             lifetime_dist(lifetime.asSeconds() * 0.5f, lifetime.asSeconds() * 1.5f),
             x_position_variation_dist(-position_variation.x, position_variation.x),
             y_position_variation_dist(-position_variation.y, position_variation.y),
+            x_velocity_variation_dist(-velocity_variation.x, velocity_variation.x),
+            y_velocity_variation_dist(-velocity_variation.y, velocity_variation.y),
             angular_velocity_dist(-angular_velocity_variation, angular_velocity_variation) {
 
     }
@@ -45,6 +48,7 @@ namespace tjg {
         // Lifetime exceeded, recycle entity.
         particle->GetComponent<Timer>()->Restart();
         particle->GetComponent<Location>()->SetPosition(position);
+        particle->GetComponent<Velocity>()->SetVelocity(sf::Vector2f(x_velocity_variation_dist(gen), y_velocity_variation_dist(gen)));
     }
 
     void ParticleSystem::MakeParticle(const sf::Vector2f position) {
@@ -53,9 +57,9 @@ namespace tjg {
         entity->AddComponent<Sprite>(sprite, sprite_depth, sprite_blend_mode);
         entity->GetComponent<Sprite>()->GetSprite().setColor(sf::Color::Transparent);
 
-
         entity->AddComponent<Timer>(sf::seconds(lifetime_dist(gen)));
         entity->AddComponent<Location>();
+        entity->AddComponent<Velocity>(x_velocity_variation_dist(gen), y_velocity_variation_dist(gen));
 
         render_system.AddEntity(entity);
         particles.emplace_back(entity);
@@ -63,7 +67,7 @@ namespace tjg {
         SpawnParticle(entity, position);
     }
 
-    void ParticleSystem::Update() {
+    void ParticleSystem::Update(const sf::Time &elapsed) {
 
         // Check if any emitters need to be deleted.
         emitters.erase(
@@ -113,6 +117,15 @@ namespace tjg {
                             auto scale = scale_transformation(percent_lifetime);
                             sprite->GetSprite().setColor(color);
                             sprite->GetSprite().setScale(scale);
+
+                            auto location = particle->GetComponent<Location>();
+                            auto velocity = particle->GetComponent<Velocity>();
+
+                            // This check is necessary because physical particles do not have a velocity component.
+                            if (velocity != nullptr) {
+                                auto pos = location->GetPosition();
+                                location->SetPosition(pos + elapsed.asSeconds() * velocity->GetVelocity());
+                            }
                             return false;
                         }),
                 particles.end()
