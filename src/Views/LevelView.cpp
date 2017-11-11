@@ -7,7 +7,7 @@ namespace tjg {
             logic_center(logic_center),
             dust_particle_system(main_render_system, logic_center.GetPhysicsSystem(), 200,
                                  sf::Sprite(*resource_manager.LoadTexture("dust.png"), sf::IntRect(0, 0, 256, 256)),
-                                 -10, sf::BlendAdd, sf::milliseconds(1), sf::seconds(10), sf::Vector2f(60, 60), 2.0f,
+                                 -10, sf::BlendAdd, sf::milliseconds(1), sf::seconds(10), sf::Vector2f(60, 60), sf::Vector2f(0, 0), 2.0f,
                                  [](float x){
                                      auto alpha = static_cast<sf::Uint8>(std::max(0.0f, static_cast<float>(128 * cos(x * 2.5)+128)));
                                      return sf::Color(128, 128, 255, alpha/sf::Uint8(2));
@@ -18,7 +18,7 @@ namespace tjg {
                                  }),
             jetpack_flame_system(main_render_system, 500,
                                  sf::Sprite(*resource_manager.LoadTexture("dust.png"), sf::IntRect(0, 0, 256, 256)),
-                                 40, sf::BlendAdd, sf::milliseconds(1), sf::seconds(2), sf::Vector2f(0, 0), 0,
+                                 40, sf::BlendAdd, sf::milliseconds(1), sf::seconds(2), sf::Vector2f(0, 0), sf::Vector2f(5, 5), 0,
                                  [](float x){
                                      auto decreasing = static_cast<sf::Uint8>(std::max(0.0f, static_cast<float>(255 * sin(1.0 / 25.0 * (x * 100)))));
                                      auto increasing = sf::Uint8(255) - decreasing;
@@ -139,8 +139,8 @@ namespace tjg {
     // Update logic that is specific to the player view.
     void LevelView::Update(const sf::Time &elapsed) {
         CheckKeys(elapsed);
-        dust_particle_system.Update();
-        jetpack_flame_system.Update();
+        dust_particle_system.Update(elapsed);
+        jetpack_flame_system.Update(elapsed);
         dialogue_system.Update(elapsed);
     }
 
