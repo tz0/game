@@ -1,0 +1,48 @@
+{    
+  "level": 3,
+  "fuel" : 15,
+  "oxygen" : 45,
+
+  "camera center":
+  {
+    "x": 700,
+    "y": 0
+  },
+
+  "camera size":
+  {
+    "x": 2000,
+    "y": 1280
+  },
+
+  "exit":
+  {
+    "x": 1400,
+    "y": 0    
+  },
+  
+  "entrance":
+  {
+    "x": 0,
+    "y": 0
+  },
+
+  "pressure sources":
+  [
+    {"origin": {"x": -150,"y": 0}, "strength":500, "radius":500},
+    {"origin": {"x": 200,"y": -300}, "strength":-400, "radius":500},
+    {"origin": {"x": 400,"y": 300}, "strength":-400, "radius":500},
+    {"origin": {"x": 600,"y": -300}, "strength":-400, "radius":500},
+    {"origin": {"x": 800,"y": 300}, "strength":-400, "radius":500}
+  ],
+
+  "walls":
+  [
+    {"origin": {"x": -200, "y": -600}, "endpoint": {"x": 1600, "y": -600}, "radius": 40 },
+    {"origin": {"x": -200,"y": 600},"endpoint": {"x": 1600,"y": 600},"radius": 40},
+    {"origin": {"x": -200,"y": -600},"endpoint": {"x": -200,"y": 600},"radius": 40},
+    {"origin": {"x": 1600,"y": -600},"endpoint": {"x": 1600,"y": 600},"radius": 40}
+  ]
+}
+
+

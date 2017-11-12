@@ -19,16 +19,14 @@ namespace tjg {
     private:
         cpBody *body;
         cpShape *shape;
-        float origin_strength;
-        float end_strength;
+        float strength;
 
     public:
-        RadialForce(cpSpace *space, sf::Vector2f origin, float radius, float origin_strength, float end_strength);
+        RadialForce(cpSpace *space, sf::Vector2f origin, float radius, float strength);
         ~RadialForce();
         cpShape *GetShape();
         cpBody *GetBody();
-        float GetOriginStrength();
-        float GetEndStrength();
+        float GetStrength();
         cpVect GetForce();
     };
 

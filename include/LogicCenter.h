@@ -41,6 +41,7 @@ namespace tjg {
         std::shared_ptr<Entity> entrance;
         std::shared_ptr<Entity> exit;
         std::vector<std::shared_ptr<Entity>> walls;
+        std::vector<std::shared_ptr<Entity>> pressure_sources;
         std::vector<std::shared_ptr<Entity>> fans;
         std::vector<std::shared_ptr<Entity>> shock_boxes;
 
@@ -81,6 +82,7 @@ namespace tjg {
         PhysicsSystem& GetPhysicsSystem();
         std::shared_ptr<Entity> GetTech17();
         std::vector<std::shared_ptr<Entity>>& GetWalls();
+        std::vector<std::shared_ptr<Entity>>& GetPressureSources();
         std::vector<std::shared_ptr<Entity>>& GetFans();
         std::vector<std::shared_ptr<Entity>>& GetShockBoxes();
         std::shared_ptr<Entity> GetEntrance();

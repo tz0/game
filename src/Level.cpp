@@ -39,23 +39,31 @@ namespace tjg {
         std::cout << "# [x]: " << parse_result["exit"]["x"].dump() << std::endl;
         std::cout << "# [y]: " << parse_result["exit"]["y"].dump() << std::endl;
 
+        std::cout << '#' << std::endl << "##### [pressure sources]" << std::endl;
+        std::cout << "# [size]: " << parse_result["pressure_sources"].array_items().size() << "\n";
+        unsigned pressure_source_counter = 0;
+        for (auto &pressure_source : parse_result["pressure_sources"].array_items()) {
+            std::cout << "# [" << ++pressure_source_counter << "] [origin]" << pressure_source["origin"].dump() << "\n";
+            std::cout << "#     [radius]: " << pressure_source["radius"].dump() << "\n";
+        }
+
         std::cout << '#' << std::endl << "##### [fans]" << std::endl;
         std::cout << "# [size]: " << parse_result["fans"].array_items().size() << "\n";
         unsigned fan_counter = 0;
         for (auto &fan : parse_result["fans"].array_items()) {
-            std::cout << "# [" << ++fan_counter << "] [Origin]" << fan["Origin"].dump() << "\n";
-            std::cout << "#     [Endpoint]" << fan["Endpoint"].dump() << "\n";
-            std::cout << "#     [Width]: " << fan["Width"].dump() << "\n";
+            std::cout << "# [" << ++fan_counter << "] [origin]" << fan["origin"].dump() << "\n";
+            std::cout << "#     [endpoint]" << fan["endpoint"].dump() << "\n";
+            std::cout << "#     [width]: " << fan["width"].dump() << "\n";
         }
 
         std::cout << '#' << std::endl << "##### [walls]" << std::endl;
         std::cout << "# [size]: " << parse_result["walls"].array_items().size() << "\n";
         unsigned wall_counter = 0;
         for (auto &wall : parse_result["walls"].array_items()) {
-            std::cout << "# [" << ++wall_counter << "] [Origin]" << wall["Origin"].dump() << "\n";
-            std::cout << "#     [Endpoint]" << wall["Endpoint"].dump() << "\n";
-            std::cout << "#     [radius]: " << wall["Radius"].dump() << "\n";
-            std::cout << "#     [Lethal]: " << wall["Lethal"].dump() << "\n";
+            std::cout << "# [" << ++wall_counter << "] [origin]" << wall["origin"].dump() << "\n";
+            std::cout << "#     [endpoint]" << wall["endpoint"].dump() << "\n";
+            std::cout << "#     [radius]: " << wall["radius"].dump() << "\n";
+            std::cout << "#     [lethal]: " << wall["lethal"].dump() << "\n";
         }
 
         std::cout << '#' << std::endl << "##### [dialogues]" << std::endl;
@@ -63,8 +71,8 @@ namespace tjg {
         unsigned dialogue_counter = 0;
         for (auto &dialogue : parse_result["dialogues"].array_items()) {
             std::cout << "# [" << ++dialogue_counter << ']' << "\n";
-            std::cout << "#     [message]: " << dialogue["Dialogue"]["message"].dump() << "\n";
-            std::cout << "#     [seconds]: " << dialogue["Dialogue"]["seconds"].dump() << "\n";
+            std::cout << "#     [message]: " << dialogue["dialogue"]["message"].dump() << "\n";
+            std::cout << "#     [seconds]: " << dialogue["dialogue"]["seconds"].dump() << "\n";
         }
 
         std::cout << '#' << std::endl << "##### [static decorations]" << std::endl;
@@ -124,19 +132,31 @@ namespace tjg {
             fuel_ = static_cast<float>(parse_result["fuel"].number_value());
         if (parse_result["oxygen"].is_number())
             oxygen_ = static_cast<float>(parse_result["oxygen"].number_value());
-        
+
+        // read pressure source information
+        pressure_sources_.clear();
+        pressure_sources_.shrink_to_fit();
+        for (auto &pressure_source : parse_result["pressure sources"].array_items()) {
+            pressure_sources_.emplace_back(
+                    static_cast<float>(pressure_source["origin"]["x"].number_value()),
+                    static_cast<float>(pressure_source["origin"]["y"].number_value()),
+                    static_cast<float>(pressure_source["radius"].number_value()),
+                    static_cast<float>(pressure_source["strength"].number_value()));
+        }
+        pressure_sources_.shrink_to_fit();
+
         // read fan information
         fans_.clear();
         fans_.shrink_to_fit();
         for (auto &fan : parse_result["fans"].array_items()) {
             fans_.emplace_back(                
-                static_cast<float>(fan["Origin"]["x"].number_value()),
-                static_cast<float>(fan["Origin"]["y"].number_value()),                
-                static_cast<float>(fan["Endpoint"]["x"].number_value()),
-                static_cast<float>(fan["Endpoint"]["y"].number_value()),
-                static_cast<float>(fan["Width"].number_value()),
-                static_cast<float>(fan["Origin"]["strength"].number_value()),
-                static_cast<float>(fan["Endpoint"]["strength"].number_value()));
+                static_cast<float>(fan["origin"]["x"].number_value()),
+                static_cast<float>(fan["origin"]["y"].number_value()),
+                static_cast<float>(fan["endpoint"]["x"].number_value()),
+                static_cast<float>(fan["endpoint"]["y"].number_value()),
+                static_cast<float>(fan["width"].number_value()),
+                static_cast<float>(fan["origin"]["strength"].number_value()),
+                static_cast<float>(fan["endpoint"]["strength"].number_value()));
         }
         fans_.shrink_to_fit();
                 
@@ -145,12 +165,12 @@ namespace tjg {
         walls_.shrink_to_fit();        
         for (auto &wall : parse_result["walls"].array_items()) {
             walls_.emplace_back(
-                static_cast<float>(wall["Origin"]["x"].number_value()),
-                static_cast<float>(wall["Origin"]["y"].number_value()),
-                static_cast<float>(wall["Endpoint"]["x"].number_value()),
-                static_cast<float>(wall["Endpoint"]["y"].number_value()),
-                static_cast<float>(wall["Radius"].number_value()),
-                static_cast<bool>(wall["Lethal"].bool_value())
+                static_cast<float>(wall["origin"]["x"].number_value()),
+                static_cast<float>(wall["origin"]["y"].number_value()),
+                static_cast<float>(wall["endpoint"]["x"].number_value()),
+                static_cast<float>(wall["endpoint"]["y"].number_value()),
+                static_cast<float>(wall["radius"].number_value()),
+                static_cast<bool>(wall["lethal"].bool_value())
             );
         }
         walls_.shrink_to_fit();
@@ -161,8 +181,8 @@ namespace tjg {
         std::string message;
         float seconds_to_show = 0;
         for (auto &dialogue : parse_result["dialogues"].array_items()) {
-            message = dialogue["Dialogue"]["message"].string_value();
-            seconds_to_show = static_cast<float>(dialogue["Dialogue"]["seconds"].number_value());
+            message = dialogue["dialogue"]["message"].string_value();
+            seconds_to_show = static_cast<float>(dialogue["dialogue"]["seconds"].number_value());
             dialogues_.emplace_back(message, seconds_to_show);
         }
         dialogues_.shrink_to_fit();
@@ -225,6 +245,11 @@ namespace tjg {
     const float & Level::GetOxygen()
     {
         return oxygen_;
+    }
+
+    const std::vector<Level::PressureSource>& Level::GetPressureSources()
+    {
+        return pressure_sources_;
     }
 
     const std::vector<Level::Fan>& Level::GetFans()

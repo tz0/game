@@ -3,7 +3,7 @@
 
 namespace tjg {
 
-    RadialForce::RadialForce(cpSpace *space, const sf::Vector2f origin, const float radius, const float origin_strength, const float end_strength) {
+    RadialForce::RadialForce(cpSpace *space, const sf::Vector2f origin, const float radius, const float strength) {
 
         // Create chipmunk shape.
         body = cpBodyNewStatic();
@@ -14,8 +14,7 @@ namespace tjg {
         cpSpaceAddShape(space, shape);
 
         // Set strengths.
-        this->origin_strength = origin_strength;
-        this->end_strength = end_strength;
+        this->strength = strength;
 
     }
 
@@ -32,11 +31,8 @@ namespace tjg {
         return body;
     }
 
-    float RadialForce::GetOriginStrength() {
-        return origin_strength;
+    float RadialForce::GetStrength() {
+        return strength;
     }
 
-    float RadialForce::GetEndStrength() {
-        return end_strength;
-    }
 }
