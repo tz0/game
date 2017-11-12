@@ -54,7 +54,13 @@ namespace tjg {
         for (auto wall : level.GetWalls()) {            
             walls.push_back(entity_factory.MakeWall(sf::Vector2f(wall.origin_x, wall.origin_y), sf::Vector2f(wall.endpoint_x, wall.endpoint_y), wall.radius, wall.lethal));
         }
-                        
+
+        //Iterate pressure source information record from level's fans vector, create fans and add them to the fans vector.
+        for (auto pressure_source : level.GetPressureSources()) {
+            pressure_sources.push_back(entity_factory.MakePressureSource(sf::Vector2f(pressure_source.origin_x, pressure_source.origin_y),
+                                                                         pressure_source.radius, pressure_source.strength));
+        }
+
         //Iterate fan information record from level's fans vector, create fans and add them to the fans vector.
         for (auto fan : level.GetFans()) {
             fans.push_back(entity_factory.MakeFan(sf::Vector2f(fan.origin_x, fan.origin_y), sf::Vector2f(fan.endpoint_x, fan.endpoint_y), fan.width, fan.origin_strength, fan.endpoint_strength));
@@ -124,6 +130,7 @@ namespace tjg {
 
     void LogicCenter::Reset() {
         walls.clear();
+        pressure_sources.clear();
         fans.clear();
         shock_boxes.clear();
         physics_system.Reset();
@@ -162,6 +169,10 @@ namespace tjg {
 
     std::vector<std::shared_ptr<Entity>>& LogicCenter::GetFans() {
         return fans;
+    }
+
+    std::vector<std::shared_ptr<Entity>>& LogicCenter::GetPressureSources() {
+        return pressure_sources;
     }
 
     EntityFactory& LogicCenter::GetEntityFactory() {

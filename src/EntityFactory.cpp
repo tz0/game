@@ -438,6 +438,52 @@ namespace tjg {
         return tech17;
     }
 
+    std::shared_ptr<Entity> EntityFactory::MakePressureSource(const sf::Vector2f &origin, float radius,
+                                                              float strength) {
+        // Load texture sheet.
+        auto texture_sheet = resource_manager.LoadTexture("spritesheet.png");
+
+        // Build pressure source
+        auto pressure_source = std::make_shared<Entity>();
+
+        // Add location component pointing to the origin.
+        pressure_source->AddComponent<Location>(origin);
+
+        // Add sprite component (load from texture sheet).
+        auto pressure_source_sprite = pressure_source->AddComponent<Sprite>(
+                strength < 0
+                ? sf::Sprite(*texture_sheet, sf::IntRect(461, 0, 702 - 461, 245))
+                : sf::Sprite(*texture_sheet, sf::IntRect(162, 360, 286 - 162, 493 - 360))
+        );
+
+        // Create linear force component for physics system
+        auto radial_force = pressure_source->AddComponent<RadialForce>(physics_system.GetSpace(), origin, radius,
+                                                                       strength);
+
+        // Create sensor shape component (the physics system uses this to check if a DynamicBody is inside the sensor shape).
+        pressure_source->AddComponent<SensorShape>(radial_force->GetShape(), [=](cpShape *shape) {
+            // Apply a force to each shape overlapping with this pressure source
+
+            // Calculate force to be applied by a linear equation.
+            // At the pressure source's origin_point, a force of origin_strength will be applied.
+            // At the outside of a pressure sources's radius, a force of 0 will be applied.
+            auto shape_position = cpBodyGetPosition(cpShapeGetBody(shape));
+            auto force_direction = cpvnormalize(shape_position - cpv(origin.x, origin.y));
+
+            // Calculate the amount of force to apply.
+            auto origin_end_dist = radius;
+            auto origin_shape_dist = cpvdist(cpv(origin.x, origin.y), shape_position);
+            auto force = force_direction * ((((origin_end_dist - origin_shape_dist) / origin_end_dist) *
+                                                            strength));
+            // Apply the force to the affected shape.
+            cpBodyApplyForceAtWorldPoint(cpShapeGetBody(shape), force, cpBodyGetPosition(cpShapeGetBody(shape)));
+        });
+        physics_system.AddEntity(pressure_source);
+
+        return pressure_source;
+    }
+
+
     std::shared_ptr<Entity>
     EntityFactory::MakeFan(const sf::Vector2f &origin_point, const sf::Vector2f &end_point, const float width,
                            const float origin_strength, const float end_strength) {
@@ -482,7 +528,6 @@ namespace tjg {
             // At the fan's end_point, a force of end_strength will be applied.
             auto force_direction = fan->GetComponent<LinearForce>()->GetForce();
             auto shape_position = cpBodyGetPosition(cpShapeGetBody(shape));
-            //auto force = force_direction * std::max(end_strength, (float)(origin_strength - cpvdist(force_origin, shape_position)));
 
             // Calculate the amount of force to apply.
             auto origin_end_dist = cpvdist(force_origin, force_end);
@@ -554,7 +599,8 @@ namespace tjg {
         // Add Sprite component
         sf::Sprite shock_box_sprite;
         shock_box_sprite.setTexture(*shock_box_texture);
-        shock_box_sprite.setTextureRect(sf::IntRect(0, 0, shock_box_texture->getSize().x, shock_box_texture->getSize().y));
+        shock_box_sprite.setTextureRect(
+                sf::IntRect(0, 0, shock_box_texture->getSize().x, shock_box_texture->getSize().y));
         shock_box_sprite.setScale(0.3, 0.3);
         shock_box->AddComponent<Sprite>(shock_box_sprite, -25);
 
@@ -563,7 +609,7 @@ namespace tjg {
         auto segment = shock_box->AddComponent<StaticSegment>(physics_system.GetSpace(),
                                                               sf::Vector2f(position.x, position.y + 20),
                                                               sf::Vector2f(position.x, position.y - 20),
-                                                              shock_box_bounds.width/10);
+                                                              shock_box_bounds.width / 10);
         cpShapeSetCollisionType(segment->GetShape(), static_cast<cpCollisionType>(CollisionGroup::LETHAL));
 
         return shock_box;

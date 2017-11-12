@@ -16,6 +16,7 @@
 #include "Components/DynamicBody.h"
 #include "Components/LinearForce.h"
 #include "Components/Location.h"
+#include "Components/RadialForce.h"
 #include "Components/SensorShape.h"
 #include "Components/Sprite.h"
 #include "Components/StaticSegment.h"
@@ -52,6 +53,7 @@ namespace tjg {
         std::shared_ptr<Entity> MakeTiledBackground(const std::string &texture_path);
         std::shared_ptr<Entity> MakeTech17(const float & tech17_x, const float &tech17_y);
         std::shared_ptr<Entity> MakeFan(const sf::Vector2f &origin_point, const sf::Vector2f &end_point, float width, float origin_strength, float end_strength);
+        std::shared_ptr<Entity> MakePressureSource(const sf::Vector2f &origin, float radius, float strength);
         std::shared_ptr<Entity> MakeEntrance(const sf::Vector2f &position);
         std::shared_ptr<Entity> MakeExit(const sf::Vector2f &position);
         std::shared_ptr<Entity> MakeResourceTracker(float max_value, std::string &texture_path, const sf::Color &color);

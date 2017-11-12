@@ -1,5 +1,4 @@
 
-#include <SFML/Graphics/Rect.hpp>
 #include "Components/LinearForce.h"
 
 namespace tjg {

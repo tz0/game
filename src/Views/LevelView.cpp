@@ -79,6 +79,10 @@ namespace tjg {
         tiled_background->GetComponent<Sprite>()->GetSprite().setColor(sf::Color(200, 200, 200));
         main_render_system.AddEntity(tiled_background);
 
+        for (const auto &pressure_source : logic_center.GetPressureSources()) {
+            main_render_system.AddEntity(pressure_source);
+        }
+
         // Add fans to sprite render system and set up their particles.
         dust_particle_system.Initialize();
         for (const auto &fan : logic_center.GetFans()) {

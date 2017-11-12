@@ -29,11 +29,11 @@
 
   "walls":
   [
-    {"Origin": {"x": -1500, "y": -600}, "Endpoint": {"x": 500, "y": -600}, "Radius": 40},
-    {"Origin": {"x": -1500,"y": 600},"Endpoint": {"x": 500,"y": 600},"Radius": 40},
-    {"Origin": {"x": -1500,"y": -600},"Endpoint": {"x": -1500,"y": 600},"Radius": 40},
-    {"Origin": {"x": 500,"y": -600},"Endpoint": {"x": 500,"y": 600},"Radius": 40},
-    {"Origin": {"x": -800,"y": -600},"Endpoint": {"x": -800,"y": 90},"Radius": 40, "Lethal": true}
+    {"origin": {"x": -1500, "y": -600}, "endpoint": {"x": 500, "y": -600}, "radius": 40},
+    {"origin": {"x": -1500,"y": 600},"endpoint": {"x": 500,"y": 600},"radius": 40},
+    {"origin": {"x": -1500,"y": -600},"endpoint": {"x": -1500,"y": 600},"radius": 40},
+    {"origin": {"x": 500,"y": -600},"endpoint": {"x": 500,"y": 600},"radius": 40},
+    {"origin": {"x": -800,"y": -600},"endpoint": {"x": -800,"y": 90},"radius": 40, "lethal": true}
   ],
 
   "decorations":
@@ -63,22 +63,22 @@
 
   "fans":
   [
-    {"Origin": {"x": 0,"y": -600,"strength": 250},"Endpoint": {"x": 0,"y": 600,"strength": 0},"Width": 200},
-    {"Origin": {"x": 0,"y": 600,"strength": 250},"Endpoint": {"x": 0,"y": -600,"strength": 0},"Width": 200},
-    {"Origin": {"x": 300,"y": -600,"strength": 250},"Endpoint": {"x": 300,"y": 600,"strength": 0},"Width": 200},
-    {"Origin": {"x": 500,"y": 400,"strength": 250},"Endpoint": {"x": -1500,"y": 400,"strength": 50},"Width": 200},
-    {"Origin": {"x": -1000,"y": 600,"strength": 400},"Endpoint": {"x": -1000,"y": -600,"strength": 0},"Width": 200},
-    {"Origin": {"x": -1300,"y": -600,"strength": 400},"Endpoint": {"x": -1300,"y": 600,"strength": 50},"Width": 200}
+    {"origin": {"x": 0,"y": -600,"strength": 250},"endpoint": {"x": 0,"y": 600,"strength": 0},"width": 200},
+    {"origin": {"x": 0,"y": 600,"strength": 250},"endpoint": {"x": 0,"y": -600,"strength": 0},"width": 200},
+    {"origin": {"x": 300,"y": -600,"strength": 250},"endpoint": {"x": 300,"y": 600,"strength": 0},"width": 200},
+    {"origin": {"x": 500,"y": 400,"strength": 250},"endpoint": {"x": -1500,"y": 400,"strength": 50},"width": 200},
+    {"origin": {"x": -1000,"y": 600,"strength": 400},"endpoint": {"x": -1000,"y": -600,"strength": 0},"width": 200},
+    {"origin": {"x": -1300,"y": -600,"strength": 400},"endpoint": {"x": -1300,"y": 600,"strength": 50},"width": 200}
   ],
 
   "dialogues":
   [
-    {"Dialogue": {"message": "Hello, TECH-17. Welcome to the demo level.", "seconds": 3}},
-    {"Dialogue": {"message": "Your goal is to reach the exit to your left without flying into anything.", "seconds": 4}},
-    {"Dialogue": {"message": "Press space to fire your jetpack and use the left and right arrow keys to rotate.", "seconds": 5}},
-    {"Dialogue": {"message": "The orange bar in your HUD indicates how much fuel you have left.", "seconds": 4}},
-    {"Dialogue": {"message": "The blue bar indicates how much breathable air is left in your suit.", "seconds": 4}},
-    {"Dialogue": {"message": "I probably should have mentioned that earlier...",  "seconds": 4}}
+    {"dialogue": {"message": "Hello, TECH-17. Welcome to the demo level.", "seconds": 3}},
+    {"dialogue": {"message": "Your goal is to reach the exit to your left without flying into anything.", "seconds": 4}},
+    {"dialogue": {"message": "Press space to fire your jetpack and use the left and right arrow keys to rotate.", "seconds": 5}},
+    {"dialogue": {"message": "The orange bar in your HUD indicates how much fuel you have left.", "seconds": 4}},
+    {"dialogue": {"message": "The blue bar indicates how much breathable air is left in your suit.", "seconds": 4}},
+    {"dialogue": {"message": "I probably should have mentioned that earlier...",  "seconds": 4}}
   ],
 
   "shockboxes":
