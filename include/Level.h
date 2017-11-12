@@ -28,6 +28,14 @@ namespace tjg {
             float x, y;
         };
 
+        struct ShockBox {
+            float x, y;
+
+            inline ShockBox(float x, float y) :
+                    x(x),
+                    y(y) {}
+        };
+
         struct Fan {
             float origin_x, origin_y, endpoint_x, endpoint_y, width, origin_strength, endpoint_strength;
 
@@ -91,6 +99,7 @@ namespace tjg {
         const std::vector<Level::Wall> & GetWalls();
         const std::vector<Dialogue> & GetDialogues();
         const std::vector<Level::StaticDecoration> & GetStaticDecorations();
+        const std::vector<Level::ShockBox> & GetShockBoxes();
 
     private:        
         CameraCenter camera_center_;
@@ -103,6 +112,7 @@ namespace tjg {
         std::vector<Wall> walls_;
         std::vector<Dialogue> dialogues_;
         std::vector<StaticDecoration> static_decorations_;
+        std::vector<ShockBox> shock_boxes_;
         
         /**
         * Print parsing result from a target level for level file debugging.

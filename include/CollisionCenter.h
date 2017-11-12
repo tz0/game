@@ -14,7 +14,7 @@ namespace tjg {
         DEFAULT = 0,
         TECH17,
         WALL,
-        LETHALWALL,
+        LETHAL,
         EXIT
     };
 

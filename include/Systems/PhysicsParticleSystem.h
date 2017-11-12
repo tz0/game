@@ -38,6 +38,7 @@ namespace tjg {
                               sf::Time particle_rate,
                               sf::Time lifetime,
                               sf::Vector2f position_variation,
+                              sf::Vector2f velocity_variation,
                               float angular_velocity_variation,
                               std::function<sf::Color(float)> color_transformation = [](float x) {
                                   (void) x;

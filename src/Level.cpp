@@ -61,8 +61,10 @@ namespace tjg {
         std::cout << '#' << std::endl << "##### [dialogues]" << std::endl;
         std::cout << "# [size]: " << parse_result["dialogues"].array_items().size() << "\n";
         unsigned dialogue_counter = 0;
-        for (auto &k : parse_result["dialogues"].array_items()) {
-            std::cout << "# [" << ++dialogue_counter << ']' << k.dump() << "\n";
+        for (auto &dialogue : parse_result["dialogues"].array_items()) {
+            std::cout << "# [" << ++dialogue_counter << ']' << "\n";
+            std::cout << "#     [message]: " << dialogue["Dialogue"]["message"].dump() << "\n";
+            std::cout << "#     [seconds]: " << dialogue["Dialogue"]["seconds"].dump() << "\n";
         }
 
         std::cout << '#' << std::endl << "##### [static decorations]" << std::endl;
@@ -70,11 +72,20 @@ namespace tjg {
         unsigned decoration_counter = 0;
         for (auto &decoration : parse_result["decorations"].array_items()) {
             std::cout << "# [" << ++decoration_counter << ']' << decoration["texture"].dump() << "\n";
-            std::cout << "#     [texture]" << decoration["texture"].dump() << "\n";
-            std::cout << "#     [rect]" << decoration["rect"].dump() << "\n";
-            std::cout << "#     [position]" << decoration["position"].dump() << "\n";
-            std::cout << "#     [scale]" << decoration["scale"].dump() << "\n";
-            std::cout << "#     [rotation]" << decoration["rotation"].dump() << "\n";
+            std::cout << "#     [texture]: " << decoration["texture"].dump() << "\n";
+            std::cout << "#     [rect]: " << decoration["rect"].dump() << "\n";
+            std::cout << "#     [position]: " << decoration["position"].dump() << "\n";
+            std::cout << "#     [scale]: " << decoration["scale"].dump() << "\n";
+            std::cout << "#     [rotation]: " << decoration["rotation"].dump() << "\n";
+        }
+
+        std::cout << '#' << std::endl << "##### [shock boxes]" << std::endl;
+        std::cout << "# [size]: " << parse_result["shockboxes"].array_items().size() << "\n";
+        unsigned shockbox_counter = 0;
+        for (auto &shockbox : parse_result["shockboxes"].array_items()) {
+            std::cout << "# [" << ++shockbox_counter << ']' << "\n";
+            std::cout << "#     [x]: " << shockbox["x"].dump() << "\n";
+            std::cout << "#     [y]: " << shockbox["y"].dump() << "\n";
         }
 
         std::cout << "##### [level info] end #####" << '\n' << '\n' << '\n';
@@ -114,7 +125,7 @@ namespace tjg {
         if (parse_result["oxygen"].is_number())
             oxygen_ = static_cast<float>(parse_result["oxygen"].number_value());
         
-        // read fan informations        
+        // read fan information
         fans_.clear();
         fans_.shrink_to_fit();
         for (auto &fan : parse_result["fans"].array_items()) {
@@ -129,7 +140,7 @@ namespace tjg {
         }
         fans_.shrink_to_fit();
                 
-        // read wall informations
+        // read wall information
         walls_.clear();
         walls_.shrink_to_fit();        
         for (auto &wall : parse_result["walls"].array_items()) {
@@ -144,7 +155,7 @@ namespace tjg {
         }
         walls_.shrink_to_fit();
         
-        // read dialogues informations        
+        // read dialogues information
         dialogues_.clear();
         dialogues_.shrink_to_fit();
         std::string message;
@@ -156,7 +167,7 @@ namespace tjg {
         }
         dialogues_.shrink_to_fit();
 
-        // read static decorations informations
+        // read static decorations information
         static_decorations_.clear();
         static_decorations_.shrink_to_fit();
         for (auto &static_decoration : parse_result["decorations"].array_items()) {
@@ -173,7 +184,19 @@ namespace tjg {
             static_decorations_.emplace_back(texture, rect, position, scale, rotation);
         }
         static_decorations_.shrink_to_fit();
+
+        // read shock boxes information
+        shock_boxes_.clear();
+        shock_boxes_.shrink_to_fit();
+        for (auto &shock_box : parse_result["shockboxes"].array_items()) {
+            shock_boxes_.emplace_back(
+                    static_cast<float>(shock_box["x"].number_value()),
+                    static_cast<float>(shock_box["y"].number_value())
+            );
+        }
+        shock_boxes_.shrink_to_fit();
     }
+
     const Level::CameraCenter & Level::GetCameraCenter()
     {
         return camera_center_;
@@ -221,5 +244,9 @@ namespace tjg {
 
     const std::vector<Level::StaticDecoration>& Level::GetStaticDecorations() {
         return static_decorations_;
+    }
+
+    const std::vector<Level::ShockBox> &Level::GetShockBoxes() {
+        return shock_boxes_;
     }
 }
