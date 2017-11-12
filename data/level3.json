@@ -5,19 +5,19 @@
 
   "camera center":
   {
-    "x": 700,
+    "x": 0,
     "y": 0
   },
 
   "camera size":
   {
-    "x": 2000,
-    "y": 1280
+    "x": 1600,
+    "y": 1400
   },
 
   "exit":
   {
-    "x": 1400,
+    "x": 700,
     "y": 0    
   },
   
@@ -29,19 +29,25 @@
 
   "pressure sources":
   [
-    {"origin": {"x": -150,"y": 0}, "strength":500, "radius":500},
-    {"origin": {"x": 200,"y": -300}, "strength":-400, "radius":500},
-    {"origin": {"x": 400,"y": 300}, "strength":-400, "radius":500},
-    {"origin": {"x": 600,"y": -300}, "strength":-400, "radius":500},
-    {"origin": {"x": 800,"y": 300}, "strength":-400, "radius":500}
+    {"origin": {"x": -800,"y": 0}, "strength":-150, "radius":400}
   ],
 
   "walls":
   [
-    {"origin": {"x": -200, "y": -600}, "endpoint": {"x": 1600, "y": -600}, "radius": 40 },
-    {"origin": {"x": -200,"y": 600},"endpoint": {"x": 1600,"y": 600},"radius": 40},
-    {"origin": {"x": -200,"y": -600},"endpoint": {"x": -200,"y": 600},"radius": 40},
-    {"origin": {"x": 1600,"y": -600},"endpoint": {"x": 1600,"y": 600},"radius": 40}
+    {"origin": {"x": -200, "y": -400}, "endpoint": {"x": 200, "y": -400}, "radius": 20 },
+    {"origin": {"x": 200,"y": -400},"endpoint": {"x": 400,"y": -200},"radius": 20},
+    {"origin": {"x": 400,"y": -200},"endpoint": {"x": 400,"y": 200},"radius": 20},
+    {"origin": {"x": 400,"y": 200},"endpoint": {"x": 200,"y": 400},"radius": 20},
+    {"origin": {"x": 200,"y": 400},"endpoint": {"x": -200,"y": 400},"radius": 20},
+    {"origin": {"x": -200,"y": 400},"endpoint": {"x": -400,"y": 200},"radius": 20},
+    {"origin": {"x": -400,"y": -200},"endpoint": {"x": -200,"y": -400},"radius": 20},
+
+    {"origin": {"x": -800,"y": -600},"endpoint": {"x": 800,"y": -600},"radius": 20},
+    {"origin": {"x": -800,"y": 600},"endpoint": {"x": 800,"y": 600},"radius": 20},
+
+    {"origin": {"x": -800,"y": -600},"endpoint": {"x": -800,"y": 600},"radius": 20, "lethal": true},
+    {"origin": {"x": 800,"y": -600},"endpoint": {"x": 800,"y": 600},"radius": 20}
+        
   ]
 }
 
