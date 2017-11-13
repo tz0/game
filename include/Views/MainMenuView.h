@@ -15,14 +15,8 @@ namespace tjg {
         unsigned int selection = 0;
         std::vector<ViewSwitch> options = {ViewSwitch {State::LEVEL_MENU, 0}, ViewSwitch {State::EXIT, 0}};
 
-        LogicCenter &logic_center;
-        sf::View camera;
-
-        // Sprite render systems.
-        SpriteRenderSystem main_render_system;
-
     public:
-        MainMenuView(ResourceManager &resource_manager, sf::RenderWindow &window,  LogicCenter &logic_center);
+        MainMenuView(ResourceManager &resource_manager, sf::RenderWindow &window);
         void Initialize();
         void Update();
         void Render();

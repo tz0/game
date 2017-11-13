@@ -1,12 +1,8 @@
 #include "Views/MainMenuView.h"
 
 namespace tjg {
-    MainMenuView::MainMenuView(ResourceManager &resource_manager, sf::RenderWindow &window, LogicCenter &logic_center) :
-            View(window,resource_manager),
-            logic_center(logic_center)
-    {
-        window.setVerticalSyncEnabled(true);
-    }
+    MainMenuView::MainMenuView(ResourceManager &resource_manager, sf::RenderWindow &window) :
+            View(window,resource_manager) {}
 
 
     void MainMenuView::Initialize() {
@@ -15,7 +11,7 @@ namespace tjg {
         background_sprite.setTexture(*background_texture);
         background_sprite.setTextureRect(sf::IntRect(0, 0, 1280, 720));
 
-        selection_box_position = sf::Vector2f(803, 503);
+        selection_box_position = sf::Vector2f(MAIN_MENU_BOX_X, MAIN_MENU_BOX_Y_UP);
         selection_box.setSize(sf::Vector2f(363,43));
         selection_box.setPosition(selection_box_position);
         selection_box.setFillColor(sf::Color::Transparent);
@@ -45,13 +41,19 @@ namespace tjg {
                     case sf::Keyboard::Up:
                         if (selection > 0) {
                             selection -= 1;
-                            selection_box_position.y -= 60;
+                            selection_box_position.y -= MAIN_MENU_BOX_SHIFT;
+                        } else {
+                            selection = options.size() - 1;
+                            selection_box_position.y = MAIN_MENU_BOX_Y_LOW;
                         }
                         break;
                     case sf::Keyboard::Down:
                         if (selection < options.size() - 1) {
                             selection += 1;
-                            selection_box_position.y += 60;
+                            selection_box_position.y += MAIN_MENU_BOX_SHIFT;
+                        } else {
+                            selection = 0;
+                            selection_box_position.y = MAIN_MENU_BOX_Y_UP;
                         }
                         break;
                     case sf::Keyboard::Return:

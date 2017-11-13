@@ -19,7 +19,7 @@ namespace tjg {
         message.setOrigin(textRect.left + (textRect.width / 2), textRect.top + (textRect.height / 2));
         message.setPosition(WINDOW_WIDTH / 2, WINDOW_HEIGHT/ 2);
 
-        selection_box_position = sf::Vector2f(530, 346);
+        selection_box_position = sf::Vector2f(LEVEL_MENU_BOX_X_LEFT, LEVEL_MENU_BOX_Y_UP);
         selection_box.setSize(sf::Vector2f(200,29));
         selection_box.setPosition(selection_box_position);
         selection_box.setFillColor(sf::Color::Transparent);
@@ -49,13 +49,19 @@ namespace tjg {
                     case sf::Keyboard::Up:
                         if (selection > 1) {
                             selection -= 1;
-                            selection_box_position.y -= 29;
+                            selection_box_position.y -= LEVEL_MENU_BOX_SHIFT;
+                        } else {
+                            selection = LEVEL_MENU_OPTIONS;
+                            selection_box_position.y = LEVEL_MENU_BOX_Y_LOW;
                         }
                         break;
                     case sf::Keyboard::Down:
                         if (selection <= unlocked) {
                             selection += 1;
-                            selection_box_position.y += 29;
+                            selection_box_position.y += LEVEL_MENU_BOX_SHIFT;
+                        } else {
+                            selection = 1;
+                            selection_box_position.y = LEVEL_MENU_BOX_Y_UP;
                         }
                         break;
                     case sf::Keyboard::Return:

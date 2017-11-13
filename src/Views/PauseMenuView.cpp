@@ -36,7 +36,7 @@ namespace tjg{
         message.setOrigin(textRect.left + (textRect.width / 2), textRect.top + (textRect.height / 2));
         message.setPosition(WINDOW_WIDTH / 2, WINDOW_HEIGHT/ 2);
 
-        selection_box_position = sf::Vector2f(350, 361);
+        selection_box_position = sf::Vector2f(PAUSE_MENU_BOX_X, PAUSE_MENU_BOX_Y_UP);
         selection_box.setSize(sf::Vector2f(550,29));
         selection_box.setPosition(selection_box_position);
         selection_box.setFillColor(sf::Color::Transparent);
@@ -66,13 +66,19 @@ namespace tjg{
                     case sf::Keyboard::Up:
                         if (selection > 0) {
                             selection -= 1;
-                            selection_box_position.y -= 29;
+                            selection_box_position.y -= PAUSE_MENU_BOX_SHIFT;
+                        } else {
+                            selection = options.size() - 1;
+                            selection_box_position.y = PAUSE_MENU_BOX_Y_UP + (options.size() - 1)*PAUSE_MENU_BOX_SHIFT;
                         }
                         break;
                     case sf::Keyboard::Down:
                         if (selection < options.size() - 1) {
                             selection += 1;
-                            selection_box_position.y += 29;
+                            selection_box_position.y += PAUSE_MENU_BOX_SHIFT;
+                        } else {
+                            selection = 0;
+                            selection_box_position.y = PAUSE_MENU_BOX_Y_UP;
                         }
                         break;
                     case sf::Keyboard::Return:
