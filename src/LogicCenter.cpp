@@ -54,16 +54,27 @@ namespace tjg {
         for (auto wall : level.GetWalls()) {            
             walls.push_back(entity_factory.MakeWall(sf::Vector2f(wall.origin_x, wall.origin_y), sf::Vector2f(wall.endpoint_x, wall.endpoint_y), wall.radius, wall.lethal));
         }
-                        
+
+        //Iterate pressure source information record from level's fans vector, create fans and add them to the fans vector.
+        for (auto pressure_source : level.GetPressureSources()) {
+            pressure_sources.push_back(entity_factory.MakePressureSource(sf::Vector2f(pressure_source.origin_x, pressure_source.origin_y),
+                                                                         pressure_source.radius, pressure_source.strength));
+        }
+
         //Iterate fan information record from level's fans vector, create fans and add them to the fans vector.
         for (auto fan : level.GetFans()) {
             fans.push_back(entity_factory.MakeFan(sf::Vector2f(fan.origin_x, fan.origin_y), sf::Vector2f(fan.endpoint_x, fan.endpoint_y), fan.width, fan.origin_strength, fan.endpoint_strength));
         }
 
+        // Make shock boxes.
+        for (auto shock_box : level.GetShockBoxes()) {
+            shock_boxes.push_back(entity_factory.MakeShockBox(sf::Vector2f(shock_box.x, shock_box.y)));
+        }
+
         // Create a collision center handler that will fire a HitLethalWall event when TECH17 hits a wall.
         collision_center.AddHandler(
             CollisionGroup::TECH17,
-            CollisionGroup::LETHALWALL,
+            CollisionGroup::LETHAL,
             [&](cpArbiter *arb, cpSpace *space) {
                 (void)arb;
                 (void)space;
@@ -119,7 +130,9 @@ namespace tjg {
 
     void LogicCenter::Reset() {
         walls.clear();
+        pressure_sources.clear();
         fans.clear();
+        shock_boxes.clear();
         physics_system.Reset();
         collision_center.Reset(physics_system.GetSpace());
         game_state = State::PLAYING;
@@ -158,6 +171,10 @@ namespace tjg {
         return fans;
     }
 
+    std::vector<std::shared_ptr<Entity>>& LogicCenter::GetPressureSources() {
+        return pressure_sources;
+    }
+
     EntityFactory& LogicCenter::GetEntityFactory() {
         return entity_factory;
     }
@@ -172,5 +189,9 @@ namespace tjg {
 
     Level& LogicCenter::GetLevel() {
         return level;
+    }
+
+    std::vector<std::shared_ptr<Entity>> &LogicCenter::GetShockBoxes() {
+        return shock_boxes;
     }
 }

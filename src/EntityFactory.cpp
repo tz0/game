@@ -3,17 +3,22 @@
 
 namespace tjg {
 
-    std::shared_ptr<Entity> EntityFactory::MakeWall(const sf::Vector2f &origin_point, const sf::Vector2f &end_point, const float radius, const bool lethal) {
+    std::shared_ptr<Entity>
+    EntityFactory::MakeWall(const sf::Vector2f &origin_point, const sf::Vector2f &end_point, const float radius,
+                            const bool lethal) {
         // Create wall entity.
         auto wall = std::make_shared<Entity>();
 
         // Add location component
-        auto wall_location = wall->AddComponent<Location>((origin_point.x + end_point.x) / 2.0f, (origin_point.y + end_point.y) / 2.0f);
+        auto wall_location = wall->AddComponent<Location>((origin_point.x + end_point.x) / 2.0f,
+                                                          (origin_point.y + end_point.y) / 2.0f);
         wall_location->SetRotation(calculateAngle(origin_point, end_point));
 
         // Add static segment component
-        auto static_segment = wall->AddComponent<StaticSegment>(physics_system.GetSpace(), origin_point.x, origin_point.y, end_point.x, end_point.y, radius);
-        cpShapeSetCollisionType(static_segment->GetShape(), static_cast<cpCollisionType>(lethal ? CollisionGroup::LETHALWALL : CollisionGroup::WALL));
+        auto static_segment = wall->AddComponent<StaticSegment>(physics_system.GetSpace(), origin_point.x,
+                                                                origin_point.y, end_point.x, end_point.y, radius);
+        cpShapeSetCollisionType(static_segment->GetShape(),
+                                static_cast<cpCollisionType>(lethal ? CollisionGroup::LETHAL : CollisionGroup::WALL));
 
         // Load wall texture.
         auto wall_texture = resource_manager.LoadTexture("white-tile.jpg");
@@ -25,14 +30,15 @@ namespace tjg {
         // Add Sprite component so walls are visible
         sf::Sprite wall_sprite;
         wall_sprite.setTexture(*wall_texture);
-        wall_sprite.setTextureRect(sf::IntRect(0, 0, (int)(length + radius*2), (int)radius*2));
+        wall_sprite.setTextureRect(sf::IntRect(0, 0, (int) (length + radius * 2), (int) radius * 2));
         wall_sprite.setColor(lethal ? sf::Color(255, 150, 150) : sf::Color(150, 150, 150)); // Dark gray
         wall->AddComponent<Sprite>(wall_sprite);
 
         return wall;
     }
 
-    std::shared_ptr<Entity> EntityFactory::MakeStaticDecoration(sf::Sprite sprite, const sf::Vector2f &position, const float rotation) {
+    std::shared_ptr<Entity>
+    EntityFactory::MakeStaticDecoration(sf::Sprite sprite, const sf::Vector2f &position, const float rotation) {
         auto rect = std::make_shared<Entity>();
         auto loc = rect->AddComponent<Location>(position.x, position.y);
         loc->SetRotation(rotation);
@@ -91,7 +97,7 @@ namespace tjg {
  * adaptive to the new entrance position when reading level files.
  * @return Tech17 Entity
  */
-    std::shared_ptr<Entity> EntityFactory::MakeTech17(const float & tech17_x, const float & tech17_y) {
+    std::shared_ptr<Entity> EntityFactory::MakeTech17(const float &tech17_x, const float &tech17_y) {
         auto spacesuit_texture = resource_manager.LoadTexture("spritesheet.png");
         auto tech17 = std::make_shared<Entity>();
 
@@ -144,7 +150,7 @@ namespace tjg {
         abs_entity->AddComponent<Sprite>(abs_sprite, TECH17_BASE_SPRITE_LAYER - 1);
         auto abs_body = abs_entity->AddComponent<DynamicBody>(
                 physics_system.GetSpace(),
-                sf::Vector2f(tech17_x, tech17_y + ABS_HEIGHT), 
+                sf::Vector2f(tech17_x, tech17_y + ABS_HEIGHT),
                 1,
                 sf::Vector2f(CHEST_WIDTH, ABS_HEIGHT));
         abs_entity->AddComponent<Appendage>(
@@ -174,7 +180,7 @@ namespace tjg {
         head_entity->AddComponent<Sprite>(head_sprite, TECH17_BASE_SPRITE_LAYER + 1);
         auto head_body = head_entity->AddComponent<DynamicBody>(
                 physics_system.GetSpace(),
-                sf::Vector2f(tech17_x, tech17_y - 1 * (CHEST_HEIGHT / 2.0f + HEAD_RADIUS)), 
+                sf::Vector2f(tech17_x, tech17_y - 1 * (CHEST_HEIGHT / 2.0f + HEAD_RADIUS)),
                 1,
                 HEAD_RADIUS);
         head_entity->AddComponent<Appendage>(
@@ -206,7 +212,8 @@ namespace tjg {
         left_bicep_entity->AddComponent<Sprite>(bicep_sprite, TECH17_BASE_SPRITE_LAYER - 1);
         auto left_bicep_body = left_bicep_entity->AddComponent<DynamicBody>(
                 physics_system.GetSpace(),
-                sf::Vector2f(tech17_x - 1 * (CHEST_WIDTH / 2.0f + LIMB_LENGTH / 2.0f), tech17_y - 1 * (CHEST_HEIGHT / 2.0f)), 
+                sf::Vector2f(tech17_x - 1 * (CHEST_WIDTH / 2.0f + LIMB_LENGTH / 2.0f),
+                             tech17_y - 1 * (CHEST_HEIGHT / 2.0f)),
                 1,
                 sf::Vector2f(LIMB_LENGTH, LIMB_THICKNESS));
         left_bicep_entity->AddComponent<Appendage>(
@@ -233,7 +240,8 @@ namespace tjg {
         right_bicep_entity->AddComponent<Sprite>(bicep_sprite, TECH17_BASE_SPRITE_LAYER - 1);
         auto right_bicep_body = right_bicep_entity->AddComponent<DynamicBody>(
                 physics_system.GetSpace(),
-                sf::Vector2f(tech17_x + (CHEST_WIDTH / 2.0f + LIMB_LENGTH / 2.0f), tech17_y - 1 * (CHEST_HEIGHT / 2.0f)), 
+                sf::Vector2f(tech17_x + (CHEST_WIDTH / 2.0f + LIMB_LENGTH / 2.0f),
+                             tech17_y - 1 * (CHEST_HEIGHT / 2.0f)),
                 1,
                 sf::Vector2f(LIMB_LENGTH, LIMB_THICKNESS));
         right_bicep_entity->AddComponent<Appendage>(
@@ -265,7 +273,8 @@ namespace tjg {
         left_forearm_entity->AddComponent<Sprite>(forearm_sprite, TECH17_BASE_SPRITE_LAYER - 2);
         auto left_forearm_body = left_forearm_entity->AddComponent<DynamicBody>(
                 physics_system.GetSpace(),
-                sf::Vector2f(tech17_x - 1 * (CHEST_WIDTH / 2.0f + LIMB_LENGTH + LIMB_LENGTH / 2.0f), tech17_y - 1 * (CHEST_HEIGHT / 2.0f)), 
+                sf::Vector2f(tech17_x - 1 * (CHEST_WIDTH / 2.0f + LIMB_LENGTH + LIMB_LENGTH / 2.0f),
+                             tech17_y - 1 * (CHEST_HEIGHT / 2.0f)),
                 1,
                 sf::Vector2f(LIMB_LENGTH, LIMB_THICKNESS));
         left_forearm_entity->AddComponent<Appendage>(
@@ -291,7 +300,8 @@ namespace tjg {
         right_forearm_entity->AddComponent<Sprite>(forearm_sprite, TECH17_BASE_SPRITE_LAYER - 2);
         auto right_forearm_body = right_forearm_entity->AddComponent<DynamicBody>(
                 physics_system.GetSpace(),
-                sf::Vector2f(tech17_x + (CHEST_WIDTH / 2.0f + LIMB_LENGTH + LIMB_LENGTH / 2.0f), tech17_y - 1 * (CHEST_HEIGHT / 2.0f)), 
+                sf::Vector2f(tech17_x + (CHEST_WIDTH / 2.0f + LIMB_LENGTH + LIMB_LENGTH / 2.0f),
+                             tech17_y - 1 * (CHEST_HEIGHT / 2.0f)),
                 1,
                 sf::Vector2f(LIMB_LENGTH, LIMB_THICKNESS));
         right_forearm_entity->AddComponent<Appendage>(
@@ -322,7 +332,8 @@ namespace tjg {
         left_thigh_entity->AddComponent<Sprite>(thigh_sprite, TECH17_BASE_SPRITE_LAYER - 2);
         auto left_thigh_body = left_thigh_entity->AddComponent<DynamicBody>(
                 physics_system.GetSpace(),
-                sf::Vector2f(tech17_x - 1 * ABS_WIDTH / 2.0f, tech17_y + CHEST_HEIGHT + ABS_HEIGHT + LIMB_LENGTH / 2.0f), 
+                sf::Vector2f(tech17_x - 1 * ABS_WIDTH / 2.0f,
+                             tech17_y + CHEST_HEIGHT + ABS_HEIGHT + LIMB_LENGTH / 2.0f),
                 1,
                 sf::Vector2f(LIMB_THICKNESS, LIMB_LENGTH));
         left_thigh_entity->AddComponent<Appendage>(
@@ -380,7 +391,8 @@ namespace tjg {
         left_shin_entity->AddComponent<Sprite>(shin_sprite, TECH17_BASE_SPRITE_LAYER - 3);
         auto left_shin_body = left_shin_entity->AddComponent<DynamicBody>(
                 physics_system.GetSpace(),
-                sf::Vector2f(tech17_x - 1 * ABS_WIDTH / 2.0f, tech17_y +  CHEST_HEIGHT + ABS_HEIGHT + LIMB_LENGTH + LIMB_LENGTH / 2.0f),
+                sf::Vector2f(tech17_x - 1 * ABS_WIDTH / 2.0f,
+                             tech17_y + CHEST_HEIGHT + ABS_HEIGHT + LIMB_LENGTH + LIMB_LENGTH / 2.0f),
                 1,
                 sf::Vector2f(LIMB_THICKNESS, LIMB_LENGTH));
         left_shin_entity->AddComponent<Appendage>(
@@ -406,7 +418,8 @@ namespace tjg {
         right_shin_entity->AddComponent<Sprite>(shin_sprite, TECH17_BASE_SPRITE_LAYER - 3);
         auto right_shin_body = right_shin_entity->AddComponent<DynamicBody>(
                 physics_system.GetSpace(),
-                sf::Vector2f(tech17_x + ABS_WIDTH / 2.0f, tech17_y + CHEST_HEIGHT + ABS_HEIGHT + LIMB_LENGTH + LIMB_LENGTH / 2.0f), 
+                sf::Vector2f(tech17_x + ABS_WIDTH / 2.0f,
+                             tech17_y + CHEST_HEIGHT + ABS_HEIGHT + LIMB_LENGTH + LIMB_LENGTH / 2.0f),
                 1,
                 sf::Vector2f(LIMB_THICKNESS, LIMB_LENGTH));
         right_shin_entity->AddComponent<Appendage>(
@@ -425,7 +438,55 @@ namespace tjg {
         return tech17;
     }
 
-    std::shared_ptr<Entity> EntityFactory::MakeFan(const sf::Vector2f &origin_point, const sf::Vector2f &end_point, const float width, const float origin_strength, const float end_strength) {
+    std::shared_ptr<Entity> EntityFactory::MakePressureSource(const sf::Vector2f &origin, float radius,
+                                                              float strength) {
+        // Load texture sheet.
+        auto texture_sheet = resource_manager.LoadTexture("spritesheet.png");
+
+        // Build pressure source
+        auto pressure_source = std::make_shared<Entity>();
+
+        // Add location component pointing to the origin.
+        pressure_source->AddComponent<Location>(origin);
+
+        // Add sprite component (load from texture sheet).
+        auto pressure_source_sprite = pressure_source->AddComponent<Sprite>(
+                strength < 0
+                ? sf::Sprite(*texture_sheet, sf::IntRect(461, 0, 702 - 461, 245))
+                : sf::Sprite(*texture_sheet, sf::IntRect(162, 360, 286 - 162, 493 - 360))
+        );
+
+        // Create linear force component for physics system
+        auto radial_force = pressure_source->AddComponent<RadialForce>(physics_system.GetSpace(), origin, radius,
+                                                                       strength);
+
+        // Create sensor shape component (the physics system uses this to check if a DynamicBody is inside the sensor shape).
+        pressure_source->AddComponent<SensorShape>(radial_force->GetShape(), [=](cpShape *shape) {
+            // Apply a force to each shape overlapping with this pressure source
+
+            // Calculate force to be applied by a linear equation.
+            // At the pressure source's origin_point, a force of origin_strength will be applied.
+            // At the outside of a pressure sources's radius, a force of 0 will be applied.
+            auto shape_position = cpBodyGetPosition(cpShapeGetBody(shape));
+            auto force_direction = cpvnormalize(shape_position - cpv(origin.x, origin.y));
+
+            // Calculate the amount of force to apply.
+            auto origin_end_dist = radius;
+            auto origin_shape_dist = cpvdist(cpv(origin.x, origin.y), shape_position);
+            auto force = force_direction * ((((origin_end_dist - origin_shape_dist) / origin_end_dist) *
+                                                            strength));
+            // Apply the force to the affected shape.
+            cpBodyApplyForceAtWorldPoint(cpShapeGetBody(shape), force, cpBodyGetPosition(cpShapeGetBody(shape)));
+        });
+        physics_system.AddEntity(pressure_source);
+
+        return pressure_source;
+    }
+
+
+    std::shared_ptr<Entity>
+    EntityFactory::MakeFan(const sf::Vector2f &origin_point, const sf::Vector2f &end_point, const float width,
+                           const float origin_strength, const float end_strength) {
         // Load texture sheet.
         auto texture_sheet = resource_manager.LoadTexture("spritesheet.png");
 
@@ -451,10 +512,11 @@ namespace tjg {
         fan_sprite->Play(true);
 
         // Create linear force component for physics system
-        auto linear_force = fan->AddComponent<LinearForce>(physics_system.GetSpace(), origin_point, end_point, width, origin_strength, end_strength);
+        auto linear_force = fan->AddComponent<LinearForce>(physics_system.GetSpace(), origin_point, end_point, width,
+                                                           origin_strength, end_strength);
 
         // Create sensor shape component (the physics system uses this to check if a DynamicBody is inside the sensor shape).
-        fan->AddComponent<SensorShape>(linear_force->GetShape(), [=](cpShape *shape){
+        fan->AddComponent<SensorShape>(linear_force->GetShape(), [=](cpShape *shape) {
             // Apply a force to each shape overlapping with this linear force shape.
 
             // Convert the sf::Vector2f to a cpVect
@@ -466,12 +528,12 @@ namespace tjg {
             // At the fan's end_point, a force of end_strength will be applied.
             auto force_direction = fan->GetComponent<LinearForce>()->GetForce();
             auto shape_position = cpBodyGetPosition(cpShapeGetBody(shape));
-            //auto force = force_direction * std::max(end_strength, (float)(origin_strength - cpvdist(force_origin, shape_position)));
 
             // Calculate the amount of force to apply.
             auto origin_end_dist = cpvdist(force_origin, force_end);
             auto origin_shape_dist = cpvdist(force_origin, shape_position);
-            auto force = force_direction * (end_strength + (((origin_end_dist - origin_shape_dist) / origin_end_dist) * (origin_strength - end_strength)));
+            auto force = force_direction * (end_strength + (((origin_end_dist - origin_shape_dist) / origin_end_dist) *
+                                                            (origin_strength - end_strength)));
 
             // Apply the force to the affected shape.
             cpBodyApplyForceAtWorldPoint(cpShapeGetBody(shape), force, cpBodyGetPosition(cpShapeGetBody(shape)));
@@ -489,7 +551,7 @@ namespace tjg {
         auto entrance_location = entrance->AddComponent<Location>(position.x, position.y);
 
         // Load texture.
-        auto entrance_texture = resource_manager.LoadTexture("door-1.png"); // TODO put in spritesheet
+        auto entrance_texture = resource_manager.LoadTexture("door-1.png");
 
         // Add Sprite component so walls are visible
         sf::Sprite entrance_sprite;
@@ -508,7 +570,7 @@ namespace tjg {
         auto exit_location = exit->AddComponent<Location>(position.x, position.y);
 
         // Load texture.
-        auto exit_texture = resource_manager.LoadTexture("door-1.png"); // TODO put in spritesheet
+        auto exit_texture = resource_manager.LoadTexture("door-1.png");
 
         // Add Sprite component
         sf::Sprite exit_sprite;
@@ -517,13 +579,44 @@ namespace tjg {
         exit->AddComponent<Sprite>(exit_sprite, -25);
 
         // StaticSegment component.
-        auto segment = exit->AddComponent<StaticSegment>(physics_system.GetSpace(), position + sf::Vector2f(0, -10), position + sf::Vector2f(0, 10), 20);
+        auto segment = exit->AddComponent<StaticSegment>(physics_system.GetSpace(), position + sf::Vector2f(0, -10),
+                                                         position + sf::Vector2f(0, 10), 20);
         cpShapeSetCollisionType(segment->GetShape(), static_cast<cpCollisionType>(CollisionGroup::EXIT));
 
         return exit;
     }
 
-    std::shared_ptr<Entity> EntityFactory::MakeResourceTracker(float max_value, std::string &texture_path, const sf::Color &color) {
+    std::shared_ptr<Entity> EntityFactory::MakeShockBox(const sf::Vector2f &position) {
+        // Create shock box entity.
+        auto shock_box = std::make_shared<Entity>();
+
+        // Add location component
+        auto shock_box_location = shock_box->AddComponent<Location>(position.x, position.y);
+
+        // Load texture.
+        auto shock_box_texture = resource_manager.LoadTexture("shock-box.png");
+
+        // Add Sprite component
+        sf::Sprite shock_box_sprite;
+        shock_box_sprite.setTexture(*shock_box_texture);
+        shock_box_sprite.setTextureRect(
+                sf::IntRect(0, 0, shock_box_texture->getSize().x, shock_box_texture->getSize().y));
+        shock_box_sprite.setScale(0.3, 0.3);
+        shock_box->AddComponent<Sprite>(shock_box_sprite, -25);
+
+        // StaticSegment component.
+        sf::FloatRect shock_box_bounds = shock_box_sprite.getLocalBounds();
+        auto segment = shock_box->AddComponent<StaticSegment>(physics_system.GetSpace(),
+                                                              sf::Vector2f(position.x, position.y + 20),
+                                                              sf::Vector2f(position.x, position.y - 20),
+                                                              shock_box_bounds.width / 10);
+        cpShapeSetCollisionType(segment->GetShape(), static_cast<cpCollisionType>(CollisionGroup::LETHAL));
+
+        return shock_box;
+    }
+
+    std::shared_ptr<Entity>
+    EntityFactory::MakeResourceTracker(float max_value, std::string &texture_path, const sf::Color &color) {
         // Create resource bar entity.
         auto resource_tracker = std::make_shared<Entity>();
 

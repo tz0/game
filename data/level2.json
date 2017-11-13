@@ -29,26 +29,26 @@
 
   "walls":
   [
-    {"Origin": {"x": -1500, "y": -600}, "Endpoint": {"x": 500, "y": -600}, "Radius": 40 },
-    {"Origin": {"x": -1500,"y": 600},"Endpoint": {"x": 500,"y": 600},"Radius": 40},
-    {"Origin": {"x": -1500,"y": -600},"Endpoint": {"x": -1500,"y": 600},"Radius": 40},
-    {"Origin": {"x": 500,"y": -600},"Endpoint": {"x": 500,"y": 600},"Radius": 40},
-    {"Origin": {"x": -900,"y": -600},"Endpoint": {"x": -950,"y": 90},"Radius": 140}
+    {"origin": {"x": -1500, "y": -600}, "endpoint": {"x": 500, "y": -600}, "radius": 40 },
+    {"origin": {"x": -1500,"y": 600},"endpoint": {"x": 500,"y": 600},"radius": 40},
+    {"origin": {"x": -1500,"y": -600},"endpoint": {"x": -1500,"y": 600},"radius": 40},
+    {"origin": {"x": 500,"y": -600},"endpoint": {"x": 500,"y": 600},"radius": 40},
+    {"origin": {"x": -900,"y": -600},"endpoint": {"x": -950,"y": 90},"radius": 140}
   ],
 
   "fans":
   [
-    {"Origin": {"x": 500,"y": -400,"strength": 1000},"Endpoint": {"x": -1500,"y": 400,"strength": 250},"Width": 200},
-    {"Origin": {"x": -600,"y": -600,"strength": 800},"Endpoint": {"x": -600,"y": 600,"strength": 50},"Width": 200},
-    {"Origin": {"x": -1000,"y": 600,"strength": 1600},"Endpoint": {"x": -1000,"y": -600,"strength": 250},"Width": 200}
+    {"origin": {"x": 500,"y": -400,"strength": 1000},"endpoint": {"x": -1500,"y": 400,"strength": 250},"width": 200},
+    {"origin": {"x": -600,"y": -600,"strength": 800},"endpoint": {"x": -600,"y": 600,"strength": 50},"width": 200},
+    {"origin": {"x": -1000,"y": 600,"strength": 1600},"endpoint": {"x": -1000,"y": -600,"strength": 250},"width": 200}
   ],
 
   "dialogues":
   [
-    {"Dialogue": {"message": "Hello, my friend.", "seconds": 3}},
-    {"Dialogue": {"message": "How are you?", "seconds": 3}},
-    {"Dialogue": {"message": "I'm Spaceship Artificial Intelligence. You can call me 'SAI'", "seconds": 5}},
-    {"Dialogue": {"message": "What's your name?", "seconds": 4}},
-    {"Dialogue": {"message": "TECH-17? Huh, 17...", "seconds": 3}}
+    {"dialogue": {"message": "Hello, my friend.", "seconds": 3}},
+    {"dialogue": {"message": "How are you?", "seconds": 3}},
+    {"dialogue": {"message": "I'm Spaceship Artificial Intelligence. You can call me 'SAI'", "seconds": 5}},
+    {"dialogue": {"message": "What's your name?", "seconds": 4}},
+    {"dialogue": {"message": "TECH-17? Huh, 17...", "seconds": 3}}
   ]
 }

@@ -28,6 +28,24 @@ namespace tjg {
             float x, y;
         };
 
+        struct ShockBox {
+            float x, y;
+
+            inline ShockBox(float x, float y) :
+                    x(x),
+                    y(y) {}
+        };
+
+        struct PressureSource {
+            float origin_x, origin_y, radius, strength;
+
+            inline PressureSource(float origin_x, float origin_y, float radius, float strength) :
+                    origin_x(origin_x),
+                    origin_y(origin_y),
+                    radius(radius),
+                    strength(strength){}
+        };
+
         struct Fan {
             float origin_x, origin_y, endpoint_x, endpoint_y, width, origin_strength, endpoint_strength;
 
@@ -86,11 +104,13 @@ namespace tjg {
         const Exit & GetExit(); 
         const Entrance & GetEntrance(); 
         const float & GetFuel();
-        const float & GetOxygen(); 
+        const float & GetOxygen();
+        const std::vector<Level::PressureSource> & GetPressureSources();
         const std::vector<Level::Fan> & GetFans();
         const std::vector<Level::Wall> & GetWalls();
         const std::vector<Dialogue> & GetDialogues();
         const std::vector<Level::StaticDecoration> & GetStaticDecorations();
+        const std::vector<Level::ShockBox> & GetShockBoxes();
 
     private:        
         CameraCenter camera_center_;
@@ -98,11 +118,13 @@ namespace tjg {
         Exit exit_; 
         Entrance entrance_;
         float fuel_;
-        float oxygen_;        
+        float oxygen_;
+        std::vector<PressureSource> pressure_sources_;
         std::vector<Fan> fans_;
         std::vector<Wall> walls_;
         std::vector<Dialogue> dialogues_;
         std::vector<StaticDecoration> static_decorations_;
+        std::vector<ShockBox> shock_boxes_;
         
         /**
         * Print parsing result from a target level for level file debugging.
