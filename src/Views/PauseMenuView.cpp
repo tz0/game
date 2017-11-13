@@ -8,7 +8,7 @@ namespace tjg{
     void PauseMenuView::Initialize(const unsigned int level_number) {
         current_level = level_number;
         selection = 0;
-        auto background_texture = resource_manager.LoadTexture("pause-menu.png");
+        auto background_texture = resource_manager.LoadTexture("menu-pause.jpg");
         background_sprite.setTexture(*background_texture);
         options = {ViewSwitch {State::RESUME, 0}, ViewSwitch {State::LEVEL_MENU, 0}, ViewSwitch {State::PLAYING, 0}, ViewSwitch {State::MAIN_MENU, 0}};
 

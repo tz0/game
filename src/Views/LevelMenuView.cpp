@@ -11,7 +11,7 @@ namespace tjg {
         selection = 1;
 
         //load background
-        auto background_texture = resource_manager.LoadTexture("level-menu.png");
+        auto background_texture = resource_manager.LoadTexture("menu-level.jpg");
         background_sprite.setTexture(*background_texture);
         background_sprite.setTextureRect(sf::IntRect(0, 0, 1280, 720));
         //load fonts

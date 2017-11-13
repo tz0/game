@@ -7,7 +7,7 @@ namespace tjg {
 
     void MainMenuView::Initialize() {
         selection = 0;
-        auto background_texture = resource_manager.LoadTexture("interstellar.png");
+        auto background_texture = resource_manager.LoadTexture("menu-main.jpg");
         background_sprite.setTexture(*background_texture);
         background_sprite.setTextureRect(sf::IntRect(0, 0, 1280, 720));
 

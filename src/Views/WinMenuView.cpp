@@ -8,7 +8,7 @@ namespace tjg{
     void WinMenuView::Initialize(const unsigned int level_number) {
         current_level = level_number;
         selection = 0;
-        auto background_texture = resource_manager.LoadTexture("win-menu.png");
+        auto background_texture = resource_manager.LoadTexture("menu-win.jpg");
         background_sprite.setTexture(*background_texture);
         options = {ViewSwitch {State::PLAYING, current_level + 1}, ViewSwitch {State::PLAYING, 0}, ViewSwitch {State::MAIN_MENU, 0}};
 
