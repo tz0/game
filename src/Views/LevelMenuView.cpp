@@ -7,35 +7,44 @@ namespace tjg {
 
     void LevelMenuView::Initialize() {
         selection = 1;
-        auto avenir_bold = resource_manager.LoadFont("Avenir-Bold.ttf");
-
         auto background_texture = resource_manager.LoadTexture("level-menu.png");
         background_sprite.setTexture(*background_texture);
         background_sprite.setTextureRect(sf::IntRect(0, 0, 1280, 720));
 
-        // temp Set font for win message
-        message.setFont(*avenir_bold);
-        // Create a win message.
-        message.setStyle(sf::Text::Bold);
-        message.setCharacterSize(24);
-        message.setString("SELECT A LEVEL\n\nLevel 1\nLevel 2\nBack to menu");
-        // Center the win message on the screen.
-        sf::FloatRect textRect = message.getLocalBounds();
-        message.setOrigin(textRect.left + (textRect.width / 2), textRect.top + (textRect.height / 2));
-        message.setPosition(WINDOW_WIDTH / 2, WINDOW_HEIGHT/ 2);
+        auto avenir_bold = resource_manager.LoadFont("Avenir-Bold.ttf");
+        auto copper_plate = resource_manager.LoadFont("Copperplate-Gothic-Light.ttf");
 
-        selection_box_position = sf::Vector2f(LEVEL_MENU_BOX_X_LEFT, LEVEL_MENU_BOX_Y_UP);
-        selection_box.setSize(sf::Vector2f(200,29));
-        selection_box.setPosition(selection_box_position);
-        selection_box.setFillColor(sf::Color::Transparent);
-        selection_box.setOutlineColor(sf::Color(255, 255, 255, 255));
-        selection_box.setOutlineThickness(2.0f);
+        for (unsigned int i = 0; i < LEVEL_MENU_OPTIONS; i++) {
+            menu[i] -> setFont(*avenir_bold);
+            menu[i] -> setCharacterSize(30);
+            menu[i] -> setFillColor(sf::Color(50, 50, 50, 128));
+            menu[i] -> setString(std::to_string(i+1));
+        }
+
+        for (unsigned int i = 0; i < unlocked; i++) {
+            menu[i] -> setFillColor(sf::Color(50, 50, 50, 255));
+        }
+
+        menu[selection - 1] -> setCharacterSize(72);
+
+        level_1.setPosition(1047, 129);
+        level_2.setPosition(1141, 262);
+        level_3.setPosition(1161, 420);
+        level_4.setPosition(1055, 581);
+        level_5.setPosition(907, 652);
+        level_6.setPosition(773, 630);
+        level_7.setPosition(640, 544);
+        level_8.setPosition(590, 415);
+        level_9.setPosition(597, 278);
+        level_10.setPosition(655, 167);
+        level_11.setPosition(765, 67);
+        level_12.setPosition(909, 67);
     }
 
 
     //TODO: Implement or remove
     void LevelMenuView::Update() {
-        selection_box.setPosition(selection_box_position);
+
     }
 
 
@@ -43,8 +52,9 @@ namespace tjg {
         window.setView(window.getDefaultView());
         window.clear(sf::Color(50, 50, 50, 255));
         window.draw(background_sprite);
-        window.draw(message);
-        window.draw(selection_box);
+        for (auto level_text : menu) {
+            window.draw(*level_text);
+        }
         window.display();
     }
 
@@ -54,28 +64,28 @@ namespace tjg {
                 switch (event.key.code) {
                     case sf::Keyboard::Up:
                         if (selection > 1) {
+                            menu[selection - 1] -> setCharacterSize(30);
                             selection -= 1;
-                            selection_box_position.y -= LEVEL_MENU_BOX_SHIFT;
+                            menu[selection - 1] -> setCharacterSize(72);
                         } else {
-                            selection = LEVEL_MENU_OPTIONS;
-                            selection_box_position.y = LEVEL_MENU_BOX_Y_LOW;
+                            menu[selection - 1] -> setCharacterSize(30);
+                            selection = unlocked;
+                            menu[selection - 1] -> setCharacterSize(72);
                         }
                         break;
                     case sf::Keyboard::Down:
-                        if (selection <= unlocked) {
+                        if (selection < unlocked) {
+                            menu[selection - 1] -> setCharacterSize(30);
                             selection += 1;
-                            selection_box_position.y += LEVEL_MENU_BOX_SHIFT;
+                            menu[selection - 1] -> setCharacterSize(72);
                         } else {
+                            menu[selection -1] -> setCharacterSize(30);
                             selection = 1;
-                            selection_box_position.y = LEVEL_MENU_BOX_Y_UP;
+                            menu[selection - 1] -> setCharacterSize(72);
                         }
                         break;
                     case sf::Keyboard::Return:
-                        if (selection > unlocked) {
-                            return ViewSwitch {State::MAIN_MENU, 0};
-                        } else {
-                            return ViewSwitch {State::PLAYING, selection};
-                        }
+                        return ViewSwitch {State::PLAYING, selection};
                     case sf::Keyboard::Escape:
                         return ViewSwitch {State::MAIN_MENU, 0};
                     default:

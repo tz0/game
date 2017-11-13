@@ -10,12 +10,7 @@
 #define MAIN_MENU_BOX_Y_LOW 563u
 #define MAIN_MENU_BOX_SHIFT 60u
 
-#define LEVEL_MENU_OPTIONS 3u  //options.size()-1
-#define LEVEL_MENU_BOX_X_LEFT 530u
-#define LEVEL_MENU_BOX_X_RIGHT 530u
-#define LEVEL_MENU_BOX_Y_UP 346u
-#define LEVEL_MENU_BOX_Y_LOW 404u
-#define LEVEL_MENU_BOX_SHIFT 29u
+#define LEVEL_MENU_OPTIONS 12u  //options.size()-1
 
 #define PAUSE_MENU_OPTIONS 3u  //options.size()-1
 #define PAUSE_MENU_BOX_X 62u

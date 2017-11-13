@@ -7,12 +7,11 @@
 namespace tjg {
     class LevelMenuView : public View {
     private:
-        sf::Text message;
+        sf::Text level_1, level_2, level_3, level_4, level_5, level_6, level_7, level_8, level_9, level_10, level_11, level_12;
         sf::Sprite background_sprite;
-        sf::RectangleShape selection_box;
-        sf::Vector2f selection_box_position;
+        std::vector<sf::Text *> menu = {&level_1, &level_2, &level_3, &level_4, &level_5, &level_6, &level_7, &level_8, &level_9, &level_10, &level_11, &level_12};
         unsigned int selection = 1;
-        unsigned int unlocked = 2;
+        unsigned int unlocked = 3;
     public:
         LevelMenuView(ResourceManager &resource_manager, sf::RenderWindow &window);
         void Initialize();
