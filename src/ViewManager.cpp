@@ -5,18 +5,20 @@ namespace tjg {
         logic_center(logic_center),
         event_manager(event_manager),
         state(State::MAIN_MENU),
-        window(sf::VideoMode(WINDOW_WIDTH, WINDOW_HEIGHT, 32), "Game", sf::Style::Titlebar | sf::Style::Close),
+        window(sf::VideoMode(WINDOW_WIDTH, WINDOW_HEIGHT, 32), "Serene", sf::Style::Titlebar | sf::Style::Close),
         main_menu_view(resource_manager, window),
         level_menu_view(resource_manager, window),
         player_view(resource_manager, window, logic_center),
-        pause_menu_view(resource_manager, window) {
+        pause_menu_view(resource_manager, window),
+        win_menu_view(resource_manager, window),
+        fail_menu_view(resource_manager, window){
         window.setVerticalSyncEnabled(true);
     }
 
   
     //TODO: Implement or remove
     void ViewManager::Initialize() {
-
+        unlocked = ReadUnlockedLevel();
     }
 
     bool ViewManager::Running(){
@@ -31,11 +33,13 @@ namespace tjg {
                 SwitchToMainMenuView();
                 break;
             case State::LEVEL_MENU:
-                SwitchToLevelMenuView();
+                SwitchToLevelMenuView(unlocked);
                 break;
             case State::PLAYING:
                 logic_center.Reset();
                 if (view_switch.level_number > 0) {
+                    if (view_switch.level_number > unlocked) unlocked = view_switch.level_number;
+                    WriteUnlockedLevel(unlocked);
                     current_level = view_switch.level_number;
                     SwitchToPlayerView(view_switch.level_number);
                 } else {
@@ -46,13 +50,13 @@ namespace tjg {
                 ResumePlayerView();
                 break;
             case State::PAUSED:
-                SwitchToPauseMenuView(ViewSwitch{State::PAUSED, 0});
+                SwitchToPauseMenuView();
                 break;
             case State::WON:
-                SwitchToPauseMenuView(ViewSwitch{State::WON, 0});                
+                SwitchToWinMenuView();
                 break;
             case State::FAILED:
-                SwitchToPauseMenuView(ViewSwitch{State::FAILED, 0});
+                SwitchToFailMenuView();
                 break;
             case State::EXIT:
                 window.close();
@@ -70,17 +74,26 @@ namespace tjg {
     }
 
 
-    void ViewManager::SwitchToLevelMenuView() {
-        level_menu_view.Initialize();
+    void ViewManager::SwitchToLevelMenuView(unsigned int unlocked) {
+        level_menu_view.Initialize(unlocked);
         state = State::LEVEL_MENU;
     }
 
 
-    void ViewManager::SwitchToPauseMenuView(ViewSwitch view_switch) {        
-        pause_menu_view.Initialize(ViewSwitch {view_switch.state, current_level});
-        this->state = view_switch.state;
+    void ViewManager::SwitchToPauseMenuView() {
+        pause_menu_view.Initialize(current_level);
+        this->state = State::PAUSED;
     }
 
+    void ViewManager::SwitchToWinMenuView() {
+        win_menu_view.Initialize(current_level);
+        this->state = State::WON;
+    }
+
+    void ViewManager::SwitchToFailMenuView() {
+        fail_menu_view.Initialize(current_level);
+        this->state = State::FAILED;
+    }
 
     void ViewManager::SwitchToPlayerView(const unsigned int level_number) {
         logic_center.Initialize(level_number);
@@ -103,7 +116,13 @@ namespace tjg {
                 level_menu_view.Update();
                 break;
             case State::WON:
+                HandleWindowEvents(win_menu_view);
+                win_menu_view.Update();
+                break;
             case State::FAILED:
+                HandleWindowEvents(fail_menu_view);
+                fail_menu_view.Update();
+                break;
             case State::PAUSED:
                 HandleWindowEvents(pause_menu_view);
                 pause_menu_view.Update();
@@ -121,11 +140,11 @@ namespace tjg {
         switch (logic_center.GetGameState()) {
             case State::WON:
                 logic_center.Reset();
-                SwitchToPauseMenuView(ViewSwitch{State::WON, 0});
+                SwitchToWinMenuView();
                 break;
             case State::FAILED:
                 logic_center.Reset();
-                SwitchToPauseMenuView(ViewSwitch{State::FAILED, 0});
+                SwitchToFailMenuView();
                 break;
             default:
                 break;
@@ -141,9 +160,13 @@ namespace tjg {
                 level_menu_view.Render();
                 break;
             case State::PAUSED:
-            case State::WON:
-            case State::FAILED:
                 pause_menu_view.Render();
+                break;
+            case State::WON:
+                win_menu_view.Render();
+                break;
+            case State::FAILED:
+                fail_menu_view.Render();
                 break;
             case State::PLAYING:
                 player_view.Render();
@@ -170,5 +193,31 @@ namespace tjg {
                     break;
             }
         }
+    }
+
+    unsigned int ViewManager::ReadUnlockedLevel() {
+        unsigned int unlocked = 1;
+        std::ifstream progress_file ("../data/progress.log");
+        if (progress_file.is_open()) {
+            std::cout << "Reading progress: ";
+            progress_file >> unlocked;
+            std::cout << "Unlocked Level " << std::to_string(unlocked) << std::endl;
+            progress_file.close();
+        } else {
+            std::cout << "Error reading progress. Starting new game." <<std::endl;
+        }
+        return unlocked;
+    }
+
+    void ViewManager::WriteUnlockedLevel(unsigned int level_number) {
+        std::ofstream progress_file ("../data/progress.log");
+        if (progress_file.is_open()) {
+            std::cout << "Saving progress: Unlocked Level " << std::to_string(level_number) << std::endl;
+            progress_file << std::to_string (level_number);
+            progress_file.close();
+        } else {
+            std::cout << "Error saving progress." << std::endl;
+        }
+
     }
 }
