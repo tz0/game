@@ -9,7 +9,9 @@ namespace tjg {
         main_menu_view(resource_manager, window),
         level_menu_view(resource_manager, window),
         player_view(resource_manager, window, logic_center),
-        pause_menu_view(resource_manager, window) {
+        pause_menu_view(resource_manager, window),
+        win_menu_view(resource_manager, window),
+        fail_menu_view(resource_manager, window){
         window.setVerticalSyncEnabled(true);
     }
 
@@ -46,13 +48,13 @@ namespace tjg {
                 ResumePlayerView();
                 break;
             case State::PAUSED:
-                SwitchToPauseMenuView(ViewSwitch{State::PAUSED, 0});
+                SwitchToPauseMenuView();
                 break;
             case State::WON:
-                SwitchToPauseMenuView(ViewSwitch{State::WON, 0});                
+                SwitchToWinMenuView();
                 break;
             case State::FAILED:
-                SwitchToPauseMenuView(ViewSwitch{State::FAILED, 0});
+                SwitchToFailMenuView();
                 break;
             case State::EXIT:
                 window.close();
@@ -76,11 +78,20 @@ namespace tjg {
     }
 
 
-    void ViewManager::SwitchToPauseMenuView(ViewSwitch view_switch) {        
-        pause_menu_view.Initialize(ViewSwitch {view_switch.state, current_level});
-        this->state = view_switch.state;
+    void ViewManager::SwitchToPauseMenuView() {
+        pause_menu_view.Initialize(current_level);
+        this->state = State::PAUSED;
     }
 
+    void ViewManager::SwitchToWinMenuView() {
+        win_menu_view.Initialize(current_level);
+        this->state = State::WON;
+    }
+
+    void ViewManager::SwitchToFailMenuView() {
+        fail_menu_view.Initialize(current_level);
+        this->state = State::FAILED;
+    }
 
     void ViewManager::SwitchToPlayerView(const unsigned int level_number) {
         logic_center.Initialize(level_number);
@@ -103,7 +114,13 @@ namespace tjg {
                 level_menu_view.Update();
                 break;
             case State::WON:
+                HandleWindowEvents(win_menu_view);
+                win_menu_view.Update();
+                break;
             case State::FAILED:
+                HandleWindowEvents(fail_menu_view);
+                fail_menu_view.Update();
+                break;
             case State::PAUSED:
                 HandleWindowEvents(pause_menu_view);
                 pause_menu_view.Update();
@@ -121,11 +138,11 @@ namespace tjg {
         switch (logic_center.GetGameState()) {
             case State::WON:
                 logic_center.Reset();
-                SwitchToPauseMenuView(ViewSwitch{State::WON, 0});
+                SwitchToWinMenuView();
                 break;
             case State::FAILED:
                 logic_center.Reset();
-                SwitchToPauseMenuView(ViewSwitch{State::FAILED, 0});
+                SwitchToFailMenuView();
                 break;
             default:
                 break;
@@ -141,9 +158,13 @@ namespace tjg {
                 level_menu_view.Render();
                 break;
             case State::PAUSED:
-            case State::WON:
-            case State::FAILED:
                 pause_menu_view.Render();
+                break;
+            case State::WON:
+                win_menu_view.Render();
+                break;
+            case State::FAILED:
+                fail_menu_view.Render();
                 break;
             case State::PLAYING:
                 player_view.Render();

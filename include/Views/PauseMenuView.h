@@ -7,7 +7,7 @@
 namespace tjg {
     class PauseMenuView : public View {
     private:
-        sf::Text message;
+        sf::Sprite background_sprite;
         sf::RectangleShape selection_box;
         sf::Vector2f selection_box_position;
         unsigned int current_level;
@@ -15,7 +15,7 @@ namespace tjg {
         std::vector<ViewSwitch> options = {};
     public:
         PauseMenuView(ResourceManager &resource_manager, sf::RenderWindow &window);
-        void Initialize(ViewSwitch view_switch);
+        void Initialize(unsigned int level_number);
         void Update();
         void Render();
         ViewSwitch HandleWindowEvents(sf::Event event) override;

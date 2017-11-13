@@ -1,18 +1,18 @@
-#include "Views/PauseMenuView.h"
+#include "Views/WinMenuView.h"
 
 namespace tjg{
-    PauseMenuView::PauseMenuView(ResourceManager &resource_manager, sf::RenderWindow &window) :
+    WinMenuView::WinMenuView(ResourceManager &resource_manager, sf::RenderWindow &window) :
             View(window,resource_manager) {}
 
 
-    void PauseMenuView::Initialize(const unsigned int level_number) {
+    void WinMenuView::Initialize(const unsigned int level_number) {
         current_level = level_number;
         selection = 0;
-        auto background_texture = resource_manager.LoadTexture("pause-menu.png");
+        auto background_texture = resource_manager.LoadTexture("win-menu.png");
         background_sprite.setTexture(*background_texture);
-        options = {ViewSwitch {State::RESUME, 0}, ViewSwitch {State::LEVEL_MENU, 0}, ViewSwitch {State::PLAYING, 0}, ViewSwitch {State::MAIN_MENU, 0}};
+        options = {ViewSwitch {State::PLAYING, current_level + 1}, ViewSwitch {State::PLAYING, 0}, ViewSwitch {State::MAIN_MENU, 0}};
 
-        selection_box_position = sf::Vector2f(PAUSE_MENU_BOX_X, PAUSE_MENU_BOX_Y_UP);
+        selection_box_position = sf::Vector2f(WIN_MENU_BOX_X, WIN_MENU_BOX_Y_UP);
         selection_box.setSize(sf::Vector2f(363,43));
         selection_box.setPosition(selection_box_position);
         selection_box.setFillColor(sf::Color::Transparent);
@@ -22,12 +22,12 @@ namespace tjg{
 
 
     //TODO: Implement or remove
-    void PauseMenuView::Update() {
+    void WinMenuView::Update() {
         selection_box.setPosition(selection_box_position);
     }
 
 
-    void PauseMenuView::Render() {
+    void WinMenuView::Render() {
         window.setView(window.getDefaultView());
         window.clear(sf::Color(50, 50, 50, 255));
         window.draw(background_sprite);
@@ -35,26 +35,26 @@ namespace tjg{
         window.display();
     }
 
-    ViewSwitch PauseMenuView::HandleWindowEvents(sf::Event event) {
+    ViewSwitch WinMenuView::HandleWindowEvents(sf::Event event) {
         switch (event.type) {
             case sf::Event::KeyPressed: {
                 switch (event.key.code) {
                     case sf::Keyboard::Up:
                         if (selection > 0) {
                             selection -= 1;
-                            selection_box_position.y -= PAUSE_MENU_BOX_SHIFT;
+                            selection_box_position.y -= WIN_MENU_BOX_SHIFT;
                         } else {
-                            selection = PAUSE_MENU_OPTIONS;
-                            selection_box_position.y = PAUSE_MENU_BOX_Y_LOW;
+                            selection = WIN_MENU_OPTIONS;
+                            selection_box_position.y = WIN_MENU_BOX_Y_LOW;
                         }
                         break;
                     case sf::Keyboard::Down:
-                        if (selection < PAUSE_MENU_OPTIONS) {
+                        if (selection < WIN_MENU_OPTIONS) {
                             selection += 1;
-                            selection_box_position.y += PAUSE_MENU_BOX_SHIFT;
+                            selection_box_position.y += WIN_MENU_BOX_SHIFT;
                         } else {
                             selection = 0;
-                            selection_box_position.y = PAUSE_MENU_BOX_Y_UP;
+                            selection_box_position.y = WIN_MENU_BOX_Y_UP;
                         }
                         break;
                     case sf::Keyboard::Return:

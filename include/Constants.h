@@ -17,10 +17,23 @@
 #define LEVEL_MENU_BOX_Y_LOW 404u
 #define LEVEL_MENU_BOX_SHIFT 29u
 
-#define PAUSE_MENU_BOX_X 350u
-#define PAUSE_MENU_BOX_Y_UP 361u
-#define PAUSE_MENU_BOX_Y_LOW 361u
-#define PAUSE_MENU_BOX_SHIFT 29u
+#define PAUSE_MENU_OPTIONS 3u  //options.size()-1
+#define PAUSE_MENU_BOX_X 62u
+#define PAUSE_MENU_BOX_Y_UP 214u
+#define PAUSE_MENU_BOX_Y_LOW 394u
+#define PAUSE_MENU_BOX_SHIFT 60u
+
+#define WIN_MENU_OPTIONS 2u  //options.size()-1
+#define WIN_MENU_BOX_X 879u
+#define WIN_MENU_BOX_Y_UP 214u
+#define WIN_MENU_BOX_Y_LOW 334u
+#define WIN_MENU_BOX_SHIFT 60u
+
+#define FAIL_MENU_OPTIONS 1u  //options.size()-1
+#define FAIL_MENU_BOX_X 62u
+#define FAIL_MENU_BOX_Y_UP 455u
+#define FAIL_MENU_BOX_Y_LOW 515u
+#define FAIL_MENU_BOX_SHIFT 60u
 
 namespace tjg {
     enum class State {CONTINUE, MAIN_MENU, LEVEL_MENU, PLAYING, RESUME, PAUSED, WON, FAILED, EXIT};
