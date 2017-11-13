@@ -8,6 +8,11 @@ namespace tjg {
     void LevelMenuView::Initialize() {
         selection = 1;
         auto avenir_bold = resource_manager.LoadFont("Avenir-Bold.ttf");
+
+        auto background_texture = resource_manager.LoadTexture("level-menu.png");
+        background_sprite.setTexture(*background_texture);
+        background_sprite.setTextureRect(sf::IntRect(0, 0, 1280, 720));
+
         // temp Set font for win message
         message.setFont(*avenir_bold);
         // Create a win message.
@@ -37,6 +42,7 @@ namespace tjg {
     void LevelMenuView::Render() {
         window.setView(window.getDefaultView());
         window.clear(sf::Color(50, 50, 50, 255));
+        window.draw(background_sprite);
         window.draw(message);
         window.draw(selection_box);
         window.display();

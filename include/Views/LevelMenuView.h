@@ -8,6 +8,7 @@ namespace tjg {
     class LevelMenuView : public View {
     private:
         sf::Text message;
+        sf::Sprite background_sprite;
         sf::RectangleShape selection_box;
         sf::Vector2f selection_box_position;
         unsigned int selection = 1;
