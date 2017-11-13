@@ -18,7 +18,7 @@ namespace tjg {
   
     //TODO: Implement or remove
     void ViewManager::Initialize() {
-
+        unlocked = ReadUnlockedLevel();
     }
 
     bool ViewManager::Running(){
@@ -33,11 +33,13 @@ namespace tjg {
                 SwitchToMainMenuView();
                 break;
             case State::LEVEL_MENU:
-                SwitchToLevelMenuView();
+                SwitchToLevelMenuView(unlocked);
                 break;
             case State::PLAYING:
                 logic_center.Reset();
                 if (view_switch.level_number > 0) {
+                    if (view_switch.level_number > unlocked) unlocked = view_switch.level_number;
+                    WriteUnlockedLevel(unlocked);
                     current_level = view_switch.level_number;
                     SwitchToPlayerView(view_switch.level_number);
                 } else {
@@ -72,8 +74,8 @@ namespace tjg {
     }
 
 
-    void ViewManager::SwitchToLevelMenuView() {
-        level_menu_view.Initialize();
+    void ViewManager::SwitchToLevelMenuView(unsigned int unlocked) {
+        level_menu_view.Initialize(unlocked);
         state = State::LEVEL_MENU;
     }
 
@@ -191,5 +193,31 @@ namespace tjg {
                     break;
             }
         }
+    }
+
+    unsigned int ViewManager::ReadUnlockedLevel() {
+        unsigned int unlocked = 1;
+        std::ifstream progress_file ("../data/progress.log");
+        if (progress_file.is_open()) {
+            std::cout << "Reading progress: ";
+            progress_file >> unlocked;
+            std::cout << "Unlocked Level " << std::to_string(unlocked) << std::endl;
+            progress_file.close();
+        } else {
+            std::cout << "Error reading progress. Starting new game." <<std::endl;
+        }
+        return unlocked;
+    }
+
+    void ViewManager::WriteUnlockedLevel(unsigned int level_number) {
+        std::ofstream progress_file ("../data/progress.log");
+        if (progress_file.is_open()) {
+            std::cout << "Saving progress: Unlocked Level " << std::to_string(level_number) << std::endl;
+            progress_file << std::to_string (level_number);
+            progress_file.close();
+        } else {
+            std::cout << "Error saving progress." << std::endl;
+        }
+
     }
 }

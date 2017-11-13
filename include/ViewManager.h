@@ -1,6 +1,8 @@
 #ifndef GAME_STATEMANAGER_H
 #define GAME_STATEMANAGER_H
 
+#include <iostream>
+#include <fstream>
 #include <SFML/Graphics.hpp>
 #include "Views/LevelMenuView.h"
 #include "Views/MainMenuView.h"
@@ -27,16 +29,19 @@ namespace tjg {
         WinMenuView win_menu_view;
         FailMenuView fail_menu_view;
         unsigned int current_level;
+        unsigned int unlocked;
 
         bool running = true;
 
         void SwitchToMainMenuView();
-        void SwitchToLevelMenuView();
+        void SwitchToLevelMenuView(unsigned int unlocked);
         void SwitchToPauseMenuView();
         void SwitchToWinMenuView();
         void SwitchToFailMenuView();
         void SwitchToPlayerView(unsigned int level_number);
         void ResumePlayerView();
+        unsigned int ReadUnlockedLevel();
+        void WriteUnlockedLevel(unsigned int level_number);
 
     public:
         explicit ViewManager(ResourceManager &resource_manager, LogicCenter &logic_center, EventManager &event_manager);
