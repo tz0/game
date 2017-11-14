@@ -9,6 +9,7 @@ namespace tjg {
     class MainMenuView : public View {
     private:
         sf::Sprite background_sprite;
+        sf::Sprite animation_sprite;
         sf::RectangleShape selection_box;
         sf::Vector2f selection_box_position;
         unsigned int selection = 0;
@@ -19,6 +20,7 @@ namespace tjg {
         void Initialize();
         void Update();
         void Render();
+        void RenderAnimation();  //cut animation between menus
         ViewSwitch HandleWindowEvents(sf::Event event) override;
     };
 }

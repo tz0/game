@@ -11,6 +11,9 @@ namespace tjg {
         background_sprite.setTexture(*background_texture);
         background_sprite.setTextureRect(sf::IntRect(0, 0, 1280, 720));
 
+        auto animation_texture = resource_manager.LoadTexture("animation-sprite.jpg");
+        animation_sprite.setTexture(*animation_texture);
+
         selection_box_position = sf::Vector2f(MAIN_MENU_BOX_X, MAIN_MENU_BOX_Y_UP);
         selection_box.setSize(sf::Vector2f(363,43));
         selection_box.setPosition(selection_box_position);
@@ -32,6 +35,23 @@ namespace tjg {
         window.draw(background_sprite);
         window.draw(selection_box);
         window.display();
+    }
+
+    void MainMenuView::RenderAnimation() {
+        sf::Clock clock;
+        int i = 0;
+        while (i < 10) {
+            if (clock.getElapsedTime().asSeconds() > 0.03f) {
+                animation_sprite.setTextureRect(sf::IntRect(0, 0 + i * 720, 1280, 720 + i * 720));
+                window.clear(sf::Color(50, 50, 50, 255));
+                window.setView(window.getDefaultView());
+                window.draw(animation_sprite);
+                window.display();
+
+                clock.restart();
+                i++;
+            }
+        }
     }
 
     ViewSwitch MainMenuView::HandleWindowEvents(sf::Event event) {
@@ -57,6 +77,7 @@ namespace tjg {
                         }
                         break;
                     case sf::Keyboard::Return:
+                        if (selection == 0) RenderAnimation();
                         return options[selection];
                     default:
                         break;
