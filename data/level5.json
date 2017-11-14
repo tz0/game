@@ -1,0 +1,44 @@
+{    
+  "level": 4,
+  "fuel" : 15,
+  "oxygen" : 45,
+
+  "camera center":
+  {
+    "x": 0,
+    "y": 0
+  },
+
+  "camera size":
+  {
+    "x": 2000,
+    "y": 1600
+  },
+
+  "exit":
+  {
+    "x": -800,
+    "y": -300    
+  },
+  
+  "entrance":
+  {
+    "x": 800,
+    "y": -300
+  },
+
+  "walls":
+  [
+
+    {"origin": {"x":0, "y":0}, "endpoint": {"x":-500, "y":-500}, "radius":40, "lethal":true},
+
+    {"origin": {"x": -1000,"y": -800},"endpoint": {"x": 1000,"y": -800},"radius": 20, "lethal": true},
+    {"origin": {"x": -1000,"y": 800},"endpoint": {"x": 1000,"y": 800},"radius": 20, "lethal": true},
+
+    {"origin": {"x": -1000,"y": -800},"endpoint": {"x": -1000,"y": 800},"radius": 20, "lethal": true},
+    {"origin": {"x": 1000,"y": -800},"endpoint": {"x": 1000,"y": 800},"radius": 20, "lethal": true}
+    
+  ]
+}
+
+
