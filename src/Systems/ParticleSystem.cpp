@@ -81,7 +81,7 @@ namespace tjg {
         );
 
         // Update the particles, recycling if necessary
-        std::uniform_int_distribution<int> emitter_dist(0, static_cast<int>(emitters.size() - 1));
+        std::uniform_int_distribution<unsigned int> emitter_dist(0, emitters.size() > 0 ? emitters.size() - 1 : 0);
 
         const auto needed_particles = static_cast<unsigned int>(particle_count * emitters.size());
 
