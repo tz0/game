@@ -75,7 +75,7 @@ namespace tjg {
         int i = 0;
         while (i < 10) {
             if (clock.getElapsedTime().asSeconds() > 0.03f) {
-                animation_sprite.setTextureRect(sf::IntRect(0, 7200 - i * 720, 1280, 6480 - i * 720));
+                animation_sprite.setTextureRect(sf::IntRect(0, 6480 - i * 720, 1280, 7200 - i * 720));
                 window.clear(sf::Color(50, 50, 50, 255));
                 window.setView(window.getDefaultView());
                 window.draw(animation_sprite);
