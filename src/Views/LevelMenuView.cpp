@@ -14,6 +14,9 @@ namespace tjg {
         auto background_texture = resource_manager.LoadTexture("menu-level.jpg");
         background_sprite.setTexture(*background_texture);
         background_sprite.setTextureRect(sf::IntRect(0, 0, 1280, 720));
+
+        auto animation_texture = resource_manager.LoadTexture("animation-sprite.jpg");
+        animation_sprite.setTexture(*animation_texture);
         //load fonts
         auto avenir_bold = resource_manager.LoadFont("Avenir-Bold.ttf");
 
@@ -67,6 +70,23 @@ namespace tjg {
         window.display();
     }
 
+    void LevelMenuView::RenderAnimation() {
+        sf::Clock clock;
+        int i = 0;
+        while (i < 10) {
+            if (clock.getElapsedTime().asSeconds() > 0.03f) {
+                animation_sprite.setTextureRect(sf::IntRect(0, 7200 - i * 720, 1280, 6480 - i * 720));
+                window.clear(sf::Color(50, 50, 50, 255));
+                window.setView(window.getDefaultView());
+                window.draw(animation_sprite);
+                window.display();
+
+                clock.restart();
+                i++;
+            }
+        }
+    }
+
     ViewSwitch LevelMenuView::HandleWindowEvents(sf::Event event) {
         switch (event.type) {
             case sf::Event::KeyPressed: {
@@ -96,6 +116,7 @@ namespace tjg {
                     case sf::Keyboard::Return:
                         return ViewSwitch {State::PLAYING, selection};
                     case sf::Keyboard::Escape:
+                        RenderAnimation();
                         return ViewSwitch {State::MAIN_MENU, 0};
                     default:
                         break;
