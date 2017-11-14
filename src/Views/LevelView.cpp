@@ -68,6 +68,8 @@ namespace tjg {
         // Add the wall entities to the sprite render system
         for (const auto &wall : logic_center.GetWalls()) {
             main_render_system.AddEntity(wall);
+
+            // Lethal walls have children (endcaps) that must be added to render system as well.
             wall->ForEachChild([&](std::shared_ptr<Entity> child){
                main_render_system.AddEntity(child);
             });

@@ -42,8 +42,9 @@ namespace tjg {
 
         // add endcaps if it's a laser wall
         if (lethal) {
+            //
             auto wall_angle_radians = atan2(end_point.y - origin_point.y, end_point.x - origin_point.x);
-            auto perpindicular_radians = wall_angle_radians + M_PI / 2;
+            auto perpendicular_radians = wall_angle_radians + M_PI / 2;
             auto wall_angle_degrees = wall_angle_radians * 180 / M_PI;
             auto origin_cap = std::make_shared<Entity>();
             auto end_cap = std::make_shared<Entity>();
@@ -51,23 +52,24 @@ namespace tjg {
             sf::Sprite cap_sprite(*resource_manager.LoadTexture("spritesheet.png"),
                                   sf::IntRect(289, 364, 382 - 289, 424 - 364));
 
+            // TODO: Remove this code duplication.
             origin_cap->AddComponent<Sprite>(cap_sprite);
             auto origin_cap_location = origin_cap->AddComponent<Location>(origin_point);
-            origin_cap_location->SetRotation(90 + wall_angle_degrees);
+            origin_cap_location->SetRotation(static_cast<float>(90 + wall_angle_degrees));
             origin_cap->AddComponent<StaticSegment>(physics_system.GetSpace(),
-                                                    origin_point.x + radius * cos(perpindicular_radians),
-                                                    origin_point.y + radius * sin(perpindicular_radians),
-                                                    origin_point.x - radius * cos(perpindicular_radians),
-                                                    origin_point.y - radius * sin(perpindicular_radians), 30);
+                                                    origin_point.x + radius * cos(perpendicular_radians),
+                                                    origin_point.y + radius * sin(perpendicular_radians),
+                                                    origin_point.x - radius * cos(perpendicular_radians),
+                                                    origin_point.y - radius * sin(perpendicular_radians), 30);
 
             end_cap->AddComponent<Sprite>(cap_sprite);
             auto end_cap_location = end_cap->AddComponent<Location>(end_point);
-            end_cap_location->SetRotation(90 + wall_angle_degrees + 180);
+            end_cap_location->SetRotation(static_cast<float>(90 + wall_angle_degrees + 180));
             end_cap->AddComponent<StaticSegment>(physics_system.GetSpace(),
-                                                    end_point.x + radius * cos(perpindicular_radians),
-                                                    end_point.y + radius * sin(perpindicular_radians),
-                                                    end_point.x - radius * cos(perpindicular_radians),
-                                                    end_point.y - radius * sin(perpindicular_radians), 30);
+                                                    end_point.x + radius * cos(perpendicular_radians),
+                                                    end_point.y + radius * sin(perpendicular_radians),
+                                                    end_point.x - radius * cos(perpendicular_radians),
+                                                    end_point.y - radius * sin(perpendicular_radians), 30);
 
             wall->AddChild(origin_cap);
             wall->AddChild(end_cap);
