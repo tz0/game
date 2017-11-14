@@ -68,6 +68,9 @@ namespace tjg {
         // Add the wall entities to the sprite render system
         for (const auto &wall : logic_center.GetWalls()) {
             main_render_system.AddEntity(wall);
+            wall->ForEachChild([&](std::shared_ptr<Entity> child){
+               main_render_system.AddEntity(child);
+            });
         }
 
         //Add the entrance and exit to the sprite render system

@@ -4,8 +4,12 @@
 namespace tjg {
 
     std::shared_ptr<Entity>
-    EntityFactory::MakeWall(const sf::Vector2f &origin_point, const sf::Vector2f &end_point, const float radius,
+    EntityFactory::MakeWall(const sf::Vector2f &origin_point, const sf::Vector2f &end_point, float radius,
                             const bool lethal) {
+
+        // lethal walls/laser walls disregard the specified radius and use a constant radius value
+        radius = lethal ? 16 : radius;
+
         // Create wall entity.
         auto wall = std::make_shared<Entity>();
 
@@ -21,8 +25,8 @@ namespace tjg {
                                 static_cast<cpCollisionType>(lethal ? CollisionGroup::LETHAL : CollisionGroup::WALL));
 
         // Load wall texture.
-        auto wall_texture = resource_manager.LoadTexture("white-tile.jpg");
-        wall_texture->setRepeated(true);
+        auto wall_texture = resource_manager.LoadTexture(lethal ? "laser.jpg" : "white-tile.jpg");
+        wall_texture->setRepeated(!lethal);
 
         // Get wall length.
         auto length = (int) calculateDistance(origin_point, end_point);
@@ -30,9 +34,44 @@ namespace tjg {
         // Add Sprite component so walls are visible
         sf::Sprite wall_sprite;
         wall_sprite.setTexture(*wall_texture);
-        wall_sprite.setTextureRect(sf::IntRect(0, 0, (int) (length + radius * 2), (int) radius * 2));
+        wall_sprite.setTextureRect(sf::IntRect(0, 0,
+                                               (unsigned int) (length + radius * 2),
+                                               lethal ? (*wall_texture).getSize().y : (unsigned int) radius * 2));
         wall_sprite.setColor(lethal ? sf::Color(255, 150, 150) : sf::Color(150, 150, 150)); // Dark gray
-        wall->AddComponent<Sprite>(wall_sprite);
+        wall->AddComponent<Sprite>(wall_sprite, 0, lethal ? sf::BlendAdd : sf::BlendAlpha);
+
+        // add endcaps if it's a laser wall
+        if (lethal) {
+            auto wall_angle_radians = atan2(end_point.y - origin_point.y, end_point.x - origin_point.x);
+            auto perpindicular_radians = wall_angle_radians + M_PI / 2;
+            auto wall_angle_degrees = wall_angle_radians * 180 / M_PI;
+            auto origin_cap = std::make_shared<Entity>();
+            auto end_cap = std::make_shared<Entity>();
+
+            sf::Sprite cap_sprite(*resource_manager.LoadTexture("spritesheet.png"),
+                                  sf::IntRect(289, 364, 382 - 289, 424 - 364));
+
+            origin_cap->AddComponent<Sprite>(cap_sprite);
+            auto origin_cap_location = origin_cap->AddComponent<Location>(origin_point);
+            origin_cap_location->SetRotation(90 + wall_angle_degrees);
+            origin_cap->AddComponent<StaticSegment>(physics_system.GetSpace(),
+                                                    origin_point.x + radius * cos(perpindicular_radians),
+                                                    origin_point.y + radius * sin(perpindicular_radians),
+                                                    origin_point.x - radius * cos(perpindicular_radians),
+                                                    origin_point.y - radius * sin(perpindicular_radians), 30);
+
+            end_cap->AddComponent<Sprite>(cap_sprite);
+            auto end_cap_location = end_cap->AddComponent<Location>(end_point);
+            end_cap_location->SetRotation(90 + wall_angle_degrees + 180);
+            end_cap->AddComponent<StaticSegment>(physics_system.GetSpace(),
+                                                    end_point.x + radius * cos(perpindicular_radians),
+                                                    end_point.y + radius * sin(perpindicular_radians),
+                                                    end_point.x - radius * cos(perpindicular_radians),
+                                                    end_point.y - radius * sin(perpindicular_radians), 30);
+
+            wall->AddChild(origin_cap);
+            wall->AddChild(end_cap);
+        }
 
         return wall;
     }
