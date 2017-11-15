@@ -38,8 +38,6 @@ namespace tjg {
             case State::PLAYING:
                 logic_center.Reset();
                 if (view_switch.level_number > 0) {
-                    if (view_switch.level_number > unlocked) unlocked = view_switch.level_number;
-                    WriteUnlockedLevel(unlocked);
                     current_level = view_switch.level_number;
                     SwitchToPlayerView(view_switch.level_number);
                 } else {
@@ -86,6 +84,8 @@ namespace tjg {
     }
 
     void ViewManager::SwitchToWinMenuView() {
+        if (current_level + 1 > unlocked) unlocked = current_level + 1;
+        WriteUnlockedLevel(unlocked);
         win_menu_view.Initialize(current_level);
         this->state = State::WON;
     }
