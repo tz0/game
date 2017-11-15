@@ -6,4 +6,4 @@ cmake-build-debug/
 cmake-build-release/
 .vscode
 .vs
-progress.log
+data/progress.log
