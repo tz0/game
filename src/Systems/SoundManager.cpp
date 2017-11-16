@@ -10,7 +10,6 @@ namespace tjg {
         auto buffer = resource_manager.LoadSound("menu-scroll.wav");
         sf::Sound sound;
         sound.setBuffer(*buffer);
-        sound.setPitch(1);
         sound.play();
     }
 
