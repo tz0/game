@@ -6,8 +6,9 @@ namespace tjg {
     Game::Game() :
             // Set the default search folder to "media"
             resource_manager("media"),
+            sound_manager(resource_manager),
             logic_center(resource_manager, event_manager),
-            view_manager(resource_manager, logic_center, event_manager){}
+            view_manager(logic_center, resource_manager, event_manager, sound_manager){}
 
     // Teardown.
     Game::~Game() = default;

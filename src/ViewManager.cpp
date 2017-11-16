@@ -1,10 +1,9 @@
 #include "ViewManager.h"
 
 namespace tjg {
-    ViewManager::ViewManager(ResourceManager &resource_manager, LogicCenter &logic_center, EventManager &event_manager):
+    ViewManager::ViewManager(LogicCenter &logic_center, ResourceManager &resource_manager, EventManager &event_manager, SoundManager &sound_manager):
             logic_center(logic_center),
             event_manager(event_manager),
-            sound_manager(resource_manager),
             state(State::MAIN_MENU),
             window(sf::VideoMode(WINDOW_WIDTH, WINDOW_HEIGHT, 32), "Serene", sf::Style::Titlebar | sf::Style::Close),
             main_menu_view(window, resource_manager, sound_manager),

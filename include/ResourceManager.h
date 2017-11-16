@@ -24,8 +24,6 @@ namespace tjg {
 
             auto path = resource_root + "/" + filename;
 
-            printf("Entered load method\n");
-
             if (map.find(path) == map.end()) {
                 // Not found, need to load
                 std::pair<std::string, std::shared_ptr<T>> resource(path, std::make_shared<T>());

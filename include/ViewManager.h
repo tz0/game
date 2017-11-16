@@ -23,7 +23,6 @@ namespace tjg {
     private:
         LogicCenter &logic_center;
         EventManager &event_manager;
-        SoundManager sound_manager;
         State state;
         sf::RenderWindow window;
         MainMenuView main_menu_view;
@@ -48,7 +47,7 @@ namespace tjg {
         void WriteUnlockedLevel(unsigned int level_number);
 
     public:
-        explicit ViewManager(ResourceManager &resource_manager, LogicCenter &logic_center, EventManager &event_manager);
+        explicit ViewManager(LogicCenter &logic_center, ResourceManager &resource_manager, EventManager &event_manager, SoundManager &sound_manager);
         void Initialize();
         bool Running();
         void Update(sf::Time elapsed);

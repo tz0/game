@@ -24,10 +24,13 @@ namespace tjg {
         textures[placeholder]->loadFromImage(placeholder_image);
         textures[placeholder]->setRepeated(true);
 
+        // Placeholder sound.
         sounds[placeholder] = std::make_shared<sf::SoundBuffer>();
 
+        // Placeholder font.
         fonts[placeholder] = std::make_shared<sf::Font>();
 
+        // Store resource directory information.
         this->resource_root = resource_root;
         this->font_folder = font_folder;
         this->texture_folder = texture_folder;

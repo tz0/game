@@ -1,7 +1,7 @@
 #include "Views/MainMenuView.h"
 
 namespace tjg {
-    MainMenuView::MainMenuView(sf::RenderWindow &window, ResourceManager &resource_manager, SoundManager sound_manager) :
+    MainMenuView::MainMenuView(sf::RenderWindow &window, ResourceManager &resource_manager, SoundManager &sound_manager) :
             View(window, resource_manager, sound_manager) {}
 
 

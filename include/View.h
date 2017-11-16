@@ -17,7 +17,7 @@ namespace tjg {
         SoundManager &sound_manager;
 
     public:
-        View(sf::RenderWindow &window, ResourceManager &resource_manager, SoundManager sound_manager) :
+        View(sf::RenderWindow &window, ResourceManager &resource_manager, SoundManager &sound_manager) :
                 window(window),
                 resource_manager(resource_manager),
                 sound_manager(sound_manager){};

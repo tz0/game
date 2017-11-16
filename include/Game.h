@@ -19,6 +19,7 @@ namespace tjg {
         void Run();
     private:
         ResourceManager resource_manager;
+        SoundManager sound_manager;
         EventManager event_manager;
         LogicCenter logic_center;
         ViewManager view_manager;

@@ -1,7 +1,7 @@
 #include "Views/FailMenuView.h"
 
 namespace tjg{
-    FailMenuView::FailMenuView(sf::RenderWindow &window, ResourceManager &resource_manager, SoundManager sound_manager) :
+    FailMenuView::FailMenuView(sf::RenderWindow &window, ResourceManager &resource_manager, SoundManager &sound_manager) :
             View(window, resource_manager, sound_manager) {}
 
 
