@@ -20,7 +20,7 @@ namespace tjg {
         using ResourceMap = std::unordered_map<std::string, std::shared_ptr<T>>;
 
         template<typename T>
-        std::shared_ptr<T> load(ResourceMap<T> &map, const std::string &path, bool isSound = false) {
+        std::shared_ptr<T> load(ResourceMap<T> &map, const std::string &path) {
             // Check if the resource was found in the proper map.
             if (map.find(path) == map.end()) {
                 // Put a new KVP in the map.
