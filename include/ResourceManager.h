@@ -24,12 +24,14 @@ namespace tjg {
 
             auto path = resource_root + "/" + filename;
 
+            printf("Entered load method\n");
+
             if (map.find(path) == map.end()) {
                 // Not found, need to load
                 std::pair<std::string, std::shared_ptr<T>> resource(path, std::make_shared<T>());
                 map.insert(std::move(resource));
 
-                std::cout << "Loading " << path << "...";
+                std::cout << "Loading " << path << " ... ";
                 auto success = map[path]->loadFromFile(path);
                 if (!success) {
                     std::cout << path << " not found." << std::endl;
@@ -42,6 +44,9 @@ namespace tjg {
 
         // Resource root path
         std::string resource_root = std::string("");
+        std::string font_folder = std::string("");
+        std::string texture_folder = std::string("");
+        std::string sound_folder = std::string("");
 
         // Resource maps
         ResourceMap<sf::Font> fonts;
@@ -50,7 +55,10 @@ namespace tjg {
 
     public:
         // Constructors
-        explicit ResourceManager(const std::string &resource_root = "");
+        explicit ResourceManager(const std::string &resource_root = "resources",
+                                 const std::string &font_folder = "fonts",
+                                 const std::string &texture_folder = "textures",
+                                 const std::string &sound_folder = "sounds");
         // Resource loading
         std::shared_ptr<sf::Font> LoadFont(const std::string &filename);
         std::shared_ptr<sf::Texture> LoadTexture(const std::string &filename);

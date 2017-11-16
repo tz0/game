@@ -4,6 +4,7 @@
 
 #include <SFML/Graphics.hpp>
 
+#include "Systems/SoundManager.h"
 #include "Constants.h"
 #include "ResourceManager.h"
 
@@ -13,11 +14,13 @@ namespace tjg {
     protected:
         sf::RenderWindow &window;
         ResourceManager &resource_manager;
+        SoundManager &sound_manager;
 
     public:
-        View(sf::RenderWindow &window, ResourceManager &resourceManager) :
+        View(sf::RenderWindow &window, ResourceManager &resource_manager, SoundManager sound_manager) :
                 window(window),
-                resource_manager(resourceManager){};
+                resource_manager(resource_manager),
+                sound_manager(sound_manager){};
 
         virtual ViewSwitch HandleWindowEvents(sf::Event event) = 0;
     };

@@ -1,8 +1,8 @@
 #include "Views/WinMenuView.h"
 
 namespace tjg{
-    WinMenuView::WinMenuView(ResourceManager &resource_manager, sf::RenderWindow &window) :
-            View(window,resource_manager) {}
+    WinMenuView::WinMenuView(sf::RenderWindow &window, ResourceManager &resource_manager, SoundManager &sound_manager) :
+            View(window, resource_manager, sound_manager) {}
 
 
     void WinMenuView::Initialize(const unsigned int level_number) {

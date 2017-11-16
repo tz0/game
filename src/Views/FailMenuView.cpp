@@ -1,8 +1,8 @@
 #include "Views/FailMenuView.h"
 
 namespace tjg{
-    FailMenuView::FailMenuView(ResourceManager &resource_manager, sf::RenderWindow &window) :
-            View(window,resource_manager) {}
+    FailMenuView::FailMenuView(sf::RenderWindow &window, ResourceManager &resource_manager, SoundManager sound_manager) :
+            View(window, resource_manager, sound_manager) {}
 
 
     void FailMenuView::Initialize(const unsigned int level_number) {

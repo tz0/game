@@ -1,8 +1,8 @@
 #include "Views/LevelMenuView.h"
 
 namespace tjg {
-    LevelMenuView::LevelMenuView(ResourceManager &resource_manager, sf::RenderWindow &window) :
-            View(window,resource_manager) {}
+    LevelMenuView::LevelMenuView(sf::RenderWindow &window, ResourceManager &resource_manager, SoundManager &sound_manager) :
+            View(window, resource_manager, sound_manager) {}
 
 
     void LevelMenuView::Initialize(const unsigned int unlocked) {

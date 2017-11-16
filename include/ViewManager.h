@@ -3,7 +3,10 @@
 
 #include <iostream>
 #include <fstream>
+
 #include <SFML/Graphics.hpp>
+
+#include "Systems/SoundManager.h"
 #include "Views/LevelMenuView.h"
 #include "Views/MainMenuView.h"
 #include "Views/LevelView.h"
@@ -20,11 +23,12 @@ namespace tjg {
     private:
         LogicCenter &logic_center;
         EventManager &event_manager;
+        SoundManager sound_manager;
         State state;
         sf::RenderWindow window;
         MainMenuView main_menu_view;
         LevelMenuView level_menu_view;
-        LevelView player_view;
+        LevelView level_view;
         PauseMenuView pause_menu_view;
         WinMenuView win_menu_view;
         FailMenuView fail_menu_view;

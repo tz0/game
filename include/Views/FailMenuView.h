@@ -15,7 +15,7 @@ namespace tjg {
         unsigned int selection = 0;
         std::vector<ViewSwitch> options = {};
     public:
-        FailMenuView(ResourceManager &resource_manager, sf::RenderWindow &window);
+        FailMenuView(sf::RenderWindow &window, ResourceManager &resource_manager, SoundManager sound_manager);
         void Initialize(unsigned int level_number);
         void Update();
         void Render();

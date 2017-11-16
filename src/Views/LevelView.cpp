@@ -2,8 +2,8 @@
 
 namespace tjg {
 
-    LevelView::LevelView(ResourceManager &resource_manager, sf::RenderWindow &window, LogicCenter &logic_center) :
-            View(window, resource_manager),
+    LevelView::LevelView(sf::RenderWindow &window, ResourceManager &resource_manager, SoundManager &sound_manager, LogicCenter &logic_center) :
+            View(window, resource_manager, sound_manager),
             logic_center(logic_center),
             dust_particle_system(main_render_system, logic_center.GetPhysicsSystem(), 200,
                                  sf::Sprite(*resource_manager.LoadTexture("particle.png"), sf::IntRect(0, 0, 256, 256)),

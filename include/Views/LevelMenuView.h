@@ -14,7 +14,7 @@ namespace tjg {
         unsigned int selection = 1;
         unsigned int unlocked_;
     public:
-        LevelMenuView(ResourceManager &resource_manager, sf::RenderWindow &window);
+        LevelMenuView(sf::RenderWindow &window, ResourceManager &resource_manager, SoundManager &sound_manager);
         void Initialize(unsigned int unlocked);
         void Update();
         void Render();
