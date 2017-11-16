@@ -62,6 +62,8 @@ namespace tjg{
                         sound_manager.MenuScrollDown();
                         break;
                     case sf::Keyboard::Return:
+                        // Play selection sound.
+                        sound_manager.MenuSelect();
                         return options[selection];
                     default:
                         break;

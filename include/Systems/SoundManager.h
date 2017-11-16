@@ -13,9 +13,15 @@ namespace tjg {
         // Constructor takes a resource manager so it sounds can be loaded.
         explicit SoundManager(ResourceManager &resource_manager);
 
-        // Sound methods.
+        // Menu sounds.
         void MenuScrollUp();
         void MenuScrollDown();
+        void MenuSelect();
+        void MenuBack();
+
+        // In-game sounds.
+
+        // Music.
     };
 
 }

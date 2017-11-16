@@ -118,8 +118,11 @@ namespace tjg {
                         sound_manager.MenuScrollDown();
                         break;
                     case sf::Keyboard::Return:
+                        // Play selection sound.
+                        sound_manager.MenuSelect();
                         return ViewSwitch {State::PLAYING, selection};
                     case sf::Keyboard::Escape:
+                        sound_manager.MenuBack();
                         RenderAnimation();
                         return ViewSwitch {State::MAIN_MENU, 0};
                     default:
