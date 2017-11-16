@@ -47,6 +47,8 @@ namespace tjg{
                             selection = FAIL_MENU_OPTIONS;
                             selection_box_position.y = FAIL_MENU_BOX_Y_LOW;
                         }
+                        // Play scroll sound.
+                        sound_manager.MenuScrollUp();
                         break;
                     case sf::Keyboard::Down:
                         if (selection < FAIL_MENU_OPTIONS) {
@@ -56,6 +58,8 @@ namespace tjg{
                             selection = 0;
                             selection_box_position.y = FAIL_MENU_BOX_Y_UP;
                         }
+                        // Play scroll sound.
+                        sound_manager.MenuScrollDown();
                         break;
                     case sf::Keyboard::Return:
                         return options[selection];

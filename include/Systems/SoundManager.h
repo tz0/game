@@ -14,7 +14,8 @@ namespace tjg {
         explicit SoundManager(ResourceManager &resource_manager);
 
         // Sound methods.
-        void PlayMenuScroll();
+        void MenuScrollUp();
+        void MenuScrollDown();
     };
 
 }

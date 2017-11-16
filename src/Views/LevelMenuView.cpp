@@ -101,6 +101,8 @@ namespace tjg {
                             selection = unlocked_;
                             menu[selection - 1] -> setCharacterSize(72);
                         }
+                        // Play scroll sound.
+                        sound_manager.MenuScrollUp();
                         break;
                     case sf::Keyboard::Down:
                         if (selection < unlocked_) {
@@ -112,6 +114,8 @@ namespace tjg {
                             selection = 1;
                             menu[selection - 1] -> setCharacterSize(72);
                         }
+                        // Play scroll sound.
+                        sound_manager.MenuScrollDown();
                         break;
                     case sf::Keyboard::Return:
                         return ViewSwitch {State::PLAYING, selection};

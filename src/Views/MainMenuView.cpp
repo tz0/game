@@ -67,7 +67,7 @@ namespace tjg {
                             selection_box_position.y = MAIN_MENU_BOX_Y_LOW;
                         }
                         // Play scroll sound.
-                        sound_manager.PlayMenuScroll();
+                        sound_manager.MenuScrollUp();
                         break;
                     case sf::Keyboard::Down:
                         if (selection < options.size() - 1) {
@@ -78,7 +78,7 @@ namespace tjg {
                             selection_box_position.y = MAIN_MENU_BOX_Y_UP;
                         }
                         // Play scroll sound.
-                        sound_manager.PlayMenuScroll();
+                        sound_manager.MenuScrollDown();
                         break;
                     case sf::Keyboard::Return:
                         if (selection == 0) RenderAnimation();
