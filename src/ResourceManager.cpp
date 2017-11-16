@@ -43,7 +43,7 @@ namespace tjg {
  * @return pointer to the Font
  */
     std::shared_ptr<sf::Font> ResourceManager::LoadFont(const std::string &filename) {
-        return load(fonts, font_folder + "/" + filename);
+        return load(fonts, resource_root + "/" + font_folder + "/" + filename);
     }
 
 /**
@@ -52,17 +52,17 @@ namespace tjg {
  * @return pointer to the Texture
  */
     std::shared_ptr<sf::Texture> ResourceManager::LoadTexture(const std::string &filename) {
-        auto texture = load(textures, texture_folder + "/" + filename);
+        auto texture = load(textures, resource_root + "/" + texture_folder + "/" + filename);
         texture->setSmooth(true);
         return texture;
     }
 
 /**
- * Load the given sound
+ * Load the given sound using a SoundBuffer
  * @param filename
- * @return pointer to the Sound
+ * @return pointer to the SoundBuffer
  */
     std::shared_ptr<sf::SoundBuffer> ResourceManager::LoadSound(const std::string &filename) {
-        return load(sounds, sound_folder + "/" + filename);
+        return load(sounds, resource_root + "/" + sound_folder + "/" + filename);
     }
 }

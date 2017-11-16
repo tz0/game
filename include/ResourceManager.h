@@ -20,27 +20,30 @@ namespace tjg {
         using ResourceMap = std::unordered_map<std::string, std::shared_ptr<T>>;
 
         template<typename T>
-        std::shared_ptr<T> load(ResourceMap<T> &map, const std::string &filename) {
-
-            auto path = resource_root + "/" + filename;
-
+        std::shared_ptr<T> load(ResourceMap<T> &map, const std::string &path, bool isSound = false) {
+            // Check if the resource was found in the proper map.
             if (map.find(path) == map.end()) {
-                // Not found, need to load
+                // Put a new KVP in the map.
                 std::pair<std::string, std::shared_ptr<T>> resource(path, std::make_shared<T>());
                 map.insert(std::move(resource));
 
+                // Print a brief loading message.
                 std::cout << "Loading " << path << " ... ";
+                // Attempt to load from file.
                 auto success = map[path]->loadFromFile(path);
                 if (!success) {
                     std::cout << path << " not found." << std::endl;
                     return map[placeholder];
                 }
+                // Print that loading is done.
                 std::cout << "done." << std::endl;
             }
+
+            // If the resource was found in the path, just return it.
             return map[path];
         }
 
-        // Resource root path
+        // Resource directory information
         std::string resource_root = std::string("");
         std::string font_folder = std::string("");
         std::string texture_folder = std::string("");
