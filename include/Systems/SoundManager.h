@@ -25,7 +25,10 @@ namespace tjg {
 
         // In-game SFX
         sf::Sound jetpack_loop;
-        sf::Sound fan_loop;
+        std::vector<sf::Sound> fan_sounds;
+        std::vector<sf::Sound> shock_box_sounds;
+        std::vector<sf::Sound> pressure_source_sounds;
+        std::vector<sf::Sound> lethal_wall_sounds;
 
         // Load and store sounds.
         void Initialize();
@@ -63,8 +66,6 @@ namespace tjg {
         // Play in-game sounds.
         void StartJetPack();
         void StopJetPack();
-        void StartFan();
-        void StopFan();
     };
 
 }
