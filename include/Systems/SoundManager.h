@@ -23,6 +23,9 @@ namespace tjg {
         std::shared_ptr<sf::Music> win_music;
         std::shared_ptr<sf::Music> lose_music;
 
+        // In-game SFX
+        sf::Sound jet_pack;
+
         // Load and store sounds.
         void Initialize();
     public:
@@ -35,8 +38,6 @@ namespace tjg {
         void MenuSelect();
         void MenuWoosh();
 
-        // Play in-game sounds.
-
         // Play music.
         void StartMenuMusic();
         void StopMenuMusic();
@@ -47,6 +48,10 @@ namespace tjg {
         void StopWinMusic();
         void StartLoseMusic();
         void StopLoseMusic();
+
+        // Play in-game sounds.
+        void StartJetPack();
+        void StopJetPack();
     };
 
 }

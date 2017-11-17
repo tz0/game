@@ -217,9 +217,13 @@ namespace tjg {
             control_center.FireJetpack(elapsed);
             // Enable jetpack particle system to show it is active.
             jetpack_flame_system.Enable();
+            // Start jetpack sound effect.
+            sound_manager->StartJetPack();
         } else {
             // Disable jetpack particle system when key is no longer pressed.
             jetpack_flame_system.Disable();
+            // Stop jetpack sound effect.
+            sound_manager->StopJetPack();
         }
     }
 

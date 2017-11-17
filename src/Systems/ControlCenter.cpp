@@ -49,10 +49,6 @@ namespace tjg {
         }
     }
 
-    std::shared_ptr<Entity> ControlCenter::GetPlayerEntity() {
-        return player_entity;
-    }
-
     void ControlCenter::useFuel(float amount) {
         if (fuel) {
             fuel->ExpendResource(amount);

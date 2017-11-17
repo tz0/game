@@ -8,7 +8,7 @@ namespace tjg {
     }
 
     void SoundManager::Initialize() {
-        // Initialize menu sounds.
+        // Menu sounds.
         // .. Up
         menu_up = sf::Sound(*resource_manager.LoadSound("menu-scroll.wav"));
         // .. Down
@@ -22,8 +22,12 @@ namespace tjg {
         menu_woosh = sf::Sound(*resource_manager.LoadSound("menu-woosh.wav"));
         menu_woosh.setVolume(200);
 
+        // In-game SFX
+        jet_pack = sf::Sound(*resource_manager.LoadSound("jetpack-loop.wav"));
+        jet_pack.setVolume(75);
+        jet_pack.setLoop(true);
 
-        // Music
+        // Music and ambience
         // .. Menu/Pause
         menu_music = resource_manager.LoadMusic("menu-music.wav");
         menu_music->setVolume(50);
@@ -112,7 +116,18 @@ namespace tjg {
         if (lose_music->getStatus() == sf::Music::Playing) {
             lose_music->stop();
         }
+    }
 
+    void SoundManager::StartJetPack() {
+        if (jet_pack.getStatus() != sf::Music::Playing) {
+            jet_pack.play();
+        }
+    }
+
+    void SoundManager::StopJetPack() {
+        if (jet_pack.getStatus() == sf::Music::Playing) {
+            jet_pack.stop();
+        }
     }
 
 }
