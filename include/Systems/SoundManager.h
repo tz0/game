@@ -16,7 +16,12 @@ namespace tjg {
         sf::Sound menu_down;
         sf::Sound menu_select;
         sf::Sound menu_woosh;
+
+        // Music
         std::shared_ptr<sf::Music> menu_music;
+        std::shared_ptr<sf::Music> level_music;
+        std::shared_ptr<sf::Music> win_music;
+        std::shared_ptr<sf::Music> lose_music;
 
         // Load and store sounds.
         void Initialize();
@@ -35,6 +40,13 @@ namespace tjg {
         // Play music.
         void StartMenuMusic();
         void StopMenuMusic();
+        void StartLevelMusic();
+        void PauseLevelMusic();
+        void StopLevelMusic();
+        void StartWinMusic();
+        void StopWinMusic();
+        void StartLoseMusic();
+        void StopLoseMusic();
     };
 
 }

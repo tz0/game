@@ -18,6 +18,10 @@ namespace tjg{
         selection_box.setFillColor(sf::Color::Transparent);
         selection_box.setOutlineColor(sf::Color(255, 255, 255, 255));
         selection_box.setOutlineThickness(2.0f);
+
+        // Start music.
+        sound_manager->StopLevelMusic();
+        sound_manager->StartWinMusic();
     }
 
 
@@ -64,6 +68,7 @@ namespace tjg{
                     case sf::Keyboard::Return:
                         // Play selection sound.
                         sound_manager->MenuSelect();
+                        sound_manager->StopWinMusic();
                         return options[selection];
                     default:
                         break;

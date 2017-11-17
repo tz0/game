@@ -67,9 +67,16 @@ namespace tjg{
                     case sf::Keyboard::Return:
                         // Play selection sound.
                         sound_manager->MenuSelect();
-                        // If the player chooses to continue or restart, stop the menu music.
-                        if (selection == 0 || selection == 2) {
+                        // If the player chooses to continue, stop the menu music and continue the level music.
+                        if (selection == 0) {
                             sound_manager->StopMenuMusic();
+                            sound_manager->StartLevelMusic();
+                        }
+                            // If the player chooses to restart, stop the menu music and restart the level music.
+                        else if (selection == 2) {
+                            sound_manager->StopMenuMusic();
+                            sound_manager->StopLevelMusic();
+                            sound_manager->StartLevelMusic();
                         }
                         return options[selection];
                     default:

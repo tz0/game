@@ -125,6 +125,9 @@ namespace tjg {
         camera.setSize(
             logic_center.GetLevel().GetCameraSize().x, 
             logic_center.GetLevel().GetCameraSize().y);
+
+        // Start music.
+        sound_manager->StartLevelMusic();
     }
 
 
@@ -179,11 +182,16 @@ namespace tjg {
             case sf::Event::KeyPressed: {
                 switch (event.key.code) {
                     // Toggle FPS counter on F1.
-                    case sf::Keyboard::F1:
+                    case sf::Keyboard::F1: {
                         show_info = !show_info;
                         break;
-                    case sf::Keyboard::Escape:
+                    }
+                    case sf::Keyboard::Escape: {
+                        // Stop music.
+                        sound_manager->PauseLevelMusic();
+                        // Switch to pause screen.
                         return ViewSwitch {State::PAUSED, 0};
+                    }
                     default:
                         break;
                 }
@@ -196,7 +204,6 @@ namespace tjg {
     }
 
     void LevelView::CheckKeys(const sf::Time &elapsed) {
-
         auto control_center = logic_center.GetControlCenter();
         auto fuel_resource = logic_center.GetFuelTracker()->GetComponent<FiniteResource>();
         // Control the player character.
