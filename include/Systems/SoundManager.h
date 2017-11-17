@@ -30,7 +30,7 @@ namespace tjg {
         std::vector<sf::Sound> pressure_source_sounds;
         std::vector<sf::Sound> lethal_wall_sounds;
 
-        // Load and store sounds.
+        // Load and store non-spatial sounds.
         void Initialize();
 
     public:
@@ -38,10 +38,19 @@ namespace tjg {
         explicit SoundManager(ResourceManager &resource_manager);
 
         // Build the sounds used in the level view that depend on a location.
-        void InitializeSpatialSounds(std::vector<std::shared_ptr<Entity>> fans,
-                                     std::vector<std::shared_ptr<Entity>> shock_boxes,
-                                     std::vector<std::shared_ptr<Entity>> pressure_sources,
-                                     std::vector<std::shared_ptr<Entity>> walls);
+        void InitializeSpatialSounds(std::vector<std::shared_ptr<Entity>> &fans,
+                                     std::vector<std::shared_ptr<Entity>> &shock_boxes,
+                                     std::vector<std::shared_ptr<Entity>> &pressure_sources,
+                                     std::vector<std::shared_ptr<Entity>> &walls);
+
+        // Start playing all spatial sounds.
+        void StartSpatialSounds();
+
+        // Pause all spatial sounds.
+        void PauseSpatialSounds();
+
+        // Stop playing all spatial sounds.
+        void StopSpatialSounds();
 
         // Update the listener position (for 3D sound).
         void UpdateListenerPosition(std::shared_ptr<Location> &player_location);

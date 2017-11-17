@@ -56,12 +56,49 @@ namespace tjg {
         jetpack_loop.setLoop(true);
     }
 
-    void SoundManager::InitializeSpatialSounds(std::vector<std::shared_ptr<Entity>> fans,
-                                               std::vector<std::shared_ptr<Entity>> shock_boxes,
-                                               std::vector<std::shared_ptr<Entity>> pressure_sources,
-                                               std::vector<std::shared_ptr<Entity>> walls) {
+    void SoundManager::InitializeSpatialSounds(std::vector<std::shared_ptr<Entity>> &fans,
+                                               std::vector<std::shared_ptr<Entity>> &shock_boxes,
+                                               std::vector<std::shared_ptr<Entity>> &pressure_sources,
+                                               std::vector<std::shared_ptr<Entity>> &walls) {
 
-        // TODO: implement me.
+        // Create fan sounds.
+        for (auto &fan : fans) {
+            // Build a new fan sound.
+            sf::Sound fan_sound = sf::Sound(*resource_manager.LoadSound("fan-loop.ogg"));
+            fan_sound.setLoop(true);
+            fan_sound.setMinDistance(100);
+
+            // Get the position of the fan and put the sound there.
+            auto fan_position = fan->GetComponent<Location>()->GetPosition();
+            fan_sound.setPosition(fan_position.x, fan_position.y, 0);
+
+            // Add the sound to the vector used to store sounds of this type.
+            fan_sounds.push_back(std::move(fan_sound));
+        }
+    }
+
+    void SoundManager::StartSpatialSounds() {
+        for (auto &fan_sound : fan_sounds) {
+            if (fan_sound.getStatus() != sf::Music::Playing) {
+                fan_sound.play();
+            }
+        }
+    }
+
+    void SoundManager::PauseSpatialSounds() {
+        for (auto &fan_sound : fan_sounds) {
+            if (fan_sound.getStatus() == sf::Music::Playing) {
+                fan_sound.pause();
+            }
+        }
+    }
+
+    void SoundManager::StopSpatialSounds() {
+        for (auto &fan_sound : fan_sounds) {
+            if (fan_sound.getStatus() != sf::Music::Stopped) {
+                fan_sound.stop();
+            }
+        }
     }
 
     void SoundManager::UpdateListenerPosition(std::shared_ptr<Location> &player_location) {
@@ -92,7 +129,7 @@ namespace tjg {
     }
 
     void SoundManager::StopMenuMusic() {
-        if (menu_music->getStatus() == sf::Music::Playing) {
+        if (menu_music->getStatus() != sf::Music::Stopped) {
             menu_music->stop();
         }
     }
@@ -104,13 +141,13 @@ namespace tjg {
     }
 
     void SoundManager::PauseLevelMusic() {
-        if (level_music->getStatus() != sf::Music::Paused) {
+        if (level_music->getStatus() == sf::Music::Playing) {
             level_music->pause();
         }
     }
 
     void SoundManager::StopLevelMusic() {
-        if (level_music->getStatus() == sf::Music::Playing) {
+        if (level_music->getStatus() != sf::Music::Stopped) {
             level_music->stop();
         }
     }
@@ -123,7 +160,7 @@ namespace tjg {
     }
 
     void SoundManager::StopWinMusic() {
-        if (win_music->getStatus() == sf::Music::Playing) {
+        if (win_music->getStatus() != sf::Music::Stopped) {
             win_music->stop();
         }
     }
@@ -135,7 +172,7 @@ namespace tjg {
     }
 
     void SoundManager::StopLoseMusic() {
-        if (lose_music->getStatus() == sf::Music::Playing) {
+        if (lose_music->getStatus() != sf::Music::Stopped) {
             lose_music->stop();
         }
     }
@@ -147,7 +184,7 @@ namespace tjg {
     }
 
     void SoundManager::StopJetPack() {
-        if (jetpack_loop.getStatus() == sf::Music::Playing) {
+        if (jetpack_loop.getStatus() != sf::Music::Stopped) {
             jetpack_loop.stop();
         }
     }

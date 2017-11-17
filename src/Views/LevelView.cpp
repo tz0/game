@@ -138,6 +138,9 @@ namespace tjg {
 
         // Start music.
         sound_manager->StartLevelMusic();
+
+        // Start playing spatial sounds.
+        sound_manager->StartSpatialSounds();
     }
 
 
@@ -200,8 +203,9 @@ namespace tjg {
                         break;
                     }
                     case sf::Keyboard::Escape: {
-                        // Stop music.
+                        // Stop music and spatial sounds.
                         sound_manager->PauseLevelMusic();
+                        sound_manager->PauseSpatialSounds();
                         // Switch to pause screen.
                         return ViewSwitch {State::PAUSED, 0};
                     }
