@@ -26,11 +26,11 @@ namespace tjg {
         // Music
         // .. Menu/Pause
         menu_music = resource_manager.LoadMusic("menu-music.wav");
-        menu_music->setVolume(25);
+        menu_music->setVolume(50);
         menu_music->setLoop(true);
         // .. Level
         level_music = resource_manager.LoadMusic("level-music.wav");
-        level_music->setVolume(40);
+        level_music->setVolume(50);
         level_music->setLoop(true);
         // .. Lose
         lose_music = resource_manager.LoadMusic("lose-music.wav");
@@ -38,7 +38,7 @@ namespace tjg {
         lose_music->setLoop(true);
         // .. Win
         win_music = resource_manager.LoadMusic("win-music.wav");
-        win_music->setVolume(3);
+        win_music->setVolume(10);
         win_music->setLoop(true);
     }
 
