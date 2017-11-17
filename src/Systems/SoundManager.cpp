@@ -11,19 +11,19 @@ namespace tjg {
         // Menu sounds.
         // .. Up
         menu_up = sf::Sound(*resource_manager.LoadSound("menu-scroll.wav"));
-        menu_music->setRelativeToListener(true);
+        menu_up.setRelativeToListener(true);
         // .. Down
         menu_down = sf::Sound(*resource_manager.LoadSound("menu-scroll.wav"));
-        menu_music->setRelativeToListener(true);
+        menu_down.setRelativeToListener(true);
         menu_down.setPitch(0.8);
         // .. Select
         menu_select = sf::Sound(*resource_manager.LoadSound("menu-select.wav"));
-        menu_music->setRelativeToListener(true);
+        menu_select.setRelativeToListener(true);
         menu_select.setPitch(0.75);
         menu_select.setVolume(25);
         // .. Woosh
         menu_woosh = sf::Sound(*resource_manager.LoadSound("menu-woosh.wav"));
-        menu_music->setRelativeToListener(true);
+        menu_woosh.setRelativeToListener(true);
         menu_woosh.setVolume(200);
 
         // Music and ambience
@@ -34,24 +34,24 @@ namespace tjg {
         menu_music->setLoop(true);
         // .. Level
         level_music = resource_manager.LoadMusic("level-music.wav");
-        menu_music->setRelativeToListener(true);
+        level_music->setRelativeToListener(true);
         level_music->setVolume(50);
         level_music->setLoop(true);
         // .. Lose
         lose_music = resource_manager.LoadMusic("lose-music.wav");
-        menu_music->setRelativeToListener(true);
+        lose_music->setRelativeToListener(true);
         lose_music->setVolume(50);
         lose_music->setLoop(true);
         // .. Win
         win_music = resource_manager.LoadMusic("win-music.wav");
-        menu_music->setRelativeToListener(true);
+        win_music->setRelativeToListener(true);
         win_music->setVolume(10);
         win_music->setLoop(true);
 
         // In-game SFX
         // .. Jetpack
         jetpack_loop = sf::Sound(*resource_manager.LoadSound("jetpack-loop.wav"));
-        menu_music->setRelativeToListener(true);
+        jetpack_loop.setRelativeToListener(true);
         jetpack_loop.setVolume(75);
         jetpack_loop.setLoop(true);
     }
