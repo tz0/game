@@ -126,6 +126,16 @@ namespace tjg {
             logic_center.GetLevel().GetCameraSize().x, 
             logic_center.GetLevel().GetCameraSize().y);
 
+        // Update listener position so the player hears spatial sounds properly.
+        auto player_location = logic_center.GetTech17()->GetComponent<Location>();
+        sound_manager->UpdateListenerPosition(player_location);
+
+        // Set up spatial sounds.
+        sound_manager->InitializeSpatialSounds(logic_center.GetFans(),
+                                               logic_center.GetShockBoxes(),
+                                               logic_center.GetPressureSources(),
+                                               logic_center.GetWalls());
+
         // Start music.
         sound_manager->StartLevelMusic();
     }
@@ -173,6 +183,9 @@ namespace tjg {
         shockbox_particle_system.Update(elapsed);
         jetpack_flame_system.Update(elapsed);
         dialogue_system.Update(elapsed);
+        // Update listener position so the player hears spatial sounds properly.
+        auto player_location = logic_center.GetTech17()->GetComponent<Location>();
+        sound_manager->UpdateListenerPosition(player_location);
     }
 
     ViewSwitch LevelView::HandleWindowEvents(const sf::Event event) {

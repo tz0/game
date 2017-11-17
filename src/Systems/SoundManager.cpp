@@ -22,11 +22,6 @@ namespace tjg {
         menu_woosh = sf::Sound(*resource_manager.LoadSound("menu-woosh.wav"));
         menu_woosh.setVolume(200);
 
-        // In-game SFX
-        jet_pack = sf::Sound(*resource_manager.LoadSound("jetpack-loop.wav"));
-        jet_pack.setVolume(75);
-        jet_pack.setLoop(true);
-
         // Music and ambience
         // .. Menu/Pause
         menu_music = resource_manager.LoadMusic("menu-music.wav");
@@ -44,6 +39,29 @@ namespace tjg {
         win_music = resource_manager.LoadMusic("win-music.wav");
         win_music->setVolume(10);
         win_music->setLoop(true);
+
+        // In-game SFX
+        // .. Jetpack
+        jetpack_loop = sf::Sound(*resource_manager.LoadSound("jetpack-loop.wav"));
+        jetpack_loop.setVolume(75);
+        jetpack_loop.setLoop(true);
+        // .. Fan
+        fan_loop = sf::Sound(*resource_manager.LoadSound("fan-loop.ogg"));
+        fan_loop.setVolume(50);
+        fan_loop.setLoop(true);
+    }
+
+    void SoundManager::InitializeSpatialSounds(std::vector<std::shared_ptr<Entity>> fans,
+                                               std::vector<std::shared_ptr<Entity>> shock_boxes,
+                                               std::vector<std::shared_ptr<Entity>> pressure_sources,
+                                               std::vector<std::shared_ptr<Entity>> walls) {
+
+        // TODO: implement me.
+    }
+
+    void SoundManager::UpdateListenerPosition(std::shared_ptr<Location> &player_location) {
+        auto position = player_location->GetPosition();
+        sf::Listener::setPosition(sf::Vector3f(position.x, position.y, 0));
     }
 
     void SoundManager::MenuScrollUp() {
@@ -103,7 +121,6 @@ namespace tjg {
         if (win_music->getStatus() == sf::Music::Playing) {
             win_music->stop();
         }
-
     }
 
     void SoundManager::StartLoseMusic() {
@@ -119,14 +136,26 @@ namespace tjg {
     }
 
     void SoundManager::StartJetPack() {
-        if (jet_pack.getStatus() != sf::Music::Playing) {
-            jet_pack.play();
+        if (jetpack_loop.getStatus() != sf::Music::Playing) {
+            jetpack_loop.play();
         }
     }
 
     void SoundManager::StopJetPack() {
-        if (jet_pack.getStatus() == sf::Music::Playing) {
-            jet_pack.stop();
+        if (jetpack_loop.getStatus() == sf::Music::Playing) {
+            jetpack_loop.stop();
+        }
+    }
+
+    void SoundManager::StartFan() {
+        if (fan_loop.getStatus() != sf::Music::Playing) {
+            fan_loop.play();
+        }
+    }
+
+    void SoundManager::StopFan() {
+        if (fan_loop.getStatus() == sf::Music::Playing) {
+            fan_loop.stop();
         }
     }
 

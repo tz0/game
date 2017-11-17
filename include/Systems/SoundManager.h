@@ -24,13 +24,24 @@ namespace tjg {
         std::shared_ptr<sf::Music> lose_music;
 
         // In-game SFX
-        sf::Sound jet_pack;
+        sf::Sound jetpack_loop;
+        sf::Sound fan_loop;
 
         // Load and store sounds.
         void Initialize();
+
     public:
         // Constructor takes a resource manager so it sounds can be loaded.
         explicit SoundManager(ResourceManager &resource_manager);
+
+        // Build the sounds used in the level view that depend on a location.
+        void InitializeSpatialSounds(std::vector<std::shared_ptr<Entity>> fans,
+                                     std::vector<std::shared_ptr<Entity>> shock_boxes,
+                                     std::vector<std::shared_ptr<Entity>> pressure_sources,
+                                     std::vector<std::shared_ptr<Entity>> walls);
+
+        // Update the listener position (for 3D sound).
+        void UpdateListenerPosition(std::shared_ptr<Location> &player_location);
 
         // Play menu sounds.
         void MenuScrollUp();
@@ -52,6 +63,8 @@ namespace tjg {
         // Play in-game sounds.
         void StartJetPack();
         void StopJetPack();
+        void StartFan();
+        void StopFan();
     };
 
 }
