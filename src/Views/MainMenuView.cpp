@@ -20,6 +20,9 @@ namespace tjg {
         selection_box.setFillColor(sf::Color::Transparent);
         selection_box.setOutlineColor(sf::Color(255, 255, 255, 255));
         selection_box.setOutlineThickness(2.0f);
+
+        // Start music.
+        sound_manager->StartMenuMusic();
     }
 
 

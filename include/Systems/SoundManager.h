@@ -15,8 +15,8 @@ namespace tjg {
         sf::Sound menu_up;
         sf::Sound menu_down;
         sf::Sound menu_select;
-        sf::Sound menu_back;
         sf::Sound menu_woosh;
+        std::shared_ptr<sf::Music> menu_music;
 
         // Load and store sounds.
         void Initialize();
@@ -33,6 +33,8 @@ namespace tjg {
         // Play in-game sounds.
 
         // Play music.
+        void StartMenuMusic();
+        void StopMenuMusic();
     };
 
 }

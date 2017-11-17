@@ -120,6 +120,9 @@ namespace tjg {
                     case sf::Keyboard::Return:
                         // Play selection sound.
                         sound_manager->MenuSelect();
+                        // Stop music.
+                        sound_manager->StopMenuMusic();
+                        // Switch view.
                         return ViewSwitch {State::PLAYING, selection};
                     case sf::Keyboard::Escape:
                         sound_manager->MenuWoosh();

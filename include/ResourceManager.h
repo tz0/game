@@ -43,15 +43,40 @@ namespace tjg {
             return map[path];
         }
 
+        std::shared_ptr<sf::Music> openMusic(ResourceMap<sf::Music> &map, const std::string &path) {
+            // Check if the resource was found in the proper map.
+            if (map.find(path) == map.end()) {
+                // Put a new KVP in the map.
+                std::pair<std::string, std::shared_ptr<sf::Music>> resource(path, std::make_shared<sf::Music>());
+                map.insert(std::move(resource));
+
+                // Print a brief loading message.
+                std::cout << "Loading " << path << " ... ";
+                // Attempt to load from file.
+                auto success = map[path]->openFromFile(path);
+                if (!success) {
+                    std::cout << path << " not found." << std::endl;
+                    return map[placeholder];
+                }
+                // Print that loading is done.
+                std::cout << "done." << std::endl;
+            }
+
+            // If the resource was found in the path, just return it.
+            return map[path];
+        }
+
         // Resource directory information
         std::string resource_root = std::string("");
         std::string font_folder = std::string("");
         std::string texture_folder = std::string("");
         std::string sound_folder = std::string("");
+        std::string music_folder = std::string("");
 
         // Resource maps
         ResourceMap<sf::Font> fonts;
         ResourceMap<sf::SoundBuffer> sounds;
+        ResourceMap<sf::Music> music;
         ResourceMap<sf::Texture> textures;
 
     public:
@@ -59,11 +84,13 @@ namespace tjg {
         explicit ResourceManager(const std::string &resource_root = "resources",
                                  const std::string &font_folder = "fonts",
                                  const std::string &texture_folder = "textures",
-                                 const std::string &sound_folder = "sounds");
+                                 const std::string &sound_folder = "sounds",
+                                 const std::string &music_folder = "music");
         // Resource loading
         std::shared_ptr<sf::Font> LoadFont(const std::string &filename);
         std::shared_ptr<sf::Texture> LoadTexture(const std::string &filename);
         std::shared_ptr<sf::SoundBuffer> LoadSound(const std::string &filename);
+        std::shared_ptr<sf::Music> LoadMusic(const std::string &filename);
     };
 
 }
