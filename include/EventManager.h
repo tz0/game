@@ -26,10 +26,9 @@ namespace tjg {
                 listener(event);
             }
 
-            auto once = one_time_listeners[std::type_index(typeid(T))];
-            while (!once.empty()) {
-                once.back()(event);
-                once.pop_back();
+            while (!one_time_listeners[std::type_index(typeid(T))].empty()) {
+                one_time_listeners[std::type_index(typeid(T))].back()(event);
+                one_time_listeners[std::type_index(typeid(T))].pop_back();
             }
         }
 
@@ -46,6 +45,11 @@ namespace tjg {
             one_time_listeners[std::type_index(typeid(T))].push_back([=](Event &e) {
                 f(static_cast<T &>(e));
             });
+        }
+
+        void ClearListeners() {
+            listeners.clear();
+            one_time_listeners.clear();
         }
     };
 }

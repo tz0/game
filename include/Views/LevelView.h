@@ -51,6 +51,8 @@ namespace tjg {
         float statusbar_y_padding;
         sf::Vector2f trackers_initial_size;
         sf::Vector2f dialog_initial_size;
+        sf::Clock statusbar_blinker;
+        sf::Time statusbar_blinktime = sf::seconds(0.5);
 
         // Status bar methods.
         void InitializeStatusBar(std::shared_ptr<sf::Font> hud_font);
