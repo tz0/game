@@ -1,7 +1,7 @@
 #include "ViewManager.h"
 
 namespace tjg {
-    ViewManager::ViewManager(LogicCenter &logic_center, ResourceManager &resource_manager, EventManager &event_manager, SoundManager &sound_manager):
+    ViewManager::ViewManager(LogicCenter &logic_center, ResourceManager &resource_manager, EventManager &event_manager, std::shared_ptr<SoundManager> &sound_manager):
             logic_center(logic_center),
             event_manager(event_manager),
             state(State::MAIN_MENU),

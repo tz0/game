@@ -47,7 +47,7 @@ namespace tjg {
         void WriteUnlockedLevel(unsigned int level_number);
 
     public:
-        explicit ViewManager(LogicCenter &logic_center, ResourceManager &resource_manager, EventManager &event_manager, SoundManager &sound_manager);
+        explicit ViewManager(LogicCenter &logic_center, ResourceManager &resource_manager, EventManager &event_manager, std::shared_ptr<SoundManager> &sound_manager);
         void Initialize();
         bool Running();
         void Update(sf::Time elapsed);

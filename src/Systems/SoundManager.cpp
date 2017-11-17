@@ -4,37 +4,39 @@ namespace tjg {
 
     SoundManager::SoundManager(ResourceManager &resource_manager) :
             resource_manager(resource_manager) {
+        Initialize();
     }
 
     void SoundManager::MenuScrollUp() {
-        auto buffer = resource_manager.LoadSound("menu-scroll.wav");
-        sf::Sound sound;
-        sound.setBuffer(*buffer);
-        sound.play();
+        menu_up.play();
     }
 
     void SoundManager::MenuScrollDown() {
-        auto buffer = resource_manager.LoadSound("menu-scroll.wav");
-        sf::Sound sound;
-        sound.setBuffer(*buffer);
-        sound.setPitch(0.8);
-        sound.play();
+        menu_down.play();
     }
 
     void SoundManager::MenuSelect() {
-        auto buffer = resource_manager.LoadSound("menu-scroll.wav");
-        sf::Sound sound;
-        sound.setBuffer(*buffer);
-        sound.setPitch(1.5);
-        sound.play();
+        if (menu_select.getStatus() != sf::Sound::Playing) {
+            menu_select.play();
+        }
     }
 
-    void SoundManager::MenuBack() {
-        auto buffer = resource_manager.LoadSound("menu-scroll.wav");
-        sf::Sound sound;
-        sound.setBuffer(*buffer);
-        sound.setPitch(0.5);
-        sound.play();
+    void SoundManager::MenuWoosh() {
+        menu_woosh.play();
+    }
+
+    void SoundManager::Initialize() {
+        // Initialize menu sounds.
+        // .. Up
+        menu_up = sf::Sound(*resource_manager.LoadSound("menu-scroll.wav"));
+        // .. Down
+        menu_down = sf::Sound(*resource_manager.LoadSound("menu-scroll.wav"));
+        menu_down.setPitch(0.8);
+        // .. Select
+        menu_select = sf::Sound(*resource_manager.LoadSound("menu-select.wav"));
+        menu_select.setPitch(1.5);
+        // .. Woosh
+        menu_woosh = sf::Sound(*resource_manager.LoadSound("menu-woosh.wav"));
     }
 
 }

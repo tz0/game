@@ -8,20 +8,31 @@ namespace tjg {
 
     class SoundManager {
     private:
+        // Resource manager to load sounds with.
         ResourceManager &resource_manager;
+
+        // Menu sounds.
+        sf::Sound menu_up;
+        sf::Sound menu_down;
+        sf::Sound menu_select;
+        sf::Sound menu_back;
+        sf::Sound menu_woosh;
+
+        // Load and store sounds.
+        void Initialize();
     public:
         // Constructor takes a resource manager so it sounds can be loaded.
         explicit SoundManager(ResourceManager &resource_manager);
 
-        // Menu sounds.
+        // Play menu sounds.
         void MenuScrollUp();
         void MenuScrollDown();
         void MenuSelect();
-        void MenuBack();
+        void MenuWoosh();
 
-        // In-game sounds.
+        // Play in-game sounds.
 
-        // Music.
+        // Play music.
     };
 
 }

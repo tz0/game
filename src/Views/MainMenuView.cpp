@@ -1,7 +1,7 @@
 #include "Views/MainMenuView.h"
 
 namespace tjg {
-    MainMenuView::MainMenuView(sf::RenderWindow &window, ResourceManager &resource_manager, SoundManager &sound_manager) :
+    MainMenuView::MainMenuView(sf::RenderWindow &window, ResourceManager &resource_manager, std::shared_ptr<SoundManager> &sound_manager) :
             View(window, resource_manager, sound_manager) {}
 
 
@@ -67,7 +67,7 @@ namespace tjg {
                             selection_box_position.y = MAIN_MENU_BOX_Y_LOW;
                         }
                         // Play scroll sound.
-                        sound_manager.MenuScrollUp();
+                        sound_manager->MenuScrollUp();
                         break;
                     case sf::Keyboard::Down:
                         if (selection < options.size() - 1) {
@@ -78,12 +78,16 @@ namespace tjg {
                             selection_box_position.y = MAIN_MENU_BOX_Y_UP;
                         }
                         // Play scroll sound.
-                        sound_manager.MenuScrollDown();
+                        sound_manager->MenuScrollDown();
                         break;
                     case sf::Keyboard::Return:
-                        // Play selection sound.
-                        sound_manager.MenuSelect();
-                        if (selection == 0) RenderAnimation();
+                        if (selection == 0) {
+                            sound_manager->MenuWoosh();
+                            RenderAnimation();
+                        }
+                        else {
+                            sound_manager->MenuSelect();
+                        }
                         return options[selection];
                     default:
                         break;

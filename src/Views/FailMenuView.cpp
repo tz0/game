@@ -1,7 +1,7 @@
 #include "Views/FailMenuView.h"
 
 namespace tjg{
-    FailMenuView::FailMenuView(sf::RenderWindow &window, ResourceManager &resource_manager, SoundManager &sound_manager) :
+    FailMenuView::FailMenuView(sf::RenderWindow &window, ResourceManager &resource_manager, std::shared_ptr<SoundManager> &sound_manager) :
             View(window, resource_manager, sound_manager) {}
 
 
@@ -48,7 +48,7 @@ namespace tjg{
                             selection_box_position.y = FAIL_MENU_BOX_Y_LOW;
                         }
                         // Play scroll sound.
-                        sound_manager.MenuScrollUp();
+                        sound_manager->MenuScrollUp();
                         break;
                     case sf::Keyboard::Down:
                         if (selection < FAIL_MENU_OPTIONS) {
@@ -59,11 +59,11 @@ namespace tjg{
                             selection_box_position.y = FAIL_MENU_BOX_Y_UP;
                         }
                         // Play scroll sound.
-                        sound_manager.MenuScrollDown();
+                        sound_manager->MenuScrollDown();
                         break;
                     case sf::Keyboard::Return:
                         // Play selection sound.
-                        sound_manager.MenuSelect();
+                        sound_manager->MenuSelect();
                         return options[selection];
                     default:
                         break;
