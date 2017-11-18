@@ -103,23 +103,33 @@ namespace tjg {
         switch (state) {
             case State::MAIN_MENU:
                 HandleWindowEvents(main_menu_view);
-                main_menu_view.Update();
+                if (state == State::MAIN_MENU) {
+                    main_menu_view.Update();
+                }
                 break;
             case State::LEVEL_MENU:
                 HandleWindowEvents(level_menu_view);
-                level_menu_view.Update();
+                if (state == State::LEVEL_MENU) {
+                    level_menu_view.Update();
+                }
                 break;
             case State::WON:
                 HandleWindowEvents(win_menu_view);
-                win_menu_view.Update();
+                if (state == State::WON) {
+                    win_menu_view.Update();
+                }
                 break;
             case State::FAILED:
                 HandleWindowEvents(fail_menu_view);
-                fail_menu_view.Update();
+                if (state == State::FAILED) {
+                    fail_menu_view.Update();
+                }
                 break;
             case State::PAUSED:
                 HandleWindowEvents(pause_menu_view);
-                pause_menu_view.Update();
+                if (state == State::PAUSED) {
+                    pause_menu_view.Update();
+                }
                 break;
             case State::PLAYING:
                 HandleWindowEvents(level_view);
