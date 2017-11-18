@@ -67,8 +67,8 @@ namespace tjg {
             sf::Sound fan_sound = sf::Sound(*resource_manager.LoadSound("fan.ogg"));
             fan_sound.setLoop(true);
             fan_sound.setPitch(0.9);
-            fan_sound.setAttenuation(3);
-            fan_sound.setMinDistance(100);
+            fan_sound.setAttenuation(4);
+            fan_sound.setMinDistance(200);
 
             // Get the position of the fan and put the sound there.
             auto position = fan->GetComponent<Location>()->GetPosition();
@@ -83,8 +83,8 @@ namespace tjg {
             // Build a new shock box sound.
             sf::Sound shock_box_sound = sf::Sound(*resource_manager.LoadSound("shock-box.ogg"));
             shock_box_sound.setLoop(true);
-            shock_box_sound.setAttenuation(5);
-            shock_box_sound.setMinDistance(100);
+            shock_box_sound.setAttenuation(4);
+            shock_box_sound.setMinDistance(150);
 
             // Get the position of the shock box and put the sound there.
             auto position = shock_box->GetComponent<Location>()->GetPosition();
@@ -99,8 +99,8 @@ namespace tjg {
             // Build a new pressure source sound.
             sf::Sound pressure_source_sound = sf::Sound(*resource_manager.LoadSound("pressure-source.ogg"));
             pressure_source_sound.setLoop(true);
-            pressure_source_sound.setAttenuation(3);
-            pressure_source_sound.setMinDistance(100);
+            pressure_source_sound.setAttenuation(4);
+            pressure_source_sound.setMinDistance(200);
 
             // Get the position of the pressure source and put the sound there.
             auto position = pressure_source->GetComponent<Location>()->GetPosition();
@@ -117,8 +117,8 @@ namespace tjg {
                 // Build a new pressure source sound.
                 sf::Sound laser_sound_middle = sf::Sound(*resource_manager.LoadSound("laser-wall.ogg"));
                 laser_sound_middle.setLoop(true);
-                laser_sound_middle.setAttenuation(5);
-                laser_sound_middle.setMinDistance(100);
+                laser_sound_middle.setAttenuation(4);
+                laser_sound_middle.setMinDistance(150);
 
                 // Get the position of the pressure source and put the sound there.
                 auto position = wall->GetComponent<Location>()->GetPosition();
