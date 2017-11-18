@@ -50,6 +50,7 @@ namespace tjg {
         void StartSpatialSounds();
         void PauseSpatialSounds();
         void StopSpatialSounds();
+        void ClearSpatialSounds();
 
         // Menu sound controls.
         void MenuScrollUp();

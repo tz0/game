@@ -183,6 +183,11 @@ namespace tjg {
         }
     }
 
+    void SoundManager::ClearSpatialSounds() {
+        spatial_sounds.clear();
+        spatial_sounds.shrink_to_fit();
+    }
+
     void SoundManager::MenuScrollUp() {
         menu_up.play();
     }

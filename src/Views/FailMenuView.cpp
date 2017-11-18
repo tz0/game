@@ -22,6 +22,7 @@ namespace tjg{
         // Stop level sounds.
         sound_manager->StopJetPack();
         sound_manager->StopSpatialSounds();
+        sound_manager->ClearSpatialSounds();
         sound_manager->StopLevelMusic();
 
         // Start music.
