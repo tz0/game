@@ -10,19 +10,19 @@ namespace tjg {
     void SoundManager::Initialize() {
         // Menu sounds.
         // .. Up
-        menu_up = sf::Sound(*resource_manager.LoadSound("menu-scroll.wav"));
+        menu_up = sf::Sound(*resource_manager.LoadSound("menu-scroll.ogg"));
         menu_up.setRelativeToListener(true);
         // .. Down
-        menu_down = sf::Sound(*resource_manager.LoadSound("menu-scroll.wav"));
+        menu_down = sf::Sound(*resource_manager.LoadSound("menu-scroll.ogg"));
         menu_down.setRelativeToListener(true);
         menu_down.setPitch(0.8);
         // .. Select
-        menu_select = sf::Sound(*resource_manager.LoadSound("menu-select.wav"));
+        menu_select = sf::Sound(*resource_manager.LoadSound("menu-select.ogg"));
         menu_select.setRelativeToListener(true);
         menu_select.setPitch(0.75);
         menu_select.setVolume(25);
         // .. Woosh
-        menu_woosh = sf::Sound(*resource_manager.LoadSound("menu-woosh.wav"));
+        menu_woosh = sf::Sound(*resource_manager.LoadSound("menu-woosh.ogg"));
         menu_woosh.setRelativeToListener(true);
         menu_woosh.setVolume(200);
 
@@ -50,7 +50,7 @@ namespace tjg {
 
         // In-game SFX
         // .. Jetpack
-        jetpack_loop = sf::Sound(*resource_manager.LoadSound("jetpack-loop.wav"));
+        jetpack_loop = sf::Sound(*resource_manager.LoadSound("jetpack.ogg"));
         jetpack_loop.setRelativeToListener(true);
         jetpack_loop.setVolume(75);
         jetpack_loop.setLoop(true);
@@ -64,7 +64,7 @@ namespace tjg {
         // Create fan sounds.
         for (auto &fan : fans) {
             // Build a new fan sound.
-            sf::Sound fan_sound = sf::Sound(*resource_manager.LoadSound("fan-loop.ogg"));
+            sf::Sound fan_sound = sf::Sound(*resource_manager.LoadSound("fan.ogg"));
             fan_sound.setLoop(true);
             fan_sound.setVolume(5);
             fan_sound.setPitch(0.9);
@@ -81,7 +81,7 @@ namespace tjg {
         // Create shock box sounds.
         for (auto &shock_box : shock_boxes) {
             // Build a new shock box sound.
-            sf::Sound shock_box_sound = sf::Sound(*resource_manager.LoadSound("shock-box.wav"));
+            sf::Sound shock_box_sound = sf::Sound(*resource_manager.LoadSound("shock-box.ogg"));
             shock_box_sound.setLoop(true);
             shock_box_sound.setVolume(5);
             shock_box_sound.setAttenuation(100);
@@ -97,7 +97,7 @@ namespace tjg {
         // Create pressure source sounds.
         for (auto &pressure_source : pressure_sources) {
             // Build a new pressure source sound.
-            sf::Sound pressure_source_sound = sf::Sound(*resource_manager.LoadSound("pressure-source-loop.wav"));
+            sf::Sound pressure_source_sound = sf::Sound(*resource_manager.LoadSound("pressure-source.ogg"));
             pressure_source_sound.setLoop(true);
             pressure_source_sound.setVolume(5);
             pressure_source_sound.setAttenuation(100);
@@ -115,7 +115,7 @@ namespace tjg {
             // Only make a sound if the wall is lethal (a laser wall).
             if (cpShapeGetCollisionType(shape) == static_cast<cpCollisionType>(CollisionGroup::LETHAL)) {
                 // Build a new pressure source sound.
-                sf::Sound lethal_wall_sound = sf::Sound(*resource_manager.LoadSound("laser-wall.wav"));
+                sf::Sound lethal_wall_sound = sf::Sound(*resource_manager.LoadSound("laser-wall.ogg"));
                 lethal_wall_sound.setLoop(true);
                 lethal_wall_sound.setVolume(25);
                 lethal_wall_sound.setAttenuation(100);

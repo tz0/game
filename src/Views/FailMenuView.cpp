@@ -22,18 +22,14 @@ namespace tjg{
         // Stop level sounds.
         sound_manager->StopSpatialSounds();
         sound_manager->StopLevelMusic();
-        sound_manager->StopJetPack();
 
         // Start music.
         sound_manager->StartLoseMusic();
     }
 
-
-    //TODO: Implement or remove
     void FailMenuView::Update() {
         selection_box.setPosition(selection_box_position);
     }
-
 
     void FailMenuView::Render() {
         window.setView(window.getDefaultView());

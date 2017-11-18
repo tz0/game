@@ -22,18 +22,14 @@ namespace tjg{
         // Pause level music and spatial sounds.
         sound_manager->PauseLevelMusic();
         sound_manager->PauseSpatialSounds();
-        sound_manager->StopJetPack();
 
         // Play music.
         sound_manager->StartMenuMusic();
     }
 
-
-    //TODO: Implement or remove
     void PauseMenuView::Update() {
         selection_box.setPosition(selection_box_position);
     }
-
 
     void PauseMenuView::Render() {
         window.setView(window.getDefaultView());

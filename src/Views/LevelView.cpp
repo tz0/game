@@ -204,7 +204,6 @@ namespace tjg {
                     }
                     case sf::Keyboard::Escape: {
                         // Switch to pause screen.
-                        sound_manager->StopJetPack();
                         return ViewSwitch {State::PAUSED, 0};
                     }
                     default:
