@@ -113,6 +113,14 @@ namespace tjg {
 
         // Initialize status bar.
         InitializeStatusBar(lcd_regular);
+        logic_center.GetEventManager().RegisterOnce<FuelLow>([&](FuelLow &event){
+            (void)event;
+            dialogue_system.ShowUrgentMessage(Dialogue("Fuel levels critical!", 5));
+        });
+        logic_center.GetEventManager().RegisterOnce<OxygenLow>([&](OxygenLow &event){
+            (void)event;
+            dialogue_system.ShowUrgentMessage(Dialogue("Oxygen levels critical!", 5));
+        });
 
         // Initialize dialog system
         std::vector<Dialogue> dialogues = logic_center.GetLevel().GetDialogues();
@@ -292,6 +300,13 @@ namespace tjg {
     void LevelView::RenderStatusBar() {
         // Draw background elements.
         window.draw(statusbar_background);
+        if (statusbar_blinker.getElapsedTime() > statusbar_blinktime) {
+            auto low_fuel = logic_center.GetFuelTracker()->GetComponent<FiniteResource>()->GetPercentRemaining() < 0.1f;
+            fuel_tank_background.setFillColor(low_fuel ? sf::Color(128 - fuel_tank_background.getFillColor().r, 0, 0, 255) : sf::Color::Black);
+            auto low_oxygen = logic_center.GetOxygenTracker()->GetComponent<FiniteResource>()->GetPercentRemaining() < 0.1f;
+            oxygen_tank_background.setFillColor(low_oxygen ? sf::Color(128 - oxygen_tank_background.getFillColor().r, 0, 0, 255) : sf::Color::Black);
+            statusbar_blinker.restart();
+        }
         window.draw(fuel_tank_background);
         window.draw(oxygen_tank_background);
         window.draw(dialogue_background);
