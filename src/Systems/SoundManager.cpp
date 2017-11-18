@@ -276,7 +276,7 @@ namespace tjg {
 
     void SoundManager::Collision(cpVect impulse) {
         if (collision.getStatus() != sf::Music::Playing) {
-            collision.setVolume(std::abs(static_cast<float>(impulse.x + impulse.y)) / 4.f);
+            collision.setVolume(std::abs(static_cast<float>(impulse.x + impulse.y)) / 3.f);
             collision.play();
         }
     }
