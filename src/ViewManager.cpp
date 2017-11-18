@@ -123,8 +123,10 @@ namespace tjg {
                 break;
             case State::PLAYING:
                 HandleWindowEvents(level_view);
-                logic_center.Update(elapsed);
-                level_view.Update(elapsed);
+                if (state == State::PLAYING) {
+                    logic_center.Update(elapsed);
+                    level_view.Update(elapsed);
+                }
                 break;
             default:
                 break;

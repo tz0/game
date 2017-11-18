@@ -136,10 +136,8 @@ namespace tjg {
                                                logic_center.GetPressureSources(),
                                                logic_center.GetWalls());
 
-        // Start music.
+        // Start level sounds.
         sound_manager->StartLevelMusic();
-
-        // Start playing spatial sounds.
         sound_manager->StartSpatialSounds();
     }
 

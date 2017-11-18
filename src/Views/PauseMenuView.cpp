@@ -20,6 +20,7 @@ namespace tjg{
         selection_box.setOutlineThickness(2.0f);
 
         // Pause level music and spatial sounds.
+        sound_manager->StopJetPack();
         sound_manager->PauseLevelMusic();
         sound_manager->PauseSpatialSounds();
 
