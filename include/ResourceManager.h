@@ -5,6 +5,7 @@
 #include <iostream>
 #include <memory>
 #include <string>
+#include <type_traits>
 #include <unordered_map>
 
 #include <SFML/Graphics.hpp>
@@ -20,7 +21,10 @@ namespace tjg {
         using ResourceMap = std::unordered_map<std::string, std::shared_ptr<T>>;
 
         template<typename T>
-        std::shared_ptr<T> load(ResourceMap<T> &map, const std::string &path) {
+        std::shared_ptr<T> load(ResourceMap<T> &map, const std::string &path,
+                                std::function<bool(std::shared_ptr<T>, const std::string &)> loadFunc = [](std::shared_ptr<T> res, const std::string &p) {
+                                    return res->loadFromFile(p);
+                                }) {
             // Check if the resource was found in the proper map.
             if (map.find(path) == map.end()) {
                 // Put a new KVP in the map.
@@ -30,30 +34,8 @@ namespace tjg {
                 // Print a brief loading message.
                 std::cout << "Loading " << path << " ... ";
                 // Attempt to load from file.
-                auto success = map[path]->loadFromFile(path);
-                if (!success) {
-                    std::cout << path << " not found." << std::endl;
-                    return map[placeholder];
-                }
-                // Print that loading is done.
-                std::cout << "done." << std::endl;
-            }
+                auto success = loadFunc(map[path], path);
 
-            // If the resource was found in the path, just return it.
-            return map[path];
-        }
-
-        std::shared_ptr<sf::Music> openMusic(ResourceMap<sf::Music> &map, const std::string &path) {
-            // Check if the resource was found in the proper map.
-            if (map.find(path) == map.end()) {
-                // Put a new KVP in the map.
-                std::pair<std::string, std::shared_ptr<sf::Music>> resource(path, std::make_shared<sf::Music>());
-                map.insert(std::move(resource));
-
-                // Print a brief loading message.
-                std::cout << "Loading " << path << " ... ";
-                // Attempt to load from file.
-                auto success = map[path]->openFromFile(path);
                 if (!success) {
                     std::cout << path << " not found." << std::endl;
                     return map[placeholder];

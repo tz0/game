@@ -36,9 +36,9 @@ namespace tjg {
                 logic_center.Reset();
                 if (view_switch.level_number > 0) {
                     current_level = view_switch.level_number;
-                    SwitchToPlayerView(view_switch.level_number);
+                    SwitchToLevelView(view_switch.level_number);
                 } else {
-                    SwitchToPlayerView(current_level);
+                    SwitchToLevelView(current_level);
                 }
                 break;
             case State::RESUME:
@@ -89,7 +89,7 @@ namespace tjg {
         this->state = State::FAILED;
     }
 
-    void ViewManager::SwitchToPlayerView(const unsigned int level_number) {
+    void ViewManager::SwitchToLevelView(unsigned int level_number) {
         logic_center.Initialize(level_number);
         level_view.Initialize();
         state = State::PLAYING;

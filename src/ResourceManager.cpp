@@ -72,11 +72,17 @@ namespace tjg {
     }
 
     /**
-    * Load the given sound using a SoundBuffer
+    * Load the music
     * @param filename
-    * @return pointer to the SoundBuffer
+    * @return pointer to the Music
     */
     std::shared_ptr<sf::Music> ResourceManager::LoadMusic(const std::string &filename) {
-        return openMusic(music, resource_root + "/" + music_folder + "/" + filename);
+        //return openMusic(music, resource_root + "/" + music_folder + "/" + filename);
+        std::function<bool(std::shared_ptr<sf::Music>, const std::string &)> openFromFile =
+                [](std::shared_ptr<sf::Music> res, const std::string &p) -> bool {
+                    return res->openFromFile(p);
+                };
+
+        return load(music, std::string(resource_root + "/" + music_folder + "/" + filename), openFromFile);
     }
 }
