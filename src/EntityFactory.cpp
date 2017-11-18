@@ -40,9 +40,8 @@ namespace tjg {
         wall_sprite.setColor(lethal ? sf::Color(255, 150, 150) : sf::Color(150, 150, 150)); // Dark gray
         wall->AddComponent<Sprite>(wall_sprite, 0, lethal ? sf::BlendAdd : sf::BlendAlpha);
 
-        // add endcaps if it's a laser wall
+        // Add endcaps if it's a laser wall
         if (lethal) {
-            //
             auto wall_angle_radians = atan2(end_point.y - origin_point.y, end_point.x - origin_point.x);
             auto perpendicular_radians = wall_angle_radians + M_PI / 2;
             auto wall_angle_degrees = wall_angle_radians * 180 / M_PI;
@@ -52,24 +51,29 @@ namespace tjg {
             sf::Sprite cap_sprite(*resource_manager.LoadTexture("spritesheet.png"),
                                   sf::IntRect(289, 364, 382 - 289, 424 - 364));
 
-            // TODO: Remove this code duplication.
+            // Build origin cap
             origin_cap->AddComponent<Sprite>(cap_sprite);
             auto origin_cap_location = origin_cap->AddComponent<Location>(origin_point);
             origin_cap_location->SetRotation(static_cast<float>(90 + wall_angle_degrees));
-            origin_cap->AddComponent<StaticSegment>(physics_system.GetSpace(),
+            auto origin_cap_segment = origin_cap->AddComponent<StaticSegment>(physics_system.GetSpace(),
                                                     origin_point.x + radius * cos(perpendicular_radians),
                                                     origin_point.y + radius * sin(perpendicular_radians),
                                                     origin_point.x - radius * cos(perpendicular_radians),
                                                     origin_point.y - radius * sin(perpendicular_radians), 30);
 
+            // Build end cap
             end_cap->AddComponent<Sprite>(cap_sprite);
             auto end_cap_location = end_cap->AddComponent<Location>(end_point);
             end_cap_location->SetRotation(static_cast<float>(90 + wall_angle_degrees + 180));
-            end_cap->AddComponent<StaticSegment>(physics_system.GetSpace(),
+            auto end_cap_segment = end_cap->AddComponent<StaticSegment>(physics_system.GetSpace(),
                                                     end_point.x + radius * cos(perpendicular_radians),
                                                     end_point.y + radius * sin(perpendicular_radians),
                                                     end_point.x - radius * cos(perpendicular_radians),
                                                     end_point.y - radius * sin(perpendicular_radians), 30);
+
+            // Add the endcaps to the WALL CollisionGroup so they work with collision checking.
+            cpShapeSetCollisionType(origin_cap_segment->GetShape(), static_cast<cpCollisionType>(CollisionGroup::WALL));
+            cpShapeSetCollisionType(end_cap_segment->GetShape(), static_cast<cpCollisionType>(CollisionGroup::WALL));
 
             wall->AddChild(origin_cap);
             wall->AddChild(end_cap);

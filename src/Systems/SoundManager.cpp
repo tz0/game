@@ -275,9 +275,8 @@ namespace tjg {
     }
 
     void SoundManager::Collision(cpVect impulse) {
-        // TODO: Write an equation to convert speed to volume.
         if (collision.getStatus() != sf::Music::Playing) {
-            collision.setVolume(std::abs(static_cast<float>(impulse.x + impulse.y)) / 2.f);
+            collision.setVolume(std::abs(static_cast<float>(impulse.x + impulse.y)) / 4.f);
             collision.play();
         }
     }

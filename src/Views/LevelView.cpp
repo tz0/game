@@ -134,7 +134,7 @@ namespace tjg {
                     (void)space;
                     // Get the impulse of the collision.
                     auto impulse = cpArbiterTotalImpulse(arb);
-                    // Play sound here.
+                    // Play collision sound. Volume scales with impulse.
                     sound_manager->Collision(impulse);
                 }
         );

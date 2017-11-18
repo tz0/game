@@ -84,12 +84,10 @@ namespace tjg {
                         sound_manager->MenuScrollDown();
                         break;
                     case sf::Keyboard::Return:
+                        sound_manager->MenuSelect();
                         if (selection == 0) {
                             sound_manager->MenuWoosh();
                             RenderAnimation();
-                        }
-                        else {
-                            sound_manager->MenuSelect();
                         }
                         return options[selection];
                     default:
