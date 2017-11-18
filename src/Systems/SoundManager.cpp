@@ -20,7 +20,7 @@ namespace tjg {
         menu_select = sf::Sound(*resource_manager.LoadSound("menu-select.ogg"));
         menu_select.setRelativeToListener(true);
         menu_select.setPitch(0.75);
-        menu_select.setVolume(25);
+        menu_select.setVolume(50);
         // .. Woosh
         menu_woosh = sf::Sound(*resource_manager.LoadSound("menu-woosh.ogg"));
         menu_woosh.setRelativeToListener(true);
@@ -119,7 +119,7 @@ namespace tjg {
                 sf::Sound laser_sound_first = sf::Sound(*resource_manager.LoadSound("laser-hum.ogg"));
                 laser_sound_first.setLoop(true);
                 laser_sound_first.setAttenuation(10);
-                laser_sound_first.setMinDistance(150);
+                laser_sound_first.setMinDistance(125);
                 // Get the position of the first end of the wall and put the node there.
                 auto point1 = cpSegmentShapeGetA(shape);
                 laser_sound_first.setPosition(static_cast<float>(point1.x), static_cast<float>(point1.y), 0);
@@ -130,7 +130,7 @@ namespace tjg {
                 sf::Sound laser_sound_middle = sf::Sound(*resource_manager.LoadSound("laser-hum.ogg"));
                 laser_sound_middle.setLoop(true);
                 laser_sound_middle.setAttenuation(10);
-                laser_sound_middle.setMinDistance(150);
+                laser_sound_middle.setMinDistance(125);
                 // Get the position of the center of the wall and put a sound node there
                 auto middle_position = wall->GetComponent<Location>()->GetPosition();
                 laser_sound_middle.setPosition(middle_position.x, middle_position.y, 0);
@@ -141,7 +141,7 @@ namespace tjg {
                 sf::Sound laser_sound_second = sf::Sound(*resource_manager.LoadSound("laser-hum.ogg"));
                 laser_sound_second.setLoop(true);
                 laser_sound_second.setAttenuation(10);
-                laser_sound_second.setMinDistance(150);
+                laser_sound_second.setMinDistance(125);
                 // Get the position of the first end of the wall and put the node there.
                 auto point2 = cpSegmentShapeGetB(shape);
                 laser_sound_second.setPosition(static_cast<float>(point2.x), static_cast<float>(point2.y), 0);
