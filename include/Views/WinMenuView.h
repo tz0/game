@@ -14,7 +14,7 @@ namespace tjg {
         unsigned int selection = 0;
         std::vector<ViewSwitch> options = {};
     public:
-        WinMenuView(ResourceManager &resource_manager, sf::RenderWindow &window);
+        WinMenuView(sf::RenderWindow &window, ResourceManager &resource_manager, std::shared_ptr<SoundManager> &sound_manager);
         void Initialize(unsigned int level_number);
         void Update();
         void Render();

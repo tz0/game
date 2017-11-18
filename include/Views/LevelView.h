@@ -67,7 +67,7 @@ namespace tjg {
 
     public:
         // Constructor
-        explicit LevelView(ResourceManager &resource_manager, sf::RenderWindow &window, LogicCenter &logic_center);
+        explicit LevelView(sf::RenderWindow &window, ResourceManager &resource_manager, std::shared_ptr<SoundManager> &sound_manager, LogicCenter &logic_center);
 
         // Methods
         void Initialize();

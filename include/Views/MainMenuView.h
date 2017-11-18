@@ -16,7 +16,7 @@ namespace tjg {
         std::vector<ViewSwitch> options = {ViewSwitch {State::LEVEL_MENU, 0}, ViewSwitch {State::EXIT, 0}};
 
     public:
-        MainMenuView(ResourceManager &resource_manager, sf::RenderWindow &window);
+        MainMenuView(sf::RenderWindow &window, ResourceManager &resource_manager, std::shared_ptr<SoundManager> &sound_manager);
         void Initialize();
         void Update();
         void Render();

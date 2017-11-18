@@ -2,8 +2,8 @@
 
 namespace tjg {
 
-    LevelView::LevelView(ResourceManager &resource_manager, sf::RenderWindow &window, LogicCenter &logic_center) :
-            View(window, resource_manager),
+    LevelView::LevelView(sf::RenderWindow &window, ResourceManager &resource_manager, std::shared_ptr<SoundManager> &sound_manager, LogicCenter &logic_center) :
+            View(window, resource_manager, sound_manager),
             logic_center(logic_center),
             dust_particle_system(main_render_system, logic_center.GetPhysicsSystem(), 200,
                                  sf::Sprite(*resource_manager.LoadTexture("particle.png"), sf::IntRect(0, 0, 256, 256)),
@@ -133,6 +133,33 @@ namespace tjg {
         camera.setSize(
             logic_center.GetLevel().GetCameraSize().x, 
             logic_center.GetLevel().GetCameraSize().y);
+
+        // Add a handler for playing a collision sound when TECH-17 hits a wall.
+        logic_center.GetCollisionCenter().AddHandler(
+                CollisionGroup::TECH17,
+                CollisionGroup::WALL,
+                [&](cpArbiter *arb, cpSpace *space) {
+                    (void)space;
+                    // Get the impulse of the collision.
+                    auto impulse = cpArbiterTotalImpulse(arb);
+                    // Play collision sound. Volume scales with impulse.
+                    sound_manager->Collision(impulse);
+                }
+        );
+
+        // Update listener position so the player hears spatial sounds properly.
+        auto player_location = logic_center.GetTech17()->GetComponent<Location>();
+        sound_manager->UpdateListenerPosition(player_location);
+
+        // Set up spatial sounds.
+        sound_manager->InitializeSpatialSounds(logic_center.GetFans(),
+                                               logic_center.GetShockBoxes(),
+                                               logic_center.GetPressureSources(),
+                                               logic_center.GetWalls());
+
+        // Start level sounds.
+        sound_manager->StartLevelMusic();
+        sound_manager->StartSpatialSounds();
     }
 
 
@@ -178,6 +205,9 @@ namespace tjg {
         shockbox_particle_system.Update(elapsed);
         jetpack_flame_system.Update(elapsed);
         dialogue_system.Update(elapsed);
+        // Update listener position so the player hears spatial sounds properly.
+        auto player_location = logic_center.GetTech17()->GetComponent<Location>();
+        sound_manager->UpdateListenerPosition(player_location);
     }
 
     ViewSwitch LevelView::HandleWindowEvents(const sf::Event event) {
@@ -187,11 +217,14 @@ namespace tjg {
             case sf::Event::KeyPressed: {
                 switch (event.key.code) {
                     // Toggle FPS counter on F1.
-                    case sf::Keyboard::F1:
+                    case sf::Keyboard::F1: {
                         show_info = !show_info;
                         break;
-                    case sf::Keyboard::Escape:
+                    }
+                    case sf::Keyboard::Escape: {
+                        // Switch to pause screen.
                         return ViewSwitch {State::PAUSED, 0};
+                    }
                     default:
                         break;
                 }
@@ -204,7 +237,6 @@ namespace tjg {
     }
 
     void LevelView::CheckKeys(const sf::Time &elapsed) {
-
         auto control_center = logic_center.GetControlCenter();
         auto fuel_resource = logic_center.GetFuelTracker()->GetComponent<FiniteResource>();
         // Control the player character.
@@ -218,9 +250,13 @@ namespace tjg {
             control_center.FireJetpack(elapsed);
             // Enable jetpack particle system to show it is active.
             jetpack_flame_system.Enable();
+            // Start jetpack sound effect.
+            sound_manager->StartJetPack();
         } else {
             // Disable jetpack particle system when key is no longer pressed.
             jetpack_flame_system.Disable();
+            // Stop jetpack sound effect.
+            sound_manager->StopJetPack();
         }
     }
 

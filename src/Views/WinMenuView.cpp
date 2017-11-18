@@ -1,8 +1,8 @@
 #include "Views/WinMenuView.h"
 
 namespace tjg{
-    WinMenuView::WinMenuView(ResourceManager &resource_manager, sf::RenderWindow &window) :
-            View(window,resource_manager) {}
+    WinMenuView::WinMenuView(sf::RenderWindow &window, ResourceManager &resource_manager, std::shared_ptr<SoundManager> &sound_manager) :
+            View(window, resource_manager, sound_manager) {}
 
 
     void WinMenuView::Initialize(const unsigned int level_number) {
@@ -18,14 +18,20 @@ namespace tjg{
         selection_box.setFillColor(sf::Color::Transparent);
         selection_box.setOutlineColor(sf::Color(255, 255, 255, 255));
         selection_box.setOutlineThickness(2.0f);
+
+        // Stop level sounds.
+        sound_manager->StopJetPack();
+        sound_manager->StopSpatialSounds();
+        sound_manager->ClearSpatialSounds();
+        sound_manager->StopLevelMusic();
+
+        // Start music.
+        sound_manager->StartWinMusic();
     }
 
-
-    //TODO: Implement or remove
     void WinMenuView::Update() {
         selection_box.setPosition(selection_box_position);
     }
-
 
     void WinMenuView::Render() {
         window.setView(window.getDefaultView());
@@ -47,6 +53,8 @@ namespace tjg{
                             selection = WIN_MENU_OPTIONS;
                             selection_box_position.y = WIN_MENU_BOX_Y_LOW;
                         }
+                        // Play scroll sound.
+                        sound_manager->MenuScrollUp();
                         break;
                     case sf::Keyboard::Down:
                         if (selection < WIN_MENU_OPTIONS) {
@@ -56,8 +64,13 @@ namespace tjg{
                             selection = 0;
                             selection_box_position.y = WIN_MENU_BOX_Y_UP;
                         }
+                        // Play scroll sound.
+                        sound_manager->MenuScrollDown();
                         break;
                     case sf::Keyboard::Return:
+                        // Play selection sound.
+                        sound_manager->MenuSelect();
+                        sound_manager->StopWinMusic();
                         return options[selection];
                     default:
                         break;

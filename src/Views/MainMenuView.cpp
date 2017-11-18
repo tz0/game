@@ -1,8 +1,8 @@
 #include "Views/MainMenuView.h"
 
 namespace tjg {
-    MainMenuView::MainMenuView(ResourceManager &resource_manager, sf::RenderWindow &window) :
-            View(window,resource_manager) {}
+    MainMenuView::MainMenuView(sf::RenderWindow &window, ResourceManager &resource_manager, std::shared_ptr<SoundManager> &sound_manager) :
+            View(window, resource_manager, sound_manager) {}
 
 
     void MainMenuView::Initialize() {
@@ -20,6 +20,9 @@ namespace tjg {
         selection_box.setFillColor(sf::Color::Transparent);
         selection_box.setOutlineColor(sf::Color(255, 255, 255, 255));
         selection_box.setOutlineThickness(2.0f);
+
+        // Start music.
+        sound_manager->StartMenuMusic();
     }
 
 
@@ -66,6 +69,8 @@ namespace tjg {
                             selection = options.size() - 1;
                             selection_box_position.y = MAIN_MENU_BOX_Y_LOW;
                         }
+                        // Play scroll sound.
+                        sound_manager->MenuScrollUp();
                         break;
                     case sf::Keyboard::Down:
                         if (selection < options.size() - 1) {
@@ -75,9 +80,15 @@ namespace tjg {
                             selection = 0;
                             selection_box_position.y = MAIN_MENU_BOX_Y_UP;
                         }
+                        // Play scroll sound.
+                        sound_manager->MenuScrollDown();
                         break;
                     case sf::Keyboard::Return:
-                        if (selection == 0) RenderAnimation();
+                        sound_manager->MenuSelect();
+                        if (selection == 0) {
+                            sound_manager->MenuWoosh();
+                            RenderAnimation();
+                        }
                         return options[selection];
                     default:
                         break;

@@ -1,8 +1,8 @@
 #include "Views/LevelMenuView.h"
 
 namespace tjg {
-    LevelMenuView::LevelMenuView(ResourceManager &resource_manager, sf::RenderWindow &window) :
-            View(window,resource_manager) {}
+    LevelMenuView::LevelMenuView(sf::RenderWindow &window, ResourceManager &resource_manager, std::shared_ptr<SoundManager> &sound_manager) :
+            View(window, resource_manager, sound_manager) {}
 
 
     void LevelMenuView::Initialize(const unsigned int unlocked) {
@@ -101,6 +101,8 @@ namespace tjg {
                             selection = unlocked_;
                             menu[selection - 1] -> setCharacterSize(72);
                         }
+                        // Play scroll sound.
+                        sound_manager->MenuScrollUp();
                         break;
                     case sf::Keyboard::Down:
                         if (selection < unlocked_) {
@@ -112,10 +114,18 @@ namespace tjg {
                             selection = 1;
                             menu[selection - 1] -> setCharacterSize(72);
                         }
+                        // Play scroll sound.
+                        sound_manager->MenuScrollDown();
                         break;
                     case sf::Keyboard::Return:
+                        // Play selection sound.
+                        sound_manager->MenuSelect();
+                        // Stop music.
+                        sound_manager->StopMenuMusic();
+                        // Switch view.
                         return ViewSwitch {State::PLAYING, selection};
                     case sf::Keyboard::Escape:
+                        sound_manager->MenuWoosh();
                         RenderAnimation();
                         return ViewSwitch {State::MAIN_MENU, 0};
                     default:

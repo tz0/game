@@ -26,8 +26,6 @@ namespace tjg {
         void RotateClockwise(const sf::Time &elapsed);
         void RotateCounterClockwise(const sf::Time &elapsed);
         void FireJetpack(const sf::Time &elapsed);
-        // Accessor methods
-        std::shared_ptr<Entity> GetPlayerEntity();
     };
 
 }
