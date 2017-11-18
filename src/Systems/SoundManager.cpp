@@ -28,22 +28,22 @@ namespace tjg {
 
         // Music and ambience
         // .. Menu/Pause
-        menu_music = resource_manager.LoadMusic("menu-music.wav");
+        menu_music = resource_manager.LoadMusic("menu-music.ogg");
         menu_music->setRelativeToListener(true);
         menu_music->setVolume(50);
         menu_music->setLoop(true);
         // .. Level
-        level_music = resource_manager.LoadMusic("level-music.wav");
+        level_music = resource_manager.LoadMusic("level-music.ogg");
         level_music->setRelativeToListener(true);
         level_music->setVolume(50);
         level_music->setLoop(true);
         // .. Lose
-        lose_music = resource_manager.LoadMusic("lose-music.wav");
+        lose_music = resource_manager.LoadMusic("lose-music.ogg");
         lose_music->setRelativeToListener(true);
         lose_music->setVolume(50);
         lose_music->setLoop(true);
         // .. Win
-        win_music = resource_manager.LoadMusic("win-music.wav");
+        win_music = resource_manager.LoadMusic("win-music.ogg");
         win_music->setRelativeToListener(true);
         win_music->setVolume(10);
         win_music->setLoop(true);
