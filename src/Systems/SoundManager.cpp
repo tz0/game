@@ -35,7 +35,7 @@ namespace tjg {
         // .. Level
         level_music = resource_manager.LoadMusic("level-music.ogg");
         level_music->setRelativeToListener(true);
-        level_music->setVolume(50);
+        level_music->setVolume(25);
         level_music->setLoop(true);
         // .. Lose
         lose_music = resource_manager.LoadMusic("lose-music.ogg");
@@ -119,6 +119,7 @@ namespace tjg {
                 sf::Sound laser_sound_first = sf::Sound(*resource_manager.LoadSound("laser-hum.ogg"));
                 laser_sound_first.setLoop(true);
                 laser_sound_first.setAttenuation(10);
+                laser_sound_first.setVolume(75);
                 laser_sound_first.setMinDistance(125);
                 // Get the position of the first end of the wall and put the node there.
                 auto point1 = cpSegmentShapeGetA(shape);
@@ -130,6 +131,7 @@ namespace tjg {
                 sf::Sound laser_sound_middle = sf::Sound(*resource_manager.LoadSound("laser-hum.ogg"));
                 laser_sound_middle.setLoop(true);
                 laser_sound_middle.setAttenuation(10);
+                laser_sound_middle.setVolume(75);
                 laser_sound_middle.setMinDistance(125);
                 // Get the position of the center of the wall and put a sound node there
                 auto middle_position = wall->GetComponent<Location>()->GetPosition();
@@ -141,6 +143,7 @@ namespace tjg {
                 sf::Sound laser_sound_second = sf::Sound(*resource_manager.LoadSound("laser-hum.ogg"));
                 laser_sound_second.setLoop(true);
                 laser_sound_second.setAttenuation(10);
+                laser_sound_second.setVolume(75);
                 laser_sound_second.setMinDistance(125);
                 // Get the position of the first end of the wall and put the node there.
                 auto point2 = cpSegmentShapeGetB(shape);
