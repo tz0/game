@@ -126,6 +126,19 @@ namespace tjg {
             logic_center.GetLevel().GetCameraSize().x, 
             logic_center.GetLevel().GetCameraSize().y);
 
+        // Add a handler for playing a collision sound when TECH-17 hits a wall.
+        logic_center.GetCollisionCenter().AddHandler(
+                CollisionGroup::TECH17,
+                CollisionGroup::WALL,
+                [&](cpArbiter *arb, cpSpace *space) {
+                    (void)space;
+                    // Get the impulse of the collision.
+                    auto impulse = cpArbiterTotalImpulse(arb);
+                    // Play sound here.
+                    sound_manager->Collision(impulse);
+                }
+        );
+
         // Update listener position so the player hears spatial sounds properly.
         auto player_location = logic_center.GetTech17()->GetComponent<Location>();
         sound_manager->UpdateListenerPosition(player_location);

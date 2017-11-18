@@ -183,6 +183,10 @@ namespace tjg {
         return control_center;
     }
 
+    CollisionCenter& LogicCenter::GetCollisionCenter() {
+        return collision_center;
+    }
+
     PhysicsSystem& LogicCenter::GetPhysicsSystem() {
         return physics_system;
     }

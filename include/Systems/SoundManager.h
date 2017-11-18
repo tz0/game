@@ -27,7 +27,8 @@ namespace tjg {
         std::shared_ptr<sf::Music> lose_music;
 
         // In-game SFX
-        sf::Sound jetpack_loop;
+        sf::Sound jetpack;
+        sf::Sound collision;
         std::vector<sf::Sound> spatial_sounds;
 
         // Load and store non-spatial sounds.
@@ -72,6 +73,7 @@ namespace tjg {
         // In-game sound controls.
         void StartJetPack();
         void StopJetPack();
+        void Collision(cpVect impulse);
     };
 
 }

@@ -50,10 +50,13 @@ namespace tjg {
 
         // In-game SFX
         // .. Jetpack
-        jetpack_loop = sf::Sound(*resource_manager.LoadSound("jetpack.ogg"));
-        jetpack_loop.setRelativeToListener(true);
-        jetpack_loop.setVolume(75);
-        jetpack_loop.setLoop(true);
+        jetpack = sf::Sound(*resource_manager.LoadSound("jetpack.ogg"));
+        jetpack.setRelativeToListener(true);
+        jetpack.setVolume(75);
+        jetpack.setLoop(true);
+        // .. Collisions
+        collision = sf::Sound(*resource_manager.LoadSound("collision.ogg"));
+        collision.setRelativeToListener(true);
     }
 
     void SoundManager::InitializeSpatialSounds(std::vector<std::shared_ptr<Entity>> &fans,
@@ -260,14 +263,22 @@ namespace tjg {
     }
 
     void SoundManager::StartJetPack() {
-        if (jetpack_loop.getStatus() != sf::Music::Playing) {
-            jetpack_loop.play();
+        if (jetpack.getStatus() != sf::Music::Playing) {
+            jetpack.play();
         }
     }
 
     void SoundManager::StopJetPack() {
-        if (jetpack_loop.getStatus() != sf::Music::Stopped) {
-            jetpack_loop.stop();
+        if (jetpack.getStatus() != sf::Music::Stopped) {
+            jetpack.stop();
+        }
+    }
+
+    void SoundManager::Collision(cpVect impulse) {
+        // TODO: Write an equation to convert speed to volume.
+        if (collision.getStatus() != sf::Music::Playing) {
+            collision.setVolume(std::abs(static_cast<float>(impulse.x + impulse.y)) / 2.f);
+            collision.play();
         }
     }
 
