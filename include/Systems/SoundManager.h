@@ -1,8 +1,11 @@
 #ifndef GAME_SOUNDMANAGER_H
 #define GAME_SOUNDMANAGER_H
 
-#include <ResourceManager.h>
-#include "System.h"
+#include "ResourceManager.h"
+#include "CollisionCenter.h"
+#include "Components/StaticSegment.h"
+#include "Components/Location.h"
+#include "Entity.h"
 
 namespace tjg {
 
@@ -25,10 +28,7 @@ namespace tjg {
 
         // In-game SFX
         sf::Sound jetpack_loop;
-        std::vector<sf::Sound> fan_sounds;
-        std::vector<sf::Sound> shock_box_sounds;
-        std::vector<sf::Sound> pressure_source_sounds;
-        std::vector<sf::Sound> lethal_wall_sounds;
+        std::vector<sf::Sound> spatial_sounds;
 
         // Load and store non-spatial sounds.
         void Initialize();

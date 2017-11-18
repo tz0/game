@@ -19,8 +19,12 @@ namespace tjg{
         selection_box.setOutlineColor(sf::Color(255, 255, 255, 255));
         selection_box.setOutlineThickness(2.0f);
 
-        // Start music.
+        // Stop level sounds.
+        sound_manager->StopSpatialSounds();
         sound_manager->StopLevelMusic();
+        sound_manager->StopJetPack();
+
+        // Start music.
         sound_manager->StartLoseMusic();
     }
 

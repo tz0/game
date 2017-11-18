@@ -66,37 +66,90 @@ namespace tjg {
             // Build a new fan sound.
             sf::Sound fan_sound = sf::Sound(*resource_manager.LoadSound("fan-loop.ogg"));
             fan_sound.setLoop(true);
-            fan_sound.setMinDistance(100);
+            fan_sound.setVolume(5);
+            fan_sound.setPitch(0.9);
+            fan_sound.setAttenuation(100);
 
             // Get the position of the fan and put the sound there.
-            auto fan_position = fan->GetComponent<Location>()->GetPosition();
-            fan_sound.setPosition(fan_position.x, fan_position.y, 0);
+            auto position = fan->GetComponent<Location>()->GetPosition();
+            fan_sound.setPosition(position.x, position.y, 0);
 
-            // Add the sound to the vector used to store sounds of this type.
-            fan_sounds.push_back(std::move(fan_sound));
+            // Add the sound to the spatial sounds vector.
+            spatial_sounds.push_back(std::move(fan_sound));
+        }
+
+        // Create shock box sounds.
+        for (auto &shock_box : shock_boxes) {
+            // Build a new shock box sound.
+            sf::Sound shock_box_sound = sf::Sound(*resource_manager.LoadSound("shock-box.wav"));
+            shock_box_sound.setLoop(true);
+            shock_box_sound.setVolume(5);
+            shock_box_sound.setAttenuation(100);
+
+            // Get the position of the shock box and put the sound there.
+            auto position = shock_box->GetComponent<Location>()->GetPosition();
+            shock_box_sound.setPosition(position.x, position.y, 0);
+
+            // Add the sound to the spatial sounds vector.
+            spatial_sounds.push_back(std::move(shock_box_sound));
+        }
+
+        // Create pressure source sounds.
+        for (auto &pressure_source : pressure_sources) {
+            // Build a new pressure source sound.
+            sf::Sound pressure_source_sound = sf::Sound(*resource_manager.LoadSound("pressure-source-loop.wav"));
+            pressure_source_sound.setLoop(true);
+            pressure_source_sound.setVolume(5);
+            pressure_source_sound.setAttenuation(100);
+
+            // Get the position of the pressure source and put the sound there.
+            auto position = pressure_source->GetComponent<Location>()->GetPosition();
+            pressure_source_sound.setPosition(position.x, position.y, 0);
+
+            // Add the sound to the spatial sounds vector.
+            spatial_sounds.push_back(std::move(pressure_source_sound));
+        }
+
+        for (auto &wall : walls) {
+            auto shape = wall->GetComponent<StaticSegment>()->GetShape();
+            // Only make a sound if the wall is lethal (a laser wall).
+            if (cpShapeGetCollisionType(shape) == static_cast<cpCollisionType>(CollisionGroup::LETHAL)) {
+                // Build a new pressure source sound.
+                sf::Sound lethal_wall_sound = sf::Sound(*resource_manager.LoadSound("laser-wall.wav"));
+                lethal_wall_sound.setLoop(true);
+                lethal_wall_sound.setVolume(25);
+                lethal_wall_sound.setAttenuation(100);
+
+                // Get the position of the pressure source and put the sound there.
+                auto position = wall->GetComponent<Location>()->GetPosition();
+                lethal_wall_sound.setPosition(position.x, position.y, 0);
+
+                // Add the sound to the spatial sounds vector.
+                spatial_sounds.push_back(std::move(lethal_wall_sound));
+            }
         }
     }
 
     void SoundManager::StartSpatialSounds() {
-        for (auto &fan_sound : fan_sounds) {
-            if (fan_sound.getStatus() != sf::Music::Playing) {
-                fan_sound.play();
+        for (auto &spatial_sound : spatial_sounds) {
+            if (spatial_sound.getStatus() != sf::Music::Playing) {
+                spatial_sound.play();
             }
         }
     }
 
     void SoundManager::PauseSpatialSounds() {
-        for (auto &fan_sound : fan_sounds) {
-            if (fan_sound.getStatus() == sf::Music::Playing) {
-                fan_sound.pause();
+        for (auto &spatial_sound : spatial_sounds) {
+            if (spatial_sound.getStatus() == sf::Music::Playing) {
+                spatial_sound.pause();
             }
         }
     }
 
     void SoundManager::StopSpatialSounds() {
-        for (auto &fan_sound : fan_sounds) {
-            if (fan_sound.getStatus() != sf::Music::Stopped) {
-                fan_sound.stop();
+        for (auto &spatial_sound : spatial_sounds) {
+            if (spatial_sound.getStatus() != sf::Music::Stopped) {
+                spatial_sound.stop();
             }
         }
     }

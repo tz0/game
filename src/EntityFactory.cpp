@@ -1,4 +1,4 @@
-#include <Components/FiniteResource.h>
+#include "Components/FiniteResource.h"
 #include "EntityFactory.h"
 
 namespace tjg {

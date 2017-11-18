@@ -19,6 +19,11 @@ namespace tjg{
         selection_box.setOutlineColor(sf::Color(255, 255, 255, 255));
         selection_box.setOutlineThickness(2.0f);
 
+        // Pause level music and spatial sounds.
+        sound_manager->PauseLevelMusic();
+        sound_manager->PauseSpatialSounds();
+        sound_manager->StopJetPack();
+
         // Play music.
         sound_manager->StartMenuMusic();
     }
@@ -67,19 +72,24 @@ namespace tjg{
                     case sf::Keyboard::Return:
                         // Play selection sound.
                         sound_manager->MenuSelect();
-                        // If the player chooses to continue, stop the menu music and continue the level music and sounds.
                         if (selection == 0) {
+                            // If the player chooses to continue, stop the menu music and continue the level music and sounds.
                             sound_manager->StopMenuMusic();
                             sound_manager->StartLevelMusic();
                             sound_manager->StartSpatialSounds();
                         }
-                            // If the player chooses to restart, stop the menu music and restart the level music and sounds.
                         else if (selection == 2) {
+                            // If the player chooses to restart, stop the menu music and restart the level music and sounds.
                             sound_manager->StopMenuMusic();
                             sound_manager->StopLevelMusic();
                             sound_manager->StartLevelMusic();
                             sound_manager->StopSpatialSounds();
                             sound_manager->StartSpatialSounds();
+                        }
+                        else {
+                            // If the player goes to level select or the main menu, completely stop the level music and sounds.
+                            sound_manager->StopLevelMusic();
+                            sound_manager->StopSpatialSounds();
                         }
                         return options[selection];
                     default:
