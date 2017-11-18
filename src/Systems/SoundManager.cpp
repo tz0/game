@@ -66,9 +66,9 @@ namespace tjg {
             // Build a new fan sound.
             sf::Sound fan_sound = sf::Sound(*resource_manager.LoadSound("fan.ogg"));
             fan_sound.setLoop(true);
-            fan_sound.setVolume(5);
             fan_sound.setPitch(0.9);
-            fan_sound.setAttenuation(100);
+            fan_sound.setAttenuation(3);
+            fan_sound.setMinDistance(100);
 
             // Get the position of the fan and put the sound there.
             auto position = fan->GetComponent<Location>()->GetPosition();
@@ -83,8 +83,8 @@ namespace tjg {
             // Build a new shock box sound.
             sf::Sound shock_box_sound = sf::Sound(*resource_manager.LoadSound("shock-box.ogg"));
             shock_box_sound.setLoop(true);
-            shock_box_sound.setVolume(5);
-            shock_box_sound.setAttenuation(100);
+            shock_box_sound.setAttenuation(5);
+            shock_box_sound.setMinDistance(100);
 
             // Get the position of the shock box and put the sound there.
             auto position = shock_box->GetComponent<Location>()->GetPosition();
@@ -99,8 +99,8 @@ namespace tjg {
             // Build a new pressure source sound.
             sf::Sound pressure_source_sound = sf::Sound(*resource_manager.LoadSound("pressure-source.ogg"));
             pressure_source_sound.setLoop(true);
-            pressure_source_sound.setVolume(5);
-            pressure_source_sound.setAttenuation(100);
+            pressure_source_sound.setAttenuation(3);
+            pressure_source_sound.setMinDistance(100);
 
             // Get the position of the pressure source and put the sound there.
             auto position = pressure_source->GetComponent<Location>()->GetPosition();
@@ -115,17 +115,17 @@ namespace tjg {
             // Only make a sound if the wall is lethal (a laser wall).
             if (cpShapeGetCollisionType(shape) == static_cast<cpCollisionType>(CollisionGroup::LETHAL)) {
                 // Build a new pressure source sound.
-                sf::Sound lethal_wall_sound = sf::Sound(*resource_manager.LoadSound("laser-wall.ogg"));
-                lethal_wall_sound.setLoop(true);
-                lethal_wall_sound.setVolume(25);
-                lethal_wall_sound.setAttenuation(100);
+                sf::Sound laser_sound_middle = sf::Sound(*resource_manager.LoadSound("laser-wall.ogg"));
+                laser_sound_middle.setLoop(true);
+                laser_sound_middle.setAttenuation(5);
+                laser_sound_middle.setMinDistance(100);
 
                 // Get the position of the pressure source and put the sound there.
                 auto position = wall->GetComponent<Location>()->GetPosition();
-                lethal_wall_sound.setPosition(position.x, position.y, 0);
+                laser_sound_middle.setPosition(position.x, position.y, 0);
 
                 // Add the sound to the spatial sounds vector.
-                spatial_sounds.push_back(std::move(lethal_wall_sound));
+                spatial_sounds.push_back(std::move(laser_sound_middle));
             }
         }
     }
