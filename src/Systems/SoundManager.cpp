@@ -24,7 +24,7 @@ namespace tjg {
         // .. Woosh
         menu_woosh = sf::Sound(*resource_manager.LoadSound("menu-woosh.ogg"));
         menu_woosh.setRelativeToListener(true);
-        menu_woosh.setVolume(200);
+        menu_woosh.setVolume(400);
 
         // Music and ambience
         // .. Menu/Pause
@@ -99,8 +99,9 @@ namespace tjg {
             // Build a new pressure source sound.
             sf::Sound pressure_source_sound = sf::Sound(*resource_manager.LoadSound("pressure-source.ogg"));
             pressure_source_sound.setLoop(true);
-            pressure_source_sound.setAttenuation(4);
-            pressure_source_sound.setMinDistance(200);
+            pressure_source_sound.setAttenuation(5);
+            pressure_source_sound.setVolume(150);
+            pressure_source_sound.setMinDistance(300);
 
             // Get the position of the pressure source and put the sound there.
             auto position = pressure_source->GetComponent<Location>()->GetPosition();
@@ -114,20 +115,45 @@ namespace tjg {
             auto shape = wall->GetComponent<StaticSegment>()->GetShape();
             // Only make a sound if the wall is lethal (a laser wall).
             if (cpShapeGetCollisionType(shape) == static_cast<cpCollisionType>(CollisionGroup::LETHAL)) {
-                // Build a new pressure source sound.
-                sf::Sound laser_sound_middle = sf::Sound(*resource_manager.LoadSound("laser-wall.ogg"));
+                // Build a new sound node at the first end of the laser wall.
+                sf::Sound laser_sound_first = sf::Sound(*resource_manager.LoadSound("laser-hum.ogg"));
+                laser_sound_first.setLoop(true);
+                laser_sound_first.setAttenuation(10);
+                laser_sound_first.setMinDistance(150);
+                // Get the position of the first end of the wall and put the node there.
+                auto point1 = cpSegmentShapeGetA(shape);
+                laser_sound_first.setPosition(static_cast<float>(point1.x), static_cast<float>(point1.y), 0);
+                // Add the sound to the spatial sounds vector.
+                spatial_sounds.push_back(std::move(laser_sound_first));
+
+                // Build a new sound node at the center of the laser wall.
+                sf::Sound laser_sound_middle = sf::Sound(*resource_manager.LoadSound("laser-hum.ogg"));
                 laser_sound_middle.setLoop(true);
-                laser_sound_middle.setAttenuation(4);
+                laser_sound_middle.setAttenuation(10);
                 laser_sound_middle.setMinDistance(150);
-
-                // Get the position of the pressure source and put the sound there.
-                auto position = wall->GetComponent<Location>()->GetPosition();
-                laser_sound_middle.setPosition(position.x, position.y, 0);
-
+                // Get the position of the center of the wall and put a sound node there
+                auto middle_position = wall->GetComponent<Location>()->GetPosition();
+                laser_sound_middle.setPosition(middle_position.x, middle_position.y, 0);
                 // Add the sound to the spatial sounds vector.
                 spatial_sounds.push_back(std::move(laser_sound_middle));
+
+                // Build a new sound node at the second end of the laser wall.
+                sf::Sound laser_sound_second = sf::Sound(*resource_manager.LoadSound("laser-hum.ogg"));
+                laser_sound_second.setLoop(true);
+                laser_sound_second.setAttenuation(10);
+                laser_sound_second.setMinDistance(150);
+                // Get the position of the first end of the wall and put the node there.
+                auto point2 = cpSegmentShapeGetB(shape);
+                laser_sound_second.setPosition(static_cast<float>(point2.x), static_cast<float>(point2.y), 0);
+                // Add the sound to the spatial sounds vector.
+                spatial_sounds.push_back(std::move(laser_sound_second));
             }
         }
+    }
+
+    void SoundManager::UpdateListenerPosition(std::shared_ptr<Location> &player_location) {
+        auto position = player_location->GetPosition();
+        sf::Listener::setPosition(sf::Vector3f(position.x, position.y, 0));
     }
 
     void SoundManager::StartSpatialSounds() {
@@ -152,11 +178,6 @@ namespace tjg {
                 spatial_sound.stop();
             }
         }
-    }
-
-    void SoundManager::UpdateListenerPosition(std::shared_ptr<Location> &player_location) {
-        auto position = player_location->GetPosition();
-        sf::Listener::setPosition(sf::Vector3f(position.x, position.y, 0));
     }
 
     void SoundManager::MenuScrollUp() {

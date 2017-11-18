@@ -43,25 +43,21 @@ namespace tjg {
                                      std::vector<std::shared_ptr<Entity>> &pressure_sources,
                                      std::vector<std::shared_ptr<Entity>> &walls);
 
-        // Start playing all spatial sounds.
-        void StartSpatialSounds();
-
-        // Pause all spatial sounds.
-        void PauseSpatialSounds();
-
-        // Stop playing all spatial sounds.
-        void StopSpatialSounds();
-
         // Update the listener position (for 3D sound).
         void UpdateListenerPosition(std::shared_ptr<Location> &player_location);
 
-        // Play menu sounds.
+        // Spatial sound controls.
+        void StartSpatialSounds();
+        void PauseSpatialSounds();
+        void StopSpatialSounds();
+
+        // Menu sound controls.
         void MenuScrollUp();
         void MenuScrollDown();
         void MenuSelect();
         void MenuWoosh();
 
-        // Play music.
+        // Music controls.
         void StartMenuMusic();
         void StopMenuMusic();
         void StartLevelMusic();
@@ -72,7 +68,7 @@ namespace tjg {
         void StartLoseMusic();
         void StopLoseMusic();
 
-        // Play in-game sounds.
+        // In-game sound controls.
         void StartJetPack();
         void StopJetPack();
     };
