@@ -1,5 +1,5 @@
 {    
-  "level": 2,
+  "level": 3,
   "fuel" : 50,
   "oxygen" : 45,
 
@@ -49,7 +49,7 @@
     {"origin": {"x": -750,"y": -600,"strength": 450},"endpoint": {"x": -750,"y": 0,"strength": 300},"width": 200},
     {"origin": {"x": -950,"y": 100,"strength": 650},"endpoint": {"x": -300,"y": 100,"strength": 300},"width": 200},
     {"origin": {"x": 1250,"y": 400,"strength": 650},"endpoint": {"x": 900,"y": 400,"strength": 300},"width": 200},
-    {"origin": {"x": 1100,"y": -600,"strength": 450},"endpoint": {"x": 1100,"y": 0,"strength": 0},"width": 200},
+    {"origin": {"x": 1100,"y": -600,"strength": 450},"endpoint": {"x": 1100,"y": 400,"strength": 0},"width": 200},
 
     {"origin": {"x": 600,"y": -500,"strength": 650},"endpoint": {"x": 300,"y": -200,"strength": 300},"width": 200},
     {"origin": {"x": 0,"y": -500,"strength": 650},"endpoint": {"x": 300,"y": -200,"strength": 300},"width": 200},

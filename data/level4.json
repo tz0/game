@@ -1,7 +1,7 @@
 {    
   "level": 4,
-  "fuel" : 15,
-  "oxygen" : 45,
+  "fuel" : 25,
+  "oxygen" : 40,
 
   "camera center":
   {
@@ -11,38 +11,61 @@
 
   "camera size":
   {
-    "x": 2000,
-    "y": 1600
+    "x": 2500,
+    "y": 1265.625
   },
 
   "exit":
   {
-    "x": -800,
-    "y": -300    
+    "x": 1100,
+    "y": 0
   },
   
   "entrance":
   {
-    "x": 800,
-    "y": -300
+    "x": -1100,
+    "y": 0
   },
-
-  "pressure sources":
-  [
-    {"origin": {"x": 0,"y": 300}, "strength":-500, "radius":800},
-    {"origin": {"x": 0,"y": -300}, "strength":-500, "radius":800}
-  ],
 
   "walls":
   [
+    {"origin": {"x": -1250, "y": -600}, "endpoint": {"x": 1250, "y": -600}, "radius": 20 },
+    {"origin": {"x": -1250,"y": 600},"endpoint": {"x": 1250,"y": 600},"radius": 20},
+    {"origin": {"x": -1250,"y": -600},"endpoint": {"x": -1250,"y": 600},"radius": 20},
+    {"origin": {"x": 1250,"y": -600},"endpoint": {"x": 1250,"y": 600},"radius": 20},
 
-    {"origin": {"x": -1000,"y": -800},"endpoint": {"x": 1000,"y": -800},"radius": 20, "lethal": true},
-    {"origin": {"x": -1000,"y": 800},"endpoint": {"x": 1000,"y": 800},"radius": 20, "lethal": true},
+    {"origin": {"x": -900,"y": -600},"endpoint": {"x": -900,"y": -150},"radius": 20, "lethal": true},
+    {"origin": {"x": -900,"y": 600},"endpoint": {"x": -900,"y": 150},"radius": 20, "lethal": true},
 
-    {"origin": {"x": -1000,"y": -800},"endpoint": {"x": -1000,"y": 800},"radius": 20, "lethal": true},
-    {"origin": {"x": 1000,"y": -800},"endpoint": {"x": 1000,"y": 800},"radius": 20, "lethal": true}
-    
-  ]
+    {"origin": {"x": -400,"y": -600},"endpoint": {"x": -400,"y": -400},"radius": 20, "lethal": true},
+    {"origin": {"x": -400,"y": 600},"endpoint": {"x": -400,"y": -100},"radius": 20, "lethal": true},
+
+    {"origin": {"x": 100,"y": -600},"endpoint": {"x": 100,"y": 100},"radius": 20, "lethal": true},
+    {"origin": {"x": 100,"y": 600},"endpoint": {"x": 100,"y": 400},"radius": 20, "lethal": true},
+
+    {"origin": {"x": 600,"y": -600},"endpoint": {"x": 600,"y": -150},"radius": 20, "lethal": true},
+    {"origin": {"x": 600,"y": 600},"endpoint": {"x": 600,"y": 150},"radius": 20, "lethal": true}
+
+  ],
+
+  "fans":
+  [
+    {"origin": {"x": -1100,"y": -600,"strength": 300},"endpoint": {"x": -1100,"y": 0,"strength": 0},"width": 200},
+    {"origin": {"x": -1100,"y": 600,"strength": 300},"endpoint": {"x": -1100,"y": 0,"strength": 0},"width": 200},
+
+    {"origin": {"x": -650,"y": -600,"strength": 300},"endpoint": {"x": -650,"y": -250,"strength": 0},"width": 200},
+    {"origin": {"x": -650,"y": 600,"strength": 300},"endpoint": {"x": -650,"y": -250,"strength": 0},"width": 200},
+
+    {"origin": {"x": -150,"y": -600,"strength": 300},"endpoint": {"x": -150,"y": 250,"strength": 0},"width": 200},
+    {"origin": {"x": -150,"y": 600,"strength": 300},"endpoint": {"x": -150,"y": 250,"strength": 0},"width": 200},
+
+    {"origin": {"x": 350,"y": -600,"strength": 300},"endpoint": {"x": 350,"y": 0,"strength": 0},"width": 200},
+    {"origin": {"x": 350,"y": 600,"strength": 300},"endpoint": {"x": 350,"y": 0,"strength": 0},"width": 200},
+
+    {"origin": {"x": 800,"y": -600,"strength": 300},"endpoint": {"x": 800,"y": 0,"strength": 0},"width": 200},
+    {"origin": {"x": 800,"y": 600,"strength": 300},"endpoint": {"x": 800,"y": 0,"strength": 0},"width": 200}
+  ],
+
+  "dialogues":
+  []
 }
-
-
