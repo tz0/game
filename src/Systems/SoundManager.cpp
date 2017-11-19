@@ -174,7 +174,7 @@ namespace tjg {
 
     void SoundManager::StartSpatialSounds() {
         for (auto &spatial_sound : spatial_sounds) {
-            if (spatial_sound.getStatus() != sf::Music::Playing) {
+            if (spatial_sound.getStatus() != sf::Sound::Playing) {
                 spatial_sound.play();
             }
         }
@@ -182,7 +182,7 @@ namespace tjg {
 
     void SoundManager::PauseSpatialSounds() {
         for (auto &spatial_sound : spatial_sounds) {
-            if (spatial_sound.getStatus() == sf::Music::Playing) {
+            if (spatial_sound.getStatus() == sf::Sound::Playing) {
                 spatial_sound.pause();
             }
         }
@@ -190,7 +190,7 @@ namespace tjg {
 
     void SoundManager::StopSpatialSounds() {
         for (auto &spatial_sound : spatial_sounds) {
-            if (spatial_sound.getStatus() != sf::Music::Stopped) {
+            if (spatial_sound.getStatus() != sf::Sound::Stopped) {
                 spatial_sound.stop();
             }
         }
@@ -285,15 +285,19 @@ namespace tjg {
     }
 
     void SoundManager::FuelLow() {
-        fuel_low.play();
+        if (fuel_low.getStatus() != sf::Sound::Playing) {
+            fuel_low.play();
+        }
     }
 
     void SoundManager::OxygenLow() {
-        oxygen_low.play();
+        if (oxygen_low.getStatus() != sf::Sound::Playing) {
+            oxygen_low.play();
+        }
     }
 
     void SoundManager::Collision(cpVect impulse) {
-        if (collision.getStatus() != sf::Music::Playing) {
+        if (collision.getStatus() != sf::Sound::Playing) {
             collision.setVolume(std::abs(static_cast<float>(impulse.x + impulse.y)) / 3.f);
             collision.play();
         }
