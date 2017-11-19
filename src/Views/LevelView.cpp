@@ -21,7 +21,7 @@ namespace tjg {
                                  -10, sf::BlendAdd, sf::milliseconds(200), sf::seconds(0.25f), sf::Vector2f(50, 50), sf::Vector2f(50, 50),  2.0f,
                                  [](float x){
                                      auto alpha = static_cast<sf::Uint8>(std::max(0.0f, static_cast<float>(128 * cos(x * 2.5)+128)));
-                                     return sf::Color(0, 128, 255, alpha * 4);
+                                     return sf::Color(255, 255, 255, alpha * 4);
                                  },
                                  [](float x){
                                      auto size = static_cast<float>(sin(x * 4.0) * 1.5f);
