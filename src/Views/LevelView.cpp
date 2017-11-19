@@ -6,7 +6,7 @@ namespace tjg {
             View(window, resource_manager, sound_manager),
             logic_center(logic_center),
             fan_particle_system(main_render_system, logic_center.GetPhysicsSystem(), 200,
-                                 sf::Sprite(*resource_manager.LoadTexture("particle.png"), sf::IntRect(0, 0, 64, 64)),
+                                 sf::Sprite(*resource_manager.LoadTexture("generic-particle.png"), sf::IntRect(0, 0, 64, 64)),
                                  -10, sf::BlendAdd, sf::milliseconds(1), sf::seconds(8), sf::Vector2f(60, 60), sf::Vector2f(0, 0), 2.0f,
                                  [](float x){
                                      auto alpha = static_cast<sf::Uint8>(std::max(0.0f, static_cast<float>(128 * cos(x * 2.5)+128)));
@@ -16,8 +16,8 @@ namespace tjg {
                                      auto size = static_cast<float>(sin(x * 4.0) * 4.f);
                                      return sf::Vector2f(size, size);
                                  }),
-            shockbox_particle_system(main_render_system, logic_center.GetPhysicsSystem(), 10,
-                                 sf::Sprite(*resource_manager.LoadTexture("particle.png"), sf::IntRect(0, 0, 64, 64)),
+            shockbox_particle_system(main_render_system, logic_center.GetPhysicsSystem(), 5,
+                                 sf::Sprite(*resource_manager.LoadTexture("shock-particle.png"), sf::IntRect(0, 0, 64, 64)),
                                  -10, sf::BlendAdd, sf::milliseconds(200), sf::seconds(0.25f), sf::Vector2f(50, 50), sf::Vector2f(50, 50),  2.0f,
                                  [](float x){
                                      auto alpha = static_cast<sf::Uint8>(std::max(0.0f, static_cast<float>(128 * cos(x * 2.5)+128)));
@@ -28,7 +28,7 @@ namespace tjg {
                                      return sf::Vector2f(size, size);
                                  }),
             jetpack_flame_system(main_render_system, 500,
-                                 sf::Sprite(*resource_manager.LoadTexture("particle.png"), sf::IntRect(0, 0, 64, 64)),
+                                 sf::Sprite(*resource_manager.LoadTexture("generic-particle.png"), sf::IntRect(0, 0, 64, 64)),
                                  40, sf::BlendAdd, sf::milliseconds(1), sf::seconds(2), sf::Vector2f(0, 0), sf::Vector2f(5, 5), 0,
                                  [](float x){
                                      auto decreasing = static_cast<sf::Uint8>(std::max(0.0f, static_cast<float>(255 * sin(1.0 / 25.0 * (x * 100)))));
