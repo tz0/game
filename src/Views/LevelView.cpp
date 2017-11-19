@@ -116,10 +116,12 @@ namespace tjg {
         logic_center.GetEventManager().RegisterOnce<FuelLow>([&](FuelLow &event){
             (void)event;
             dialogue_system.ShowUrgentMessage(Dialogue("Fuel levels critical!", 5));
+            sound_manager->FuelLow();
         });
         logic_center.GetEventManager().RegisterOnce<OxygenLow>([&](OxygenLow &event){
             (void)event;
             dialogue_system.ShowUrgentMessage(Dialogue("Oxygen levels critical!", 5));
+            sound_manager->OxygenLow();
         });
 
         // Initialize dialog system

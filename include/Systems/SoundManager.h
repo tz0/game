@@ -29,6 +29,8 @@ namespace tjg {
         // In-game SFX
         sf::Sound jetpack;
         sf::Sound collision;
+        sf::Sound fuel_low;
+        sf::Sound oxygen_low;
         std::vector<sf::Sound> spatial_sounds;
 
         // Load and store non-spatial sounds.
@@ -73,7 +75,10 @@ namespace tjg {
         // In-game sound controls.
         void StartJetPack();
         void StopJetPack();
+        void FuelLow();
+        void OxygenLow();
         void Collision(cpVect impulse);
+        void StopLevelSounds();
     };
 
 }
