@@ -3,7 +3,10 @@
 
 #include <iostream>
 #include <fstream>
+
 #include <SFML/Graphics.hpp>
+
+#include "Systems/SoundManager.h"
 #include "Views/LevelMenuView.h"
 #include "Views/MainMenuView.h"
 #include "Views/LevelView.h"
@@ -24,7 +27,7 @@ namespace tjg {
         sf::RenderWindow window;
         MainMenuView main_menu_view;
         LevelMenuView level_menu_view;
-        LevelView player_view;
+        LevelView level_view;
         PauseMenuView pause_menu_view;
         WinMenuView win_menu_view;
         FailMenuView fail_menu_view;
@@ -38,13 +41,13 @@ namespace tjg {
         void SwitchToPauseMenuView();
         void SwitchToWinMenuView();
         void SwitchToFailMenuView();
-        void SwitchToPlayerView(unsigned int level_number);
+        void SwitchToLevelView(unsigned int level_number);
         void ResumePlayerView();
         unsigned int ReadUnlockedLevel();
         void WriteUnlockedLevel(unsigned int level_number);
 
     public:
-        explicit ViewManager(ResourceManager &resource_manager, LogicCenter &logic_center, EventManager &event_manager);
+        explicit ViewManager(LogicCenter &logic_center, ResourceManager &resource_manager, EventManager &event_manager, std::shared_ptr<SoundManager> &sound_manager);
         void Initialize();
         bool Running();
         void Update(sf::Time elapsed);

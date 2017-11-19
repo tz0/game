@@ -9,7 +9,9 @@
 #include "EntityFactory.h"
 #include "EventManager.h"
 #include "Events/FuelExpired.h"
+#include "Events/FuelLow.h"
 #include "Events/OxygenExpired.h"
+#include "Events/OxygenLow.h"
 #include "Events/ReachedExit.h"
 #include "Events/ViewChanged.h"
 #include "Constants.h"
@@ -79,7 +81,9 @@ namespace tjg {
         State GetGameState(); //result of game
         EntityFactory& GetEntityFactory();
         ControlCenter& GetControlCenter();
+        CollisionCenter& GetCollisionCenter();
         PhysicsSystem& GetPhysicsSystem();
+        EventManager& GetEventManager();
         std::shared_ptr<Entity> GetTech17();
         std::vector<std::shared_ptr<Entity>>& GetWalls();
         std::vector<std::shared_ptr<Entity>>& GetPressureSources();

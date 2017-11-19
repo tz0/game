@@ -114,14 +114,22 @@ namespace tjg {
         // Countdown timer - start counting. To be more fair, do not start to count during initialization.
         auto oxygen_finite_resource = oxygen_tracker->GetComponent<FiniteResource>();
         oxygen_finite_resource->ExpendResource(elapsed.asSeconds());
-
+        // If less than 10% of oxygen remains, fire an event.
+        if (oxygen_finite_resource->GetPercentRemaining() < 0.1f) {
+            event_manager.Fire<OxygenLow>();
+        }
         // If out of oxygen, fire an event.
         if (oxygen_finite_resource->IsDepleted()){
             event_manager.Fire<OxygenExpired>();
         }
 
-        // If out of fuel, fire an event.
+
         auto fuel_finite_resource = fuel_tracker->GetComponent<FiniteResource>();
+        // If less than 10% of fuel remains, fire an event.
+        if (fuel_finite_resource->GetPercentRemaining() < 0.1f) {
+            event_manager.Fire<FuelLow>();
+        }
+        // If out of fuel, fire an event.
         if (fuel_finite_resource->IsDepleted()){
             event_manager.Fire<FuelExpired>();
         }
@@ -129,6 +137,7 @@ namespace tjg {
 
 
     void LogicCenter::Reset() {
+        event_manager.ClearListeners();
         walls.clear();
         pressure_sources.clear();
         fans.clear();
@@ -183,8 +192,16 @@ namespace tjg {
         return control_center;
     }
 
+    CollisionCenter& LogicCenter::GetCollisionCenter() {
+        return collision_center;
+    }
+
     PhysicsSystem& LogicCenter::GetPhysicsSystem() {
         return physics_system;
+    }
+
+    EventManager& LogicCenter::GetEventManager() {
+        return event_manager;
     }
 
     Level& LogicCenter::GetLevel() {

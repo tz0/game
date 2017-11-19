@@ -1,22 +1,20 @@
 #include "ViewManager.h"
 
 namespace tjg {
-    ViewManager::ViewManager(ResourceManager &resource_manager, LogicCenter &logic_center, EventManager &event_manager):
-        logic_center(logic_center),
-        event_manager(event_manager),
-        state(State::MAIN_MENU),
-        window(sf::VideoMode(WINDOW_WIDTH, WINDOW_HEIGHT, 32), "Serene", sf::Style::Titlebar | sf::Style::Close),
-        main_menu_view(resource_manager, window),
-        level_menu_view(resource_manager, window),
-        player_view(resource_manager, window, logic_center),
-        pause_menu_view(resource_manager, window),
-        win_menu_view(resource_manager, window),
-        fail_menu_view(resource_manager, window){
+    ViewManager::ViewManager(LogicCenter &logic_center, ResourceManager &resource_manager, EventManager &event_manager, std::shared_ptr<SoundManager> &sound_manager):
+            logic_center(logic_center),
+            event_manager(event_manager),
+            state(State::MAIN_MENU),
+            window(sf::VideoMode(WINDOW_WIDTH, WINDOW_HEIGHT, 32), "Serene", sf::Style::Titlebar | sf::Style::Close),
+            main_menu_view(window, resource_manager, sound_manager),
+            level_menu_view(window, resource_manager, sound_manager),
+            level_view(window, resource_manager, sound_manager, logic_center),
+            pause_menu_view(window, resource_manager, sound_manager),
+            win_menu_view(window, resource_manager, sound_manager),
+            fail_menu_view(window, resource_manager, sound_manager) {
         window.setVerticalSyncEnabled(true);
     }
 
-  
-    //TODO: Implement or remove
     void ViewManager::Initialize() {
         unlocked = ReadUnlockedLevel();
     }
@@ -24,7 +22,6 @@ namespace tjg {
     bool ViewManager::Running(){
         return running;
     }
-
 
     void ViewManager::SwitchView(ViewSwitch view_switch) {
         event_manager.Fire<ViewChanged>(view_switch);
@@ -38,12 +35,10 @@ namespace tjg {
             case State::PLAYING:
                 logic_center.Reset();
                 if (view_switch.level_number > 0) {
-                    if (view_switch.level_number > unlocked) unlocked = view_switch.level_number;
-                    WriteUnlockedLevel(unlocked);
                     current_level = view_switch.level_number;
-                    SwitchToPlayerView(view_switch.level_number);
+                    SwitchToLevelView(view_switch.level_number);
                 } else {
-                    SwitchToPlayerView(current_level);
+                    SwitchToLevelView(current_level);
                 }
                 break;
             case State::RESUME:
@@ -67,18 +62,15 @@ namespace tjg {
         }
     }
 
-
     void ViewManager::SwitchToMainMenuView() {
         main_menu_view.Initialize();
         state = State::MAIN_MENU;
     }
 
-
     void ViewManager::SwitchToLevelMenuView(unsigned int unlocked) {
         level_menu_view.Initialize(unlocked);
         state = State::LEVEL_MENU;
     }
-
 
     void ViewManager::SwitchToPauseMenuView() {
         pause_menu_view.Initialize(current_level);
@@ -86,6 +78,8 @@ namespace tjg {
     }
 
     void ViewManager::SwitchToWinMenuView() {
+        if (current_level + 1 > unlocked) unlocked = current_level + 1;
+        WriteUnlockedLevel(unlocked);
         win_menu_view.Initialize(current_level);
         this->state = State::WON;
     }
@@ -95,9 +89,9 @@ namespace tjg {
         this->state = State::FAILED;
     }
 
-    void ViewManager::SwitchToPlayerView(const unsigned int level_number) {
+    void ViewManager::SwitchToLevelView(unsigned int level_number) {
         logic_center.Initialize(level_number);
-        player_view.Initialize();
+        level_view.Initialize();
         state = State::PLAYING;
     }
 
@@ -109,28 +103,40 @@ namespace tjg {
         switch (state) {
             case State::MAIN_MENU:
                 HandleWindowEvents(main_menu_view);
-                main_menu_view.Update();
+                if (state == State::MAIN_MENU) {
+                    main_menu_view.Update();
+                }
                 break;
             case State::LEVEL_MENU:
                 HandleWindowEvents(level_menu_view);
-                level_menu_view.Update();
+                if (state == State::LEVEL_MENU) {
+                    level_menu_view.Update();
+                }
                 break;
             case State::WON:
                 HandleWindowEvents(win_menu_view);
-                win_menu_view.Update();
+                if (state == State::WON) {
+                    win_menu_view.Update();
+                }
                 break;
             case State::FAILED:
                 HandleWindowEvents(fail_menu_view);
-                fail_menu_view.Update();
+                if (state == State::FAILED) {
+                    fail_menu_view.Update();
+                }
                 break;
             case State::PAUSED:
                 HandleWindowEvents(pause_menu_view);
-                pause_menu_view.Update();
+                if (state == State::PAUSED) {
+                    pause_menu_view.Update();
+                }
                 break;
             case State::PLAYING:
-                HandleWindowEvents(player_view);
-                logic_center.Update(elapsed);
-                player_view.Update(elapsed);
+                HandleWindowEvents(level_view);
+                if (state == State::PLAYING) {
+                    logic_center.Update(elapsed);
+                    level_view.Update(elapsed);
+                }
                 break;
             default:
                 break;
@@ -169,7 +175,7 @@ namespace tjg {
                 fail_menu_view.Render();
                 break;
             case State::PLAYING:
-                player_view.Render();
+                level_view.Render();
                 break;
             default:
                 break;

@@ -33,4 +33,8 @@ namespace tjg {
         return current_level <= 0;
     }
 
+    float FiniteResource::GetPercentRemaining() {
+        return current_level/max_level;
+    }
+
 }
