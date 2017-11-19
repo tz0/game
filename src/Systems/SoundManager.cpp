@@ -57,12 +57,12 @@ namespace tjg {
         // .. Low fuel
         fuel_low = sf::Sound(*resource_manager.LoadSound("resource-alert.ogg"));
         fuel_low.setRelativeToListener(true);
-        fuel_low.setVolume(50);
+        fuel_low.setVolume(25);
         fuel_low.setPitch(1.1);
         // .. Low oxygen
         oxygen_low = sf::Sound(*resource_manager.LoadSound("resource-alert.ogg"));
         oxygen_low.setRelativeToListener(true);
-        oxygen_low.setVolume(50);
+        oxygen_low.setVolume(25);
         oxygen_low.setPitch(0.9);
         // .. Collisions
         collision = sf::Sound(*resource_manager.LoadSound("collision.ogg"));
