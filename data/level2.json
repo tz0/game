@@ -1,54 +1,64 @@
 {    
   "level": 2,
-  "fuel" : 5,
+  "fuel" : 50,
   "oxygen" : 45,
 
   "camera center":
   {
-    "x": -500,
+    "x": 0,
     "y": 0
   },
 
   "camera size":
   {
-    "x": 2080,
-    "y": 1280
+    "x": 2500,
+    "y": 1265.625
   },
 
   "exit":
   {
-    "x": -1350,
-    "y": -200    
+    "x": -1100,
+    "y": 400    
   },
   
   "entrance":
   {
-    "x": -500,
-    "y": 0
+    "x": -1100,
+    "y": -400
   },
 
   "walls":
   [
-    {"origin": {"x": -1500, "y": -600}, "endpoint": {"x": 500, "y": -600}, "radius": 40 },
-    {"origin": {"x": -1500,"y": 600},"endpoint": {"x": 500,"y": 600},"radius": 40},
-    {"origin": {"x": -1500,"y": -600},"endpoint": {"x": -1500,"y": 600},"radius": 40},
-    {"origin": {"x": 500,"y": -600},"endpoint": {"x": 500,"y": 600},"radius": 40},
-    {"origin": {"x": -900,"y": -600},"endpoint": {"x": -950,"y": 90},"radius": 140}
+    {"origin": {"x": -1250, "y": -600}, "endpoint": {"x": 1250, "y": -600}, "radius": 20 },
+    {"origin": {"x": -1250,"y": 600},"endpoint": {"x": 1250,"y": 600},"radius": 20},
+    {"origin": {"x": -1250,"y": -600},"endpoint": {"x": -1250,"y": 600},"radius": 20},
+    {"origin": {"x": 1250,"y": -600},"endpoint": {"x": 1250,"y": 600},"radius": 20},
+
+    {"origin": {"x": -600,"y": -600},"endpoint": {"x": -600,"y": -200},"radius": 40},
+    {"origin": {"x": -1250,"y": -200},"endpoint": {"x": -900,"y": -200},"radius": 20},
+    {"origin": {"x": -900,"y": 0},"endpoint": {"x": -900,"y": -200},"radius": 20},
+    {"origin": {"x": -900,"y": 0},"endpoint": {"x": -600,"y": 200},"radius": 20},
+    {"origin": {"x": -600,"y": 200},"endpoint": {"x": -300,"y": 0},"radius": 20},
+    {"origin": {"x": -300,"y": 0},"endpoint": {"x": -300,"y": -200},"radius": 20},
+
+    {"origin": {"x": -1250,"y": 200},"endpoint": {"x": 900,"y": 200},"radius": 20}
   ],
 
   "fans":
   [
-    {"origin": {"x": 500,"y": -400,"strength": 1000},"endpoint": {"x": -1500,"y": 400,"strength": 250},"width": 200},
-    {"origin": {"x": -600,"y": -600,"strength": 800},"endpoint": {"x": -600,"y": 600,"strength": 50},"width": 200},
-    {"origin": {"x": -1000,"y": 600,"strength": 1600},"endpoint": {"x": -1000,"y": -600,"strength": 250},"width": 200}
+    {"origin": {"x": -750,"y": -600,"strength": 450},"endpoint": {"x": -750,"y": 0,"strength": 300},"width": 200},
+    {"origin": {"x": -950,"y": 100,"strength": 650},"endpoint": {"x": -300,"y": 100,"strength": 300},"width": 200},
+    {"origin": {"x": 1250,"y": 400,"strength": 650},"endpoint": {"x": 900,"y": 400,"strength": 300},"width": 200},
+    {"origin": {"x": 1100,"y": -600,"strength": 450},"endpoint": {"x": 1100,"y": 0,"strength": 0},"width": 200},
+
+    {"origin": {"x": 600,"y": -500,"strength": 650},"endpoint": {"x": 300,"y": -200,"strength": 300},"width": 200},
+    {"origin": {"x": 0,"y": -500,"strength": 650},"endpoint": {"x": 300,"y": -200,"strength": 300},"width": 200},
+    {"origin": {"x": 600,"y": 100,"strength": 650},"endpoint": {"x": 300,"y": -200,"strength": 300},"width": 200},
+    {"origin": {"x": 0,"y": 100,"strength": 650},"endpoint": {"x": 300,"y": -200,"strength": 300},"width": 200},
+    {"origin": {"x": 300,"y": -550,"strength": 650},"endpoint": {"x": 300,"y": -200,"strength": 300},"width": 200},
+    {"origin": {"x": 300,"y": 150,"strength": 650},"endpoint": {"x": 300,"y": -200,"strength": 300},"width": 200}
   ],
 
   "dialogues":
-  [
-    {"dialogue": {"message": "Hello, my friend.", "seconds": 3}},
-    {"dialogue": {"message": "How are you?", "seconds": 3}},
-    {"dialogue": {"message": "I'm Spaceship Artificial Intelligence. You can call me 'SAI'", "seconds": 5}},
-    {"dialogue": {"message": "What's your name?", "seconds": 4}},
-    {"dialogue": {"message": "TECH-17? Huh, 17...", "seconds": 3}}
-  ]
+  []
 }
