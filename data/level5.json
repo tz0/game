@@ -29,10 +29,10 @@
 
   "walls":
   [
-    {"origin": {"x": -1250, "y": -600}, "endpoint": {"x": 1250, "y": -600}, "radius": 20},
-    {"origin": {"x": -1250,"y": 600},"endpoint": {"x": 1250,"y": 600},"radius": 20},
-    {"origin": {"x": -1250,"y": -600},"endpoint": {"x": -1250,"y": 600},"radius": 20},
-    {"origin": {"x": 1250,"y": -600},"endpoint": {"x": 1250,"y": 600},"radius": 20},
+    {"origin": {"x": -1250, "y": -600}, "endpoint": {"x": 1250, "y": -600}, "radius": 40},
+    {"origin": {"x": -1250,"y": 600},"endpoint": {"x": 1250,"y": 600},"radius": 40},
+    {"origin": {"x": -1250,"y": -600},"endpoint": {"x": -1250,"y": 600},"radius": 40},
+    {"origin": {"x": 1250,"y": -600},"endpoint": {"x": 1250,"y": 600},"radius": 40},
 
     {"origin": {"x": 0,"y": -600},"endpoint": {"x": 0,"y": 300},"radius": 20, "lethal": true},
 
