@@ -28,7 +28,7 @@ namespace tjg {
         SpriteRenderSystem main_render_system;
         SpriteRenderSystem statusbar_render_system;
 
-        PhysicsParticleSystem dust_particle_system;
+        PhysicsParticleSystem fan_particle_system;
         PhysicsParticleSystem shockbox_particle_system;
         ParticleSystem jetpack_flame_system;
 
