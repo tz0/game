@@ -1,88 +1,74 @@
 {    
-  "level": 5,
-  "fuel" : 5,
-  "oxygen" : 45,
+  "level": 4,
+  "fuel" : 25,
+  "oxygen" : 40,
 
   "camera center":
-  {
-    "x": -500,
-    "y": 0
-  },
-
-  "camera size":
-  {
-    "x": 2080,
-    "y": 1280
-  },
-
-  "exit":
-  {
-    "x": -1400,
-    "y": -200    
-  },
-  
-  "entrance":
   {
     "x": 0,
     "y": 0
   },
 
+  "camera size":
+  {
+    "x": 2500,
+    "y": 1265.625
+  },
+
+  "exit":
+  {
+    "x": 150,
+    "y": -450
+  },
+  
+  "entrance":
+  {
+    "x": -150,
+    "y": -450
+  },
+
   "walls":
   [
-    {"origin": {"x": -1500, "y": -600}, "endpoint": {"x": 500, "y": -600}, "radius": 40},
-    {"origin": {"x": -1500,"y": 600},"endpoint": {"x": 500,"y": 600},"radius": 40},
-    {"origin": {"x": -1500,"y": -600},"endpoint": {"x": -1500,"y": 600},"radius": 40},
-    {"origin": {"x": 500,"y": -600},"endpoint": {"x": 500,"y": 600},"radius": 40},
-    {"origin": {"x": -800,"y": -600},"endpoint": {"x": -800,"y": 90},"radius": 40, "lethal": true}
-  ],
+    {"origin": {"x": -1250, "y": -600}, "endpoint": {"x": 1250, "y": -600}, "radius": 20},
+    {"origin": {"x": -1250,"y": 600},"endpoint": {"x": 1250,"y": 600},"radius": 20},
+    {"origin": {"x": -1250,"y": -600},"endpoint": {"x": -1250,"y": 600},"radius": 20},
+    {"origin": {"x": 1250,"y": -600},"endpoint": {"x": 1250,"y": 600},"radius": 20},
 
-  "decorations":
-  [
-    {
-        "texture": "blood-splatter.png", 
-        "rect": {"x":0, "y":0, "width": 128, "height": 128},
-        "position": {"x": -900, "y": -500},
-        "scale": {"x": 2, "y": 1},
-        "rotation": 45
-    },
-    {
-        "texture": "radiation.png", 
-        "rect": {"x":0, "y":0, "width": 128, "height": 128},
-        "position": {"x": -600, "y": -400},
-        "scale": {"x": 1, "y": 1},
-        "rotation": 0
-    },
-    {
-        "texture": "blood-splatter.png", 
-        "rect": {"x":0, "y":0, "width": 128, "height": 128},
-        "position": {"x": -1400, "y": 500},
-        "scale": {"x": 1.5, "y": 1.5},
-        "rotation": 180
-    }
+    {"origin": {"x": 0,"y": -600},"endpoint": {"x": 0,"y": 300},"radius": 20, "lethal": true},
+
+    {"origin": {"x": -200,"y": -600},"endpoint": {"x": -400,"y": -500},"radius": 20, "lethal": true},
+    {"origin": {"x": -400,"y": -500},"endpoint": {"x": -700,"y": 0},"radius": 20, "lethal": true},
+
+    {"origin": {"x": 0,"y": 600},"endpoint": {"x": -400,"y": 500},"radius": 20, "lethal": true},
+    {"origin": {"x": -400,"y": 500},"endpoint": {"x": -700,"y": 0},"radius": 20, "lethal": true},
+
+    {"origin": {"x": 200,"y": -600},"endpoint": {"x": 400,"y": -500},"radius": 20, "lethal": true},
+    {"origin": {"x": 400,"y": -500},"endpoint": {"x": 700,"y": 0},"radius": 20, "lethal": true},
+
+    {"origin": {"x": 0,"y": 600},"endpoint": {"x": 400,"y": 500},"radius": 20, "lethal": true},
+    {"origin": {"x": 400,"y": 500},"endpoint": {"x": 700,"y": 0},"radius": 20, "lethal": true}
+
   ],
 
   "fans":
   [
-    {"origin": {"x": 0,"y": -600,"strength": 250},"endpoint": {"x": 0,"y": 600,"strength": 0},"width": 200},
-    {"origin": {"x": 0,"y": 600,"strength": 250},"endpoint": {"x": 0,"y": -600,"strength": 0},"width": 200},
-    {"origin": {"x": 300,"y": -600,"strength": 250},"endpoint": {"x": 300,"y": 600,"strength": 0},"width": 200},
-    {"origin": {"x": 500,"y": 400,"strength": 250},"endpoint": {"x": -1500,"y": 400,"strength": 50},"width": 200},
-    {"origin": {"x": -1000,"y": 600,"strength": 400},"endpoint": {"x": -1000,"y": -600,"strength": 0},"width": 200},
-    {"origin": {"x": -1300,"y": -600,"strength": 400},"endpoint": {"x": -1300,"y": 600,"strength": 50},"width": 200}
+    {"origin": {"x": -200,"y": 600,"strength": 150},"endpoint": {"x": -200,"y": -300,"strength": 0},"width": 200},
+    {"origin": {"x": -400,"y": 600,"strength": 150},"endpoint": {"x": -400,"y": -300,"strength": 0},"width": 200},
+
+    {"origin": {"x": 200,"y": -600,"strength": 150},"endpoint": {"x": 200,"y": 300,"strength": 0},"width": 200},
+    {"origin": {"x": 400,"y": -600,"strength": 150},"endpoint": {"x": 400,"y": 300,"strength": 0},"width": 200},
+
+    {"origin": {"x": -1100,"y": -250,"strength": 300},"endpoint": {"x": 0,"y": -250,"strength": 0},"width": 200},
+    {"origin": {"x": -1100,"y": -50,"strength": 300},"endpoint": {"x": 0,"y": -50,"strength": 0},"width": 200},
+    {"origin": {"x": -1100,"y": 150,"strength": 300},"endpoint": {"x": 0,"y": 150,"strength": 0},"width": 200},
+    {"origin": {"x": -1100,"y": 350,"strength": 300},"endpoint": {"x": 0,"y": 350,"strength": 0},"width": 200},
+
+    {"origin": {"x": 1100,"y": -300,"strength": 300},"endpoint": {"x": 0,"y": -300,"strength": 0},"width": 200},
+    {"origin": {"x": 1100,"y": -100,"strength": 300},"endpoint": {"x": 0,"y": -100,"strength": 0},"width": 200},
+    {"origin": {"x": 1100,"y": 100,"strength": 300},"endpoint": {"x": 0,"y": 100,"strength": 0},"width": 200},
+    {"origin": {"x": 1100,"y": 300,"strength": 300},"endpoint": {"x": 0,"y": 300,"strength": 0},"width": 200}
   ],
 
   "dialogues":
-  [
-    {"dialogue": {"message": "Hello, TECH-17. Welcome to the demo level.", "seconds": 3}},
-    {"dialogue": {"message": "Your goal is to reach the exit to your left without flying into anything.", "seconds": 4}},
-    {"dialogue": {"message": "Press space to fire your jetpack and use the left and right arrow keys to rotate.", "seconds": 5}},
-    {"dialogue": {"message": "The orange bar in your HUD indicates how much fuel you have left.", "seconds": 4}},
-    {"dialogue": {"message": "The blue bar indicates how much breathable air is left in your suit.", "seconds": 4}},
-    {"dialogue": {"message": "I probably should have mentioned that earlier...",  "seconds": 4}}
-  ],
-
-  "shockboxes":
-  [
-    {"x": -600, "y": -200}
-  ]
+  []
 }
