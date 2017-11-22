@@ -20,6 +20,13 @@ namespace tjg {
         //load fonts
         auto avenir_bold = resource_manager.LoadFont("Avenir-Bold.ttf");
 
+        //initialize story snippets
+        snippets.setFont(*avenir_bold);
+        snippets.setPosition(100,400);
+        snippets.setCharacterSize(11);
+        snippets.setFillColor(sf::Color(255, 255, 255, 255));
+        LoadSnippets();
+//        snippets.setString(snippet_vector[selection - 1]);
         //initialize level numbers
         for (unsigned int i = 0; i < LEVEL_MENU_OPTIONS; i++) {
             menu[i] -> setFont(*avenir_bold);
@@ -56,7 +63,7 @@ namespace tjg {
 
     //TODO: Implement or remove
     void LevelMenuView::Update() {
-
+        snippets.setString(snippet_array[selection - 1]);
     }
 
 
@@ -137,5 +144,17 @@ namespace tjg {
                 break;
         }
         return ViewSwitch {State::CONTINUE, 0};
+    }
+
+    void LevelMenuView::LoadSnippets() {
+        std::string err, file_address = "..//data//snippet.json";
+        std::cout << "Reading snippets from = " << file_address << std::endl;
+
+        std::ifstream in(file_address);
+        std::string raw_snippet((std::istreambuf_iterator<char>(in)), std::istreambuf_iterator<char>());
+        const auto parse_result = json11::Json::parse(raw_snippet, err);
+        std::cout << parse_result.dump() << std::endl;
+        if (parse_result.is_array())
+            snippet_array = parse_result.array_items();
     }
 }
