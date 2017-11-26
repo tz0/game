@@ -40,14 +40,19 @@
 
   "walls":
   [
-    {"origin": {"x": -1250, "y": -632}, "endpoint": {"x": 1250, "y": -632}, "radius": 40},
-    {"origin": {"x": -1250,"y": 632},"endpoint": {"x": 1250,"y": 632},"radius": 40},
-
-    {"origin": {"x": -1250,"y": 632},"endpoint": {"x": -1250,"y": -632},"radius": 40},
+    {"origin": {"x": -1250,"y": -632},"endpoint": {"x": -1250,"y": 632},"radius": 40},
     {"origin": {"x": 1250,"y": -632},"endpoint": {"x": 1250,"y": 632},"radius": 40},
+
+    {"origin": {"x": -1250, "y": -632}, "endpoint": {"x": -250, "y": -632}, "radius": 40},
+    {"origin": {"x": -200, "y": -632}, "endpoint": {"x": 200, "y": -632}, "radius": 40, "lethal": true},   
+    {"origin": {"x": 250, "y": -632}, "endpoint": {"x": 1250, "y": -632}, "radius": 40},
+
+    {"origin": {"x": -1250,"y": 632},"endpoint": {"x": -250,"y": 632},"radius": 40},
+    {"origin": {"x": -200,"y": 632},"endpoint": {"x": 200,"y": 632},"radius": 40, "lethal": true},
+    {"origin": {"x": 250,"y": 632},"endpoint": {"x": 1250,"y": 632},"radius": 40},    
+
     
-    
- 
+
     {"origin": {"x": -900, "y": -282}, "endpoint": {"x": -900, "y": 282}, "radius": 40, "lethal": true},   
     {"origin": {"x": -900, "y": -282}, "endpoint": {"x": -650, "y": -132}, "radius": 40, "lethal": true}, 
     {"origin": {"x": -900, "y": 18}, "endpoint": {"x": -650, "y": -132}, "radius": 40, "lethal": true}, 

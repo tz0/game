@@ -1,0 +1,82 @@
+{    
+  "level": 9,
+  "fuel" : 620,
+  "oxygen" : 660,
+
+  "camera center":
+  {
+    "x": 0,
+    "y": 0
+  },
+
+  "camera size":
+  {
+    "x": 2500,
+    "y": 1265.625
+  },
+
+  "exit":
+  {
+    "x": 1100,
+    "y": 0    
+  },
+  
+  "entrance":
+  {
+    "x": -1100,
+    "y": 0
+  },
+
+  "pressure sources":
+  [
+    {"origin": {"x": 550,"y": 200}, "strength":-6650, "radius":600}    
+  ],
+
+    "shockboxes":
+  [
+    {"x": 550, "y": 200},
+    {"x": 1120, "y": -500}
+  ],
+
+  "walls":
+  [
+    {"origin": {"x": -1250,"y": -632},"endpoint": {"x": -1250,"y": 632},"radius": 40},
+    
+    {"origin": {"x": -1250, "y": -632}, "endpoint": {"x": -250, "y": -632}, "radius": 40},
+    {"origin": {"x": 250,"y": 632},"endpoint": {"x": 1250,"y": 632},"radius": 40},
+    {"origin": {"x": 250, "y": -632}, "endpoint": {"x": 1250, "y": -632}, "radius": 40},
+    {"origin": {"x": -1250,"y": 632},"endpoint": {"x": -250,"y": 632},"radius": 40},
+    {"origin": {"x": -200,"y": 632},"endpoint": {"x": 200,"y": 632},"radius": 40, "lethal": true},
+    {"origin": {"x": -200, "y": -632}, "endpoint": {"x": 200, "y": -632}, "radius": 40, "lethal": true},   
+
+
+    {"origin": {"x": -750, "y": -432}, "endpoint": {"x": -750, "y": 132}, "radius": 40, "lethal": true},   
+    {"origin": {"x": -750, "y": -432}, "endpoint": {"x": -500, "y": -282}, "radius": 40, "lethal": true}, 
+    {"origin": {"x": -750, "y": -132}, "endpoint": {"x": -500, "y": -282}, "radius": 40, "lethal": true}, 
+    {"origin": {"x": -750, "y": -132}, "endpoint": {"x": -500, "y": 18}, "radius": 40, "lethal": true}, 
+    {"origin": {"x": -750, "y": 132}, "endpoint": {"x": -500, "y": 18}, "radius": 40, "lethal": true}, 
+
+    {"origin": {"x": -200, "y": -232}, "endpoint": {"x": -200, "y": 132}, "radius": 40, "lethal": true}, 
+    {"origin": {"x": -325, "y": -432}, "endpoint": {"x": -200, "y": -232}, "radius": 40, "lethal": true}, 
+    {"origin": {"x": -75, "y": -432}, "endpoint": {"x": -200, "y": -232}, "radius": 40, "lethal": true}, 
+
+    {"origin": {"x": 100, "y": -432}, "endpoint": {"x": 100, "y": 132}, "radius": 40, "lethal": true}, 
+    {"origin": {"x": 100, "y": -432}, "endpoint": {"x": 400, "y": -432}, "radius": 40, "lethal": true}, 
+    {"origin": {"x": 100, "y": -150}, "endpoint": {"x": 400, "y": -150}, "radius": 40, "lethal": true}, 
+    {"origin": {"x": 100, "y": 132}, "endpoint": {"x": 400, "y": 132}, "radius": 40, "lethal": true}, 
+
+
+
+
+    
+    {"origin": {"x": 1250,"y": -632},"endpoint": {"x": 1250,"y": 632},"radius": 40}
+  ],
+
+    "fans":
+  [
+    {"origin": {"x": -1220,"y": -520,"strength": 250},"endpoint": {"x": 1200,"y": -520,"strength": 100},"width": 150},
+    {"origin": {"x": -1220,"y": 520,"strength": 450},"endpoint": {"x": 1200,"y": 520,"strength": 100},"width": 150}
+  ]
+}
+
+
