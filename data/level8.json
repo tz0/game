@@ -1,7 +1,7 @@
 {    
-  "level": 3,
-  "fuel" : 15,
-  "oxygen" : 45,
+  "level": 8,
+  "fuel" : 20,
+  "oxygen" : 60,
 
   "camera center":
   {
@@ -11,43 +11,59 @@
 
   "camera size":
   {
-    "x": 1600,
-    "y": 1400
+    "x": 2500,
+    "y": 1265.625
   },
 
   "exit":
   {
-    "x": 700,
+    "x": 1100,
     "y": 0    
   },
   
   "entrance":
   {
-    "x": 0,
+    "x": -400,
     "y": 0
   },
 
   "pressure sources":
   [
-    {"origin": {"x": -800,"y": 0}, "strength":-150, "radius":400}
+    {"origin": {"x": -1100,"y": 0}, "strength":-550, "radius":400},
+
+    {"origin": {"x": 0,"y": 632}, "strength":-650, "radius":400},
+    {"origin": {"x": 0,"y": -632}, "strength":-650, "radius":400},
+
+    {"origin": {"x": 450,"y": 0}, "strength":-650, "radius":400}    
+  ],
+
+    "shockboxes":
+  [
+    {"x": 450, "y": 0}
   ],
 
   "walls":
   [
-    {"origin": {"x": -200, "y": -400}, "endpoint": {"x": 200, "y": -400}, "radius": 20 },
-    {"origin": {"x": 200,"y": -400},"endpoint": {"x": 400,"y": -200},"radius": 20},
-    {"origin": {"x": 400,"y": -200},"endpoint": {"x": 400,"y": 200},"radius": 20},
-    {"origin": {"x": 400,"y": 200},"endpoint": {"x": 200,"y": 400},"radius": 20},
-    {"origin": {"x": 200,"y": 400},"endpoint": {"x": -200,"y": 400},"radius": 20},
-    {"origin": {"x": -200,"y": 400},"endpoint": {"x": -400,"y": 200},"radius": 20},
-    {"origin": {"x": -400,"y": -200},"endpoint": {"x": -200,"y": -400},"radius": 20},
+    {"origin": {"x": -1250,"y": -632},"endpoint": {"x": -1250,"y": 632},"radius": 40, "lethal": true},
+    
+    {"origin": {"x": -1250, "y": -632}, "endpoint": {"x": -250, "y": -632}, "radius": 40},
+    {"origin": {"x": 250,"y": 632},"endpoint": {"x": 1250,"y": 632},"radius": 40},
+    {"origin": {"x": 250, "y": -632}, "endpoint": {"x": 1250, "y": -632}, "radius": 40},
+    {"origin": {"x": -1250,"y": 632},"endpoint": {"x": -250,"y": 632},"radius": 40},
+    {"origin": {"x": -200,"y": 632},"endpoint": {"x": 200,"y": 632},"radius": 40, "lethal": true},
+    {"origin": {"x": -200, "y": -632}, "endpoint": {"x": 200, "y": -632}, "radius": 40, "lethal": true},        
+    
+    {"origin": {"x": 1250,"y": -632},"endpoint": {"x": 1250,"y": 632},"radius": 40},
+    
+    {"origin": {"x": -600,"y": -200},"endpoint": {"x": -400,"y": -400},"radius": 20},
+    {"origin": {"x": -400,"y": -400},"endpoint": {"x": -200,"y": -200},"radius": 20},
 
-    {"origin": {"x": -800,"y": -600},"endpoint": {"x": 800,"y": -600},"radius": 20},
-    {"origin": {"x": -800,"y": 600},"endpoint": {"x": 800,"y": 600},"radius": 20},
-
-    {"origin": {"x": -800,"y": -600},"endpoint": {"x": -800,"y": 600},"radius": 20, "lethal": true},
-    {"origin": {"x": 800,"y": -600},"endpoint": {"x": 800,"y": 600},"radius": 20}
+    {"origin": {"x": -195,"y": -185},"endpoint": {"x": -195,"y": 185},"radius": 20},
+    
+    {"origin": {"x": -200,"y": 200},"endpoint": {"x": -400,"y": 400},"radius": 20},    
+    {"origin": {"x": -400,"y": 400},"endpoint": {"x": -600,"y": 200},"radius": 20}
         
+            
   ]
 }
 
