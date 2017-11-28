@@ -154,6 +154,7 @@ namespace tjg {
         sound_manager->UpdateListenerPosition(player_location);
 
         // Set up spatial sounds.
+        sound_manager->ClearSpatialSounds();
         sound_manager->InitializeSpatialSounds(logic_center.GetFans(),
                                                logic_center.GetShockBoxes(),
                                                logic_center.GetPressureSources(),

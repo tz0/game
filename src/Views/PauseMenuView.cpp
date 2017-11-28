@@ -80,7 +80,6 @@ namespace tjg{
                             sound_manager->StopMenuMusic();
                             sound_manager->StopLevelMusic();
                             sound_manager->StopSpatialSounds();
-                            sound_manager->ClearSpatialSounds();
                         }
                         else {
                             // If the player goes to level select or the main menu, completely stop the level music and sounds.
