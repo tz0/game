@@ -21,7 +21,7 @@ namespace tjg {
         unsigned int selection = 1;
         unsigned int unlocked_;
         void LoadSnippets();
-        sf::String wrapText(sf::String string, unsigned width, unsigned characterSize);
+        sf::String wrapText(sf::String string, unsigned width, const sf::Font &font, unsigned characterSize, bool bold = false);
     public:
         LevelMenuView(sf::RenderWindow &window, ResourceManager &resource_manager, std::shared_ptr<SoundManager> &sound_manager);
         void Initialize(unsigned int unlocked);

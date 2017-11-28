@@ -62,8 +62,8 @@ namespace tjg {
 
     //TODO: Implement or remove
     void LevelMenuView::Update() {
-        auto wrappedString = wrapText(snippet_array[selection - 1].string_value(), 300, 24);
-        snippets.setString(snippet_array[selection - 1].string_value());
+        auto wrappedString = wrapText(snippet_array[selection - 1].string_value(), 400, *snippets.getFont(), snippets.getCharacterSize());
+        snippets.setString(wrappedString);
     }
 
 
@@ -159,7 +159,7 @@ namespace tjg {
     }
 
     // Source: https://gist.github.com/LiquidHelium/7858095
-    sf::String LevelMenuView::wrapText(sf::String string, unsigned width, unsigned characterSize) {
+    sf::String LevelMenuView::wrapText(sf::String string, unsigned width, const sf::Font &font, unsigned characterSize, bool bold) {
         unsigned currentOffset = 0;
         bool firstWord = true;
         std::size_t wordBegining = 0;
@@ -174,6 +174,9 @@ namespace tjg {
                 wordBegining = pos;
                 firstWord = false;
             }
+
+            auto glyph = font.getGlyph(currentChar, characterSize, bold);
+            currentOffset += glyph.advance;
 
             if (!firstWord && currentOffset > width) {
                 pos = wordBegining;
