@@ -79,9 +79,8 @@ namespace tjg{
                             // If the player chooses to restart, stop the menu music and restart the level music and sounds.
                             sound_manager->StopMenuMusic();
                             sound_manager->StopLevelMusic();
-                            sound_manager->StartLevelMusic();
                             sound_manager->StopSpatialSounds();
-                            sound_manager->StartSpatialSounds();
+                            sound_manager->ClearSpatialSounds();
                         }
                         else {
                             // If the player goes to level select or the main menu, completely stop the level music and sounds.

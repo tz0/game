@@ -80,7 +80,7 @@ namespace tjg {
         // Set zero gravity
         cpSpaceSetGravity(space, cpvzero);
         // Set some friction
-        cpSpaceSetDamping(space, 0.9);
+        cpSpaceSetDamping(space, 0.75);
     }
 
 }
