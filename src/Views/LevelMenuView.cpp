@@ -23,7 +23,7 @@ namespace tjg {
         //initialize story snippets
         snippets.setFont(*avenir_bold);
         snippets.setPosition(100,400);
-        snippets.setCharacterSize(11);
+        snippets.setCharacterSize(24);
         snippets.setFillColor(sf::Color(255, 255, 255, 255));
         LoadSnippets();
 //        snippets.setString(snippet_vector[selection - 1]);
@@ -63,7 +63,7 @@ namespace tjg {
 
     //TODO: Implement or remove
     void LevelMenuView::Update() {
-        snippets.setString(snippet_array[selection - 1]);
+        snippets.setString(snippet_array[selection - 1].string_value());
     }
 
 
@@ -71,6 +71,7 @@ namespace tjg {
         window.setView(window.getDefaultView());
         window.clear(sf::Color(50, 50, 50, 255));
         window.draw(background_sprite);
+        window.draw(snippets);
         for (auto level_text : menu) {
             window.draw(*level_text);
         }
