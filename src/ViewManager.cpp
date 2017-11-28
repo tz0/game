@@ -212,10 +212,12 @@ namespace tjg {
         } else {
             std::cout << "Error reading progress. Starting new game." <<std::endl;
         }
+        if (unlocked > LEVEL_MENU_OPTIONS) unlocked = LEVEL_MENU_OPTIONS;
         return unlocked;
     }
 
     void ViewManager::WriteUnlockedLevel(unsigned int level_number) {
+        if (level_number > LEVEL_MENU_OPTIONS) level_number = LEVEL_MENU_OPTIONS;
         std::ofstream progress_file ("../data/progress.log");
         if (progress_file.is_open()) {
             std::cout << "Saving progress: Unlocked Level " << std::to_string(level_number) << std::endl;
