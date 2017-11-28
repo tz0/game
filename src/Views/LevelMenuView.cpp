@@ -26,7 +26,6 @@ namespace tjg {
         snippets.setCharacterSize(24);
         snippets.setFillColor(sf::Color(255, 255, 255, 255));
         LoadSnippets();
-//        snippets.setString(snippet_vector[selection - 1]);
         //initialize level numbers
         for (unsigned int i = 0; i < LEVEL_MENU_OPTIONS; i++) {
             menu[i] -> setFont(*avenir_bold);
@@ -63,6 +62,7 @@ namespace tjg {
 
     //TODO: Implement or remove
     void LevelMenuView::Update() {
+        auto wrappedString = wrapText(snippet_array[selection - 1].string_value(), 300, 24);
         snippets.setString(snippet_array[selection - 1].string_value());
     }
 
@@ -149,13 +149,40 @@ namespace tjg {
 
     void LevelMenuView::LoadSnippets() {
         std::string err, file_address = "..//data//snippet.json";
-        std::cout << "Reading snippets from = " << file_address << std::endl;
+        std::cout << "Reading snippets from " << file_address << std::endl;
 
         std::ifstream in(file_address);
         std::string raw_snippet((std::istreambuf_iterator<char>(in)), std::istreambuf_iterator<char>());
         const auto parse_result = json11::Json::parse(raw_snippet, err);
-        std::cout << parse_result.dump() << std::endl;
         if (parse_result.is_array())
             snippet_array = parse_result.array_items();
+    }
+
+    // Source: https://gist.github.com/LiquidHelium/7858095
+    sf::String LevelMenuView::wrapText(sf::String string, unsigned width, unsigned characterSize) {
+        unsigned currentOffset = 0;
+        bool firstWord = true;
+        std::size_t wordBegining = 0;
+
+        for (std::size_t pos(0); pos < string.getSize(); ++pos) {
+            auto currentChar = string[pos];
+            if (currentChar == '\n'){
+                currentOffset = 0;
+                firstWord = true;
+                continue;
+            } else if (currentChar == ' ') {
+                wordBegining = pos;
+                firstWord = false;
+            }
+
+            if (!firstWord && currentOffset > width) {
+                pos = wordBegining;
+                string[pos] = '\n';
+                firstWord = true;
+                currentOffset = 0;
+            }
+        }
+
+        return string;
     }
 }

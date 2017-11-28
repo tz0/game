@@ -20,6 +20,8 @@ namespace tjg {
         json11::Json::array snippet_array;
         unsigned int selection = 1;
         unsigned int unlocked_;
+        void LoadSnippets();
+        sf::String wrapText(sf::String string, unsigned width, unsigned characterSize);
     public:
         LevelMenuView(sf::RenderWindow &window, ResourceManager &resource_manager, std::shared_ptr<SoundManager> &sound_manager);
         void Initialize(unsigned int unlocked);
@@ -27,7 +29,6 @@ namespace tjg {
         void Render();
         void RenderAnimation();  //cut animation between menus
         ViewSwitch HandleWindowEvents(sf::Event event) override;
-        void LoadSnippets();
     };
 }
 
