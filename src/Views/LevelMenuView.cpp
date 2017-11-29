@@ -17,8 +17,21 @@ namespace tjg {
 
         auto animation_texture = resource_manager.LoadTexture("animation-sprite.jpg");
         animation_sprite.setTexture(*animation_texture);
+
         //load fonts
         auto avenir_bold = resource_manager.LoadFont("Avenir-Bold.ttf");
+        auto monaco = resource_manager.LoadFont("monaco.ttf");
+
+        //initialize story snippets
+        snippet_background.setPosition(80, 380);
+        snippet_background.setSize(sf::Vector2f(440,300));
+        snippet_background.setFillColor(sf::Color(0, 0, 0, 128));
+
+        snippets.setFont(*monaco);
+        snippets.setPosition(100,400);
+        snippets.setCharacterSize(24);
+        snippets.setFillColor(sf::Color(255, 255, 255, 255));
+        LoadSnippets();
 
         //initialize level numbers
         for (unsigned int i = 0; i < LEVEL_MENU_OPTIONS; i++) {
@@ -56,7 +69,8 @@ namespace tjg {
 
     //TODO: Implement or remove
     void LevelMenuView::Update() {
-
+        auto wrappedString = wrapText(snippet_array[selection - 1].string_value(), 400, *snippets.getFont(), snippets.getCharacterSize());
+        snippets.setString(wrappedString);
     }
 
 
@@ -64,6 +78,8 @@ namespace tjg {
         window.setView(window.getDefaultView());
         window.clear(sf::Color(50, 50, 50, 255));
         window.draw(background_sprite);
+        window.draw(snippet_background);
+        window.draw(snippets);
         for (auto level_text : menu) {
             window.draw(*level_text);
         }
@@ -137,5 +153,47 @@ namespace tjg {
                 break;
         }
         return ViewSwitch {State::CONTINUE, 0};
+    }
+
+    void LevelMenuView::LoadSnippets() {
+        std::string err, file_address = "..//data//snippet.json";
+        std::cout << "Reading snippets from " << file_address << std::endl;
+
+        std::ifstream in(file_address);
+        std::string raw_snippet((std::istreambuf_iterator<char>(in)), std::istreambuf_iterator<char>());
+        const auto parse_result = json11::Json::parse(raw_snippet, err);
+        if (parse_result.is_array())
+            snippet_array = parse_result.array_items();
+    }
+
+    // Source: https://gist.github.com/LiquidHelium/7858095
+    sf::String LevelMenuView::wrapText(sf::String string, unsigned width, const sf::Font &font, unsigned characterSize, bool bold) {
+        unsigned currentOffset = 0;
+        bool firstWord = true;
+        std::size_t wordBegining = 0;
+
+        for (std::size_t pos(0); pos < string.getSize(); ++pos) {
+            auto currentChar = string[pos];
+            if (currentChar == '\n'){
+                currentOffset = 0;
+                firstWord = true;
+                continue;
+            } else if (currentChar == ' ') {
+                wordBegining = pos;
+                firstWord = false;
+            }
+
+            auto glyph = font.getGlyph(currentChar, characterSize, bold);
+            currentOffset += glyph.advance;
+
+            if (!firstWord && currentOffset > width) {
+                pos = wordBegining;
+                string[pos] = '\n';
+                firstWord = true;
+                currentOffset = 0;
+            }
+        }
+
+        return string;
     }
 }

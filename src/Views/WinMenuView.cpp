@@ -8,6 +8,9 @@ namespace tjg{
     void WinMenuView::Initialize(const unsigned int level_number) {
         current_level = level_number;
         selection = 0;
+        //load fonts
+        auto monaco = resource_manager.LoadFont("monaco.ttf");
+
         auto background_texture = resource_manager.LoadTexture("menu-win.jpg");
         background_sprite.setTexture(*background_texture);
         options = {ViewSwitch {State::PLAYING, current_level + 1}, ViewSwitch {State::PLAYING, 0}, ViewSwitch {State::MAIN_MENU, 0}};
@@ -18,6 +21,19 @@ namespace tjg{
         selection_box.setFillColor(sf::Color::Transparent);
         selection_box.setOutlineColor(sf::Color(255, 255, 255, 255));
         selection_box.setOutlineThickness(2.0f);
+
+        //initialize story snippets
+        snippets_background.setPosition(340,180);
+        snippets_background.setSize(sf::Vector2f(440,300));
+        snippets_background.setFillColor(sf::Color(0, 0, 0, 128));
+
+        snippets.setFont(*monaco);
+        snippets.setPosition(360,200);
+        snippets.setCharacterSize(24);
+        snippets.setFillColor(sf::Color(255, 255, 255, 255));
+        LoadSnippets();
+        auto wrappedString = wrapText(snippet_array[level_number].string_value(), 400, *snippets.getFont(), snippets.getCharacterSize());
+        snippets.setString(wrappedString);
 
         // Stop level sounds.
         sound_manager->StopLevelSounds();
@@ -38,6 +54,8 @@ namespace tjg{
         window.clear(sf::Color(50, 50, 50, 255));
         window.draw(background_sprite);
         window.draw(selection_box);
+        window.draw(snippets_background);
+        window.draw(snippets);
         window.display();
     }
 
@@ -81,6 +99,48 @@ namespace tjg{
                 break;
         }
         return ViewSwitch {State::CONTINUE, 0};
+    }
+
+    void WinMenuView::LoadSnippets() {
+        std::string err, file_address = "..//data//snippet.json";
+        std::cout << "Reading snippets from " << file_address << std::endl;
+
+        std::ifstream in(file_address);
+        std::string raw_snippet((std::istreambuf_iterator<char>(in)), std::istreambuf_iterator<char>());
+        const auto parse_result = json11::Json::parse(raw_snippet, err);
+        if (parse_result.is_array())
+            snippet_array = parse_result.array_items();
+    }
+
+    // Source: https://gist.github.com/LiquidHelium/7858095
+    sf::String WinMenuView::wrapText(sf::String string, unsigned width, const sf::Font &font, unsigned characterSize, bool bold) {
+        unsigned currentOffset = 0;
+        bool firstWord = true;
+        std::size_t wordBegining = 0;
+
+        for (std::size_t pos(0); pos < string.getSize(); ++pos) {
+            auto currentChar = string[pos];
+            if (currentChar == '\n'){
+                currentOffset = 0;
+                firstWord = true;
+                continue;
+            } else if (currentChar == ' ') {
+                wordBegining = pos;
+                firstWord = false;
+            }
+
+            auto glyph = font.getGlyph(currentChar, characterSize, bold);
+            currentOffset += glyph.advance;
+
+            if (!firstWord && currentOffset > width) {
+                pos = wordBegining;
+                string[pos] = '\n';
+                firstWord = true;
+                currentOffset = 0;
+            }
+        }
+
+        return string;
     }
 
 }
