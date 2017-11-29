@@ -37,11 +37,6 @@
     {"origin": {"x": 450,"y": 0}, "strength":-650, "radius":400}    
   ],
 
-    "shockboxes":
-  [
-    {"x": 450, "y": 0}
-  ],
-
   "walls":
   [
     {"origin": {"x": -1250,"y": -632},"endpoint": {"x": -1250,"y": 632},"radius": 40, "lethal": true},
