@@ -10,7 +10,7 @@ namespace tjg{
         //load fonts
         auto monaco = resource_manager.LoadFont("monaco.ttf");
 
-        auto background_texture = resource_manager.LoadTexture("menu-win.jpg");
+        auto background_texture = resource_manager.LoadTexture("menu-finish.jpg");
         background_sprite.setTexture(*background_texture);
         options = {ViewSwitch {State::MAIN_MENU, 0}};
 
@@ -48,24 +48,10 @@ namespace tjg{
             case sf::Event::KeyPressed: {
                 switch (event.key.code) {
                     case sf::Keyboard::Up:
-                        if (selection > 0) {
-                            selection -= 1;
-                            selection_box_position.y -= WIN_MENU_BOX_SHIFT;
-                        } else {
-                            selection = WIN_MENU_OPTIONS;
-                            selection_box_position.y = WIN_MENU_BOX_Y_LOW;
-                        }
                         // Play scroll sound.
                         sound_manager->MenuScrollUp();
                         break;
                     case sf::Keyboard::Down:
-                        if (selection < WIN_MENU_OPTIONS) {
-                            selection += 1;
-                            selection_box_position.y += WIN_MENU_BOX_SHIFT;
-                        } else {
-                            selection = 0;
-                            selection_box_position.y = WIN_MENU_BOX_Y_UP;
-                        }
                         // Play scroll sound.
                         sound_manager->MenuScrollDown();
                         break;
