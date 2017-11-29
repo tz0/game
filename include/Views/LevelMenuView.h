@@ -6,14 +6,13 @@
 #include <iostream>
 #include <fstream>
 
-#include "Systems/DialogueSystem.h"
-
 #include "json11.hpp"
 
 namespace tjg {
     class LevelMenuView : public View {
     private:
         sf::Text level_1, level_2, level_3, level_4, level_5, level_6, level_7, level_8, level_9, level_10, level_11, level_12, snippets;
+        sf::RectangleShape snippet_background;
         sf::Sprite background_sprite;
         sf::Sprite animation_sprite;
         std::vector<sf::Text *> menu = {&level_1, &level_2, &level_3, &level_4, &level_5, &level_6, &level_7, &level_8, &level_9, &level_10, &level_11, &level_12};

@@ -17,15 +17,22 @@ namespace tjg {
 
         auto animation_texture = resource_manager.LoadTexture("animation-sprite.jpg");
         animation_sprite.setTexture(*animation_texture);
+
         //load fonts
         auto avenir_bold = resource_manager.LoadFont("Avenir-Bold.ttf");
+        auto monaco = resource_manager.LoadFont("monaco.ttf");
 
         //initialize story snippets
-        snippets.setFont(*avenir_bold);
+        snippet_background.setPosition(80, 380);
+        snippet_background.setSize(sf::Vector2f(440,300));
+        snippet_background.setFillColor(sf::Color(0, 0, 0, 128));
+
+        snippets.setFont(*monaco);
         snippets.setPosition(100,400);
         snippets.setCharacterSize(24);
         snippets.setFillColor(sf::Color(255, 255, 255, 255));
         LoadSnippets();
+
         //initialize level numbers
         for (unsigned int i = 0; i < LEVEL_MENU_OPTIONS; i++) {
             menu[i] -> setFont(*avenir_bold);
@@ -71,6 +78,7 @@ namespace tjg {
         window.setView(window.getDefaultView());
         window.clear(sf::Color(50, 50, 50, 255));
         window.draw(background_sprite);
+        window.draw(snippet_background);
         window.draw(snippets);
         for (auto level_text : menu) {
             window.draw(*level_text);
