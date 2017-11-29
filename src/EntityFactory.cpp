@@ -598,12 +598,14 @@ namespace tjg {
         auto entrance_location = entrance->AddComponent<Location>(position.x, position.y);
 
         // Load texture.
-        auto entrance_texture = resource_manager.LoadTexture("door-1.png");
+        auto entrance_texture = resource_manager.LoadTexture("spritesheet.png");
 
         // Add Sprite component so walls are visible
         sf::Sprite entrance_sprite;
         entrance_sprite.setTexture(*entrance_texture);
-        entrance_sprite.setTextureRect(sf::IntRect(0, 0, 128, 240));
+        entrance_sprite.setTextureRect(sf::IntRect(0, 485, 163, 755 - 485));
+        auto size = entrance_sprite.getGlobalBounds();
+        entrance_sprite.setScale(128.0f / size.width, 240.0f / size.height);
         entrance->AddComponent<Sprite>(entrance_sprite, -25);
 
         return entrance;
@@ -617,12 +619,14 @@ namespace tjg {
         auto exit_location = exit->AddComponent<Location>(position.x, position.y);
 
         // Load texture.
-        auto exit_texture = resource_manager.LoadTexture("door-1.png");
+        auto exit_texture = resource_manager.LoadTexture("spritesheet.png");
 
         // Add Sprite component
         sf::Sprite exit_sprite;
         exit_sprite.setTexture(*exit_texture);
-        exit_sprite.setTextureRect(sf::IntRect(0, 0, 128, 240));
+        exit_sprite.setTextureRect(sf::IntRect(0, 755, 163, 1024 - 750));
+        auto size = exit_sprite.getGlobalBounds();
+        exit_sprite.setScale(128.0f / size.width, 240.0f / size.height);
         exit->AddComponent<Sprite>(exit_sprite, -25);
 
         // StaticSegment component.
