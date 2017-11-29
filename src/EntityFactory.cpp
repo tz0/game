@@ -546,8 +546,10 @@ namespace tjg {
         auto fan_sprite = fan->AddComponent<Sprite>(
                 std::vector<sf::Sprite> {
                         // Define frames of animation
-                        sf::Sprite(*texture_sheet, sf::IntRect(234, 146, 344 - 234, 360 - 146)),
-                        sf::Sprite(*texture_sheet, sf::IntRect(344, 146, 448 - 344, 360 - 146)),
+                        sf::Sprite(*texture_sheet, sf::IntRect(896, 0, 128, 256)),
+                        sf::Sprite(*texture_sheet, sf::IntRect(896, 256, 128, 256)),
+                        sf::Sprite(*texture_sheet, sf::IntRect(896, 512, 128, 256)),
+                        sf::Sprite(*texture_sheet, sf::IntRect(896, 768, 128, 256))
                 },
                 20
         );
