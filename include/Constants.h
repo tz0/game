@@ -31,7 +31,7 @@
 #define FAIL_MENU_BOX_SHIFT 60u
 
 namespace tjg {
-    enum class State {CONTINUE, MAIN_MENU, LEVEL_MENU, PLAYING, RESUME, PAUSED, WON, FAILED, EXIT};
+    enum class State {CONTINUE, MAIN_MENU, LEVEL_MENU, PLAYING, RESUME, PAUSED, WON, FAILED, EXIT, FINISH};
     struct ViewSwitch {
         State state;
         unsigned int level_number;

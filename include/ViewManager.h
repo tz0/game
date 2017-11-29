@@ -12,6 +12,7 @@
 #include "Views/LevelView.h"
 #include "Views/PauseMenuView.h"
 #include "Views/WinMenuView.h"
+#include "Views/FinishMenuView.h"
 #include "Views/FailMenuView.h"
 #include "View.h"
 #include "LogicCenter.h"
@@ -30,6 +31,7 @@ namespace tjg {
         LevelView level_view;
         PauseMenuView pause_menu_view;
         WinMenuView win_menu_view;
+        FinishMenuView finish_menu_view;
         FailMenuView fail_menu_view;
         unsigned int current_level;
         unsigned int unlocked;
@@ -40,6 +42,7 @@ namespace tjg {
         void SwitchToLevelMenuView(unsigned int unlocked);
         void SwitchToPauseMenuView();
         void SwitchToWinMenuView();
+        void SwitchToFinishMenuView();
         void SwitchToFailMenuView();
         void SwitchToLevelView(unsigned int level_number);
         void ResumePlayerView();
