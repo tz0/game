@@ -1,0 +1,70 @@
+{
+  "level": 4,
+  "fuel" : 20,
+  "oxygen" : 50,
+
+  "camera center":
+  {
+    "x": 0,
+    "y": 0
+  },
+
+  "camera size":
+  {
+    "x": 2500,
+    "y": 1265.625
+  },
+
+  "exit":
+  {
+    "x": -1050,
+    "y": 425
+  },
+
+  "entrance":
+  {
+    "x": 1050,
+    "y": 425
+  },
+
+  "walls":
+  [
+    {"origin": {"x": -1226, "y": -600}, "endpoint": {"x": 1226, "y": -600}, "radius": 40},
+    {"origin": {"x": -1226,"y": 600},"endpoint": {"x": 1226,"y": 600},"radius": 40},
+    {"origin": {"x": -1226,"y": -600},"endpoint": {"x": -1226,"y": 600},"radius": 40},
+    {"origin": {"x": 1226,"y": -600},"endpoint": {"x": 1226,"y": 600},"radius": 40},
+
+    {"origin": {"x": 900,"y": -380},"endpoint": {"x": 900,"y": 540},"radius": 40,"lethal": true},
+    {"origin": {"x": -900,"y": -380},"endpoint": {"x": -900,"y": 540},"radius": 40,"lethal": true},
+
+    {"origin": {"x": 500,"y": -355},"endpoint": {"x": 500,"y": -95},"radius": 20},
+    {"origin": {"x": 0,"y": 95},"endpoint": {"x": 0,"y": 355},"radius": 20},
+    {"origin": {"x": -500,"y": -355},"endpoint": {"x": -500,"y": -95},"radius": 20}
+  ],
+
+  "fans":
+  [
+    {"origin": {"x": 1226,"y": -500,"strength": 100},"endpoint": {"x": 650,"y": -500,"strength": 25},"width": 200},
+
+    {"origin": {"x": 750,"y": -600,"strength": 200},"endpoint": {"x": 750,"y": 600,"strength": 50},"width": 200},
+    {"origin": {"x": 250,"y": 600,"strength": 200},"endpoint": {"x": 250,"y": -600,"strength": 50},"width": 200},
+    {"origin": {"x": -250,"y": -600,"strength": 200},"endpoint": {"x": -250,"y": 600,"strength": 50},"width": 200},
+    {"origin": {"x": -750,"y": 600,"strength": 200},"endpoint": {"x": -750,"y": -600,"strength": 50},"width": 200}
+  ],
+
+  "shockboxes":
+  [
+    {"x": 500, "y": -450},
+    {"x": 500, "y": 0},
+    {"x": 500, "y": 450},
+    {"x": 0, "y": -450},
+    {"x": 0, "y": -0},
+    {"x": 0, "y": 450},
+    {"x": -500, "y": -450},
+    {"x": -500, "y": 0},
+    {"x": -500, "y": 450}
+  ],
+
+  "dialogues":
+  []
+}
