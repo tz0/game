@@ -1,5 +1,5 @@
-{    
-  "level": 1,
+{
+  "level": 7,
   "fuel" : 20,
   "oxygen" : 60,
 
@@ -11,39 +11,77 @@
 
   "camera size":
   {
-    "x": 2200,
-    "y": 1113.75
-  },
-
-  "entrance":
-  {
-    "x": -900,
-    "y": 0
+    "x": 2500,
+    "y": 1265.625
   },
 
   "exit":
   {
-    "x": 900,
-    "y": 0    
+    "x": 0,
+    "y": 425
   },
+
+  "entrance":
+  {
+    "x": 0,
+    "y": -425
+  },
+
+  "walls":
+  [
+    {"origin": {"x": -1226, "y": -600}, "endpoint": {"x": 1226, "y": -600}, "radius": 40},
+    {"origin": {"x": -1226,"y": 600},"endpoint": {"x": 1226,"y": 600},"radius": 40},
+    {"origin": {"x": -1226,"y": -600},"endpoint": {"x": -1226,"y": 600},"radius": 40},
+    {"origin": {"x": 1226,"y": -600},"endpoint": {"x": 1226,"y": 600},"radius": 40},
+
+    {"origin": {"x": 200,"y": -600},"endpoint": {"x": 200,"y": -235},"radius": 30},
+    {"origin": {"x": 150,"y": -250},"endpoint": {"x": -900,"y": -250},"radius": 30, "lethal": true},
+
+    {"origin": {"x": -1136,"y": 0},"endpoint": {"x": 180,"y": 0},"radius": 50},
+    {"origin": {"x": 480,"y": 0},"endpoint": {"x": 1136,"y": 0},"radius": 50},
+
+    {"origin": {"x": 200,"y": 235},"endpoint": {"x": 200,"y": 600},"radius": 30},
+    {"origin": {"x": 150,"y": 250},"endpoint": {"x": -900,"y": 250},"radius": 30, "lethal": true}
+  ],
+
+  "fans":
+  [
+    {"origin": {"x": -1050,"y": -610,"strength": 200},"endpoint": {"x": -1050,"y": -50,"strength": 0},"width": 200},
+    {"origin": {"x": -1050,"y": 610,"strength": 200},"endpoint": {"x": -1050,"y": 50,"strength": 0},"width": 200},
+
+    {"origin": {"x": -1236,"y": -150,"strength": 250},"endpoint": {"x": 200,"y": -150,"strength": 200},"width": 200},
+    {"origin": {"x": -1236,"y": 150,"strength": 150},"endpoint": {"x": -200,"y": 150,"strength": 100},"width": 200},
+
+    {"origin": {"x": 713,"y": 610,"strength": 100},"endpoint": {"x": 713,"y": 400,"strength": 0},"width": 200},
+    {"origin": {"x": 713,"y": -610,"strength": 100},"endpoint": {"x": 713,"y": -400,"strength": 0},"width": 200}
+  ],
+
+  "shockboxes":
+  [
+    {"x": 350, "y": -420},
+    {"x": 350, "y": 420},
+    {"x": 1075, "y": -420},
+    {"x": 1075, "y": 420},
+    {"x": 1075, "y": -180},
+    {"x": 1075, "y": 180}
+  ],
 
   "decorations":
   [
     {
-        "texture": "tech0.2.png", 
-        "rect": {"x":0, "y":0, "width": 87, "height": 166},
-        "position": {"x": -111, "y": -200},
-        "scale": {"x": 1.5, "y": 1.5},
-        "rotation": 0
+      "texture": "tech0.2.png",
+      "rect": {"x":0, "y":0, "width": 87, "height": 166},
+      "position": {"x": 713, "y": -320},
+      "scale": {"x": 1.6, "y": 1.6},
+      "rotation": 0
+    },
+    {
+      "texture": "tech0.2.png",
+      "rect": {"x":0, "y":0, "width": 87, "height": 166},
+      "position": {"x": 713, "y": 320},
+      "scale": {"x": 1.65, "y": 1.65},
+      "rotation": 0
     }
-  ],
-
-  "walls":
-  [
-    {"origin": {"x": -1100, "y": -550}, "endpoint": {"x": 1100, "y": -550}, "radius": 40},
-    {"origin": {"x": -1100,"y": 550},"endpoint": {"x": 1100,"y": 550},"radius": 40},
-    {"origin": {"x": -1100,"y": -550},"endpoint": {"x": -1100,"y": 550},"radius": 40},
-    {"origin": {"x": 1100,"y": -550},"endpoint": {"x": 1100,"y": 550},"radius": 40}
   ],
 
   "dialogues":
