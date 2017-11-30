@@ -1,0 +1,51 @@
+{    
+  "level": 1,
+  "fuel" : 20,
+  "oxygen" : 60,
+
+  "camera center":
+  {
+    "x": 0,
+    "y": 0
+  },
+
+  "camera size":
+  {
+    "x": 2200,
+    "y": 1113.75
+  },
+
+  "entrance":
+  {
+    "x": -900,
+    "y": 0
+  },
+
+  "exit":
+  {
+    "x": 900,
+    "y": 0    
+  },
+
+  "decorations":
+  [
+    {
+        "texture": "tech0.2.png", 
+        "rect": {"x":0, "y":0, "width": 87, "height": 166},
+        "position": {"x": -111, "y": -200},
+        "scale": {"x": 1.5, "y": 1.5},
+        "rotation": 0
+    }
+  ],
+
+  "walls":
+  [
+    {"origin": {"x": -1100, "y": -550}, "endpoint": {"x": 1100, "y": -550}, "radius": 40},
+    {"origin": {"x": -1100,"y": 550},"endpoint": {"x": 1100,"y": 550},"radius": 40},
+    {"origin": {"x": -1100,"y": -550},"endpoint": {"x": -1100,"y": 550},"radius": 40},
+    {"origin": {"x": 1100,"y": -550},"endpoint": {"x": 1100,"y": 550},"radius": 40}
+  ],
+
+  "dialogues":
+  []
+}
