@@ -1,0 +1,66 @@
+{
+  "level": 10,
+  "fuel" : 30,
+  "oxygen" : 60,
+
+  "camera center":
+  {
+    "x": 0,
+    "y": 0
+  },
+
+  "camera size":
+  {
+    "x": 2500,
+    "y": 1265.625
+  },
+
+  "entrance":
+  {
+    "x": 1110,
+    "y": -450
+  },
+
+  "exit":
+  {
+    "x": 0,
+    "y": 0
+  },
+
+  "pressure sources":
+  [
+    {"origin": {"x": -800,"y": -430}, "strength": -1750, "radius": 100},
+    {"origin": {"x": -600,"y": -430}, "strength": -1750, "radius": 100},
+    {"origin": {"x": -400,"y": -430}, "strength": -1750, "radius": 100},
+    {"origin": {"x": -200,"y": -430}, "strength": -1750, "radius": 100},
+    {"origin": {"x": 0,"y": -430}, "strength": -1750, "radius": 100},
+    {"origin": {"x": 200,"y": -430}, "strength": -1750, "radius": 100},
+    {"origin": {"x": 400,"y": -430}, "strength": -1750, "radius": 100},
+    {"origin": {"x": 600,"y": -430}, "strength": -1750, "radius": 100},
+    {"origin": {"x": 800,"y": -430}, "strength": -1750, "radius": 100},
+
+    {"origin": {"x": -600,"y": 150}, "strength": 500, "radius": 200}
+  ],
+
+  "walls":
+  [
+    {"origin": {"x": -1225, "y": -600}, "endpoint": {"x": 1225, "y": -600}, "radius": 40},
+    {"origin": {"x": -1225,"y": 600},"endpoint": {"x": 1225,"y": 600},"radius": 40},
+    {"origin": {"x": 1225,"y": 600},"endpoint": {"x": 1225,"y": -600},"radius": 40},
+    {"origin": {"x": -1225,"y": -600},"endpoint": {"x": -1225,"y": 600},"radius": 40},
+
+    {"origin": {"x": -845,"y": -280},"endpoint": {"x": 1160,"y": -280},"radius": 30, "lethal": true},
+
+    {"origin": {"x": -900,"y": -295},"endpoint": {"x": -900,"y": 50},"radius": 30},
+    {"origin": {"x": -900,"y": 350},"endpoint": {"x": -900,"y": 530},"radius": 30},
+
+    {"origin": {"x": -1160,"y": 510},"endpoint": {"x": -955,"y": 510},"radius": 30, "lethal": true}
+  ],
+
+  "fans":
+  [
+    {"origin": {"x": -1050,"y": -610,"strength": 200},"endpoint": {"x": -1050,"y": 610,"strength": 0},"width": 200}
+  ]
+}
+
+

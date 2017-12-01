@@ -32,9 +32,8 @@
     {"origin": {"x": 100,"y": -150}, "strength":-4050, "radius":450}
   ],
 
-    "shockboxes":
-  [    
-
+  "shockboxes":
+  [
     {"x": -250, "y": 120},
     {"x": 450, "y": 120}
   ],
