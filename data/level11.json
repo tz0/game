@@ -79,8 +79,8 @@
 
     "fans":
   [
-    {"origin": {"x": 1230,"y": -480,"strength": 150},"endpoint": {"x": -1230,"y": -480,"strength": 0},"width": 200},
-    {"origin": {"x": -1230,"y": 480,"strength": 450},"endpoint": {"x": 1200,"y": 480,"strength": 100},"width": 200}
+    {"origin": {"x": 1230,"y": -480,"strength": 150},"endpoint": {"x": -1230,"y": -480,"strength": 0},"width": 180},
+    {"origin": {"x": -1230,"y": 480,"strength": 450},"endpoint": {"x": 1200,"y": 480,"strength": 100},"width": 180}
   ]
 }
 
