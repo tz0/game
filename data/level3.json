@@ -1,7 +1,7 @@
 {    
   "level": 3,
-  "fuel" : 50,
-  "oxygen" : 45,
+  "fuel" : 15,
+  "oxygen" : 40,
 
   "camera center":
   {
