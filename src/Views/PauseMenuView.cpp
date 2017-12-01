@@ -91,11 +91,10 @@ namespace tjg{
                         }
                         return options[selection];
                     case sf::Keyboard::Escape:
-                        sound_manager->MenuSelect();
-                        sound_manager->StopLevelMusic();
-                        sound_manager->StopSpatialSounds();
-                        sound_manager->ClearSpatialSounds();
-                        return options[1];
+                        sound_manager->StopMenuMusic();
+                        sound_manager->StartLevelMusic();
+                        sound_manager->StartSpatialSounds();
+                        return options[0];
                     default:
                         break;
                 }
