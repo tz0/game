@@ -1,6 +1,6 @@
 {
   "level": 7,
-  "fuel" : 20,
+  "fuel" : 26
   "oxygen" : 60,
 
   "camera center":
@@ -49,8 +49,8 @@
     {"origin": {"x": -1050,"y": -610,"strength": 200},"endpoint": {"x": -1050,"y": -50,"strength": 0},"width": 200},
     {"origin": {"x": -1050,"y": 610,"strength": 200},"endpoint": {"x": -1050,"y": 50,"strength": 0},"width": 200},
 
-    {"origin": {"x": -1236,"y": -150,"strength": 250},"endpoint": {"x": 200,"y": -150,"strength": 200},"width": 200},
-    {"origin": {"x": -1236,"y": 150,"strength": 150},"endpoint": {"x": -200,"y": 150,"strength": 100},"width": 200},
+    {"origin": {"x": -1236,"y": -150,"strength": 250},"endpoint": {"x": 200,"y": -150,"strength": 125},"width": 200},
+    {"origin": {"x": -1236,"y": 150,"strength": 100},"endpoint": {"x": -200,"y": 150,"strength": 50},"width": 200},
 
     {"origin": {"x": 713,"y": 610,"strength": 100},"endpoint": {"x": 713,"y": 400,"strength": 0},"width": 200},
     {"origin": {"x": 713,"y": -610,"strength": 100},"endpoint": {"x": 713,"y": -400,"strength": 0},"width": 200}
