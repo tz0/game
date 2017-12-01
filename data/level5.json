@@ -1,7 +1,7 @@
 {    
   "level": 5,
-  "fuel" : 25,
-  "oxygen" : 40,
+  "fuel" : 15,
+  "oxygen" : 20,
 
   "camera center":
   {
@@ -34,7 +34,7 @@
     {"origin": {"x": -1250,"y": -600},"endpoint": {"x": -1250,"y": 600},"radius": 40},
     {"origin": {"x": 1250,"y": -600},"endpoint": {"x": 1250,"y": 600},"radius": 40},
 
-    {"origin": {"x": 0,"y": -600},"endpoint": {"x": 0,"y": 300},"radius": 20, "lethal": true},
+    {"origin": {"x": 0,"y": -540},"endpoint": {"x": 0,"y": 300},"radius": 20, "lethal": true},
 
     {"origin": {"x": -200,"y": -600},"endpoint": {"x": -400,"y": -500},"radius": 20, "lethal": true},
     {"origin": {"x": -400,"y": -500},"endpoint": {"x": -700,"y": 0},"radius": 20, "lethal": true},
