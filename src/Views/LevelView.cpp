@@ -5,9 +5,9 @@ namespace tjg {
     LevelView::LevelView(sf::RenderWindow &window, ResourceManager &resource_manager, std::shared_ptr<SoundManager> &sound_manager, LogicCenter &logic_center) :
             View(window, resource_manager, sound_manager),
             logic_center(logic_center),
-            fan_particle_system(main_render_system, logic_center.GetPhysicsSystem(), 200,
+            fan_particle_system(main_render_system, logic_center.GetPhysicsSystem(), 100,
                                  sf::Sprite(*resource_manager.LoadTexture("generic-particle.png"), sf::IntRect(0, 0, 64, 64)),
-                                 -10, sf::BlendAdd, sf::milliseconds(1), sf::seconds(8), sf::Vector2f(60, 60), sf::Vector2f(0, 0), 2.0f,
+                                 -10, sf::BlendAdd, sf::milliseconds(15), sf::seconds(8), sf::Vector2f(60, 60), sf::Vector2f(0, 0), 2.0f,
                                  [](float x){
                                      auto alpha = static_cast<sf::Uint8>(std::max(0.0f, static_cast<float>(128 * cos(x * 2.5)+128)));
                                      return sf::Color(255, 255, 255, alpha/sf::Uint8(25));
