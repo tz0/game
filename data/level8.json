@@ -1,7 +1,7 @@
 {    
   "level": 8,
-  "fuel" : 20,
-  "oxygen" : 60,
+  "fuel" : 15,
+  "oxygen" : 30,
 
   "camera center":
   {
@@ -29,17 +29,17 @@
 
   "pressure sources":
   [
-    {"origin": {"x": -1100,"y": 0}, "strength":-550, "radius":400},
+    {"origin": {"x": -1000,"y": 0}, "strength":-550, "radius":400},
 
     {"origin": {"x": 0,"y": 632}, "strength":-650, "radius":400},
     {"origin": {"x": 0,"y": -632}, "strength":-650, "radius":400},
 
-    {"origin": {"x": 450,"y": 0}, "strength":-650, "radius":400}    
+    {"origin": {"x": 450,"y": 0}, "strength":-650, "radius":500}
   ],
 
   "walls":
   [
-    {"origin": {"x": -1250,"y": -632},"endpoint": {"x": -1250,"y": 632},"radius": 40, "lethal": true},
+    {"origin": {"x": -1200,"y": -580},"endpoint": {"x": -1200,"y": 580},"radius": 40, "lethal": true},
     
     {"origin": {"x": -1250, "y": -632}, "endpoint": {"x": -250, "y": -632}, "radius": 40},
     {"origin": {"x": 250,"y": 632},"endpoint": {"x": 1250,"y": 632},"radius": 40},
@@ -59,6 +59,17 @@
     {"origin": {"x": -400,"y": 400},"endpoint": {"x": -600,"y": 200},"radius": 20}
         
             
+  ],
+
+  "shockboxes":
+  [
+    {"x": 900, "y": -420},
+    {"x": 900, "y": 420},
+
+    {"x": 80, "y": 0},
+
+    {"x": -900, "y": -420},
+    {"x": -900, "y": 420}
   ]
 }
 
