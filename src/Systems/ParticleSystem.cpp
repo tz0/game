@@ -82,7 +82,6 @@ namespace tjg {
 
         // Update the particles, recycling if necessary
         std::uniform_int_distribution<unsigned int> emitter_dist(0, emitters.size() > 0 ? emitters.size() - 1 : 0);
-
         const auto needed_particles = static_cast<unsigned int>(particle_count * emitters.size());
 
         particles.erase(
@@ -133,9 +132,12 @@ namespace tjg {
 
         // Create new particles if there are less than needed.
         if (particles.size() < needed_particles && enabled && particle_timer.getElapsedTime() > particle_rate) {
+            auto particles_to_spawn = std::min(emitters.size(), static_cast<unsigned long>(particle_timer.getElapsedTime().asMilliseconds() / particle_rate.asMilliseconds()));
             particle_timer.restart();
-            auto emitter_location = emitters[emitter_dist(gen)]->GetComponent<Location>();
-            MakeParticle(emitter_location->GetPosition());
+            for (unsigned int i = 0; i < particles_to_spawn; ++i) {
+                auto emitter_location = emitters[emitter_dist(gen)]->GetComponent<Location>();
+                MakeParticle(emitter_location->GetPosition());
+            }
         }
     }
 
