@@ -1,7 +1,7 @@
 {    
   "level": 9,
   "fuel" : 8,
-  "oxygen" : 80,
+  "oxygen" : 30,
 
   "camera center":
   {
@@ -17,8 +17,8 @@
 
   "exit":
   {
-    "x": -1150,
-    "y": -300    
+    "x": -1000,
+    "y": -335
   },
   
   "entrance":
@@ -35,18 +35,18 @@
     "shockboxes":
   [    
 
-    {"x": -250, "y": 120}
+    {"x": -250, "y": 120},
+    {"x": 450, "y": 120}
   ],
 
   "walls":
   [
-    {"origin": {"x": -1250, "y": -632}, "endpoint": {"x": 1250, "y": -632}, "radius": 40},
-    {"origin": {"x": -1250,"y": 632},"endpoint": {"x": 1250,"y": 632},"radius": 40},
+    {"origin": {"x": -1225, "y": -600}, "endpoint": {"x": 1225, "y": -600}, "radius": 40},
+    {"origin": {"x": -1225,"y": 600},"endpoint": {"x": 1225,"y": 600},"radius": 40},
 
-    {"origin": {"x": 1250,"y": 632},"endpoint": {"x": 1250,"y": -632},"radius": 40},
-    
+    {"origin": {"x": 1225,"y": 600},"endpoint": {"x": 1225,"y": -600},"radius": 40},
 
-    {"origin": {"x": -1250,"y": -632},"endpoint": {"x": -1250,"y": -180},"radius": 40},
+    {"origin": {"x": -1225,"y": -600},"endpoint": {"x": -1225,"y": -180},"radius": 40},
     {"origin": {"x": -1240,"y": -180},"endpoint": {"x": -1240,"y": 570},"radius": 40, "lethal": true}
     
 
@@ -54,12 +54,12 @@
 
     "fans":
   [
-    {"origin": {"x": -650,"y": 600,"strength": 1750},"endpoint": {"x": -650,"y": -600,"strength": 100},"width": 150},    
-    {"origin": {"x": -1020,"y": -600,"strength": 250},"endpoint": {"x": -1020,"y": 600,"strength": 100},"width": 150},    
-    {"origin": {"x": 1020,"y": -600,"strength": 250},"endpoint": {"x": 1020,"y": 600,"strength": 100},"width": 150},    
+    {"origin": {"x": -650,"y": 600,"strength": 1750},"endpoint": {"x": -650,"y": -600,"strength": 100},"width": 200},
+    {"origin": {"x": -1020,"y": -600,"strength": 250},"endpoint": {"x": -1020,"y": 600,"strength": 100},"width": 200},
+    {"origin": {"x": 1020,"y": -600,"strength": 250},"endpoint": {"x": 1020,"y": 600,"strength": 100},"width": 200},
 
-    {"origin": {"x": 1220,"y": 200,"strength": 450},"endpoint": {"x": -1220,"y": 200,"strength": 100},"width": 150},
-    {"origin": {"x": 1220,"y": 400,"strength": 450},"endpoint": {"x": -1220,"y": 400,"strength": 100},"width": 150}
+    {"origin": {"x": 1220,"y": 200,"strength": 450},"endpoint": {"x": -1220,"y": 200,"strength": 100},"width": 200},
+    {"origin": {"x": 1220,"y": 400,"strength": 450},"endpoint": {"x": -1220,"y": 400,"strength": 100},"width": 200}
   ]
 }
 
