@@ -1,6 +1,6 @@
 {    
   "level": 8,
-  "fuel" : 15,
+  "fuel" : 20,
   "oxygen" : 30,
 
   "camera center":
@@ -29,12 +29,12 @@
 
   "pressure sources":
   [
-    {"origin": {"x": -1000,"y": 0}, "strength":-550, "radius":400},
+    {"origin": {"x": -1000,"y": 0}, "strength":-550, "radius":375},
 
-    {"origin": {"x": 0,"y": 632}, "strength":-650, "radius":400},
-    {"origin": {"x": 0,"y": -632}, "strength":-650, "radius":400},
+    {"origin": {"x": 0,"y": 632}, "strength":-500, "radius":400},
+    {"origin": {"x": 0,"y": -632}, "strength":-500, "radius":400},
 
-    {"origin": {"x": 450,"y": 0}, "strength":-650, "radius":500}
+    {"origin": {"x": 450,"y": 0}, "strength":-550, "radius":450}
   ],
 
   "walls":
