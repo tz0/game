@@ -500,6 +500,11 @@ namespace tjg {
                 ? sf::Sprite(*texture_sheet, sf::IntRect(461, 0, 702 - 461, 245))
                 : sf::Sprite(*texture_sheet, sf::IntRect(162, 360, 286 - 162, 493 - 360))
         );
+        // Scale sprite size with radius
+        auto sprite_bounds = pressure_source_sprite->GetSprite().getLocalBounds();
+        pressure_source_sprite->GetSprite().setScale(radius*1.5f / sprite_bounds.width, radius*1.5f / sprite_bounds.height); // radius*2 for full size of black hole
+        // Set the black hole to be semi-transparent
+        pressure_source_sprite->GetSprite().setColor(sf::Color(255, 255, 255, 220));
 
         // Create linear force component for physics system
         auto radial_force = pressure_source->AddComponent<RadialForce>(physics_system.GetSpace(), origin, radius,
