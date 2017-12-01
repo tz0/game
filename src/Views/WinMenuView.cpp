@@ -29,7 +29,7 @@ namespace tjg{
 
         snippets.setFont(*monaco);
         snippets.setPosition(360,200);
-        snippets.setCharacterSize(24);
+        snippets.setCharacterSize(14);
         snippets.setFillColor(sf::Color(255, 255, 255, 255));
         LoadSnippets();
         auto wrappedString = wrapText(snippet_array[level_number].string_value(), 400, *snippets.getFont(), snippets.getCharacterSize());
