@@ -132,7 +132,7 @@ namespace tjg {
 
         // Create new particles if there are less than needed.
         if (particles.size() < needed_particles && enabled && particle_timer.getElapsedTime() > particle_rate) {
-            auto particles_to_spawn = std::min(emitters.size(), static_cast<unsigned long>(particle_timer.getElapsedTime().asMilliseconds() / particle_rate.asMilliseconds()));
+            auto particles_to_spawn = std::min(static_cast<unsigned long>(emitters.size()), static_cast<unsigned long>(particle_timer.getElapsedTime().asMilliseconds() / particle_rate.asMilliseconds()));
             particle_timer.restart();
             for (unsigned int i = 0; i < particles_to_spawn; ++i) {
                 auto emitter_location = emitters[emitter_dist(gen)]->GetComponent<Location>();
