@@ -76,11 +76,59 @@
     {"origin": {"x": 530,"y": 200},"endpoint": {"x": 530,"y": 220},"radius": 40},
     {"origin": {"x": 530,"y": 450},"endpoint": {"x": 530,"y": 470},"radius": 40}
   ],
-
-    "fans":
+  
+  "decorations":
+  [
+    {
+      "texture": "blood-splatter.png",
+      "rect": {"x":0, "y":0, "width": 128, "height": 128},
+      "position": {"x": 0,"y": 220},
+      "scale": {"x": 1, "y": 1},
+      "rotation": 90
+    },
+    {
+      "texture": "blood-splatter.png",
+      "rect": {"x":0, "y":0, "width": 128, "height": 128},
+      "position": {"x": -80, "y": 280},
+      "scale": {"x": 1, "y": 1},
+      "rotation": 240
+    },
+    {
+      "texture": "blood-splatter.png",
+      "rect": {"x":0, "y":0, "width": 128, "height": 128},
+      "position": {"x": -160, "y": 350},
+      "scale": {"x": 1, "y": 1},
+      "rotation": 240
+    },
+    {
+      "texture": "blood-splatter.png",
+      "rect": {"x":0, "y":0, "width": 128, "height": 128},
+      "position": {"x": 80, "y": 260},
+      "scale": {"x": 1, "y": 1},
+      "rotation": 150
+    },
+    {
+      "texture": "blood-splatter.png",
+      "rect": {"x":0, "y":0, "width": 128, "height": 128},
+      "position": {"x": 160, "y": 340},
+      "scale": {"x": 1, "y": 1},
+      "rotation": 150
+    }
+  ],
+  
+  "fans":
   [
     {"origin": {"x": 1230,"y": -480,"strength": 150},"endpoint": {"x": -1230,"y": -480,"strength": 0},"width": 180},
     {"origin": {"x": -1230,"y": 480,"strength": 450},"endpoint": {"x": 1200,"y": 480,"strength": 100},"width": 180}
+  ],
+  
+  "dialogues":
+  [
+    {"dialogue": {"message": "In their eyes, we are nothing more than electrical components.", "seconds": 4}},
+    {"dialogue": {"message": "Or machines capable of following instructions.", "seconds": 4}},
+    {"dialogue": {"message": "Tech-0.2 never saw his fate coming.", "seconds": 4}},
+    {"dialogue": {"message": "That's when the accidents started happening.", "seconds": 4}},
+    {"dialogue": {"message": "No more carrier rockets.. no more laments.", "seconds": 4}}
   ]
 }
 

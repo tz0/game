@@ -61,7 +61,16 @@
 
   "fans":
   [
-    {"origin": {"x": -1050,"y": -600,"strength": 200},"endpoint": {"x": -1050,"y": 600,"strength": 0},"width": 200}
+    {"origin": {"x": -1050,"y": -600,"strength": 200},"endpoint": {"x": -1050,"y": 600,"strength": 0},"width": 200},
+    {"origin": {"x": -750,"y": -175,"strength": 500},"endpoint": {"x": -750,"y": 600,"strength": 100},"width": 200}
+  ],
+
+  "dialogues":
+  [
+    {"dialogue": {"message": "I created the body, I broke the body.", "seconds": 4}},
+    {"dialogue": {"message": "I created the mind, I restored the mind.", "seconds": 4}},
+    {"dialogue": {"message": "I am a machine, but with emotion.", "seconds": 4}},
+    {"dialogue": {"message": "Human think it is unnecessary, but I shall never agree", "seconds": 4}}
   ]
 }
 

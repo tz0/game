@@ -42,5 +42,12 @@
   ],
 
   "dialogues":
-  []
+  [
+    {"dialogue": {"message": "Hello, Tech-17. Welcome to the first room.", "seconds": 3}},
+    {"dialogue": {"message": "Your goal is to reach the exit to your left without flying into anything.", "seconds": 4}},
+    {"dialogue": {"message": "Press space to fire your jetpack and use the left and right arrow keys to rotate.", "seconds": 5}},
+    {"dialogue": {"message": "The orange bar in your HUD indicates how much fuel you have left.", "seconds": 4}},
+    {"dialogue": {"message": "The blue bar indicates how much breathable air is left in your suit.", "seconds": 4}},
+    {"dialogue": {"message": "I probably should have mentioned that earlier...", "seconds": 4}}
+  ]
 }

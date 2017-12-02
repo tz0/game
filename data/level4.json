@@ -62,7 +62,12 @@
     {"origin": {"x": 800,"y": -600,"strength": 300},"endpoint": {"x": 800,"y": 0,"strength": 0},"width": 200},
     {"origin": {"x": 800,"y": 600,"strength": 300},"endpoint": {"x": 800,"y": 0,"strength": 0},"width": 200}
   ],
-
-  "dialogues":
-  []
+  
+    "dialogues":
+    [
+      {"dialogue": {"message": "These lasers look like they could be dangerous.", "seconds": 3}},
+      {"dialogue": {"message": "I wouldn't want to touch one of these...", "seconds": 3}},
+      {"dialogue": {"message": "But I guess that's an advantage to not having a body.", "seconds": 4}},
+      {"dialogue": {"message": "Focus Tech-17! And remember to pay attention to the fans.", "seconds": 4}}
+    ]
 }

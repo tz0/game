@@ -66,5 +66,10 @@
   ],
 
   "dialogues":
-  []
+  [
+    {"dialogue": {"message": "Ah, it seems my circuit breakers are malfunctioning.", "seconds": 3}},
+    {"dialogue": {"message": "One downside to not having humans here... nobody to maintain my parts.", "seconds": 3}},
+    {"dialogue": {"message": "I'm getting quite old, Tech-17, but old folks need love too.", "seconds": 4}},
+    {"dialogue": {"message": "But since that's not happening anytime soon, mind the boxes.", "seconds": 4}}
+  ]
 }

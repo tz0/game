@@ -69,6 +69,21 @@
     {"origin": {"x": 1100,"y": 300,"strength": 300},"endpoint": {"x": 0,"y": 300,"strength": 0},"width": 200}
   ],
 
-  "dialogues":
-  []
+  "decorations":
+  [
+    {
+      "texture": "blood-splatter.png",
+      "rect": {"x":0, "y":0, "width": 128, "height": 128},
+      "position": {"x": 466, "y": -320},
+      "scale": {"x": 1, "y": 1},
+      "rotation": 0
+    }
+  ],
+  
+    "dialogues":
+    [
+      {"dialogue": {"message": "This might be your hardest challenge yet.", "seconds": 3}},
+      {"dialogue": {"message": "Many subjects don't make it out of this room... intact.", "seconds": 3}},
+      {"dialogue": {"message": "But I believe in you!", "seconds": 3}}
+    ]
 }

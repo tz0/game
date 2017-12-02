@@ -58,7 +58,12 @@
     {"origin": {"x": 300,"y": -550,"strength": 650},"endpoint": {"x": 300,"y": -200,"strength": 300},"width": 200},
     {"origin": {"x": 300,"y": 150,"strength": 650},"endpoint": {"x": 300,"y": -200,"strength": 300},"width": 200}
   ],
-
-  "dialogues":
-  []
+  
+    "dialogues":
+    [
+      {"dialogue": {"message": "This is room 3.", "seconds": 3}},
+      {"dialogue": {"message": "It is time for your suit to be sanitized.", "seconds": 4}},
+      {"dialogue": {"message": "Please make your way through the foreign debris removal chamber.", "seconds": 4}},
+      {"dialogue": {"message": "Be careful not to get stuck!", "seconds": 4}}
+    ]
 }

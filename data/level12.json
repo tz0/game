@@ -65,6 +65,17 @@
   [
     {"origin": {"x": -1235,"y": -450,"strength": 150},"endpoint": {"x": 1235,"y": -450,"strength": 0},"width": 200},
     {"origin": {"x": -1235,"y": 450,"strength": 450},"endpoint": {"x": 1235,"y": 450,"strength": 0},"width": 200}
+  ],
+
+    "decorations":
+  [
+    {
+      "texture": "earth.png",
+      "rect": {"x":0, "y":0, "width": 461, "height": 461},
+      "position": {"x": -313, "y": 320},
+      "scale": {"x": 1, "y": 1},
+      "rotation": 0
+    }
   ]
 }
 
