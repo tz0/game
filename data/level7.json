@@ -52,8 +52,8 @@
     {"origin": {"x": -1236,"y": -150,"strength": 250},"endpoint": {"x": 200,"y": -150,"strength": 125},"width": 200},
     {"origin": {"x": -1236,"y": 150,"strength": 100},"endpoint": {"x": -200,"y": 150,"strength": 50},"width": 200},
 
-    {"origin": {"x": 713,"y": 610,"strength": 100},"endpoint": {"x": 713,"y": 400,"strength": 0},"width": 200},
-    {"origin": {"x": 713,"y": -610,"strength": 100},"endpoint": {"x": 713,"y": -400,"strength": 0},"width": 200}
+    {"origin": {"x": 550,"y": 610,"strength": 100},"endpoint": {"x": 550,"y": 400,"strength": 0},"width": 200},
+    {"origin": {"x": 850,"y": 610,"strength": 100},"endpoint": {"x": 850,"y": 400,"strength": 0},"width": 200}
   ],
 
   "shockboxes":
@@ -78,15 +78,15 @@
     {
       "texture": "tech0.2hd.png",
       "rect": {"x":0, "y":0, "width": 321, "height": 680},
-      "position": {"x": 513, "y": 320},
-      "scale": {"x": 0.6, "y": 0.6},
+      "position": {"x": 550, "y": 320},
+      "scale": {"x": 0.5, "y": 0.5},
       "rotation": 0
     },
     {
       "texture": "tech0.2frozen2.png",
       "rect": {"x":0, "y":0, "width": 400, "height": 864},
-      "position": {"x": 713, "y": 320},
-      "scale": {"x": 0.4, "y": 0.4},
+      "position": {"x": 850, "y": 320},
+      "scale": {"x": 0.35, "y": 0.35},
       "rotation": 0
     }
   ],
