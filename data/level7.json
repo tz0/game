@@ -69,17 +69,24 @@
   "decorations":
   [
     {
-      "texture": "tech0.2.png",
-      "rect": {"x":0, "y":0, "width": 87, "height": 166},
+      "texture": "tech0.2photo.png",
+      "rect": {"x":0, "y":0, "width": 682, "height": 823},
       "position": {"x": 713, "y": -320},
-      "scale": {"x": 1.6, "y": 1.6},
+      "scale": {"x": 0.4, "y": 0.4},
       "rotation": 0
     },
     {
-      "texture": "tech0.2.png",
-      "rect": {"x":0, "y":0, "width": 87, "height": 166},
+      "texture": "tech0.2hd.png",
+      "rect": {"x":0, "y":0, "width": 321, "height": 680},
+      "position": {"x": 513, "y": 320},
+      "scale": {"x": 0.6, "y": 0.6},
+      "rotation": 0
+    },
+    {
+      "texture": "tech0.2frozen2.png",
+      "rect": {"x":0, "y":0, "width": 400, "height": 864},
       "position": {"x": 713, "y": 320},
-      "scale": {"x": 1.65, "y": 1.65},
+      "scale": {"x": 0.4, "y": 0.4},
       "rotation": 0
     }
   ],

@@ -61,6 +61,31 @@
             
   ],
 
+    "decorations":
+  [
+    {
+      "texture": "blood-splatter.png",
+      "rect": {"x":0, "y":0, "width": 128, "height": 128},
+      "position": {"x": -840, "y": -420},
+      "scale": {"x": 1, "y": 1},
+      "rotation": 0
+    },
+    {
+      "texture": "blood-splatter.png",
+      "rect": {"x":0, "y":0, "width": 128, "height": 128},
+      "position": {"x": -830, "y": 370},
+      "scale": {"x": 1, "y": 1},
+      "rotation": 0
+    },
+    {
+      "texture": "blood-splatter.png",
+      "rect": {"x":0, "y":0, "width": 128, "height": 128},
+      "position": {"x": 26, "y": 96},
+      "scale": {"x": 1, "y": 1},
+      "rotation": 0
+    }    
+  ],
+
   "shockboxes":
   [
     {"x": 900, "y": -420},
@@ -70,7 +95,7 @@
 
     {"x": -900, "y": -420},
     {"x": -900, "y": 420}
-  ]
+  ]  
 }
 
 

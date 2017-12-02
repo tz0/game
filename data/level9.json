@@ -50,7 +50,30 @@
     
 
   ],
-
+    "decorations":
+  [
+    {
+      "texture": "blood-splatter.png",
+      "rect": {"x":0, "y":0, "width": 128, "height": 128},
+      "position": {"x": -1200,"y": -160},
+      "scale": {"x": 1, "y": 1},
+      "rotation": 0
+    },
+    {
+      "texture": "blood-splatter.png",
+      "rect": {"x":0, "y":0, "width": 128, "height": 128},
+      "position": {"x": 450, "y": 200},
+      "scale": {"x": 1, "y": 1},
+      "rotation": 90
+    },
+    {
+      "texture": "blood-splatter.png",
+      "rect": {"x":0, "y":0, "width": 128, "height": 128},
+      "position": {"x": -180, "y": 120},
+      "scale": {"x": 1, "y": 1},
+      "rotation": 0
+    }    
+  ],
     "fans":
   [
     {"origin": {"x": -650,"y": 600,"strength": 1750},"endpoint": {"x": -650,"y": -600,"strength": 100},"width": 200},

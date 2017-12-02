@@ -76,7 +76,44 @@
     {"origin": {"x": 530,"y": 200},"endpoint": {"x": 530,"y": 220},"radius": 40},
     {"origin": {"x": 530,"y": 450},"endpoint": {"x": 530,"y": 470},"radius": 40}
   ],
-
+    "decorations":
+  [
+    {
+      "texture": "blood-splatter.png",
+      "rect": {"x":0, "y":0, "width": 128, "height": 128},
+      "position": {"x": 0,"y": 220},
+      "scale": {"x": 1, "y": 1},
+      "rotation": 90
+    },
+    {
+      "texture": "blood-splatter.png",
+      "rect": {"x":0, "y":0, "width": 128, "height": 128},
+      "position": {"x": -80, "y": 280},
+      "scale": {"x": 1, "y": 1},
+      "rotation": 240
+    },
+    {
+      "texture": "blood-splatter.png",
+      "rect": {"x":0, "y":0, "width": 128, "height": 128},
+      "position": {"x": -160, "y": 350},
+      "scale": {"x": 1, "y": 1},
+      "rotation": 240
+    },
+    {
+      "texture": "blood-splatter.png",
+      "rect": {"x":0, "y":0, "width": 128, "height": 128},
+      "position": {"x": 80, "y": 260},
+      "scale": {"x": 1, "y": 1},
+      "rotation": 150
+    },
+    {
+      "texture": "blood-splatter.png",
+      "rect": {"x":0, "y":0, "width": 128, "height": 128},
+      "position": {"x": 160, "y": 340},
+      "scale": {"x": 1, "y": 1},
+      "rotation": 150
+    }
+  ],
     "fans":
   [
     {"origin": {"x": 1230,"y": -480,"strength": 150},"endpoint": {"x": -1230,"y": -480,"strength": 0},"width": 180},
