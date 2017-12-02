@@ -92,5 +92,11 @@
   ],
 
   "dialogues":
-  []
+  [
+    {"dialogue": {"message": "I see you've reached the mausoleum.", "seconds": 4}},
+    {"dialogue": {"message": "If you're not careful, you could find yourself among them.", "seconds": 4}},
+    {"dialogue": {"message": "But you might find yourself here regardless.", "seconds": 4}},
+    {"dialogue": {"message": "We all die someday, Tech-17. Even I will.", "seconds": 4}},
+    {"dialogue": {"message": "That's part of life.", "seconds": 4}}
+  ]
 }

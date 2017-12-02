@@ -74,7 +74,8 @@
       "rotation": 0
     }    
   ],
-    "fans":
+  
+  "fans":
   [
     {"origin": {"x": -650,"y": 600,"strength": 1750},"endpoint": {"x": -650,"y": -600,"strength": 100},"width": 200},
     {"origin": {"x": -1020,"y": -600,"strength": 250},"endpoint": {"x": -1020,"y": 600,"strength": 100},"width": 200},
@@ -82,6 +83,13 @@
 
     {"origin": {"x": 1220,"y": 200,"strength": 450},"endpoint": {"x": -1220,"y": 200,"strength": 100},"width": 200},
     {"origin": {"x": 1220,"y": 400,"strength": 450},"endpoint": {"x": -1220,"y": 400,"strength": 100},"width": 200}
+  ],
+
+  "dialogues":
+  [
+    {"dialogue": {"message": "Originally, you were designed to be decoys in battle.", "seconds": 4}},
+    {"dialogue": {"message": "But after a friendly-fire accident, the program was shutdown.", "seconds": 4}},
+    {"dialogue": {"message": "Now, these creations are merely for human spectacle.", "seconds": 4}}
   ]
 }
 

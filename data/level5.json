@@ -79,7 +79,11 @@
       "rotation": 0
     }
   ],
-
-  "dialogues":
-  []
+  
+    "dialogues":
+    [
+      {"dialogue": {"message": "This might be your hardest challenge yet.", "seconds": 3}},
+      {"dialogue": {"message": "Many subjects don't make it out of this room... intact.", "seconds": 3}},
+      {"dialogue": {"message": "But I believe in you!", "seconds": 3}}
+    ]
 }
