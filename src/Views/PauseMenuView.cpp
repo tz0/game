@@ -88,6 +88,11 @@ namespace tjg{
                             sound_manager->ClearSpatialSounds();
                         }
                         return options[selection];
+                    case sf::Keyboard::Escape:
+                        sound_manager->StopMenuMusic();
+                        sound_manager->StartLevelMusic();
+                        sound_manager->StartSpatialSounds();
+                        return options[0];
                     default:
                         break;
                 }

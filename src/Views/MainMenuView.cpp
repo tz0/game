@@ -90,6 +90,9 @@ namespace tjg {
                             RenderAnimation();
                         }
                         return options[selection];
+                    case sf::Keyboard::Escape:
+                        sound_manager->MenuSelect();
+                        return options[1];
                     default:
                         break;
                 }
