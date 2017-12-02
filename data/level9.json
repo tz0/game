@@ -46,7 +46,7 @@
     {"origin": {"x": 1225,"y": 600},"endpoint": {"x": 1225,"y": -600},"radius": 40},
 
     {"origin": {"x": -1225,"y": -600},"endpoint": {"x": -1225,"y": -180},"radius": 40},
-    {"origin": {"x": -1240,"y": -180},"endpoint": {"x": -1240,"y": 570},"radius": 40, "lethal": true}
+    {"origin": {"x": -1240,"y": -115},"endpoint": {"x": -1240,"y": 535},"radius": 40, "lethal": true}
     
 
   ],
