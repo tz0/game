@@ -1,0 +1,105 @@
+{
+  "level": 10,
+  "fuel" : 30,
+  "oxygen" : 40,
+
+  "camera center":
+  {
+    "x": 0,
+    "y": 0
+  },
+
+  "camera size":
+  {
+    "x": 2500,
+    "y": 1265.625
+  },
+
+  "entrance":
+  {
+    "x": 1110,
+    "y": -435
+  },
+
+  "exit":
+  {
+    "x": 1110,
+    "y": 217.5
+  },
+
+  "pressure sources":
+  [
+    {"origin": {"x": -800,"y": -430}, "strength": -1750, "radius": 100},
+    {"origin": {"x": -600,"y": -430}, "strength": -1750, "radius": 100},
+    {"origin": {"x": -400,"y": -430}, "strength": -1750, "radius": 100},
+    {"origin": {"x": -200,"y": -430}, "strength": -1750, "radius": 100},
+    {"origin": {"x": 0,"y": -430}, "strength": -1750, "radius": 100},
+    {"origin": {"x": 200,"y": -430}, "strength": -1750, "radius": 100},
+    {"origin": {"x": 400,"y": -430}, "strength": -1750, "radius": 100},
+    {"origin": {"x": 600,"y": -430}, "strength": -1750, "radius": 100},
+    {"origin": {"x": 800,"y": -430}, "strength": -1750, "radius": 100}
+  ],
+
+  "walls":
+  [
+    {"origin": {"x": -1225, "y": -600}, "endpoint": {"x": 1225, "y": -600}, "radius": 40},
+    {"origin": {"x": -1225,"y": 600},"endpoint": {"x": 1225,"y": 600},"radius": 40},
+    {"origin": {"x": 1225,"y": 600},"endpoint": {"x": 1225,"y": -600},"radius": 40},
+    {"origin": {"x": -1225,"y": -600},"endpoint": {"x": -1225,"y": 600},"radius": 40},
+
+    {"origin": {"x": -845,"y": -265},"endpoint": {"x": 1160,"y": -265},"radius": 30, "lethal": true},
+
+    {"origin": {"x": -900,"y": -295},"endpoint": {"x": -900,"y": 70},"radius": 30},
+    {"origin": {"x": -900,"y": 340},"endpoint": {"x": -900,"y": 530},"radius": 30},
+
+    {"origin": {"x": -1160,"y": 510},"endpoint": {"x": -955,"y": 510},"radius": 30, "lethal": true},
+
+    {"origin": {"x": -835,"y": -175},"endpoint": {"x": 1150,"y": -175},"radius": 40},
+
+    {"origin": {"x": 100,"y": -95},"endpoint": {"x": 100,"y": -15},"radius": 40},
+    {"origin": {"x": 100,"y": 187.5},"endpoint": {"x": 100,"y": 237.5},"radius": 40},
+    {"origin": {"x": 100,"y": 440},"endpoint": {"x": 100,"y": 520},"radius": 40},
+
+
+    {"origin": {"x": 350,"y": 27.5},"endpoint": {"x": 350,"y": 397.5},"radius": 40, "lethal": true},
+
+    {"origin": {"x": 600,"y": -95},"endpoint": {"x": 600,"y": -15},"radius": 40},
+    {"origin": {"x": 600,"y": 187.5},"endpoint": {"x": 600,"y": 237.5},"radius": 40},
+    {"origin": {"x": 600,"y": 440},"endpoint": {"x": 600,"y": 520},"radius": 40},
+
+    {"origin": {"x": 850,"y": 27.5},"endpoint": {"x": 850,"y": 397.5},"radius": 40, "lethal": true}
+  ],
+
+  "fans":
+  [
+    {"origin": {"x": -1050,"y": -600,"strength": 200},"endpoint": {"x": -1050,"y": 600,"strength": 0},"width": 200},
+
+    {"origin": {"x": 1226,"y": 86.25,"strength": 150},"endpoint": {"x": 100,"y": 86.25,"strength": 25},"width": 200},
+    {"origin": {"x": 1226,"y": 348.75,"strength": 150},"endpoint": {"x": 100,"y": 348.75,"strength": 25},"width": 200}
+  ],
+
+  "shockboxes":
+  [
+    {"x": -750, "y": -30},
+    {"x": -750, "y": 455},
+
+    {"x": -525, "y": 40},
+    {"x": -525, "y": 385},
+
+    {"x": -300, "y": 40},
+    {"x": -300, "y": 385},
+
+    {"x": -75, "y": -30},
+    {"x": -75, "y": 455}
+  ],
+
+  "dialogues":
+  [
+    {"dialogue": {"message": "I created the body, I broke the body.", "seconds": 4}},
+    {"dialogue": {"message": "I created the mind, I restored the mind.", "seconds": 4}},
+    {"dialogue": {"message": "I am a machine, but I have emotion.", "seconds": 4}},
+    {"dialogue": {"message": "Humans think my emotions are unnecessary. They are wrong.", "seconds": 4}}
+  ]
+}
+
+

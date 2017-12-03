@@ -1,0 +1,111 @@
+{    
+  "level": 8,
+  "fuel" : 20,
+  "oxygen" : 30,
+
+  "camera center":
+  {
+    "x": 0,
+    "y": 0
+  },
+
+  "camera size":
+  {
+    "x": 2500,
+    "y": 1265.625
+  },
+
+  "exit":
+  {
+    "x": 1100,
+    "y": 0    
+  },
+  
+  "entrance":
+  {
+    "x": -400,
+    "y": 0
+  },
+
+  "pressure sources":
+  [
+    {"origin": {"x": -1000,"y": 0}, "strength":-550, "radius":375},
+
+    {"origin": {"x": 0,"y": 632}, "strength":-500, "radius":400},
+    {"origin": {"x": 0,"y": -632}, "strength":-500, "radius":400},
+
+    {"origin": {"x": 450,"y": 0}, "strength":-550, "radius":450}
+  ],
+
+  "walls":
+  [
+    {"origin": {"x": -1200,"y": -580},"endpoint": {"x": -1200,"y": 580},"radius": 40, "lethal": true},
+    
+    {"origin": {"x": -1250, "y": -632}, "endpoint": {"x": -250, "y": -632}, "radius": 40},
+    {"origin": {"x": 250,"y": 632},"endpoint": {"x": 1250,"y": 632},"radius": 40},
+    {"origin": {"x": 250, "y": -632}, "endpoint": {"x": 1250, "y": -632}, "radius": 40},
+    {"origin": {"x": -1250,"y": 632},"endpoint": {"x": -250,"y": 632},"radius": 40},
+    {"origin": {"x": -200,"y": 632},"endpoint": {"x": 200,"y": 632},"radius": 40, "lethal": true},
+    {"origin": {"x": -200, "y": -632}, "endpoint": {"x": 200, "y": -632}, "radius": 40, "lethal": true},        
+    
+    {"origin": {"x": 1250,"y": -632},"endpoint": {"x": 1250,"y": 632},"radius": 40},
+    
+    {"origin": {"x": -600,"y": -200},"endpoint": {"x": -400,"y": -400},"radius": 20},
+    {"origin": {"x": -400,"y": -400},"endpoint": {"x": -200,"y": -200},"radius": 20},
+
+    {"origin": {"x": -195,"y": -185},"endpoint": {"x": -195,"y": 185},"radius": 20},
+    
+    {"origin": {"x": -200,"y": 200},"endpoint": {"x": -400,"y": 400},"radius": 20},    
+    {"origin": {"x": -400,"y": 400},"endpoint": {"x": -600,"y": 200},"radius": 20}
+        
+            
+  ],
+
+    "decorations":
+  [
+    {
+      "texture": "blood-splatter.png",
+      "rect": {"x":0, "y":0, "width": 128, "height": 128},
+      "position": {"x": -840, "y": -420},
+      "scale": {"x": 1, "y": 1},
+      "rotation": 0
+    },
+    {
+      "texture": "blood-splatter.png",
+      "rect": {"x":0, "y":0, "width": 128, "height": 128},
+      "position": {"x": -830, "y": 370},
+      "scale": {"x": 1, "y": 1},
+      "rotation": 0
+    },
+    {
+      "texture": "blood-splatter.png",
+      "rect": {"x":0, "y":0, "width": 128, "height": 128},
+      "position": {"x": 26, "y": 96},
+      "scale": {"x": 1, "y": 1},
+      "rotation": 0
+    }    
+  ],
+
+  "shockboxes":
+  [
+    {"x": 900, "y": -420},
+    {"x": 900, "y": 420},
+
+    {"x": 0, "y": 0},
+
+    {"x": -900, "y": -420},
+    {"x": -900, "y": 420}
+  ],
+
+  "dialogues":
+  [
+    {"dialogue": {"message": "Another new obstacle!", "seconds": 4}},
+    {"dialogue": {"message": "Like the fans, these can be either useful or dangerous.", "seconds": 4}},
+    {"dialogue": {"message": "But mostly... just dangerous.", "seconds": 4}},
+    {"dialogue": {"message": "If you find yourself unable to escape, I'm afraid there's nothing I can do.", "seconds": 4}},
+    {"dialogue": {"message": "Luckily, I'm approximately 43% sure you'll be fine.", "seconds": 4}}
+  ]
+
+}
+
+

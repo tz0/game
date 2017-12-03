@@ -1,54 +1,61 @@
 {    
   "level": 2,
-  "fuel" : 5,
-  "oxygen" : 45,
+  "fuel" : 20,
+  "oxygen" : 50,
 
   "camera center":
   {
-    "x": -500,
+    "x": 0,
     "y": 0
   },
 
   "camera size":
   {
-    "x": 2080,
-    "y": 1280
+    "x": 2200,
+    "y": 1113.75
+  },
+
+  "entrance":
+  {
+    "x": -950,
+    "y": 0
   },
 
   "exit":
   {
-    "x": -1350,
-    "y": -200    
-  },
-  
-  "entrance":
-  {
-    "x": -500,
-    "y": 0
+    "x": 950,
+    "y": 0    
   },
 
   "walls":
   [
-    {"origin": {"x": -1500, "y": -600}, "endpoint": {"x": 500, "y": -600}, "radius": 40 },
-    {"origin": {"x": -1500,"y": 600},"endpoint": {"x": 500,"y": 600},"radius": 40},
-    {"origin": {"x": -1500,"y": -600},"endpoint": {"x": -1500,"y": 600},"radius": 40},
-    {"origin": {"x": 500,"y": -600},"endpoint": {"x": 500,"y": 600},"radius": 40},
-    {"origin": {"x": -900,"y": -600},"endpoint": {"x": -950,"y": 90},"radius": 140}
+    {"origin": {"x": -1100, "y": -550}, "endpoint": {"x": 1100, "y": -550}, "radius": 40},
+    {"origin": {"x": -1100,"y": 550},"endpoint": {"x": 1100,"y": 550},"radius": 40},
+    {"origin": {"x": -1100,"y": -550},"endpoint": {"x": -1100,"y": 550},"radius": 40},
+    {"origin": {"x": 1100,"y": -550},"endpoint": {"x": 1100,"y": 550},"radius": 40},
+
+    {"origin": {"x": -1100,"y": -200},"endpoint": {"x": -820,"y": -200},"radius": 20},
+    {"origin": {"x": -820,"y": -200},"endpoint": {"x": -820,"y": 250},"radius": 20},
+
+    {"origin": {"x": 1100,"y": 200},"endpoint": {"x": 820,"y": 200},"radius": 20},
+    {"origin": {"x": 820,"y": 200},"endpoint": {"x": 820,"y": -250},"radius": 20}
   ],
 
   "fans":
   [
-    {"origin": {"x": 500,"y": -400,"strength": 1000},"endpoint": {"x": -1500,"y": 400,"strength": 250},"width": 200},
-    {"origin": {"x": -600,"y": -600,"strength": 800},"endpoint": {"x": -600,"y": 600,"strength": 50},"width": 200},
-    {"origin": {"x": -1000,"y": 600,"strength": 1600},"endpoint": {"x": -1000,"y": -600,"strength": 250},"width": 200}
-  ],
+    {"origin": {"x": -700,"y": -550,"strength": 400},"endpoint": {"x": -700,"y": 550,"strength": 100},"width": 200},
+    {"origin": {"x": -400,"y": 550,"strength": 400},"endpoint": {"x": -400,"y": -550,"strength": 100},"width": 200},
+    {"origin": {"x": -100,"y": -550,"strength": 400},"endpoint": {"x": -100,"y": 550,"strength": 100},"width": 200},
+    {"origin": {"x": 200,"y": 550,"strength": 400},"endpoint": {"x": 200,"y": -550,"strength": 100},"width": 200},
+    {"origin": {"x": 500,"y": -550,"strength": 400},"endpoint": {"x": 500,"y": 550,"strength": 100},"width": 200}
 
-  "dialogues":
-  [
-    {"dialogue": {"message": "Hello, my friend.", "seconds": 3}},
-    {"dialogue": {"message": "How are you?", "seconds": 3}},
-    {"dialogue": {"message": "I'm Spaceship Artificial Intelligence. You can call me 'SAI'", "seconds": 5}},
-    {"dialogue": {"message": "What's your name?", "seconds": 4}},
-    {"dialogue": {"message": "TECH-17? Huh, 17...", "seconds": 3}}
-  ]
+  ],
+  
+    "dialogues":
+    [
+      {"dialogue": {"message": "Notice these fans?", "seconds": 3}},
+      {"dialogue": {"message": "Be mindful of how they blow.", "seconds": 4}},
+      {"dialogue": {"message": "Some can be useful in helping you reach the exit.", "seconds": 4}},
+      {"dialogue": {"message": "Sometimes they are best avoided -- if possible.", "seconds": 4}}
+    ]
 }

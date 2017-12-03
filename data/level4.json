@@ -1,0 +1,73 @@
+{    
+  "level": 4,
+  "fuel" : 25,
+  "oxygen" : 40,
+
+  "camera center":
+  {
+    "x": 0,
+    "y": 0
+  },
+
+  "camera size":
+  {
+    "x": 2500,
+    "y": 1265.625
+  },
+
+  "exit":
+  {
+    "x": 1100,
+    "y": 0
+  },
+  
+  "entrance":
+  {
+    "x": -1100,
+    "y": 0
+  },
+
+  "walls":
+  [
+    {"origin": {"x": -1250, "y": -600}, "endpoint": {"x": 1250, "y": -600}, "radius": 40 },
+    {"origin": {"x": -1250,"y": 600},"endpoint": {"x": 1250,"y": 600},"radius": 40},
+    {"origin": {"x": -1250,"y": -600},"endpoint": {"x": -1250,"y": 600},"radius": 40},
+    {"origin": {"x": 1250,"y": -600},"endpoint": {"x": 1250,"y": 600},"radius": 40},
+
+    {"origin": {"x": -900,"y": -600},"endpoint": {"x": -900,"y": -150},"radius": 20, "lethal": true},
+    {"origin": {"x": -900,"y": 600},"endpoint": {"x": -900,"y": 150},"radius": 20, "lethal": true},
+
+    {"origin": {"x": -400,"y": -600},"endpoint": {"x": -400,"y": -400},"radius": 20, "lethal": true},
+    {"origin": {"x": -400,"y": 600},"endpoint": {"x": -400,"y": -100},"radius": 20, "lethal": true},
+
+    {"origin": {"x": 100,"y": -600},"endpoint": {"x": 100,"y": 100},"radius": 20, "lethal": true},
+    {"origin": {"x": 100,"y": 600},"endpoint": {"x": 100,"y": 400},"radius": 20, "lethal": true},
+
+    {"origin": {"x": 600,"y": -600},"endpoint": {"x": 600,"y": -400},"radius": 20, "lethal": true},
+    {"origin": {"x": 600,"y": 600},"endpoint": {"x": 600,"y": -100},"radius": 20, "lethal": true}
+
+  ],
+
+  "fans":
+  [
+    {"origin": {"x": -1100,"y": -600,"strength": 300},"endpoint": {"x": -1100,"y": 0,"strength": 0},"width": 200},
+    {"origin": {"x": -1100,"y": 600,"strength": 300},"endpoint": {"x": -1100,"y": 0,"strength": 0},"width": 200},
+
+    {"origin": {"x": -650,"y": -600,"strength": 200},"endpoint": {"x": -650,"y": 600,"strength": 0},"width": 200},
+
+    {"origin": {"x": -150,"y": 600,"strength": 200},"endpoint": {"x": -150,"y": -600,"strength": 0},"width": 200},
+
+    {"origin": {"x": 350,"y": 600,"strength": 300},"endpoint": {"x": 350,"y": -600,"strength": 0},"width": 200},
+
+    {"origin": {"x": 800,"y": -600,"strength": 300},"endpoint": {"x": 800,"y": 0,"strength": 0},"width": 200},
+    {"origin": {"x": 800,"y": 600,"strength": 300},"endpoint": {"x": 800,"y": 0,"strength": 0},"width": 200}
+  ],
+  
+    "dialogues":
+    [
+      {"dialogue": {"message": "These lasers look like they could be dangerous.", "seconds": 3}},
+      {"dialogue": {"message": "I wouldn't want to touch one of these...", "seconds": 3}},
+      {"dialogue": {"message": "But I guess that's an advantage to not having a body.", "seconds": 4}},
+      {"dialogue": {"message": "Stay focused and remember to pay attention to the fans!", "seconds": 4}}
+    ]
+}

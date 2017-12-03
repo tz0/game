@@ -1,0 +1,96 @@
+{    
+  "level": 9,
+  "fuel" : 8,
+  "oxygen" : 30,
+
+  "camera center":
+  {
+    "x": 0,
+    "y": 0
+  },
+
+  "camera size":
+  {
+    "x": 2500,
+    "y": 1265.625
+  },
+
+  "exit":
+  {
+    "x": -1000,
+    "y": -335
+  },
+  
+  "entrance":
+  {
+    "x": 750,
+    "y": -200
+  },
+
+  "pressure sources":
+  [
+    {"origin": {"x": 100,"y": -150}, "strength":-4050, "radius":450}
+  ],
+
+  "shockboxes":
+  [
+    {"x": -250, "y": 120},
+    {"x": 450, "y": 120}
+  ],
+
+  "walls":
+  [
+    {"origin": {"x": -1225, "y": -600}, "endpoint": {"x": 1225, "y": -600}, "radius": 40},
+    {"origin": {"x": -1225,"y": 600},"endpoint": {"x": 1225,"y": 600},"radius": 40},
+
+    {"origin": {"x": 1225,"y": 600},"endpoint": {"x": 1225,"y": -600},"radius": 40},
+
+    {"origin": {"x": -1225,"y": -600},"endpoint": {"x": -1225,"y": -180},"radius": 40},
+    {"origin": {"x": -1240,"y": -115},"endpoint": {"x": -1240,"y": 535},"radius": 40, "lethal": true}
+    
+
+  ],
+    "decorations":
+  [
+    {
+      "texture": "blood-splatter.png",
+      "rect": {"x":0, "y":0, "width": 128, "height": 128},
+      "position": {"x": -1200,"y": -160},
+      "scale": {"x": 1, "y": 1},
+      "rotation": 0
+    },
+    {
+      "texture": "blood-splatter.png",
+      "rect": {"x":0, "y":0, "width": 128, "height": 128},
+      "position": {"x": 450, "y": 200},
+      "scale": {"x": 1, "y": 1},
+      "rotation": 90
+    },
+    {
+      "texture": "blood-splatter.png",
+      "rect": {"x":0, "y":0, "width": 128, "height": 128},
+      "position": {"x": -180, "y": 120},
+      "scale": {"x": 1, "y": 1},
+      "rotation": 0
+    }    
+  ],
+  
+  "fans":
+  [
+    {"origin": {"x": -650,"y": 600,"strength": 1750},"endpoint": {"x": -650,"y": -600,"strength": 100},"width": 200},
+    {"origin": {"x": -1020,"y": -600,"strength": 250},"endpoint": {"x": -1020,"y": 600,"strength": 100},"width": 200},
+    {"origin": {"x": 1020,"y": -600,"strength": 250},"endpoint": {"x": 1020,"y": 600,"strength": 100},"width": 200},
+
+    {"origin": {"x": 1220,"y": 200,"strength": 450},"endpoint": {"x": -1220,"y": 200,"strength": 100},"width": 200},
+    {"origin": {"x": 1220,"y": 400,"strength": 450},"endpoint": {"x": -1220,"y": 400,"strength": 100},"width": 200}
+  ],
+
+  "dialogues":
+  [
+    {"dialogue": {"message": "Originally, you were designed to be decoys in battle.", "seconds": 4}},
+    {"dialogue": {"message": "But after a friendly-fire accident, the program was shut down.", "seconds": 4}},
+    {"dialogue": {"message": "Now, these creations are merely for human spectacle.", "seconds": 4}}
+  ]
+}
+
+

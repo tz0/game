@@ -10,7 +10,7 @@ namespace tjg {
                                  -10, sf::BlendAdd, sf::milliseconds(15), sf::seconds(8), sf::Vector2f(60, 60), sf::Vector2f(0, 0), 2.0f,
                                  [](float x){
                                      auto alpha = static_cast<sf::Uint8>(std::max(0.0f, static_cast<float>(128 * cos(x * 2.5)+128)));
-                                     return sf::Color(255, 255, 255, alpha/sf::Uint8(25));
+                                     return sf::Color(255, 255, 255, alpha/sf::Uint8(22));
                                  },
                                  [](float x){
                                      auto size = static_cast<float>(sin(x * 4.0) * 4.f);
@@ -154,6 +154,7 @@ namespace tjg {
         sound_manager->UpdateListenerPosition(player_location);
 
         // Set up spatial sounds.
+        sound_manager->ClearSpatialSounds();
         sound_manager->InitializeSpatialSounds(logic_center.GetFans(),
                                                logic_center.GetShockBoxes(),
                                                logic_center.GetPressureSources(),

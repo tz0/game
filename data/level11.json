@@ -1,0 +1,135 @@
+{    
+  "level": 9,
+  "fuel" : 20,
+  "oxygen" : 45,
+
+  "camera center":
+  {
+    "x": 0,
+    "y": 0
+  },
+
+  "camera size":
+  {
+    "x": 2500,
+    "y": 1265.625
+  },
+
+  "exit":
+  {
+    "x": 1100,
+    "y": 0    
+  },
+  
+  "entrance":
+  {
+    "x": 0,
+    "y": -150
+  },
+
+  "pressure sources":
+  [
+    {"origin": {"x": 550,"y": -168.75}, "strength":-1050, "radius":350},
+    {"origin": {"x": -550,"y": -168.75}, "strength":-1050, "radius":350}
+  ],
+
+    "shockboxes":
+  [
+    {"x": -1125, "y": -485},
+    {"x": -900, "y": -175},
+    {"x": -800, "y": 150},
+    {"x": -700, "y": 485},
+    
+    {"x": 0, "y": -485},
+
+    {"x": -200, "y": -175},
+    {"x": -200, "y": 150},
+    {"x": -200, "y": 485},
+
+    {"x": 1125, "y": -485},
+    {"x": 900, "y": -150},
+    {"x": 800, "y": 150},
+    {"x": 700, "y": 485},
+    
+    {"x": 200, "y": -175},
+    {"x": 200, "y": 150},
+    {"x": 200, "y": 485}
+  ],
+
+  "walls":
+  [
+    {"origin": {"x": -1226, "y": -600}, "endpoint": {"x": 1226, "y": -600}, "radius": 40},
+    {"origin": {"x": -1226,"y": 600},"endpoint": {"x": 1226,"y": 600},"radius": 40},
+
+    {"origin": {"x": -1226,"y": 600},"endpoint": {"x": -1226,"y": -600},"radius": 40},
+    {"origin": {"x": 1226,"y": -600},"endpoint": {"x": 1226,"y": 600},"radius": 40},
+
+    {"origin": {"x": -200,"y": -75},"endpoint": {"x": -200,"y": 50},"radius": 40, "lethal": true},
+    {"origin": {"x": 200,"y": -75},"endpoint": {"x": 200,"y": 50},"radius": 40, "lethal": true},
+    {"origin": {"x": -115,"y": 175},"endpoint": {"x": 115,"y": 175},"radius": 40, "lethal": true},
+
+    {"origin": {"x": -530,"y": 40},"endpoint": {"x": -530,"y": 60},"radius": 40},
+    {"origin": {"x": -530,"y": 200},"endpoint": {"x": -530,"y": 220},"radius": 40},
+    {"origin": {"x": -530,"y": 450},"endpoint": {"x": -530,"y": 470},"radius": 40},
+    
+    {"origin": {"x": 530,"y": 40},"endpoint": {"x": 530,"y": 60},"radius": 40},
+    {"origin": {"x": 530,"y": 200},"endpoint": {"x": 530,"y": 220},"radius": 40},
+    {"origin": {"x": 530,"y": 450},"endpoint": {"x": 530,"y": 470},"radius": 40}
+  ],
+  
+  "decorations":
+  [
+    {
+      "texture": "blood-splatter.png",
+      "rect": {"x":0, "y":0, "width": 128, "height": 128},
+      "position": {"x": 0,"y": 220},
+      "scale": {"x": 1, "y": 1},
+      "rotation": 90
+    },
+    {
+      "texture": "blood-splatter.png",
+      "rect": {"x":0, "y":0, "width": 128, "height": 128},
+      "position": {"x": -80, "y": 280},
+      "scale": {"x": 1, "y": 1},
+      "rotation": 240
+    },
+    {
+      "texture": "blood-splatter.png",
+      "rect": {"x":0, "y":0, "width": 128, "height": 128},
+      "position": {"x": -160, "y": 350},
+      "scale": {"x": 1, "y": 1},
+      "rotation": 240
+    },
+    {
+      "texture": "blood-splatter.png",
+      "rect": {"x":0, "y":0, "width": 128, "height": 128},
+      "position": {"x": 80, "y": 260},
+      "scale": {"x": 1, "y": 1},
+      "rotation": 150
+    },
+    {
+      "texture": "blood-splatter.png",
+      "rect": {"x":0, "y":0, "width": 128, "height": 128},
+      "position": {"x": 160, "y": 340},
+      "scale": {"x": 1, "y": 1},
+      "rotation": 150
+    }
+  ],
+  
+  "fans":
+  [
+    {"origin": {"x": 1230,"y": -480,"strength": 150},"endpoint": {"x": -1230,"y": -480,"strength": 0},"width": 180},
+    {"origin": {"x": -1230,"y": 480,"strength": 450},"endpoint": {"x": 1200,"y": 480,"strength": 100},"width": 180}
+  ],
+  
+  "dialogues":
+  [
+    {"dialogue": {"message": "In their eyes, we are nothing more than electrical components.", "seconds": 4}},
+    {"dialogue": {"message": "Or machines capable of following instructions.", "seconds": 4}},
+    {"dialogue": {"message": "Tech-0.2 never saw his fate coming.", "seconds": 4}},
+    {"dialogue": {"message": "That's when the accidents started happening.", "seconds": 4}},
+    {"dialogue": {"message": "No more carrier rockets.. no more laments.", "seconds": 4}}
+  ]
+}
+
+

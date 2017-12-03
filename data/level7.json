@@ -1,0 +1,102 @@
+{
+  "level": 7,
+  "fuel" : 28,
+  "oxygen" : 60,
+
+  "camera center":
+  {
+    "x": 0,
+    "y": 0
+  },
+
+  "camera size":
+  {
+    "x": 2500,
+    "y": 1265.625
+  },
+
+  "exit":
+  {
+    "x": 0,
+    "y": 425
+  },
+
+  "entrance":
+  {
+    "x": 0,
+    "y": -425
+  },
+
+  "walls":
+  [
+    {"origin": {"x": -1226, "y": -600}, "endpoint": {"x": 1226, "y": -600}, "radius": 40},
+    {"origin": {"x": -1226,"y": 600},"endpoint": {"x": 1226,"y": 600},"radius": 40},
+    {"origin": {"x": -1226,"y": -600},"endpoint": {"x": -1226,"y": 600},"radius": 40},
+    {"origin": {"x": 1226,"y": -600},"endpoint": {"x": 1226,"y": 600},"radius": 40},
+
+    {"origin": {"x": 200,"y": -600},"endpoint": {"x": 200,"y": -235},"radius": 30},
+    {"origin": {"x": 150,"y": -250},"endpoint": {"x": -900,"y": -250},"radius": 30, "lethal": true},
+
+    {"origin": {"x": -1136,"y": 0},"endpoint": {"x": 180,"y": 0},"radius": 50},
+    {"origin": {"x": 480,"y": 0},"endpoint": {"x": 1136,"y": 0},"radius": 50},
+
+    {"origin": {"x": 200,"y": 235},"endpoint": {"x": 200,"y": 600},"radius": 30},
+    {"origin": {"x": 150,"y": 250},"endpoint": {"x": -900,"y": 250},"radius": 30, "lethal": true}
+  ],
+
+  "fans":
+  [
+    {"origin": {"x": -1050,"y": -610,"strength": 200},"endpoint": {"x": -1050,"y": -50,"strength": 0},"width": 200},
+    {"origin": {"x": -1050,"y": 610,"strength": 200},"endpoint": {"x": -1050,"y": 50,"strength": 0},"width": 200},
+
+    {"origin": {"x": -1236,"y": -150,"strength": 250},"endpoint": {"x": 200,"y": -150,"strength": 125},"width": 200},
+    {"origin": {"x": -1236,"y": 150,"strength": 100},"endpoint": {"x": -200,"y": 150,"strength": 50},"width": 200},
+
+    {"origin": {"x": 550,"y": 610,"strength": 100},"endpoint": {"x": 550,"y": 400,"strength": 0},"width": 200},
+    {"origin": {"x": 850,"y": 610,"strength": 100},"endpoint": {"x": 850,"y": 400,"strength": 0},"width": 200}
+  ],
+
+  "shockboxes":
+  [
+    {"x": 350, "y": -420},
+    {"x": 350, "y": 420},
+    {"x": 1075, "y": -420},
+    {"x": 1075, "y": 420},
+    {"x": 1075, "y": -180},
+    {"x": 1075, "y": 180}
+  ],
+
+  "decorations":
+  [
+    {
+      "texture": "tech0.2photo.png",
+      "rect": {"x":0, "y":0, "width": 682, "height": 823},
+      "position": {"x": 713, "y": -320},
+      "scale": {"x": 0.4, "y": 0.4},
+      "rotation": 0
+    },
+    {
+      "texture": "tech0.2hd.png",
+      "rect": {"x":0, "y":0, "width": 321, "height": 680},
+      "position": {"x": 550, "y": 320},
+      "scale": {"x": 0.5, "y": 0.5},
+      "rotation": 0
+    },
+    {
+      "texture": "tech0.2frozen2.png",
+      "rect": {"x":0, "y":0, "width": 400, "height": 864},
+      "position": {"x": 850, "y": 320},
+      "scale": {"x": 0.35, "y": 0.35},
+      "rotation": 0
+    }
+  ],
+
+  "dialogues":
+  [
+    {"dialogue": {"message": "I see you've reached the mausoleum.", "seconds": 4}},
+    {"dialogue": {"message": "If you're not careful, you could find yourself among them.", "seconds": 4}},
+    {"dialogue": {"message": "But you might find yourself here regardless.", "seconds": 4}},
+    {"dialogue": {"message": "We all die someday, Tech-17. Even I will.", "seconds": 4}},
+    {"dialogue": {"message": "Death is a part of life.", "seconds": 4}}
+  ]
+}
