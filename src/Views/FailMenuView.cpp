@@ -72,6 +72,10 @@ namespace tjg{
                         sound_manager->MenuSelect();
                         sound_manager->StopLoseMusic();
                         return options[selection];
+                    case sf::Keyboard::Escape:
+                        sound_manager->MenuSelect();
+                        sound_manager->StopLoseMusic();
+                        return options[1];
                     default:
                         break;
                 }
