@@ -100,10 +100,10 @@
   "dialogues":
   [
     {"dialogue": {"message": "Another new obstacle!", "seconds": 4}},
-    {"dialogue": {"message": "Like the fans, these can be useful or dangerous.", "seconds": 4}},
+    {"dialogue": {"message": "Like the fans, these can be either useful or dangerous.", "seconds": 4}},
     {"dialogue": {"message": "But mostly... just dangerous.", "seconds": 4}},
     {"dialogue": {"message": "If you find yourself unable to escape, I'm afraid there's nothing I can do.", "seconds": 4}},
-    {"dialogue": {"message": "Best to just end the suffering quickly.", "seconds": 4}}
+    {"dialogue": {"message": "Luckily, I'm approximately 43% sure you'll be fine.", "seconds": 4}}
   ]
 
 }

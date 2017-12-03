@@ -55,7 +55,7 @@
     [
       {"dialogue": {"message": "Notice these fans?", "seconds": 3}},
       {"dialogue": {"message": "Be mindful of how they blow.", "seconds": 4}},
-      {"dialogue": {"message": "Some can be useful to achieving the goal.", "seconds": 4}},
+      {"dialogue": {"message": "Some can be useful in helping you reach the exit.", "seconds": 4}},
       {"dialogue": {"message": "Sometimes they are best avoided -- if possible.", "seconds": 4}}
     ]
 }

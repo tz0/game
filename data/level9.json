@@ -88,7 +88,7 @@
   "dialogues":
   [
     {"dialogue": {"message": "Originally, you were designed to be decoys in battle.", "seconds": 4}},
-    {"dialogue": {"message": "But after a friendly-fire accident, the program was shutdown.", "seconds": 4}},
+    {"dialogue": {"message": "But after a friendly-fire accident, the program was shut down.", "seconds": 4}},
     {"dialogue": {"message": "Now, these creations are merely for human spectacle.", "seconds": 4}}
   ]
 }
