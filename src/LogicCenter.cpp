@@ -10,7 +10,7 @@ namespace tjg {
     }
 
     void LogicCenter::Initialize(const unsigned int level_number) {
-        level.Read(level_number, true);
+        level.Read(level_number, false); // Set JSON test flag to false
         // Make TECH-17
         tech17 = entity_factory.MakeTech17(level.GetEntrance().x, level.GetEntrance().y);
         control_center.AddEntity(tech17);
