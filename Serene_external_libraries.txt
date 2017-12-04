@@ -1,0 +1,7 @@
+In addition to SFML, Serene also leverages the following external libraries:
+
+- [Library name] + [Website]
+- Chipmunk2D + https://github.com/slembcke/Chipmunk2D
+- json11 + https://github.com/dropbox/json11
+
+We have already included and handled the aforementioned external libraries as submodules in Serene source.  Thus, you do not need to find the above libraries by yourself.  Please check out our introduction (https://github.com/tz0/game) for Serene installation.
