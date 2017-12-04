@@ -30,6 +30,9 @@
 #define FAIL_MENU_BOX_Y_LOW 515u
 #define FAIL_MENU_BOX_SHIFT 60u
 
+#define FINISH_MENU_BOX_X 879u
+#define FINISH_MENU_BOX_Y 440u
+
 namespace tjg {
     enum class State {CONTINUE, MAIN_MENU, LEVEL_MENU, PLAYING, RESUME, PAUSED, WON, FAILED, EXIT, FINISH};
     struct ViewSwitch {

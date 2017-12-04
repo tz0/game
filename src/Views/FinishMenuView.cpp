@@ -14,7 +14,7 @@ namespace tjg{
         background_sprite.setTexture(*background_texture);
         options = {ViewSwitch {State::MAIN_MENU, 0}};
 
-        selection_box_position = sf::Vector2f(WIN_MENU_BOX_X, WIN_MENU_BOX_Y_UP);
+        selection_box_position = sf::Vector2f(FINISH_MENU_BOX_X, FINISH_MENU_BOX_Y);
         selection_box.setSize(sf::Vector2f(363,43));
         selection_box.setPosition(selection_box_position);
         selection_box.setFillColor(sf::Color::Transparent);
